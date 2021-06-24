@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linux Zoned Storage Documentation">
+    
+    <link rel="canonical" href="https://zonedstorage.io/tests/zbc-tests/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>ZBC/ZAC Compliance Tests - Zoned Storage</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D23L5EBB2E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D23L5EBB2E');
+    </script>
+    
+
+     
+</head>
+
+<body style="padding-top:90px" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Zoned Storage</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../community/">Community</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active" style="min-height:60;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/introduction/">Introduction</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../introduction/zoned-storage/">Zoned Storage Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/smr/">Shingled Magnetic Recording (SMR) HDDs</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/zns/">Zoned Namespace (ZNS) SSDs</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/getting-started/">Getting Started</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../getting-started/prerequisite/">System Prerequisite</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-disk/">Getting Started With SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-emulation/">Getting Started With Emulated SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/linux/">Linux Kernel Support</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../linux/overview/">Support Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/config/">Kernel Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/zbd-api/">User Interface</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/sched/">Write Command Ordering</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/part/">Zoned Block Device Partition Support</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/fs/">File Systems</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/projects/">Applications and Libraries</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../projects/util-linux/">Linux System Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbc/">libzbc User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libnvme/">libnvme User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbd/">libzbd User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/qemu/">QEMU and KVM</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="/tests/">System Compliance Tests</a>
+    <ul class="dropdown-menu">
+        
+            
+<li class="active">
+    <a href="./">ZBC/ZAC Compliance Tests</a>
+</li>
+
+        
+            
+<li >
+    <a href="../blktests/">Kernel Block Layer Tests</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../distributions/linux/">Linux Distributions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../benchmarking/fio/">Benchmarking</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../faq/faq/">Frequently Asked Questions</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../about/">About</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../../projects/zns/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../blktests/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <h5 style="text-align:center"><b>Table of contents</b></h5>
+  <ul class="nav bs-sidenav">
+
+  
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active"><a href="/tests/" style="font-weight:bold">System Compliance Tests</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+            
+              <li class="second-level active"><a href="#zbczac-compliance-tests">ZBC/ZAC Compliance Tests</a></li>
+              
+                <li class="third-level"><a href="#libzbc-conformance-test-suite">libzbc Conformance Test Suite</a></li>
+                
+              
+                <li class="third-level"><a href="#checking-serial-ata-disks">Checking Serial ATA Disks</a></li>
+                
+              
+                <li class="third-level"><a href="#checking-sas-disks">Checking SAS Disks</a></li>
+                
+              
+                <li class="third-level"><a href="#checking-the-kernel-scsi-to-ata-translation-layer">Checking the Kernel SCSI-To-ATA Translation Layer</a></li>
+                
+              
+                <li class="third-level"><a href="#checking-the-hba-scsi-to-ata-translation-layer">Checking the HBA SCSI-TO-ATA Translation Layer</a></li>
+                
+              
+            
+          
+
+        
+
+  	  
+            <li class="second-level"><a href="../blktests/">Kernel Block Layer Tests</a></li>
+          
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+
+      
+
+    
+
+  
+
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="zbczac-compliance-tests">ZBC/ZAC Compliance Tests</h1>
+<p>Developers may face many problems with an application development if the system
+being used has non-compliant components, either software or hardware.</p>
+<p>The typical problems that can be faced may be due to a SAS HBA not fully
+compatible with the ZBC and ZAC standards (e.g. The HBA has a defective
+translation layer implementation) or the kernel version includes a bug resulting
+for instance in write commands not being translated correctly or an invalid
+command failure processing.</p>
+<p>Many of these problems can be identified early by executing
+<a href="../../projects/libzbc/"><em>libzbc</em></a> conformance test suite.</p>
+<h2 id="libzbc-conformance-test-suite"><em>libzbc</em> Conformance Test Suite</h2>
+<p><em>libzbc</em> implements a test suite primarily aiming at checking that a disk
+fully conforms to the definition and constraints of the ZAC and ZBC standards.
+<em>libzbc</em> test suite works equally well with physical disks (SAS and SATA) as
+well as emulated disks created with <a href="../../projects/tcmu-runner/"><em>tcmu-runner</em></a>.</p>
+<p>Information on how to compile and install <em>libzbc</em> with the test suite
+enabled can be found <a href="../../projects/libzbc/">here</a>.</p>
+<p>In this chapter, the following disk configuration is used throughout the
+examples shown.</p>
+<pre><code class="language-plaintext"># lsscsi -g
+[2:0:0:0]    disk    ATA      INTEL SSDSC2CT18 335u  /dev/sda   /dev/sg0
+[5:0:0:0]    zbc     ATA      HGST HSH721415AL T220  /dev/sdb   /dev/sg1
+[10:0:2:0]   zbc     HGST     HSH721414AL52M0  a220  /dev/sdc   /dev/sg2
+[10:0:3:0]   zbc     ATA      HGST HSH721415AL T220  /dev/sdd   /dev/sg3
+</code></pre>
+<p><em>/dev/sdb</em> is a SATA disk connected to an AHCI controller (SATA port),
+<em>/dev/sdc</em> is a SAS disk connected to a SAS HBA and <em>/dev/sdc</em> is a SATA disk
+connected to the same SAS HBA.</p>
+<h2 id="checking-serial-ata-disks">Checking Serial ATA Disks</h2>
+<p>To check a SATA ZAC disk correct operation and conformance to the ZAC standard,
+<em>libzbc</em> test suite must be executed using the "--ata" option.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>libzbc</em> test suite must be executed against the disk SCSI generic node file
+(e.g. <em>/dev/sg</em> path) to enable the full range of direct SCSI or ATA command
+execution without any interference from the kernel block I/O stack. <em>libzbc</em>
+test suite will not run if the disk block device file (<em>/dev/sd</em>) is
+specified.</p>
+</div>
+<p>Using the AHCI connected SATA disk <em>/dev/sdb</em>, which corresponds to the SCSI
+generic node file <em>/dev/sg1</em>, the execution of the 107 test cases of <em>libzbc</em>
+test suite result in the following output.</p>
+<pre><code class="language-plaintext"># cd libzbc/test
+# ./zbc_test.sh --ata /dev/sg1
+Executing section 00 - command completion tests...
+    00.010: REPORT_ZONES command completion...                                            [Passed]
+    00.011: REPORT_ZONES (partial bit) command completion...                              [Passed]
+    00.012: REPORT_ZONES (reporting option 0x10) command completion...                    [Passed]
+    00.013: REPORT_ZONES (reporting option 0x11) command completion...                    [Passed]
+    00.014: REPORT_ZONES (reporting option 0x3F) command completion...                    [Passed]
+    00.020: OPEN_ZONE command completion...                                               [Passed]
+    00.030: CLOSE_ZONE command completion...                                              [Passed]
+    00.040: FINISH_ZONE command completion...                                             [Passed]
+    00.050: RESET_WRITE_PTR command completion...                                         [Passed]
+    00.060: WRITE command completion...                                                   [Passed]
+    00.070: READ command completion...                                                    [Passed]
+Executing section 01 - sense key, sense code tests...
+    01.010: REPORT_ZONES logical block out of range...                                    [Passed]
+    01.011: REPORT_ZONES invalid reporting option...                                      [Passed]
+    01.020: OPEN_ZONE invalid zone start lba...                                           [Passed]
+    01.021: OPEN_ZONE insufficient zone resources...                                      [Passed]
+    01.022: OPEN_ZONE insufficient zone resources (ALL bit set)...                        [Passed]
+    01.023: OPEN_ZONE conventional zone...                                                [Passed]
+    01.024: OPEN zone LBA at End of Medium...                                             [Passed]
+    01.030: CLOSE_ZONE invalid zone start lba...                                          [Passed]
+    01.031: CLOSE_ZONE conventional zone...                                               [Passed]
+    01.032: CLOSE zone LBA at End of Medium...                                            [Passed]
+    01.040: FINISH_ZONE invalid zone start lba...                                         [Passed]
+    01.041: FINISH_ZONE conventional zone...                                              [Passed]
+    01.042: FINISH zone LBA at End of Medium...                                           [Passed]
+    01.050: RESET_WRITE_PTR invalid zone start lba...                                     [Passed]
+    01.051: RESET_WRITE_PTR conventional zone...                                          [Passed]
+    01.052: RESET zone LBA at End of Medium...                                            [Passed]
+    01.060: READ access sequential zone LBAs after write pointer...                       [Passed]
+    01.061: READ sequential zones boundary violation...                                   [Passed]
+    01.062: READ conventional/sequential zones boundary violation...                      [Passed]
+    01.063: READ across write-pointer zones (FULL-&gt;FULL)...                               [Passed]
+    01.064: READ access write pointer zone LBAs starting after write pointer...           [Passed]
+    01.070: WRITE unaligned write in sequential zone...                                   [Passed]
+    01.071: WRITE sequential zone boundary violation...                                   [Passed]
+    01.072: WRITE insufficient zone resources...                                          [Passed]
+    01.073: WRITE full zone...                                                            [Passed]
+    01.074: WRITE physical sector unaligned write to sequential zone...                   [Passed]
+    01.075: WRITE unaligned ending below write pointer...                                 [Passed]
+    01.076: WRITE unaligned crossing write pointer...                                     [Passed]
+    01.077: WRITE across zone-type spaces (cross-type boundary violation)...              [Passed]
+    01.080: READ cross-zone FULL-&gt;IOPENL and ending above Write Pointer...                [Passed]
+    01.081: READ cross-zone FULL-&gt;IOPENL and ending below Write Pointer...                [Passed]
+    01.082: READ cross-zone IOPENH-&gt;FULL starting below Write Pointer...                  [Passed]
+    01.083: READ cross-zone IOPENL-&gt;FULL starting above Write Pointer...                  [Passed]
+    01.090: WRITE cross-zone FULL-&gt;IOPENL and ending above Write Pointer...               [Passed]
+    01.091: WRITE cross-zone FULL-&gt;IOPENL and ending below Write Pointer...               [Passed]
+    01.092: WRITE cross-zone IOPENH-&gt;FULL starting below Write Pointer...                 [Passed]
+    01.093: WRITE cross-zone IOPENL-&gt;FULL starting above Write Pointer...                 [Passed]
+    01.094: WRITE cross-zone FULL-&gt;EMPTY...                                               [Passed]
+    01.095: WRITE cross-zone EMPTY-&gt;EMPTY starting above Write Pointer...                 [Passed]
+Executing section 02 - zone state machine tests...
+    02.001: OPEN_ZONE empty to explicit open...                                           [Passed]
+    02.002: CLOSE_ZONE empty to empty...                                                  [Passed]
+    02.003: FINISH_ZONE empty to full...                                                  [Passed]
+    02.004: RESET_WRITE_PTR empty to empty...                                             [Passed]
+    02.005: OPEN_ZONE implicit open to explicit open...                                   [Passed]
+    02.006: CLOSE_ZONE implicit open to closed...                                         [Passed]
+    02.007: FINISH_ZONE implicit open to full...                                          [Passed]
+    02.008: RESET_WRITE_PTR implicit open to empty...                                     [Passed]
+    02.009: OPEN_ZONE empty to explicit open to explicit open...                          [Passed]
+    02.010: CLOSE_ZONE empty to explicit open to empty...                                 [Passed]
+    02.011: FINISH_ZONE empty to explicit open to full...                                 [Passed]
+    02.012: RESET_WRITE_PTR empty to explicit open to empty...                            [Passed]
+    02.013: OPEN_ZONE implicit open to explicit open to explicit open...                  [Passed]
+    02.014: CLOSE_ZONE implicit open to explicit open to closed...                        [Passed]
+    02.015: FINISH_ZONE implicit open to explicit open to full...                         [Passed]
+    02.016: RESET_WRITE_PTR implicit open to explicit open to empty...                    [Passed]
+    02.017: OPEN_ZONE closed to explicit open...                                          [Passed]
+    02.018: CLOSE_ZONE closed to closed...                                                [Passed]
+    02.019: FINISH_ZONE closed to full...                                                 [Passed]
+    02.020: RESET_WRITE_PTR closed to empty...                                            [Passed]
+    02.021: OPEN_ZONE full to full...                                                     [Passed]
+    02.022: CLOSE_ZONE full to full...                                                    [Passed]
+    02.023: FINISH_ZONE full to full...                                                   [Passed]
+    02.024: RESET_WRITE_PTR full to empty...                                              [Passed]
+    02.025: OPEN_ZONE empty to empty (ALL bit set)...                                     [Passed]
+    02.026: CLOSE_ZONE empty to empty (ALL bit set)...                                    [Passed]
+    02.027: FINISH_ZONE empty to empty (ALL bit set)...                                   [Passed]
+    02.028: RESET_WRITE_PTR empty to empty (ALL bit set)...                               [Passed]
+    02.029: OPEN_ZONE implicit open to implicit open (ALL bit set)...                     [Passed]
+    02.030: CLOSE_ZONE implicit open to close (ALL bit set)...                            [Passed]
+    02.031: FINISH_ZONE implicit open to full (ALL bit set)...                            [Passed]
+    02.032: RESET_WRITE_PTR implicit open to empty (ALL bit set)...                       [Passed]
+    02.033: OPEN_ZONE empty to explicit open to explicit open (ALL bit set)...            [Passed]
+    02.034: CLOSE_ZONE empty to explicit open to empty (ALL bit set)...                   [Passed]
+    02.035: FINISH_ZONE empty to explicit open to full (ALL bit set)...                   [Passed]
+    02.036: RESET_WRITE_PTR empty to explicit open to empty (ALL bit set)...              [Passed]
+    02.037: OPEN_ZONE implicit open to explicit open to explicit_open (ALL bit set)...    [Passed]
+    02.038: CLOSE_ZONE implicit open to explicit open to closed (ALL bit set)...          [Passed]
+    02.039: FINISH_ZONE implicit open to explicit open to full (ALL bit set)...           [Passed]
+    02.040: RESET_WRITE_PTR implicit open to explicit open to empty (ALL bit set)...      [Passed]
+    02.041: OPEN_ZONE closed to explicit open (ALL bit set)...                            [Passed]
+    02.042: CLOSE_ZONE closed to closed (ALL bit set)...                                  [Passed]
+    02.043: FINISH_ZONE closed to full (ALL bit set)...                                   [Passed]
+    02.044: RESET_WRITE_PTR closed to empty test (ALL bit set)...                         [Passed]
+    02.045: OPEN_ZONE full to full (ALL bit set)...                                       [Passed]
+    02.046: CLOSE_ZONE full to full (ALL bit set)...                                      [Passed]
+    02.047: FINISH_ZONE full to full (ALL bit set)...                                     [Passed]
+    02.048: RESET_WRITE_PTR full to empty (ALL bit set)...                                [Passed]
+    02.070: WRITE empty to implicit open...                                               [Passed]
+    02.071: WRITE empty to full...                                                        [Passed]
+    02.072: WRITE implicit open to implicit open...                                       [Passed]
+    02.073: WRITE implicit open to full...                                                [Passed]
+    02.074: WRITE closed to implicit open...                                              [Passed]
+    02.075: WRITE closed to full...                                                       [Passed]
+    02.076: WRITE explicit open to explicit open...                                       [Passed]
+    02.077: WRITE explicit open to full...                                                [Passed]
+    02.078: WRITE full to full...                                                         [Passed]
+</code></pre>
+<p>The same execution procedure can be applied to the SATA disk <em>/dev/sdd</em>
+connected to the SAS HBA. This disk has the SCSI generic node file <em>/dev/sg3</em>.</p>
+<pre><code class="language-plaintext"># cd libzbc/test
+# ./zbc_test.sh --ata /dev/sg3
+Executing section 00 - command completion tests...
+    00.010: REPORT_ZONES command completion...                            [Passed]
+    00.011: REPORT_ZONES (partial bit) command completion...              [Passed]
+    00.012: REPORT_ZONES (reporting option 0x10) command completion...    [Passed]
+[...]
+    00.070: READ command completion...                                    [Passed]
+Executing section 01 - sense key, sense code tests...
+    01.010: REPORT_ZONES logical block out of range...                    [Passed]
+[...]
+    01.095: WRITE cross-zone EMPTY-&gt;EMPTY starting above Write Pointer... [Passed]
+Executing section 02 - zone state machine tests...
+    02.001: OPEN_ZONE empty to explicit open...                           [Passed]
+[...]
+    02.077: WRITE explicit open to full...                                [Passed]
+    02.078: WRITE full to full...                                         [Passed]
+</code></pre>
+<p>If a test case fails, an error message similar to the example below is shown
+and the test suite stops execution.</p>
+<pre><code class="language-plaintext"># cd libzbc/test
+# ./zbc_test.sh --ata XXX
+Executing section 00 - command completion tests...
+    00.010: REPORT_ZONES command completion...                            [Passed]
+    00.011: REPORT_ZONES (partial bit) command completion...              [Passed]
+[...]
+    01.095: WRITE cross-zone EMPTY-&gt;EMPTY starting above Write Pointer... [Passed]
+Executing section 02 - zone state machine tests...
+[...]
+    02.078: WRITE full to full...                                         [Failed]
+    =&gt; Expected Illegal-request / Invalid-field-in-cdb
+       Got Illegal-request / Unaligned-write-command
+#
+</code></pre>
+<p>A test case failure is a strong indicator that the disk may not be fully
+compliant with the ZAC specifications. Most failures can generally be confirmed
+using a bus analyzer to obtain a command trace for the failing test sequence.
+Other root cause for any test failure are always a possibility.</p>
+<h2 id="checking-sas-disks">Checking SAS Disks</h2>
+<p>Testing physical SAS disks as well as <em>tcmu-runner</em> emulated SCSI disks do not
+require the <em>--ata</em> option. Using the SAS disk <em>/dev/sg2</em>, the test suite output
+is the same as with SATA disks if all tests pass.</p>
+<pre><code class="language-plaintext"># cd libzbc/test
+# ./zbc_test.sh /dev/sg2
+Executing section 00 - command completion tests...
+    00.010: REPORT_ZONES command completion...                         [Passed]
+    00.011: REPORT_ZONES (partial bit) command completion...           [Passed]
+    00.012: REPORT_ZONES (reporting option 0x10) command completion... [Passed]
+    00.013: REPORT_ZONES (reporting option 0x11) command completion... [Passed]
+    00.014: REPORT_ZONES (reporting option 0x3F) command completion... [Passed]
+    00.020: OPEN_ZONE command completion...                            [Passed]
+[...]
+    02.077: WRITE explicit open to full...                             [Passed]
+    02.078: WRITE full to full...                                      [Passed]
+</code></pre>
+<h2 id="checking-the-kernel-scsi-to-ata-translation-layer">Checking the Kernel SCSI-To-ATA Translation Layer</h2>
+<p>When <em>libzbc</em> test suite is executed with the "--ata" option, ATA commands are
+sent directly to the disk using the SCSI generic driver passthrough facility.
+These ATA commands are directly embedded into the ATA16 SCSI passthrough
+command, allowing to completely bypass the kernel SCSI to ATA translation layer
+implemented by the kernel <em>libata</em> component.</p>
+<p>Executing <em>libzbc</em> test suite against a SATA disk connected to a SATA port (e.g.
+An AHCI adapter port) will result in the test suite issuing only SCSI commands
+that will be translated by the kernel <em>libata</em> before sending as ATA commands to
+the disk. That is, the kernel SAT can be exercised.</p>
+<pre><code class="language-plaintext"># cd libzbc/test
+# ./zbc_test.sh /dev/sg1
+Executing section 00 - command completion tests...
+    00.010: REPORT_ZONES command completion...                         [Passed]
+    00.011: REPORT_ZONES (partial bit) command completion...           [Passed]
+    00.012: REPORT_ZONES (reporting option 0x10) command completion... [Passed]
+[...]
+    02.077: WRITE explicit open to full...                             [Passed]
+    02.078: WRITE full to full...                                      [Passed]
+</code></pre>
+<p>If all tests pass, then the kernel SAT layer can be considered as correct. On
+the other hand, if some tests fails while all tests pass with the <em>--ata</em> option
+used, then the kernel SAT implementation becomes a candidate as the root cause
+for the failure. This analysis is summarized in the table below.</p>
+<p><center>
+<img alt="sata-on-ahci" src="../../assets/img/tests-zbc-kernel.png" title="Probable failure root cause with SATA disks on AHCI ports" />
+<br><em>Probable failure root cause with SATA disks on AHCI ports</em></br>
+</center></p>
+<h2 id="checking-the-hba-scsi-to-ata-translation-layer">Checking the HBA SCSI-TO-ATA Translation Layer</h2>
+<p>Similarly to the previous case, executing <em>libzbc</em> test suite without the
+<em>--ata</em> option against a SATA disk connected to a SAS HBA will exercise the HBA
+SCSI to ATA command translation by removing the use of the ATA16 passthrough
+command.</p>
+<pre><code class="language-plaintext"># cd libzbc/test
+# ./zbc_test.sh /dev/sg3
+Executing section 00 - command completion tests...
+    00.010: REPORT_ZONES command completion...                         [Passed]
+    00.011: REPORT_ZONES (partial bit) command completion...           [Passed]
+    00.012: REPORT_ZONES (reporting option 0x10) command completion... [Passed]
+[...]
+    02.077: WRITE explicit open to full...                             [Passed]
+    02.078: WRITE full to full...                                      [Passed]
+</code></pre>
+<p>Again comparing the result of the test suite execution for the two cases (with
+and without the "--ata" option) gives hints on the root cause of eventual test
+failures. The table below indicates the possible failure root cause when the
+test suite reports errors.</p>
+<p><center>
+<img alt="sata-on-sas" src="../../assets/img/tests-zbc-hba.png" title="Probable failure root cause with SATA disks on SAS HBA" />
+<br><em>Probable failure root cause with SATA disks on SAS HBA</em></br>
+</center></p></div>
+        
+        
+    </div>
+    
+
+    <footer class="col-md-12 text-center">
+        
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/c.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/bash.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/plaintext.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

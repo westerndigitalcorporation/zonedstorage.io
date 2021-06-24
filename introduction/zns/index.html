@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linux Zoned Storage Documentation">
+    
+    <link rel="canonical" href="https://zonedstorage.io/introduction/zns/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Zoned Namespace (ZNS) SSDs - Zoned Storage</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D23L5EBB2E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D23L5EBB2E');
+    </script>
+    
+
+     
+</head>
+
+<body style="padding-top:90px" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Zoned Storage</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../community/">Community</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active" style="min-height:60;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="/introduction/">Introduction</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../zoned-storage/">Zoned Storage Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../smr/">Shingled Magnetic Recording (SMR) HDDs</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">Zoned Namespace (ZNS) SSDs</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/getting-started/">Getting Started</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../getting-started/prerequisite/">System Prerequisite</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-disk/">Getting Started With SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-emulation/">Getting Started With Emulated SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/linux/">Linux Kernel Support</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../linux/overview/">Support Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/config/">Kernel Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/zbd-api/">User Interface</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/sched/">Write Command Ordering</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/part/">Zoned Block Device Partition Support</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/fs/">File Systems</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/projects/">Applications and Libraries</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../projects/util-linux/">Linux System Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbc/">libzbc User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libnvme/">libnvme User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbd/">libzbd User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/qemu/">QEMU and KVM</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/tests/">System Compliance Tests</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../tests/zbc-tests/">ZBC/ZAC Compliance Tests</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../tests/blktests/">Kernel Block Layer Tests</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../distributions/linux/">Linux Distributions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../benchmarking/fio/">Benchmarking</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../faq/faq/">Frequently Asked Questions</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../about/">About</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../smr/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../../getting-started/prerequisite/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <h5 style="text-align:center"><b>Table of contents</b></h5>
+  <ul class="nav bs-sidenav">
+
+  
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active"><a href="/introduction/" style="font-weight:bold">Introduction</a></li>
+          
+        
+
+        
+
+  	  
+            <li class="second-level"><a href="../zoned-storage/">Zoned Storage Overview</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../smr/">Shingled Magnetic Recording (SMR) HDDs</a></li>
+          
+
+  	  
+
+        
+
+  	  
+
+  	  
+            
+              <li class="second-level active"><a href="#zoned-namespaces-zns-ssds">Zoned Namespaces (ZNS) SSDs</a></li>
+              
+                <li class="third-level"><a href="#overview">Overview</a></li>
+                
+              
+                <li class="third-level"><a href="#nvme-zoned-namespace-zoned-storage-model">NVMe Zoned Namespace Zoned Storage Model</a></li>
+                
+                  <li class="fourth-level"><a href="#zone-types">Zone types</a></li>
+                
+                  <li class="fourth-level"><a href="#zone-capacity-and-zone-size">Zone Capacity and Zone Size</a></li>
+                
+                  <li class="fourth-level"><a href="#active-zones">Active Zones</a></li>
+                
+                  <li class="fourth-level"><a href="#zone-append">Zone Append</a></li>
+                
+              
+                <li class="third-level"><a href="#presentations">Presentations</a></li>
+                
+              
+            
+          
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+
+      
+
+    
+
+  
+
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="zoned-namespaces-zns-ssds">Zoned Namespaces (ZNS) SSDs</h1>
+<p>Zoned Namespace (ZNS) SSDs is SSDs that implement the Zoned Namespace Command
+Set as defined by the NVM Express&trade; (NVMe&trade;) organization. The
+specification provides a zoned storage device interface, that allows the SSD and
+host to collaborate on data placement, such that data can be aligned to the
+physical media of the SSD, improving the overall performance and increases the
+capacity that can be exposed to the host.</p>
+<p>The most reason version, ZNS Command Set 1.0, was released on June 16<sup>th</sup>, 2020 to
+meet industry demands. The ZNS Command Set 1.0 specification addresses requests
+to improve the data placement capabilities of flash storage and to be exposed
+through a standardized interface.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ZNS Command Set 1.0 specification is currently available as a ratified
+ technical proposal (TP 4053) for the NVMe&trade; 1.4a specification. It is
+ available in the NVM Express 14 Ratified TPs. <a
+ href="https://nvmexpress.org/developers/nvme-specification/"
+ target="_blank_">See the NVMe&trade; specification page</a>.</p>
+</div>
+<h2 id="overview">Overview</h2>
+<p>NVMe ZNS SSDs can provide several benefits over conventional NVMe SSDs.</p>
+<ul>
+<li>Reducing device-side write amplification leading to improved throughput and
+  latencies</li>
+<li>Reducing device-side media over-provisioning </li>
+<li>Reducing device-side DRAM utilization</li>
+<li>Improved amount of drive writes per day</li>
+</ul>
+<p>NVMe ZNS SSDs achieve these benefits by exposing a set of zones in an
+NVMe&trade; Namespace, where each zone requires to be sequentially written and
+reset explicitly, similarly to <a href="../smr/">SMR hard-disks</a>.</p>
+<p>The introduction of the zone abstraction allows a ZNS device implementation to
+optimize logical block mapping for the physical media. In the case of
+flash-based devices, the media requirement for sequential data writes within
+certain areas matches the ZNS protocol sequential write zone concept. The device
+controller no longer has to manage random writes, and therefore can have a more
+efficient implementation that can provide some or all of the above mentioned
+benefits.</p>
+<p><center>
+<img alt="zns" src="../../assets/img/intro-zns.png"
+title="Conventioal SSDs and ZNS SSDs internal data placement" width="800"
+style="max-width:100%;">
+<br><em>Conventional SSDs and ZNS SSDs internal data placement</em></br>
+</center></p>
+<h2 id="nvme-zoned-namespace-zoned-storage-model">NVMe Zoned Namespace Zoned Storage Model</h2>
+<p>The NVMe Zoned Namespace standard was developped based on the
+<a href="../smr/#host-managed-model">Host Managed Zoned Storage Model</a> introduced for SMR
+hard-disks with the SCSI ZBC (Zoned Block Command) standard and the ATA ZAC
+(Zoned ATA Commands) standard. A compatible zone state machine was defined, and
+a similar set of <a href="../smr/#zone-block-commands">Zone Block Commands</a> was defined.</p>
+<p>These similarities simplify the implementation of the host storage stack and
+applications for simultaneously support both host managed SMR hard-disks and
+NVMe ZNS SSDs.</p>
+<p>However, the NVMe Zoned Namespace introduces some differences that need special
+attention.</p>
+<h3 id="zone-types">Zone types</h3>
+<p>ZBC and ZAC SMR hard-disks can optionally expose a number of conventional zones
+which accept random write operations. This optional set of random write zones
+is not defined by the NVMe ZNS specifications. NVMe Zoned Namespaces only
+support one type of zone: Sequential Write Required zones. The NVMe device
+may however expose a random writable area as a separate conventional namespace
+on the same controller.</p>
+<h3 id="zone-capacity-and-zone-size">Zone Capacity and Zone Size</h3>
+<p>The NVMe Zoned Namespace specification introduced the concept of a Zone
+Capacity. This concept is not defined in the SCSI ZBC and ATA ZAC standards.</p>
+<p>Similarly to ZBC and ZAC standards, NVMe ZNS defines the zone size as the total
+number of logical blocks within a zone. A zone capacity is an additional
+per-zone attribute which indicates the number of usable logical blocks within
+each zone, starting from the first logical block of each zone. A zone capacity
+is always smaller or equal to the zone size.</p>
+<p>This new attribute was introduced to allow for the zone size to remain a power
+of two number of logical blocks (facilitating easy logical block to zone number
+conversions) while allowing optimized mapping of a zone storage capacity to the
+underlying media characteristics. For instance, in the case a flash based
+device, a zone capacity can be aligned to the size of flash erase blocks without
+requiring that the device implements a power-of-two sized erased block.</p>
+<p>The figure below illustrates the zone capacity concept.</p>
+<p><center>
+<img alt="zone-capacity" src="../../assets/img/intro-zonesize-vs-capacity.png"
+title="Zone Size and Zone Capacity" width="640" style="max-width:100%;">
+<br><em>Zone Size and Zone Capacity</em></br>
+</center></p>
+<p>As the logical block addresses between the zone capacity and the end of the
+zone are not mapped to any physical storage blocks, write accesses to
+these blocks will result in an error. Reading in this area is handled in the
+same way as when reading unwritted blocks.</p>
+<p>A zone with a zone capacity smaller than the zone size will be transitioned to a
+full condition when the number of written blocks equals the zone capacity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The total namespace capacity reported by a controller is always equal to
+the total number of logical blocks defined by the zones. In other words,
+this reported capacity includes unusable logical blocks of zones with a
+zone capacity lower than the zone size. The usable capacity of the
+namespace is equal to the sum of all zones capacities. This usable
+capacity is always smaller than the reported namespace capacity if the
+namespace contains zones with a zone capacity lower than the zone size.</p>
+</div>
+<h3 id="active-zones">Active Zones</h3>
+<p>A controller implementation typically requires the allocate of internal
+resources (e.g. a write buffer) to execute write operations into zones.
+Limitations on the total amount of resources available to the controller may imply
+a limit on the total number of zones that can be simultaneously in the implicit
+open or explicit open conditions. This potential limit on the maximum number of
+open zones is similarly defined in the NVMe ZNS, SCSI ZBC and ATA ZAC standards.</p>
+<p>NVMe ZNS however defines an additional limit on the number of zones that can be
+in the implicit open, explicit open or closed conditions. Any zone with such
+condition is defined as an active zone and correspond to any zone that is being
+written or that has been only partially written. A ZNS device controller may
+impose a limit on the maximum number of zones that can be active. This limit is
+always equal or larger than the limit on the maximum number of open zones.</p>
+<p>This new limit imposes new constraints on user applications. While the maximum
+number of open zones of a namespace only limits the number of zones that an
+application can simultaneously write, the maximum number of active zones imposes
+a limit on the number of zones that an application can choose for storing data.
+If the maximum number of active zones is reached, the application must either
+reset or finish some active zones before being able to chose other zones for
+storing data.</p>
+<p>Similarly to the limit on the maximum number of open zones, a limit on the
+maximum number of active zones for a namespace does not affect read operations.
+Any zone that is not offline can always be accessed for reading regardless of
+the current number of open and active zones.</p>
+<h3 id="zone-append">Zone Append</h3>
+<p>The NVMe specifications allow a device controller to execute commands present
+in the several submission queues available in any order. This has implications
+for the host IO stack, namely, even if the host submits write commands directed
+at a zone sequentially, the commands may be reordered before they are processed
+and violate the sequential write requirement, resulting in errors. Host software
+can avoid such error by limiting the number of write commands outstanding per
+zone to one. This can potentially result in poor performance, especially for
+workloads issuing mostly small write operations.</p>
+<p>To avoid this problem, the NVMe ZNS specifications introduced the new <em>Zone
+Append</em> command. This command does not defined by the SCSI ZBC and ATA ZAC
+standards. A zone append comamnd is a write operation that specifies the first
+logical block of a zone as the write position. When executing the command, the
+device controller write the data within the zone indicated, but do so at the
+current zone write pointer position. This change in the write position is
+automatic and the effective write position for the data is indicated to the host
+through the command completion information. This mechanism allows a host to
+simultaneously submit several zone append operations and let the device process
+these in any order.</p>
+<p>The figure below illustrates the differences between regular write operations
+and zone append write operations.</p>
+<p><center>
+<img alt="zone-append" src="../../assets/img/intro-zone-append.png"
+title="Regular Writes and Zone Append Writes" width="640" style="max-width:100%;">
+<br><em>Regular Writes and Zone Append Writes</em></br>
+</center></p>
+<p>In the eaxmple above, the host must issue to the same zone three different
+write operations for data A (4KB), B (8KB) and C (16KB). Using regular write
+commands, this can be done safely only at a write queue depth of 1 per zone,i
+that is, the host must wait for the completion of an outstanding write
+operation before issuing the next write request. For each write request,
+the write position must be equal to the zone write pointer position. This result
+in the data being stored in the zone in the same order as issued.</p>
+<p>Using zone append write operations, the write queue depth constraint is removed
+and the host can issue all three write requests simultaneously. Upon completion
+of all write requests, the zone write pointer position is identical to the
+previous case as the total amount of data written is equal. However, the
+location of the written data within the zone may not correspond to the
+host command issuing order as the device controller is free to reorder command
+execution as it sees fit. The host can discover the effective write position
+of each request through the zone append completion information.</p>
+<h2 id="presentations">Presentations</h2>
+<p>Further information on ZNS SSDs are available here:</p>
+<p><center>
+<br><a href="https://www.youtube.com/watch?v=9yVWb3rbces" target="_blank">From Open-Channel SSDs to Zoned Namespaces, OCP 2019 Global Summit.</a></br>
+<a href="https://www.youtube.com/watch?v=9yVWb3rbces" target="_blank">
+<img alt="Zoned Namespaces at OCP" src="https://img.youtube.com/vi/9yVWb3rbces/0.jpg" title="Zoned Namespace Presentation at the OCP 2019 Global Summit" /></a>
+<br><em>The presentation covers the motivation for ZNS SSDs, the journey, and a general overview of the interface.</em></br>
+</center></p></div>
+        
+        
+    </div>
+    
+
+    <footer class="col-md-12 text-center">
+        
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/c.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/bash.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/plaintext.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

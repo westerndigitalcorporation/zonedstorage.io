@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linux Zoned Storage Documentation">
+    
+    <link rel="canonical" href="https://zonedstorage.io/getting-started/zns-emulation/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Getting Started With Emulated NVMe ZNS Devices - Zoned Storage</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D23L5EBB2E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D23L5EBB2E');
+    </script>
+    
+
+     
+</head>
+
+<body style="padding-top:90px" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Zoned Storage</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../community/">Community</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active" style="min-height:60;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/introduction/">Introduction</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../introduction/zoned-storage/">Zoned Storage Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/smr/">Shingled Magnetic Recording (SMR) HDDs</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/zns/">Zoned Namespace (ZNS) SSDs</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="/getting-started/">Getting Started</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../prerequisite/">System Prerequisite</a>
+</li>
+
+        
+            
+<li >
+    <a href="../nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+</li>
+
+        
+            
+<li >
+    <a href="../smr-disk/">Getting Started With SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../smr-emulation/">Getting Started With Emulated SMR Disks</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">Getting Started With Emulated NVMe ZNS Devices</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/linux/">Linux Kernel Support</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../linux/overview/">Support Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/config/">Kernel Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/zbd-api/">User Interface</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/sched/">Write Command Ordering</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/part/">Zoned Block Device Partition Support</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/fs/">File Systems</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/projects/">Applications and Libraries</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../projects/util-linux/">Linux System Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbc/">libzbc User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libnvme/">libnvme User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbd/">libzbd User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/qemu/">QEMU and KVM</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/tests/">System Compliance Tests</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../tests/zbc-tests/">ZBC/ZAC Compliance Tests</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../tests/blktests/">Kernel Block Layer Tests</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../distributions/linux/">Linux Distributions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../benchmarking/fio/">Benchmarking</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../faq/faq/">Frequently Asked Questions</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../about/">About</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../smr-emulation/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../../linux/overview/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <h5 style="text-align:center"><b>Table of contents</b></h5>
+  <ul class="nav bs-sidenav">
+
+  
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active"><a href="/getting-started/" style="font-weight:bold">Getting Started</a></li>
+          
+        
+
+        
+
+  	  
+            <li class="second-level"><a href="../prerequisite/">System Prerequisite</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../nullblk/">Getting Started with an Emulated Zoned Block Device</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../smr-disk/">Getting Started With SMR Disks</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../smr-emulation/">Getting Started With Emulated SMR Disks</a></li>
+          
+
+  	  
+
+        
+
+  	  
+
+  	  
+            
+              <li class="second-level active"><a href="#getting-started-with-emulated-nvme-zns-devices">Getting Started with Emulated NVMe ZNS Devices</a></li>
+              
+                <li class="third-level"><a href="#qemu">QEMU</a></li>
+                
+                  <li class="fourth-level"><a href="#creating-an-emulated-zoned-namespace">Creating an Emulated  Zoned Namespace</a></li>
+                
+                  <li class="fourth-level"><a href="#verifying-an-emulated-zoned-namespace">Verifying an Emulated  Zoned Namespace</a></li>
+                
+                  <li class="fourth-level"><a href="#using-an-emulated-zoned-namespace">Using an Emulated Zoned Namespace</a></li>
+                
+                  <li class="fourth-level"><a href="#emulated-zoned-namespace-options">Emulated Zoned Namespace Options</a></li>
+                
+              
+                <li class="third-level"><a href="#qemu-execution-example">QEMU Execution Example</a></li>
+                
+              
+            
+          
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+
+      
+
+    
+
+  
+
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="getting-started-with-emulated-nvme-zns-devices">Getting Started with Emulated NVMe ZNS Devices</h1>
+<p>For users without access to NVMe ZNS devices, application development and kernel
+tests are possible using emulated devices. Two methods exist.</p>
+<ul>
+<li>
+<p><strong><em>null_blk</em></strong>: The <em>null_blk</em> kernel driver allows emulating zoned block
+  devices with a zone configuration compatible with the real NVMe ZNS devices.
+  This method is discussed in more details <a href="../nullblk/">here</a>.</p>
+</li>
+<li>
+<p><strong><em>QEMU</em></strong>: This open source machine emulator and virtualizer allows for the
+  creation of emulated NVMe devices with a regular file used as a backstore on
+  the host. Recent versions of <em>QEMU</em> also support the emulation of Zoned
+  Namespaces.</p>
+</li>
+</ul>
+<h2 id="qemu"><em>QEMU</em></h2>
+<p><a href="https://www.qemu.org/" target="_blank"><em>QEMU</em></a> supports the
+emulation of NVMe namespaces since version 1.6. However, the emulation of zoned
+namespaces requires the more recent version 6.0 or later of <em>QEMU</em>. If the host
+Linux distribution does not provide <em>QEMU</em> version 6.0 or or above, <em>QEMU</em> has
+to be compiled from source. Detailed information on how to compile and install
+<em>QEMU</em> from source can be found
+<a href="https://www.qemu.org/download/#source" target="_blank">here</a>.</p>
+<h3 id="creating-an-emulated-zoned-namespace">Creating an Emulated  Zoned Namespace</h3>
+<p>The creation of an emulated zoned namespace requires first a backing store file
+for the namespace. The size of the file determines the capacity of the namespace
+that will be seen from the guest OS running in the <em>QEMU</em> virtual machine.</p>
+<p>For example, to create a 32GiB zoned namespace, a 32 GiB file on the host must
+first be created. This can be done simply using the <em>truncate</em> command to create
+a sparse file or the <em>dd</em> command to create a fully allocated file.</p>
+<pre><code class="language-plaintext"># truncate -s 32G /var/lib/qemu/images/zns.raw
+
+# ls -l /var/lib/qemu/images/zns.raw
+-rw-r--r-- 1 root root 34359738368 Jun 21 15:13 /var/lib/qemu/images/zns.raw
+</code></pre>
+<p>Or using dd:</p>
+<pre><code class="language-plaintext"># dd if=/dev/zero of=/var/lib/qemu/images/zns.raw bs=1M count=32768
+32768+0 records in
+32768+0 records out
+34359738368 bytes (34 GB, 32 GiB) copied, 11.4072 s, 3.0 GB/s
+
+# ls -l /var/lib/qemu/images/zns.raw
+-rw-r--r-- 1 root root 34359738368 Jun 22 11:22 /var/lib/qemu/images/zns.raw
+</code></pre>
+<p>Next, <em>QEMU</em> can be executed with additional command lint options and arguments
+to request the creation of a zoned namespace using the backstore file as
+storage. In the following example, the backing store file is used to emulate a
+zoned namespace with zones of 64 MiB and a zone capacity of 62 MiB. The
+namespace block size is 4096 B. The namespace is set to allow at most 16 open
+zones and 32 active zones.</p>
+<pre><code class="language-plaintext"># /usr/local/bin/qemu-system-x86_64 \
+...
+-device nvme,id=nvme0,serial=deadbeef,zoned.zasl=5 \
+-drive file=${znsimg},id=nvmezns0,format=raw,if=none \
+-device nvme-ns,drive=nvmezns0,bus=nvme0,nsid=1,logical_block_size=4096,\
+physical_block_size=4096,zoned=true,zoned.zone_size=64M,zoned.\
+zone_capacity=62M,zoned.max_open=16,zoned.max_active=32,\
+uuid=5e40ec5f-eeb6-4317-bc5e-c919796a5f79
+...
+</code></pre>
+<h3 id="verifying-an-emulated-zoned-namespace">Verifying an Emulated  Zoned Namespace</h3>
+<p>When running a Linux distribution as the guest operating system, with a kernel
+version higher that 5.9.0, the emulated NVMe ZNS device can be checked using the
+<em>nvme</em> command (see <a href="../../projects/zns/">Linux Tools for ZNS</a>.</p>
+<pre><code># nvme list
+Node             SN                   Model                                    Namespace Usage                      Format           FW Rev
+---------------- -------------------- ---------------------------------------- --------- -------------------------- ---------------- --------
+/dev/nvme0n1     deadbeef             QEMU NVMe Ctrl                           1          34.36  GB /  34.36  GB      4 KiB +  0 B   1.0
+</code></pre>
+<p>The <em>lsscsi</em> utility will also show the emulated NVMe device.</p>
+<pre><code># lsscsi -g
+[2:0:0:0]    cd/dvd  QEMU     QEMU DVD-ROM     2.5+  /dev/sr0   /dev/sg0
+[N:0:0:1]    disk    QEMU NVMe Ctrl__1                          /dev/nvme0n1  -
+</code></pre>
+<p>Using the <em>blkzone</em> utility, the namespace zone configuration can be inspected.</p>
+<pre><code># blkzone report /dev/nvme0n1 | less
+  start: 0x000000000, len 0x020000, cap 0x01f000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000020000, len 0x020000, cap 0x01f000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000040000, len 0x020000, cap 0x01f000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000060000, len 0x020000, cap 0x01f000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000080000, len 0x020000, cap 0x01f000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+...
+  start: 0x003f80000, len 0x020000, cap 0x01f000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x003fa0000, len 0x020000, cap 0x01f000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x003fc0000, len 0x020000, cap 0x01f000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x003fe0000, len 0x020000, cap 0x01f000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+</code></pre>
+<p>Of note is that the total number of zones of the namespace directly depends on
+the size of the backstore file used and on the zone size configured. In the
+above example, the emulated namespace has 512 zones (32 GiB / 64 MiB).</p>
+<pre><code># cat /sys/block/nvme0n1/queue/nr_zones 
+512
+</code></pre>
+<p>If the emulated namespace is configured with a zone capacity smaller than the
+zone size, the entire capacity defined by the backstore file will not be
+usable. The effective usable capacity can be reported using <em>blkzone</em> with the
+<em>capacity</em> command.</p>
+<pre><code># blkzone capacity /dev/nvme0n1
+0x003e00000
+</code></pre>
+<p>In this case, the namespace effective storage capacity is 0x003e00000 (65011712)
+512-Bytes sectors, equivalent to 512 zones of 62 MiB capacity.</p>
+<h3 id="using-an-emulated-zoned-namespace">Using an Emulated Zoned Namespace</h3>
+<p>The behavior of a <em>QEMU</em> emulated NVMe ZNS device is fully compliant with the
+NVMe ZNS specifications, with one exception: the state of namespace zones is not
+persistent across restart of the <em>QEMU</em> emulation. The state of zones is
+preserved only as long as <em>QEMU</em> executes, even if the guest operating system is
+rebooted. If <em>QEMU</em> is restarted using the same backstore file, the guest
+operating system will see the namespace with all zones in the empty state.</p>
+<h3 id="emulated-zoned-namespace-options">Emulated Zoned Namespace Options</h3>
+<p>The implementation of NVMe device and ZNS namespace emulation in <em>QEMU</em> provides
+several configuration options to control the characteristics of the device. The
+full list of options and parameters is documented
+<a href="https://qemu-project.gitlab.io/qemu/system/nvme.html" target="_blank">here</a>.</p>
+<p>The options and parameters related to Zoned Namespaces are as follows.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>zoned.zasl=UINT32</td>
+<td>0</td>
+<td>Zone Append Size Limit. If left at the default (0), the zone append size limit will be equal to the maximum data transfer size (MDTS). Otherwise, the zone append size limit is equal to 2 to the power of zasl multiplied by the minimum memory page size (4096 B), but cannot exceed the maximum data transfer size.</td>
+</tr>
+<tr>
+<td>zoned.zone_size=<em>SIZE</em></td>
+<td>128MiB</td>
+<td>Define the zone size (ZSZE)</td>
+</tr>
+<tr>
+<td>zoned.zone_capacity=<em>SIZE</em></td>
+<td>0</td>
+<td>Define the zone capacity (ZCAP). If left at the default (0), the zone capacity will equal the zone size.</td>
+</tr>
+<tr>
+<td>zoned.descr_ext_size=<em>UINT32</em></td>
+<td>0</td>
+<td>Set the Zone Descriptor Extension Size (ZDES). Must be a multiple of 64 bytes.</td>
+</tr>
+<tr>
+<td>zoned.cross_read=<em>BOOL</em></td>
+<td>off</td>
+<td>Set to on to allow reads to cross zone boundaries.</td>
+</tr>
+<tr>
+<td>zoned.max_active=<em>UINT32</em></td>
+<td>0</td>
+<td>Set the maximum number of active resources (MAR). The default (0) allows all zones to be active.</td>
+</tr>
+<tr>
+<td>zoned.max_open=<em>UINT32</em></td>
+<td>0</td>
+<td>Set the maximum number of open resources (MOR).  The default (0) allows all zones to be open. If zoned.max_active is specified, this value must be less than or equal to that.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="qemu-execution-example"><em>QEMU</em> Execution Example</h2>
+<p>The following script execute <em>QEMU</em> to run a virtual machine with 8 CPU cores,
+16 GiB of memory and bridged networking. The bridge device <em>virbr0</em> is assumed
+to already exist. The last device added to the virtual machine on the <em>QEMU</em>
+command line is a 32 GiB NVMe ZNS device.</p>
+<pre><code class="language-bash">#!/bin/sh
+
+#
+# Some variables
+#
+bridge=&quot;virbr0&quot;
+vmimg=&quot;/var/lib/qemu/boot-disk.qcow2&quot;
+znsimg=&quot;/var/lib/qemu/zns.raw&quot;
+
+#
+# Run QEMU
+#
+sudo /usr/local/bin/qemu-system-x86_64 \
+-name guest=FedoraServer34,debug-threads=on \
+-machine pc-q35-5.2,accel=kvm,usb=off,vmport=off,dump-guest-core=off,memory-backend=pc.ram \
+-cpu EPYC-Rome,x2apic=on,tsc-deadline=on,hypervisor=on,tsc-adjust=on,stibp=on,arch-capabilities=on,ssbd=on,xsaves=on,cmp-legacy=on,amd-ssbd=on,virt-ssbd=on,rdctl-no=on,skip-l1dfl-vmentry=on,mds-no=on,pschange-mc-no=on \
+-m 16384 \
+-object memory-backend-ram,id=pc.ram,size=17179869184 \
+-overcommit mem-lock=off \
+-smp 8,sockets=8,cores=1,threads=1 \
+-uuid e629893b-a9fd-48aa-9505-f32503ab3405 \
+-rtc base=utc,driftfix=slew \
+-global kvm-pit.lost_tick_policy=delay \
+-nographic \
+-no-hpet \
+-global ICH9-LPC.disable_s3=1 \
+-global ICH9-LPC.disable_s4=1 \
+-boot strict=on \
+-audiodev none,id=noaudio \
+-object rng-random,id=objrng0,filename=/dev/urandom \
+-msg timestamp=on \
+-device pcie-root-port,port=0x10,chassis=1,id=pci.1,bus=pcie.0,multifunction=on,addr=0x2 \
+-netdev bridge,id=hostnet0,br=${bridge} \
+-device virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:fa:2d:b9,bus=pci.1,addr=0x0 \
+-device pcie-root-port,port=0x11,chassis=2,id=pci.2,bus=pcie.0,addr=0x2.0x1 \
+-blockdev node-name=&quot;vmstorage&quot;,driver=qcow2,file.driver=file,file.filename=&quot;${vmimg}&quot;,file.node-name=&quot;vmstorage.qcow2&quot;,file.discard=unmap \
+-device virtio-blk-pci,bus=pci.2,addr=0x0,drive=&quot;vmstorage&quot;,id=virtio-disk0,bootindex=1 \
+-device pcie-root-port,port=0x12,chassis=3,id=pci.3,bus=pcie.0,addr=0x2.0x2 \
+-device virtio-balloon-pci,id=balloon0,bus=pci.3,addr=0x0 \
+-device pcie-root-port,port=0x13,chassis=4,id=pci.4,bus=pcie.0,addr=0x2.0x3 \
+-device virtio-rng-pci,rng=objrng0,id=rng0,bus=pci.4,addr=0x0 \
+-device pcie-root-port,port=0x14,chassis=5,id=pci.5,bus=pcie.0,addr=0x2.0x4 \
+-device nvme,id=nvme0,serial=deadbeef,zoned.zasl=5,bus=pci.5 \
+-drive file=${znsimg},id=nvmezns0,format=raw,if=none \
+-device nvme-ns,drive=nvmezns0,bus=nvme0,nsid=1,logical_block_size=4096,physical_block_size=4096,zoned=true,zoned.zone_size=64M,zoned.zone_capacity=62M,zoned.max_open=16,zoned.max_active=32,uuid=5e40ec5f-eeb6-4317-bc5e-c919796a5f79
+</code></pre></div>
+        
+        
+    </div>
+    
+
+    <footer class="col-md-12 text-center">
+        
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/c.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/bash.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/plaintext.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

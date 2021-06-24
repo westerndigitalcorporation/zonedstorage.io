@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linux Zoned Storage Documentation">
+    
+    <link rel="canonical" href="https://zonedstorage.io/projects/libzbc/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>libzbc User Library - Zoned Storage</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D23L5EBB2E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D23L5EBB2E');
+    </script>
+    
+
+     
+</head>
+
+<body style="padding-top:90px" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Zoned Storage</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../community/">Community</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active" style="min-height:60;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/introduction/">Introduction</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../introduction/zoned-storage/">Zoned Storage Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/smr/">Shingled Magnetic Recording (SMR) HDDs</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/zns/">Zoned Namespace (ZNS) SSDs</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/getting-started/">Getting Started</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../getting-started/prerequisite/">System Prerequisite</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-disk/">Getting Started With SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-emulation/">Getting Started With Emulated SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/linux/">Linux Kernel Support</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../linux/overview/">Support Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/config/">Kernel Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/zbd-api/">User Interface</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/sched/">Write Command Ordering</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/part/">Zoned Block Device Partition Support</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/fs/">File Systems</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="/projects/">Applications and Libraries</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../util-linux/">Linux System Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../sg3utils/">SCSI Generic Utilities</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">libzbc User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../libnvme/">libnvme User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../libzbd/">libzbd User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
+<li >
+    <a href="../qemu/">QEMU and KVM</a>
+</li>
+
+        
+            
+<li >
+    <a href="../zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/tests/">System Compliance Tests</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../tests/zbc-tests/">ZBC/ZAC Compliance Tests</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../tests/blktests/">Kernel Block Layer Tests</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../distributions/linux/">Linux Distributions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../benchmarking/fio/">Benchmarking</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../faq/faq/">Frequently Asked Questions</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../about/">About</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../sg3utils/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../libnvme/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <h5 style="text-align:center"><b>Table of contents</b></h5>
+  <ul class="nav bs-sidenav">
+
+  
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active"><a href="/projects/" style="font-weight:bold">Applications and Libraries</a></li>
+          
+        
+
+        
+
+  	  
+            <li class="second-level"><a href="../util-linux/">Linux System Utilities</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../sg3utils/">SCSI Generic Utilities</a></li>
+          
+
+  	  
+
+        
+
+  	  
+
+  	  
+            
+              <li class="second-level active"><a href="#libzbc-user-library">libzbc User Library</a></li>
+              
+                <li class="third-level"><a href="#overview">Overview</a></li>
+                
+              
+                <li class="third-level"><a href="#library-functions">Library Functions</a></li>
+                
+              
+                <li class="third-level"><a href="#utilities">Utilities</a></li>
+                
+                  <li class="fourth-level"><a href="#getting-a-disk-information">Getting a Disk Information</a></li>
+                
+                  <li class="fourth-level"><a href="#zone-information">Zone Information</a></li>
+                
+                  <li class="fourth-level"><a href="#writing-and-resetting-zones">Writing and Resetting Zones</a></li>
+                
+                  <li class="fourth-level"><a href="#graphical-interface">Graphical Interface</a></li>
+                
+              
+                <li class="third-level"><a href="#emulation-mode">Emulation Mode</a></li>
+                
+              
+            
+          
+
+        
+
+  	  
+            <li class="second-level"><a href="../libnvme/">libnvme User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libzbd/">libzbd User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../qemu/">QEMU and KVM</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../zns/">Linux Tools for ZNS</a></li>
+          
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+
+      
+
+    
+
+  
+
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="libzbc-user-library">libzbc User Library</h1>
+<p><em>libzbc</em> is a user library providing functions for manipulating ZBC and ZAC 
+disks. <em>libzbc</em> command  implementation is compliant with the latest published
+versions of the ZBC and ZAC standards defined by INCITS technical committees
+T10 and T13 (respectively).</p>
+<p>In addition to supporting ZBC and ZAC disks, <em>libzbc</em> also implements an
+emulation mode allowing the library to imitate the behavior of a host managed
+zoned disk using a regular file or a standard block device as the backing store.</p>
+<p>The <em>libzbc</em> project is hosted on <a href="https://github.com/westerndigitalcorporation/libzbc"
+target="_blank">GitHub</a>. The project
+<a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/README.md" target="_blank">
+<em>README</em> file</a> provides information on how to compile and install <em>libzbc</em>
+library and its tools.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <em>libzbc</em> project was formerly hosted on GitHub as part of the
+<a href="https://github.com/hgst" target="_blank">HGST organization</a>.
+<em>libzbc</em> repository has since then moved to the
+<a href="https://github.com/westerndigitalcorporation/"
+target="_blank">Western Digital Corporation organization on GitHub</a>.</p>
+</div>
+<p><em>libzbc</em> also provides a test suite allowing to test the conformance of disks
+and HBAs to the ZBC and ZAC standards. In order to make the test suite available,
+<em>libzbc</em> needs to be configured using <em>--with-test</em> option prior to building and
+installing the library. The usage of this test suite is described in more
+details <a href="../../tests/zbc-tests/">here</a>.</p>
+<h2 id="overview">Overview</h2>
+<p><em>libzbc</em> provides a unified application programming interface (API) that is
+independent of the zone model and interface of the disk being used. Internally,
+four different types of device drivers are used to handle device interface
+dependent commands.</p>
+<ul>
+<li><strong>ZAC ATA Driver</strong> This driver is used to handle direct delivery of ATA
+  commands to ZAC disks through the SCSI generic driver (direct device
+  access interface).</li>
+<li><strong>ZBC SCSI Driver</strong> This driver primarily handles SCSI commands directed at
+  ZBC SCSI disks, but can also be used to control ZAC ATA disks if a functional
+  SCSI to ATA (SAT) command translation layer is functional in the command path.
+  SAT may be provided either by the kernel <em>libata</em> subsystem for ATA disks
+  connected to SATA adapters or by a SAS host bus adapter (HBA) for SATA disks
+  connected to such adapter.</li>
+<li><strong>Zoned Block Device Driver</strong> This driver uses the kernel ZBD interface to
+  control both ZBC and ZAC disks. This driver is only available if the kernel
+  zoned block device support is present and enabled.</li>
+<li><strong>File Emulation Driver</strong> This driver implements emulation of a host managed
+  ZBC disk using a regular file or regular block device as backend storage. This
+  driver is intended for development only. A more advanced ZBC disk emulation
+  solution is provided by the <a href="../tcmu-runner/"><em>tcmu-runner</em></a> project.</li>
+</ul>
+<p>The figure below shows this structure.</p>
+<p><center>
+<a><img alt="libzbc" src="../../assets/img/projects-libzbc.png"
+title="libzbc internal backend drivers organization" width="800"
+style="max-width:100%;"></a>
+<br><em>libzbc internal backend drivers organization</em></br>
+</center></p>
+<p><em>libzbc</em> provides functions for discovering the zone configuration of a zoned
+device and for accessing the device. Accesses to the device may result in
+changes to the condition, attributes or state of device zones (such as write pointer
+location in sequential zones). These changes are not internally tracked by <em>libzbc</em>.
+That is, <em>libzbc</em> is stateless.</p>
+<p>The functions provided to obtain the device zone information only make a
+"snapshot" of the zone condition and state when executed. It is the
+responsibility of applications to implement tracking of the device zone changes
+such as the increasing write pointer position of a sequential zone after the
+completion of write requests to the zone.</p>
+<h2 id="library-functions">Library Functions</h2>
+<p>All <em>libzbc</em> functions, since version  5.0.0, use a 512 bytes sector unit for
+reporting zone information and as the sector addressing unit for device
+accesses regardless of the actual device logical block size. This unification
+in the unit used by all functions can simplify application development by hiding
+potential differences in logical block sizes between devices. However,
+application programmers must be careful to always implement accesses (read or
+write) to the device aligned to the device logical block size.  Furthermore, on
+host managed zoned devices, write operations to sequential zones must be aligned
+to the device physical block size.</p>
+<p>The main functions provided by <em>libzbc</em> are as follows.</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>zbc_open()</td>
+<td>Open a zoned device</td>
+</tr>
+<tr>
+<td>zbc_close()</td>
+<td>Close a zoned device</td>
+</tr>
+<tr>
+<td>zbc_get_device_info()</td>
+<td>Get device information</td>
+</tr>
+<tr>
+<td>zbc_report_nr_zones()</td>
+<td>Get the number of zones</td>
+</tr>
+<tr>
+<td>zbc_report_zones()<br>zbc_list_zones()</td>
+<td>Get zone information</td>
+</tr>
+<tr>
+<td>zbc_zone_operation()</td>
+<td>Execute a zone operation</td>
+</tr>
+<tr>
+<td>zbc_open_zone()</td>
+<td>Explicitly open a zone</td>
+</tr>
+<tr>
+<td>zbc_close_zone()</td>
+<td>Close an open zone</td>
+</tr>
+<tr>
+<td>zbc_finish_zone()</td>
+<td>Finish a zone</td>
+</tr>
+<tr>
+<td>zbc_reset_zone()</td>
+<td>Reset a zone write pointer</td>
+</tr>
+<tr>
+<td>zbc_pread()</td>
+<td>Read data from a zone</td>
+</tr>
+<tr>
+<td>zbc_pwrite()</td>
+<td>Write data to a zone</td>
+</tr>
+<tr>
+<td>zbc_flush()</td>
+<td>Flush data to disk</td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>More detailed information about these functions usage and behavior can be found
+in the comments of
+<a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/include/libzbc/zbc.h"
+target="_blank"><em>libzbc</em> header file</a>. This header file is by default
+installed as <code>/usr/include/libzbc/zbc.h</code>.</p>
+<p><em>libzbc</em> does not implement any mutual exclusion mechanism for multi-thread or
+multi-process applications. This implies that it is the responsibility of
+application to synchronize the execution of conflicting operations targeting
+the same zone. A typical example of such case is concurrent write operations to
+the same zone by multiple threads which may result in write errors without
+write ordering control by the application.</p>
+<p>The following functions are also provided by <em>libzbc</em> to facilitate application
+development and tests.</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>zbc_set_log_level()</td>
+<td>Set log level of the library functions</td>
+</tr>
+<tr>
+<td>zbc_device_is_zoned()</td>
+<td>Test if a device is a zoned block device</td>
+</tr>
+<tr>
+<td>zbc_print_device_info()</td>
+<td>Print to a file (stream) a device information</td>
+</tr>
+<tr>
+<td>zbc_device_type_str()</td>
+<td>Get a string description of a device type</td>
+</tr>
+<tr>
+<td>zbc_device_model_str()</td>
+<td>Get a string description of a device model</td>
+</tr>
+<tr>
+<td>zbc_zone_type_str()</td>
+<td>Get a string description of a zone type</td>
+</tr>
+<tr>
+<td>zbc_zone_condition_str()</td>
+<td>Get a string description of a zone condition</td>
+</tr>
+<tr>
+<td>zbc_errno()</td>
+<td>Return sense key and sense code of the last command executed</td>
+</tr>
+<tr>
+<td>zbc_sk_str()</td>
+<td>Get a string description of a sense key</td>
+</tr>
+<tr>
+<td>zbc_asc_ascq_str()</td>
+<td>Get a string description of a sense code</td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>All functions will behave in the same manner regardless of the type of disk
+being used. The only exception to this principle is the <code>zbc_errno()</code> function
+inability to report detailed error information when the zoned block device
+driver is used. The reason for this is that the kernel I/O stack does not have
+the ability to propagate up to the application the detailed information provided
+in command sense data with failed commands.</p>
+<h2 id="utilities">Utilities</h2>
+<p><em>libzbc</em> also provides several command line applications to manipulate zoned disks
+by calling the library functions. The list of applications provided is shown in the
+table below.</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gzbc</td>
+<td>gzbc provides a graphical user interface showing zone information of a zoned device</td>
+</tr>
+<tr>
+<td>zbc_info</td>
+<td>Get information on a disk</td>
+</tr>
+<tr>
+<td>zbc_report_zones</td>
+<td>List the zones of a device</td>
+</tr>
+<tr>
+<td>zbc_reset_zone</td>
+<td>Reset the write pointer of sequential zones</td>
+</tr>
+<tr>
+<td>zbc_open_zone</td>
+<td>Explicitly open a sequential write zone</td>
+</tr>
+<tr>
+<td>zbc_close_zone</td>
+<td>Close an open sequential write zone</td>
+</tr>
+<tr>
+<td>zbc_finish_zone</td>
+<td>Transition a sequential write zone to the full condition</td>
+</tr>
+<tr>
+<td>zbc_read_zone</td>
+<td>Read a zone sectors</td>
+</tr>
+<tr>
+<td>zbc_write_zone</td>
+<td>Write a zone sectors</td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>The following tools are also provided to create and modify the regular file or
+regular block device used as backend storage with <em>libzbc</em> emulation mode.</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>zbc_set_zones</td>
+<td>Initialize (format) a regular file or regular disk to be used with <em>libzbc</em> emulation mode</td>
+</tr>
+<tr>
+<td>zbc_set_write_ptr</td>
+<td>Change the write pointer position of the sequential zones of an emulated disk (intended for testing purposes only as this is not a valid operation for physical ZBC devices</td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>All utilities output a help message when executed without any argument.</p>
+<pre><code class="language-plaintext"># zbc_report_zones
+Usage: zbc_report_zones [options] &lt;dev&gt;
+Options:
+  -v          : Verbose mode
+  -lba        : Use LBA size unit (default is 512B sectors)
+  -start &lt;offset&gt; : Start offset of report. if &quot;-lba&quot; is used
+                    &lt;offset&gt; is interpreted as an LBA. Otherwise,
+                    it is interpreted as a 512B sector number.
+                    Default is 0
+  -n          : Get only the number of zones
+  -nz &lt;num&gt;   : Get at most &lt;num&gt; zones
+  -ro &lt;opt&gt;   : Specify reporting option: &quot;all&quot;, &quot;empty&quot;,
+                    &quot;imp_open&quot;, &quot;exp_open&quot;, &quot;closed&quot;, &quot;full&quot;,
+                    &quot;rdonly&quot;, &quot;offline&quot;, &quot;rwp&quot;, &quot;non_seq&quot; or &quot;not_wp&quot;.
+                    Default is &quot;all&quot;
+</code></pre>
+<h3 id="getting-a-disk-information">Getting a Disk Information</h3>
+<p><em>zbc_info</em> displays information about a disk, including regular block devices.</p>
+<pre><code class="language-plaintext"># zbc_info /dev/sg3
+Device /dev/sg3:
+    Vendor ID: ATA HGST HSH721415AL T220
+    Zoned block device interface, Host-managed zone model
+    29297213440 512-bytes sectors
+    3662151680 logical blocks of 4096 B
+    3662151680 physical blocks of 4096 B
+    15000.173 GB capacity
+    Read commands are unrestricted
+    Maximum number of open sequential write required zones: 128
+# zbc_info /dev/sg0
+/dev/sg0 is not a zoned block device
+</code></pre>
+<h3 id="zone-information">Zone Information</h3>
+<p><em>zbc_report_zones</em> illustrates the use of <em>libzbc</em> zone reporting functions
+zbc_report_zones(),  zbc_report_nr_zones() and zbc_list_zones().</p>
+<pre><code class="language-plaintext"># zbc_report_zones /dev/sg3
+Device /dev/sg3:
+    Vendor ID: ATA HGST HSH721415AL T220
+    Zoned block device interface, Host-managed zone model
+    29297213440 512-bytes sectors
+    3662151680 logical blocks of 4096 B
+    3662151680 physical blocks of 4096 B
+    15000.173 GB capacity
+    Read commands are unrestricted
+    Maximum number of open sequential write required zones: 128
+    55880 zones from 0, reporting option 0x00
+55880 / 55880 zones:
+Zone 00000: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 0, 524288 sectors
+Zone 00001: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 524288, 524288 sectors
+Zone 00002: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 1048576, 524288 sectors
+...
+Zone 00522: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 273678336, 524288 sectors
+Zone 00523: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 274202624, 524288 sectors
+Zone 00524: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0,
+sector 274726912, 524288 sectors, wp 274726912
+Zone 00525: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0,
+sector 275251200, 524288 sectors, wp 275251200
+...
+Zone 55878: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 29296164864, 524288 sectors, wp 29296164864
+Zone 55879: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 29296689152, 524288 sectors, wp 29296689152
+</code></pre>
+<p>The output of <em>zbc_report_zones</em> can also be limited using the option <code>-ro</code>
+(reporting options) for filtering the zones reported, or the option <code>-n</code> to
+limit the output to the number of zones that would be reported.</p>
+<pre><code class="language-plaintext"># zbc_report_zones -ro not_wp -n /dev/sg3
+Device /dev/sg3:
+    Vendor ID: ATA HGST HSH721415AL T220
+    Zoned block device interface, Host-managed zone model
+    29297213440 512-bytes sectors
+    3662151680 logical blocks of 4096 B
+    3662151680 physical blocks of 4096 B
+    15000.173 GB capacity
+    Read commands are unrestricted
+    Maximum number of open sequential write required zones: 128
+    524 zones from 0, reporting option 0x3f
+</code></pre>
+<h3 id="writing-and-resetting-zones">Writing and Resetting Zones</h3>
+<p><em>zbc_write_zone</em> sequentially writes data to a zone. If the zone is a sequential
+zone, the write pointer position advances until the zone is full. By default,
+<em>zbc_write_zone</em> will write the entire zone. For instance, using the disk used
+in the previous example, the first sequential write zone (zone number 524) can
+be written with 512 KB writes until full with the following command.</p>
+<pre><code class="language-plaintext"># zbc_write_zone /dev/sg3 524 524288
+Device /dev/sg3:
+    Vendor ID: ATA HGST HSH721415AL T220
+    SCSI ZBC device interface, Host-managed zone model
+    29297213440 512-bytes sectors
+    3662151680 logical blocks of 4096 B
+    3662151680 physical blocks of 4096 B
+    15000.173 GB capacity
+    Read commands are unrestricted
+    Maximum number of open sequential write required zones: 128
+Target zone: Zone 524 / 55880, type 0x2 (Sequential-write-required), cond 0x1 (Empty), rwp 0, non_seq 0, sector 274726912, 524288 sectors, wp 274726912
+Filling target zone 524, 524288 B I/Os
+Wrote 268435456 B (512 I/Os) in 1.082 sec
+  IOPS 472
+  BW 247.952 MB/s
+
+# zbc_report_zones -start 274726912 -nz 1 /dev/sg3
+Device /dev/sg3:
+    Vendor ID: ATA HGST HSH721415AL T220
+    SCSI ZBC device interface, Host-managed zone model
+    29297213440 512-bytes sectors
+    3662151680 logical blocks of 4096 B
+    3662151680 physical blocks of 4096 B
+    15000.173 GB capacity
+    Read commands are unrestricted
+    Maximum number of open sequential write required zones: 128
+    55356 zones from 274726912, reporting option 0x00
+1 / 55356 zone:
+Zone 00000: type 0x2 (Sequential-write-required), <mark class="critic">cond 0xe (Full)</mark>, reset recommended 0, non_seq 0, sector 274726912, 524288 sectors, wp 2251799813685240
+</code></pre>
+<p>The written zone can then be reset using <em>zbc_reset_zone</em>.</p>
+<pre><code class="language-plaintext"># zbc_reset_zone /dev/sg3 524
+Device /dev/sg3:
+    Vendor ID: ATA HGST HSH721415AL T220
+    SCSI ZBC device interface, Host-managed zone model
+    29297213440 512-bytes sectors
+    3662151680 logical blocks of 4096 B
+    3662151680 physical blocks of 4096 B
+    15000.173 GB capacity
+    Read commands are unrestricted
+    Maximum number of open sequential write required zones: 128
+reset zone 524/55880, sector 274726912...
+
+# zbc_report_zones -start 274726912 -nz 1 /dev/sg7
+Device /dev/sg7:
+    Vendor ID: ATA HGST HSH721415AL T220
+    SCSI ZBC device interface, Host-managed zone model
+    29297213440 512-bytes sectors
+    3662151680 logical blocks of 4096 B
+    3662151680 physical blocks of 4096 B
+    15000.173 GB capacity
+    Read commands are unrestricted
+    Maximum number of open sequential write required zones: 128
+    55356 zones from 274726912, reporting option 0x00
+1 / 55356 zone:
+Zone 00000: type 0x2 (Sequential-write-required), <mark class="critic">cond 0x1 (Empty)</mark>, reset recommended 0, non_seq 0, sector 274726912, 524288 sectors, wp 274726912
+</code></pre>
+<p>All sequential write zones of a device can be reset using the option <code>-all</code>.</p>
+<pre><code class="language-plaintext"># zbc_reset_zone -all /dev/sg7
+Device /dev/sg7:
+    Vendor ID: ATA HGST HSH721415AL T220
+    SCSI ZBC device interface, Host-managed zone model
+    29297213440 512-bytes sectors
+    3662151680 logical blocks of 4096 B
+    3662151680 physical blocks of 4096 B
+    15000.173 GB capacity
+    Read commands are unrestricted
+    Maximum number of open sequential write required zones: 128
+Operating on all zones...
+</code></pre>
+<h3 id="graphical-interface">Graphical Interface</h3>
+<p><em>gzbc</em> provides a graphical user interface showing the zone configuration and
+state of a zoned  device. <em>gzbc</em> also  displays  the  write status (write
+pointer position) of zones graphically using color coding (red for written
+sectors and green for unwritten sectors). Some operations on zones can also be
+executed directly from the interface (reset zone write pointer, open zone,
+close zone, etc).</p>
+<p><center>
+<img alt="gzbc" src="../../assets/img/projects-libzbc-gzbc.png" title="*gzbc* screenshot" />
+<br><em>gzbc screenshot</em></br>                       <br />
+</center></p>
+<h2 id="emulation-mode">Emulation Mode</h2>
+<p><em>libzbc</em> emulation mode requires a regular file or a regular block device as
+backend storage. The size of the file or the capacity of the block device used
+will be used as the emulated device capacity.</p>
+<p>For example, the following commands will create a 10GB file name <code>zbc-disk</code>
+that can be used for an emulated disk.</p>
+<pre><code class="language-plaintext"># touch zbc-disk
+# truncate -s 10G zbc-disk
+# ls -l zbc-disk
+-rw-r--r-- 1 root root 10737418240 May 22 16:48 zbc-disk
+</code></pre>
+<p>This file can now be initialized to be used with <em>libzbc</em> emulation mode.</p>
+<pre><code class="language-plaintext"># zbc_set_zones zbc-disk set_ps 10 256
+Device zbc-disk:
+    Vendor ID: FAKE HGST HM libzbc
+    Emulated zoned block device interface, Host-managed zone model
+    20971520 512-bytes sectors
+    20971520 logical blocks of 512 B
+    2621440 physical blocks of 4096 B
+    10.737 GB capacity
+    Read commands are restricted
+    Maximum number of open sequential write required zones: 32
+
+Setting zones:
+    Zone size: 256 MiB (524288 sectors)
+    Conventional zones: 1024 MiB (2097152 sectors), 10.00 % of total capacity), 4 zones
+    Sequential zones: 36 zones
+</code></pre>
+<p>The file can now be used with <em>libzbc</em> library functions and tools similarly to
+any physical zoned block device.</p>
+<pre><code class="language-plaintext"># zbc_report_zones zbc-disk
+Device zbc-disk:
+    Vendor ID: FAKE HGST HM libzbc
+    Emulated zoned block device interface, Host-managed zone model
+    20971520 512-bytes sectors
+    20971520 logical blocks of 512 B
+    2621440 physical blocks of 4096 B
+    10.737 GB capacity
+    Read commands are restricted
+    Maximum number of open sequential write required zones: 32
+    40 zones from 0, reporting option 0x00
+40 / 40 zones:
+Zone 00000: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 0, 524288 sectors
+Zone 00001: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 524288, 524288 sectors
+Zone 00002: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 1048576, 524288 sectors
+Zone 00003: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 1572864, 524288 sectors
+Zone 00004: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 2097152, 524288 sectors, wp 2097152
+Zone 00005: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 2621440, 524288 sectors, wp 2621440
+...
+Zone 00038: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 19922944, 524288 sectors, wp 19922944
+Zone 00039: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 20447232, 524288 sectors, wp 20447232
+</code></pre></div>
+        
+        
+    </div>
+    
+
+    <footer class="col-md-12 text-center">
+        
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/c.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/bash.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/plaintext.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

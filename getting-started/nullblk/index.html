@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linux Zoned Storage Documentation">
+    
+    <link rel="canonical" href="https://zonedstorage.io/getting-started/nullblk/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Getting Started with an Emulated Zoned Block Device - Zoned Storage</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D23L5EBB2E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D23L5EBB2E');
+    </script>
+    
+
+     
+</head>
+
+<body style="padding-top:90px" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Zoned Storage</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../community/">Community</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active" style="min-height:60;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/introduction/">Introduction</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../introduction/zoned-storage/">Zoned Storage Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/smr/">Shingled Magnetic Recording (SMR) HDDs</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/zns/">Zoned Namespace (ZNS) SSDs</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="/getting-started/">Getting Started</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../prerequisite/">System Prerequisite</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">Getting Started with an Emulated Zoned Block Device</a>
+</li>
+
+        
+            
+<li >
+    <a href="../smr-disk/">Getting Started With SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../smr-emulation/">Getting Started With Emulated SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/linux/">Linux Kernel Support</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../linux/overview/">Support Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/config/">Kernel Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/zbd-api/">User Interface</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/sched/">Write Command Ordering</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/part/">Zoned Block Device Partition Support</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/fs/">File Systems</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/projects/">Applications and Libraries</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../projects/util-linux/">Linux System Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbc/">libzbc User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libnvme/">libnvme User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbd/">libzbd User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/qemu/">QEMU and KVM</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/tests/">System Compliance Tests</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../tests/zbc-tests/">ZBC/ZAC Compliance Tests</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../tests/blktests/">Kernel Block Layer Tests</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../distributions/linux/">Linux Distributions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../benchmarking/fio/">Benchmarking</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../faq/faq/">Frequently Asked Questions</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../about/">About</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../prerequisite/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../smr-disk/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <h5 style="text-align:center"><b>Table of contents</b></h5>
+  <ul class="nav bs-sidenav">
+
+  
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active"><a href="/getting-started/" style="font-weight:bold">Getting Started</a></li>
+          
+        
+
+        
+
+  	  
+            <li class="second-level"><a href="../prerequisite/">System Prerequisite</a></li>
+          
+
+  	  
+
+        
+
+  	  
+
+  	  
+            
+              <li class="second-level active"><a href="#zoned-block-device-emulation-with-null_blk">Zoned Block Device Emulation with null_blk</a></li>
+              
+                <li class="third-level"><a href="#creating-a-zoned-null-block-device">Creating a Zoned null Block Device</a></li>
+                
+              
+                <li class="third-level"><a href="#null_blk-zoned-block-device-parameters">null_blk Zoned Block Device Parameters</a></li>
+                
+              
+                <li class="third-level"><a href="#creating-a-null_blk-zoned-block-device">Creating a null_blk Zoned Block Device</a></li>
+                
+              
+                <li class="third-level"><a href="#deleting-a-null_blk-zoned-block-device">Deleting a null_blk Zoned Block Device</a></li>
+                
+              
+                <li class="third-level"><a href="#smr-hdd-emulation">SMR HDD Emulation</a></li>
+                
+              
+                <li class="third-level"><a href="#nvme-zns-ssd-emulation">NVMe ZNS SSD Emulation</a></li>
+                
+              
+            
+          
+
+        
+
+  	  
+            <li class="second-level"><a href="../smr-disk/">Getting Started With SMR Disks</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../smr-emulation/">Getting Started With Emulated SMR Disks</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a></li>
+          
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+
+      
+
+    
+
+  
+
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="zoned-block-device-emulation-with-null_blk">Zoned Block Device Emulation with <em>null_blk</em></h1>
+<p>Linux&reg; <em>null_blk</em> driver is a powerful tool to emulate various types of
+block devices for tests. Since kernel 4.19, the <em>null_blk</em> driver gain the
+ability to emulate zoned block devices. With the addition of memory backup for
+data read and writen to a <em>null_blk</em> device, this driver provides an easy to use
+but yet powerful tool for application development and tests.</p>
+<h2 id="creating-a-zoned-null-block-device">Creating a Zoned <em>null</em> Block Device</h2>
+<p>The simplest method to create a <em>null_blk</em> emulated zoned block device is to
+specify the <code>zoned=1</code> argument to <em>null_blk</em> modrpobe command line.</p>
+<pre><code class="language-plaintext"># modprobe null_blk nr_devices=1 zoned=1
+</code></pre>
+<p>This creates a single host managed zoned block device with a zone size of 256M
+and a total capacity of 250 GB (1000 zones). No conventional zones are created
+with this simple command.</p>
+<pre><code class="language-plaintext"># blkzone report /dev/nullb0
+  start: 0x000000000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000080000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000100000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000180000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+...
+  start: 0x01f300000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x01f380000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+</code></pre>
+<h2 id="null_blk-zoned-block-device-parameters"><em>null_blk</em> Zoned Block Device Parameters</h2>
+<p>The <em>null_blk</em> kernel module accepts many arguments to adjust the zone
+configuration of the emulated device. The zone related arguments can be listed
+using the <em>modinfo</em> command and using <em>configfs</em> once the <em>null_blk</em> module is
+loaded.</p>
+<pre><code># modinfo null_blk
+...
+parm:           zoned:Make device as a host-managed zoned block device. Default: false (bool)
+parm:           zone_size:Zone size in MB when block device is zoned. Must be power-of-two: Default: 256 (ulong)
+parm:           zone_capacity:Zone capacity in MB when block device is zoned. Can be less than or equal to zone size. Default: Zone size (ulong)
+parm:           zone_nr_conv:Number of conventional zones when block device is zoned. Default: 0 (uint)
+parm:           zone_max_open:Maximum number of open zones when block device is zoned. Default: 0 (no limit) (uint)
+parm:           zone_max_active:Maximum number of active zones when block device is zoned. Default: 0 (no limit) (uint)
+</code></pre>
+<p>The parameters related to zoned device emulation are shown in the table below.</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>zoned</td>
+<td>0 or 1</td>
+<td>Disable or enable zoned mode (default: disabled)</td>
+</tr>
+<tr>
+<td>zone_size</td>
+<td>zone size in MiB</td>
+<td>The size of each zone (default: 256)</td>
+</tr>
+<tr>
+<td>zone_capacity</td>
+<td>zone capacity in MiB</td>
+<td>The capacity of each zone (default: zone size)</td>
+</tr>
+<tr>
+<td>zone_nr_conv</td>
+<td>number</td>
+<td>Number of conventional zones (default: 0)</td>
+</tr>
+<tr>
+<td>zone_max_open</td>
+<td>number</td>
+<td>Maximum number of open zones (default: 0, meaning no limit)</td>
+</tr>
+<tr>
+<td>zone_max_active</td>
+<td>number</td>
+<td>Maximum number of active zones (default: 0, meaning no limit)</td>
+</tr>
+</tbody>
+</table>
+<p></center>  </p>
+<h2 id="creating-a-null_blk-zoned-block-device">Creating a <em>null_blk</em> Zoned Block Device</h2>
+<p>To create an emulated zoned block device with <em>null_blk</em>, as shown above, the
+<em>modprobe</em> command can be used. Additional parameters can be passed to this
+command to configure the emulated disk.</p>
+<pre><code class="language-plaintext"># modprobe null_blk nr_devices=1 \
+    zoned=1 \
+    zone_nr_conv=4 \
+    zone_size=64 \
+</code></pre>
+<p>The <em>configfs</em> interface of the <em>null_blk</em> driver provides a more powerful
+method for creating emulated zoned block devices. The <em>configfs</em> parameters
+of the <em>null_blk</em> driver can be listed with the following command.</p>
+<pre><code class="language-plaintext"># modprobe null_blk nr_devices=0
+
+# cat /sys/kernel/config/nullb/features
+memory_backed,discard,bandwidth,cache,badblocks,zoned,zone_size,zone_capacity,zone_nr_conv,zone_max_open,zone_max_active
+</code></pre>
+<p>The <em>configfs</em> interface can be used to script the creation of emulated zoned
+block devices with different zone configurations. An example is provided below.</p>
+<pre><code class="language-bash">#!/bin/bash
+
+if [ $# != 4 ]; then
+        echo &quot;Usage: $0 &lt;sect size (B)&gt; &lt;zone size (MB)&gt; &lt;nr conv zones&gt; &lt;nr seq zones&gt;&quot;
+        exit 1
+fi
+
+scriptdir=$(cd $(dirname &quot;$0&quot;) &amp;&amp; pwd)
+
+modprobe null_blk nr_devices=0 || return $?
+
+function create_zoned_nullb()
+{
+        local nid=0
+        local bs=$1
+        local zs=$2
+        local nr_conv=$3
+        local nr_seq=$4
+
+        cap=$(( zs * (nr_conv + nr_seq) ))
+
+        while [ 1 ]; do
+                if [ ! -b &quot;/dev/nullb$nid&quot; ]; then
+                        break
+                fi
+                nid=$(( nid + 1 ))
+        done
+
+        dev=&quot;/sys/kernel/config/nullb/nullb$nid&quot;
+        mkdir &quot;$dev&quot;
+
+        echo $bs &gt; &quot;$dev&quot;/blocksize
+        echo 0 &gt; &quot;$dev&quot;/completion_nsec
+        echo 0 &gt; &quot;$dev&quot;/irqmode
+        echo 2 &gt; &quot;$dev&quot;/queue_mode
+        echo 1024 &gt; &quot;$dev&quot;/hw_queue_depth
+        echo 1 &gt; &quot;$dev&quot;/memory_backed
+        echo 1 &gt; &quot;$dev&quot;/zoned
+
+        echo $cap &gt; &quot;$dev&quot;/size
+        echo $zs &gt; &quot;$dev&quot;/zone_size
+        echo $nr_conv &gt; &quot;$dev&quot;/zone_nr_conv
+
+        echo 1 &gt; &quot;$dev&quot;/power
+
+        echo mq-deadline &gt; /sys/block/nullb$nid/queue/scheduler
+
+        echo &quot;$nid&quot;
+}
+
+nulldev=$(create_zoned_nullb $1 $2 $3 $4)
+echo &quot;Created /dev/nullb$nulldev&quot;
+</code></pre>
+<p>This script (<em>nullblk-zoned.sh</em>) takes four arguments: the sector size in bytes,
+of the emulated device, the device zone size in MiB, the number of conventional
+zones (which can be 0) and the number of sequential write required zones. Memory
+backing for writen sectors is turned on with this script (memory_backed=1).
+This enables run-time persistancy of the data written to the sectors of the
+emulated device. The writen data is lost when the emulated device is destroyed.</p>
+<p>For example, a small zoned device with 4 conventional zones and 8 sequential
+write required zones of 64 MiB can be created with the following command.</p>
+<pre><code class="language-plaintext"># nullblk-zoned.sh 4096 64 4 8
+Created /dev/nullb0
+# blkzone report /dev/nullb0 
+  start: 0x000000000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000020000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000040000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000060000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000080000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x0000a0000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x0000c0000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x0000e0000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000100000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+...
+  start: 0x000820000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000840000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000860000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+</code></pre>
+<h2 id="deleting-a-null_blk-zoned-block-device">Deleting a <em>null_blk</em> Zoned Block Device</h2>
+<p>For emulated devices created through <em>modprobe</em>, the emulated devices can be
+deleted by simply removing the <em>null_blk</em> kernel module.</p>
+<pre><code class="language-plaintext"># rmmod null_blk
+</code></pre>
+<p>This command does not work to delete emulated devices created through the
+<em>configfs</em> interface. The following script is the counter part of the zoned
+block device creation script show above. It can be used to destroy <em>null_blk</em>
+devices created through <em>configfs</em>.</p>
+<pre><code class="language-bash">#!/bin/bash
+
+if [ $# != 1 ]; then
+    echo &quot;Usage: $0 &lt;nullb ID&gt;&quot;
+    exit 1
+fi
+
+nid=$1
+
+if [ ! -b &quot;/dev/nullb$nid&quot; ]; then
+    echo &quot;/dev/nullb$nid: No such device&quot;
+    exit 1
+fi
+
+echo 0 &gt; /sys/kernel/config/nullb/nullb$nid/power
+rmdir /sys/kernel/config/nullb/nullb$nid
+
+echo &quot;Destroyed /dev/nullb$nid&quot;
+</code></pre>
+<h2 id="smr-hdd-emulation">SMR HDD Emulation</h2>
+<p>As is, the <em>nullblk-zoned.sh</em> script allows creating zoned block devices that
+correspond to a possible configuration of an SMR hard disk with no limit on the
+maximum number of open zones. This script can be easily modified to add a
+limit on the number of open zones of the emulated device (<em>zone_max_open</em>
+parameter) to more facefully emulate an SMR HDD characteristics.</p>
+<p>The <em>zone_capacity</em> and <em>zone_max_active</em> parameters should not be used when the
+emulated device must mimic the characteristics of a SMR hard disk.</p>
+<h2 id="nvme-zns-ssd-emulation">NVMe ZNS SSD Emulation</h2>
+<p>The <em>zone_capacity</em> and <em>zone_max_active</em> parameters allow creating an emulated
+zoned block device mimicking the characteristics of a NVMe Zoned Namespace SSD.
+The <em>zone_capacity</em> parameter can be used to specify the amount of sectors in
+each zone that can be read and written, while the <em>zone_max_active</em> argument can
+specify a limit on the number of zones that can be in the closed, implicit open
+and explicit open states.</p></div>
+        
+        
+    </div>
+    
+
+    <footer class="col-md-12 text-center">
+        
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/c.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/bash.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/plaintext.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

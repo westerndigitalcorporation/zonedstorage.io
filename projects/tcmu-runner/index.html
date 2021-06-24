@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linux Zoned Storage Documentation">
+    
+    <link rel="canonical" href="https://zonedstorage.io/projects/tcmu-runner/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>tcmu-runner ZBC Disk Emulation - Zoned Storage</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D23L5EBB2E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D23L5EBB2E');
+    </script>
+    
+
+     
+</head>
+
+<body style="padding-top:90px" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Zoned Storage</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../community/">Community</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active" style="min-height:60;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/introduction/">Introduction</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../introduction/zoned-storage/">Zoned Storage Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/smr/">Shingled Magnetic Recording (SMR) HDDs</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/zns/">Zoned Namespace (ZNS) SSDs</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/getting-started/">Getting Started</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../getting-started/prerequisite/">System Prerequisite</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-disk/">Getting Started With SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-emulation/">Getting Started With Emulated SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/linux/">Linux Kernel Support</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../linux/overview/">Support Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/config/">Kernel Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/zbd-api/">User Interface</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/sched/">Write Command Ordering</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/part/">Zoned Block Device Partition Support</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/fs/">File Systems</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="/projects/">Applications and Libraries</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../util-linux/">Linux System Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../sg3utils/">SCSI Generic Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../libzbc/">libzbc User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../libnvme/">libnvme User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../libzbd/">libzbd User Library</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
+<li >
+    <a href="../qemu/">QEMU and KVM</a>
+</li>
+
+        
+            
+<li >
+    <a href="../zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/tests/">System Compliance Tests</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../tests/zbc-tests/">ZBC/ZAC Compliance Tests</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../tests/blktests/">Kernel Block Layer Tests</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../distributions/linux/">Linux Distributions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../benchmarking/fio/">Benchmarking</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../faq/faq/">Frequently Asked Questions</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../about/">About</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../libzbd/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../qemu/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <h5 style="text-align:center"><b>Table of contents</b></h5>
+  <ul class="nav bs-sidenav">
+
+  
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active"><a href="/projects/" style="font-weight:bold">Applications and Libraries</a></li>
+          
+        
+
+        
+
+  	  
+            <li class="second-level"><a href="../util-linux/">Linux System Utilities</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../sg3utils/">SCSI Generic Utilities</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libzbc/">libzbc User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libnvme/">libnvme User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libzbd/">libzbd User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+
+  	  
+            
+              <li class="second-level active"><a href="#tcmu-runner-zbc-disk-emulation">tcmu-runner ZBC Disk Emulation</a></li>
+              
+                <li class="third-level"><a href="#overview">Overview</a></li>
+                
+              
+                <li class="third-level"><a href="#compilation-and-installation">Compilation and Installation</a></li>
+                
+              
+                <li class="third-level"><a href="#kernel-components">Kernel Components</a></li>
+                
+              
+                <li class="third-level"><a href="#zbc-file-handler">ZBC File Handler</a></li>
+                
+              
+                <li class="third-level"><a href="#creating-an-emulated-disk">Creating an Emulated disk</a></li>
+                
+              
+                <li class="third-level"><a href="#using-an-emulated-disk">Using an Emulated disk</a></li>
+                
+              
+                <li class="third-level"><a href="#scripts">Scripts</a></li>
+                
+              
+            
+          
+
+        
+
+  	  
+            <li class="second-level"><a href="../qemu/">QEMU and KVM</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../zns/">Linux Tools for ZNS</a></li>
+          
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+
+      
+
+    
+
+  
+
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="tcmu-runner-zbc-disk-emulation">tcmu-runner ZBC Disk Emulation</h1>
+<p><em>tcmu-runner</em> is an application daemon that can handle the execution of SCSI
+commands sent by the kernel SCSI target sub component, allowing exporting SCSI
+Logical Units (LUNs) to be backed by regular files or block devices.</p>
+<h2 id="overview">Overview</h2>
+<p>LinuxIO (LIO&trade;) is the standard open-source SCSI target implementation in the
+Linux&reg; kernel. LIO supports all prevalent storage fabrics, including Fibre
+Channel, FCoE, iEEE 1394, iSCSI, NVMe-OF, iSER, SRP, etc.</p>
+<p>The Target Core Module Userspace (TCMU) implements a fabric that creates a link
+between the kernel SCSI target infrastructure and a user space application.
+The kernel level module involved is <code>target_core_user</code> and can be viewed as a
+virtual HBA.</p>
+<p><em>tcmu-runner</em> implements the userspace level side of the ank processing,
+handling the details of the TCMU interface (UIO, netlink, pthreads, and DBus).
+<em>tcmu-runner</em> exports a more simple C plugin API allowing the creation of
+<em>file handlers</em> to emulate various device types. This organization is shown
+in the figure below.</p>
+<p><center>
+<a><img alt="tcmu-runner" src="../../assets/img/projects-tcmu.png"
+title="*tcmu-runner* overview" width="640" style="max-width:100%;"></a>
+<br><em>tcmu-runner Overview</em></br>
+</center></p>
+<p>The <em>ZBC file handler</em> implements a SCSI ZBC host aware or host managed disk
+emulation using TCMU C plugin API. This handler uses a regular file as the
+backend storage for the emulated device.</p>
+<p>With this infrastructure setup, any command issued by an application or by a
+kernel component (e.g. a file system) will be sent to the <em>tcmu-runner</em> daemon
+through the TCMU kernel driver. The file handler can process the command in user
+space using regular POSIX system calls and a reply sent back on completion of
+the command processing. From the point of view of the application or kernel
+component using the emulated disk, all accesses appear as executing on actual
+hardware.</p>
+<h2 id="compilation-and-installation">Compilation and Installation</h2>
+<p>The <em>tcmu-runner</em> project is hosted on <a href="https://github.com/open-iscsi/tcmu-runner"
+target="_blank">GitHub</a>. The project
+<a href="https://github.com/open-iscsi/tcmu-runner/blob/master/README.md"
+target="_blank"><em>README</em></a> file provides detailed information on how to
+compile, install and execute <em>tcmu-runner</em> daemon.</p>
+<p>The control of <em>tcmu-runner</em> emulated devices is achieved using the <em>targetcli</em>
+utility available as a package with most distributions. For instance, on
+<a href="../../distributions/linux/#fedora-linux">Fedora&reg;</a> Linux, <em>tcmu-runner</em> and
+<em>targetcli</em> can be installed using the following commands.</p>
+<pre><code class="language-plaintext"># dnf install tcmu-runner
+# dnf install targetcli
+</code></pre>
+<h2 id="kernel-components">Kernel Components</h2>
+<p><em>tcmu-runner</em> relies on the loopback virtual SAS adapter kernel module to expose
+the emulated device as a regular disk to the kernel SCSI stack. Enabling this
+kernel module first requires that support for the <em>Generic Target Core Mod (TCM)
+and ConfigFS Infrastructure</em> be enabled from the top-level <em>Device Drivers</em>
+menu.</p>
+<p><center>
+<img alt="config-tcm" src="../../assets/img/linux-config-tcm1.png" title="Target Core Module support option with make menuconfig" />
+<br><em>Target Core Module support option with <code>make menuconfig</code></em></br>
+</center></p>
+<p>With  this infrastructure enabled, the configuration option <em>CONFIG_TCM_USER2</em>
+and <em>CONFIG_LOOPBACK_TARGET</em> can be enabled.</p>
+<p><center>
+<img alt="config-tcm-mods" src="../../assets/img/linux-config-tcm2.png" title="TCM user and loopback adapter support option with make menuconfig" />
+<br><em>TCM user and loopback adapter support option with <code>make menuconfig</code></em></br>
+</center></p>
+<h2 id="zbc-file-handler">ZBC File Handler</h2>
+<p><em>tcmu-runner</em> ZBC file handler is compiled and installed by default. This
+handler allows the creation of emulated ZBC disks with a regular file used as
+backing storage.</p>
+<p>The ZBC file handler supports the emulation of both host aware and host managed
+SCSI disks. Furthermore, the characteristics of the emulated device can all be
+configured. The following table shows the configuration parameters available.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>model-<strong><em>type</em></strong></td>
+<td>Device model type, <em>HA</em> for host aware or <em>HM</em> for host managed</td>
+<td><em>HM</em></td>
+</tr>
+<tr>
+<td>lba-<strong><em>size (B)</em></strong></td>
+<td>LBA size in bytes (512 or 4096)</td>
+<td>512</td>
+</tr>
+<tr>
+<td>zsize-<strong><em>size (MiB)</em></strong></td>
+<td>Zone size in MiB</td>
+<td>256 MiB</td>
+</tr>
+<tr>
+<td>conv-<strong><em>num</em></strong></td>
+<td>Number of conventional zones at LBA 0 (can be 0)</td>
+<td>Number of zones corresponding to 1% of the device capacity</td>
+</tr>
+<tr>
+<td>open-<strong><em>num</em></strong></td>
+<td>Optimal (for host aware) or maximum (for host managed) number of open zones</td>
+<td>128</td>
+</tr>
+</tbody>
+</table>
+<p>These parameters are always grouped together into a configuration string with
+the format <code>/[opt1[/opt2][...]@]path_to_backing_file</code>. For instance, to specify
+a host managed disk with 128MB zone size, 100 conventional zones and the file
+<code>/var/local/zbc0.raw</code> as backing storage, the following configuration string can
+be used.</p>
+<pre><code class="language-plaintext">cfgstring=model-HM/zsize-128/conv-100@/var/local/zbc.raw
+</code></pre>
+<h2 id="creating-an-emulated-disk">Creating an Emulated disk</h2>
+<p>The following example shows how to create a small 20 GB host managed ZBC disk
+with 10 conventional zones and a 256 MiB zone size, with the file
+<code>/var/local/zbc0.raw</code> used as backing storage. The emulated disk will be locally
+emulated using the loopback interface. This require that <em>tcmu-runner</em> be
+executed on the system.</p>
+<p>With <em>tcmu-runner</em> running, the <em>targetcli</em> command is used to create the
+emulated disk.</p>
+<pre><code class="language-plaintext"># targetcli
+targetcli shell version 2.1.fb49
+Copyright 2011-2013 by Datera, Inc and others.
+For help on commands, type 'help'.
+
+/&gt; cd /backstores/user:zbc
+/backstores/user:zbc&gt; <mark class="critic">create name=zbc0 size=20G cfgstring=model-HM/zsize-256/conv-10@/var/local/zbc0.raw</mark>
+Created user-backed storage object zbc0 size 21474836480.
+/backstores/user:zbc&gt; cd /loopback
+/loopback&gt; create
+Created target naa.500140529100d742.
+/loopback&gt; cd naa.500140529100d742/luns
+/loopback/naa...9100d742/luns&gt; create /backstores/user:zbc/zbc0 0
+Created LUN 0.
+/loopback/naa...9100d742/luns&gt; cd /
+/&gt; ls
+o- / ..................................................................... [...]
+  o- backstores .......................................................... [...]
+  | o- block .............................................. [Storage Objects: 0]
+  | o- fileio ............................................. [Storage Objects: 0]
+  | o- pscsi .............................................. [Storage Objects: 0]
+  | o- ramdisk ............................................ [Storage Objects: 0]
+  | o- user:fbo ........................................... [Storage Objects: 0]
+  | o- user:poma .......................................... [Storage Objects: 0]
+  | o- user:zbc ........................................... [Storage Objects: 1]
+  |   o- zbc0  [model-HM/zsize-256/conv-10@/var/local/zbc0.raw (20.0GiB) activated]
+  |     o- alua ............................................... [ALUA Groups: 1]
+  |       o- default_tg_pt_gp ................... [ALUA state: Active/optimized]
+  o- iscsi ........................................................ [Targets: 0]
+  o- loopback ..................................................... [Targets: 1]
+  | o- naa.500140529100d742 ............................. [naa.50014059e05d5424]
+  |   o- luns ........................................................ [LUNs: 1]
+  |     o- lun0 ................................. [user/zbc0 (default_tg_pt_gp)]
+  o- vhost ........................................................ [Targets: 0]
+/&gt; exit
+</code></pre>
+<p>The backstore create command specifies the emulated disk capacity with the
+argument <code>size=20G</code>. The backing file <code>/var/local/zbc0.raw</code> will be created if
+necessary and resized to match the requested capacity.</p>
+<p>When the backstore is linked to <code>lun0</code> of the loopback link, the emulated device
+becomes visible by the kernel and its management initialized in the same manner
+as with physical devices. This can be seen in the kernel messages log.</p>
+<pre><code class="language-plaintext"># dmesg
+...
+scsi host11: TCM_Loopback
+scsi 11:0:1:0: Direct-Access-ZBC LIO-ORG  TCMU ZBC device  0002 PQ: 0 ANSI: 5
+sd 11:0:1:0: Attached scsi generic sg4 type 20
+sd 11:0:1:0: [sde] Host-managed zoned block device
+sd 11:0:1:0: [sde] 41943040 512-byte logical blocks: (21.5 GB/20.0 GiB)
+sd 11:0:1:0: [sde] 80 zones of 524288 logical blocks
+sd 11:0:1:0: [sde] Write Protect is off
+sd 11:0:1:0: [sde] Mode Sense: 0f 00 00 00
+sd 11:0:1:0: [sde] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+sd 11:0:1:0: [sde] Optimal transfer size 65536 bytes
+sd 11:0:1:0: [sde] Attached SCSI disk
+</code></pre>
+<p>The disk can now be listed with tools such as <em>lsblk</em> and <em>lsscsi</em>.</p>
+<pre><code class="language-plaintext"># lsscsi -g
+[2:0:0:0]    disk    ATA      INTEL SSDSC2CT18 335u  /dev/sda   /dev/sg0
+[4:0:0:0]    zbc     ATA      HGST HSH721414AL T220  /dev/sdb   /dev/sg1
+[10:0:1:0]   zbc     ATA      HGST HSH721414AL W209  /dev/sdc   /dev/sg2
+[10:0:2:0]   zbc     HGST     HSH721414AL52M0  a220  /dev/sdd   /dev/sg3
+[11:0:1:0]   zbc     LIO-ORG  TCMU ZBC device  0002  /dev/sde   /dev/sg4
+</code></pre>
+<h2 id="using-an-emulated-disk">Using an Emulated disk</h2>
+<p>All ZBD compliant tools and applications will be able to access and control the
+emulated disk in exactly the same manner as a physical device. For instance,
+<a href="../libzbc/#graphical-interface"><em>libzbc</em> graphical interface (gzbc)</a> can be used
+to display the emulated disk zones.</p>
+<p><center>
+<img alt="tcmu-gzbc" src="../../assets/img/projects-tcmu-gzbc.png" title="*tcmu-runner* ZBC emulated disk view in *gzbc*" />
+<br><em>tcmu-runner</em> ZBC emulated disk view in <em>gzbc</em></br>
+</center></p>
+<h2 id="scripts">Scripts</h2>
+<p>The following script is useful to create an emulated disk with a single command.</p>
+<pre><code class="language-bash">#!/bin/bash
+
+if [ $# != 5 ]; then
+        echo &quot;Usage: $0 &lt;disk name&gt; &lt;cap (GB)&gt; HM|HA &lt;zone size (MB)&gt; &lt;conv zones num&gt;&quot;
+        exit 1;
+fi
+
+dname=&quot;$1&quot;
+cap=&quot;$2&quot;
+model=&quot;$3&quot;
+zs=&quot;$4&quot;
+cnum=&quot;$5&quot;
+
+naa=&quot;naa.50014059cfa9ba75&quot;
+
+# Setup emulated disk
+cat &lt;&lt; EOF | targetcli
+
+cd /backstores/user:zbc
+create name=${dname} size=${cap}G cfgstring=model-${model}/zsize-${zs}/conv-${cnum}@/var/local/${dname}.raw
+cd /loopback
+create ${naa}
+cd ${naa}/luns
+create /backstores/user:zbc/${dname} 0
+cd /
+exit
+
+EOF
+
+sleep 1
+disk=`lsscsi | grep &quot;TCMU ZBC device&quot; | cut -d '/' -f3 | sed 's/ //g'`
+echo &quot;mq-deadline&quot; &gt; /sys/block/&quot;${disk}&quot;/queue/scheduler
+</code></pre>
+<p>Tearing down an emulated disk can also be automated with a single command line
+as shown below.</p>
+<pre><code class="language-bash">#!/bin/bash
+
+if [ $# != 1 ]; then
+    echo &quot;Usage: $0 &lt;disk name (e.g. zbc0)&quot;
+    exit 1;
+fi
+
+dname=&quot;$1&quot;
+
+naa=&quot;naa.50014059cfa9ba75&quot;
+
+# Delete emulated disk
+cat &lt;&lt; EOF | targetcli
+
+cd /loopback/${naa}/luns
+delete 0
+cd /loopback
+delete ${naa}
+cd /backstores/user:zbc
+delete ${dname}
+cd /
+exit
+
+EOF
+</code></pre></div>
+        
+        
+    </div>
+    
+
+    <footer class="col-md-12 text-center">
+        
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/c.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/bash.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/plaintext.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

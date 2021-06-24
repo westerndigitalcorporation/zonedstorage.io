@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linux Zoned Storage Documentation">
+    
+    <link rel="canonical" href="https://zonedstorage.io/linux/fs/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>File Systems - Zoned Storage</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D23L5EBB2E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D23L5EBB2E');
+    </script>
+    
+
+     
+</head>
+
+<body style="padding-top:90px" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Zoned Storage</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../community/">Community</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active" style="min-height:60;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/introduction/">Introduction</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../introduction/zoned-storage/">Zoned Storage Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/smr/">Shingled Magnetic Recording (SMR) HDDs</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/zns/">Zoned Namespace (ZNS) SSDs</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/getting-started/">Getting Started</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../getting-started/prerequisite/">System Prerequisite</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-disk/">Getting Started With SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-emulation/">Getting Started With Emulated SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="/linux/">Linux Kernel Support</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../overview/">Support Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../config/">Kernel Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../zbd-api/">User Interface</a>
+</li>
+
+        
+            
+<li >
+    <a href="../sched/">Write Command Ordering</a>
+</li>
+
+        
+            
+<li >
+    <a href="../part/">Zoned Block Device Partition Support</a>
+</li>
+
+        
+            
+<li >
+    <a href="../dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">File Systems</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/projects/">Applications and Libraries</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../projects/util-linux/">Linux System Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbc/">libzbc User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libnvme/">libnvme User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbd/">libzbd User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/qemu/">QEMU and KVM</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/tests/">System Compliance Tests</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../tests/zbc-tests/">ZBC/ZAC Compliance Tests</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../tests/blktests/">Kernel Block Layer Tests</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../distributions/linux/">Linux Distributions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../benchmarking/fio/">Benchmarking</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../faq/faq/">Frequently Asked Questions</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../about/">About</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../dm/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../../projects/util-linux/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <h5 style="text-align:center"><b>Table of contents</b></h5>
+  <ul class="nav bs-sidenav">
+
+  
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active"><a href="/linux/" style="font-weight:bold">Linux Kernel Support</a></li>
+          
+        
+
+        
+
+  	  
+            <li class="second-level"><a href="../overview/">Support Overview</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../config/">Kernel Configuration</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../zbd-api/">User Interface</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../sched/">Write Command Ordering</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../part/">Zoned Block Device Partition Support</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../dm/">Device Mapper</a></li>
+          
+
+  	  
+
+        
+
+  	  
+
+  	  
+            
+              <li class="second-level active"><a href="#file-systems-and-zoned-block-devices">File Systems and Zoned Block Devices</a></li>
+              
+                <li class="third-level"><a href="#zonefs">zonefs</a></li>
+                
+                  <li class="fourth-level"><a href="#overview">Overview</a></li>
+                
+                  <li class="fourth-level"><a href="#on-disk-metadata">On-Disk Metadata</a></li>
+                
+                  <li class="fourth-level"><a href="#zone-type-sub-directories">Zone Type Sub-Directories</a></li>
+                
+                  <li class="fourth-level"><a href="#zone-files">Zone files</a></li>
+                
+                  <li class="fourth-level"><a href="#format-options">Format options</a></li>
+                
+                  <li class="fourth-level"><a href="#io-error-handling">IO error handling</a></li>
+                
+                  <li class="fourth-level"><a href="#mount-options">Mount options</a></li>
+                
+                  <li class="fourth-level"><a href="#zonefs-user-space-tools">Zonefs User Space Tools</a></li>
+                
+                  <li class="fourth-level"><a href="#examples">Examples</a></li>
+                
+              
+                <li class="third-level"><a href="#f2fs">f2fs</a></li>
+                
+                  <li class="fourth-level"><a href="#zoned-block-device-support">Zoned Block Device Support</a></li>
+                
+                  <li class="fourth-level"><a href="#limitations">Limitations</a></li>
+                
+                  <li class="fourth-level"><a href="#usage-example">Usage Example</a></li>
+                
+              
+                <li class="third-level"><a href="#btrfs">Btrfs</a></li>
+                
+                  <li class="fourth-level"><a href="#block-allocation-changes">Block Allocation Changes</a></li>
+                
+                  <li class="fourth-level"><a href="#io-management">I/O Management</a></li>
+                
+                  <li class="fourth-level"><a href="#upstream-contribution">Upstream Contribution</a></li>
+                
+              
+                <li class="third-level"><a href="#xfs">XFS</a></li>
+                
+              
+                <li class="third-level"><a href="#ext4">ext4</a></li>
+                
+              
+            
+          
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+
+      
+
+    
+
+  
+
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="file-systems-and-zoned-block-devices">File Systems and Zoned Block Devices</h1>
+<p>The <a href="../dm/#dm-zoned"><em>dm-zoned</em></a> device mapper target allows using any file
+system with host managed zoned block devices by hiding the device sequential
+write constraints. This is a simple solution to enable a file system use but not
+necessarily the most efficient due to the potentially high overhead of a block
+based zone reclaim process.</p>
+<p>Supporting zoned block devices directly in a file system implementation can
+lead to a more efficient zone reclaim processing as the file system metadata
+and file abstraction provide more information on the usage and validity status
+of storage blocks compared to the raw block device based approach.</p>
+<p>Furthermore, a file system design may lend itself well to the sequential write
+constraint of host managed zoned block devices. This is the case for
+log-structured file systems such as <em>f2fs</em> and copy-on-write (CoW) file systems
+such as <em>Btrfs</em>.</p>
+<h2 id="zonefs">zonefs</h2>
+<p>zonefs is a very simple file system exposing each zone of a zoned block device
+as a file. <em>zonefs</em> is included with the upstream Linux kernel since version
+5.6.0.</p>
+<h3 id="overview">Overview</h3>
+<p>Unlike a regular POSIX-compliant file system with native zoned block device
+support (e.g. <a href="./#f2fs"><em>f2fs</em></a>), <em>zonefs</em> does not hide the sequential write
+constraint of zoned block devices to the user. Files representing sequential
+write zones of the device must be written sequentially starting from the end of
+the file (append only writes).</p>
+<p>As such, <em>zonefs</em> is in essence closer to a raw block device access interface
+than to a full-featured POSIX file system. The goal of <em>zonefs</em> is to simplify
+the implementation of zoned block device support in applications by replacing
+raw block device file accesses with the richer regular file API, avoiding
+relying on direct block device file ioctls which may be more obscure to
+developers. One example of this approach is the implementation of LSM
+(log-structured merge) tree structures (such as used in RocksDB and LevelDB) on
+zoned block devices by allowing SSTables to be stored in a zone file similarly
+to a regular file system rather than as a range of sectors of the entire disk.
+The introduction of the higher level construct "one file is one zone" can help
+reducing the amount of changes needed in the application as well as introducing
+support for different application programming languages.</p>
+<p>The files representing zones are grouped by zone type, which are themselves
+represented by sub-directories. This file structure is built entirely using
+zone information provided by the device and so does not require any complex
+on-disk metadata structure.</p>
+<h3 id="on-disk-metadata">On-Disk Metadata</h3>
+<p><em>zonefs</em> on-disk metadata is composed only of an immutable super block which
+persistently stores a magic number and optional feature flags and values. On
+mount, <em>zonefs</em> uses the block layer API function <code>blkdev_report_zones()</code> to
+obtain the device zone configuration and populates the mount point with a
+static file tree solely based on this information. File sizes come from the
+device zone type and write pointer position managed by the device itself.</p>
+<p>The super block is always written on disk at sector 0. The first zone of the
+device storing the super block is never exposed as a zone file by <em>zonefs</em>. If
+the zone containing the super block is a sequential zone, the <code>mkzonefs</code> format
+tool always "finishes" the zone, that is, it transitions the zone to a full
+state to make it read-only, preventing any data write.</p>
+<h3 id="zone-type-sub-directories">Zone Type Sub-Directories</h3>
+<p>Files representing zones of the same type are grouped together under the same
+sub-directory automatically created on mount.</p>
+<p>For conventional zones, the sub-directory "cnv" is used. This directory is
+however created if and only if the device has usable conventional zones. If
+the device only has a single conventional zone at sector 0, the zone will not
+be exposed as a file as it will be used to store the <em>zonefs</em> super block. For
+such devices, the "cnv" sub-directory will not be created.</p>
+<p>For sequential write zones, the sub-directory "seq" is used.</p>
+<p>These two directories are the only directories that exist in <em>zonefs</em>. Users
+cannot create other directories and cannot rename nor delete the "cnv" and
+"seq" sub-directories.</p>
+<p>The size of the directories indicated by the <code>st_size</code> field of <code>struct stat</code>,
+obtained with the <code>stat()</code> or <code>fstat()</code> system calls, indicates the number of
+files existing under the directory.</p>
+<h3 id="zone-files">Zone files</h3>
+<p>Zone files are named using the number of the zone they represent within the set
+of zones of a particular type. That is, both the "cnv" and "seq" directories
+contain files named "0", "1", "2", ... The file numbers also represent
+increasing zone start sector on the device.</p>
+<p>All read and write operations to zone files are not allowed beyond the file
+maximum size, that is, beyond the zone size. Any access exceeding the zone
+size is failed with the <code>-EFBIG</code> error.</p>
+<p>Creating, deleting, renaming or modifying any attribute of files is not allowed.</p>
+<p>The number of blocks of a file as reported by <code>stat()</code> and <code>fstat()</code> indicates
+the size of the file zone, or in other words, the maximum file size.</p>
+<h4 id="conventional-zone-files">Conventional Zone Files</h4>
+<p>The size of conventional zone files is fixed to the size of the zone they
+represent. Conventional zone files cannot be truncated.</p>
+<p>These files can be randomly read and written using any type of I/O operation:
+buffered I/Os, direct I/Os, memory mapped I/Os (mmap), etc. There are no I/O
+constraint for these files beyond the file size limit mentioned above.</p>
+<h4 id="sequential-zone-files">Sequential zone files</h4>
+<p>The size of sequential zone files grouped in the "seq" sub-directory represents
+the file's zone write pointer position relative to the zone start sector.</p>
+<p>Sequential zone files can only be written sequentially, starting from the file
+end, that is, write operations can only be append writes. Zonefs makes no
+attempt at accepting random writes and will fail any write request that has a
+start offset not corresponding to the end of the file, or to the end of the last
+write issued and still in-flight (for asynchronous I/O operations).</p>
+<p>Since dirty page writeback by the page cache does not guarantee a sequential
+write pattern, <em>zonefs</em> prevents buffered writes and writeable shared mappings
+on sequential files. Only direct I/O writes are accepted for these files.
+<em>zonefs</em> relies on the sequential delivery of write I/O requests to the device
+implemented by the block layer elevator (See <a href="../sched/">Write Command Ordering</a>).</p>
+<p>There are no restrictions on the type of I/O used for read operations in
+sequential zone files. Buffered I/Os, direct I/Os and shared read mappings are
+all accepted.</p>
+<p>Truncating sequential zone files is allowed only down to 0, in which case, the
+zone is reset to rewind the file zone write pointer position to the start of
+the zone, or up to the zone size, in which case the file's zone is transitioned
+to the FULL state (finish zone operation).</p>
+<h3 id="format-options">Format options</h3>
+<p>Several optional features of zonefs can be enabled at format time.</p>
+<ul>
+<li>Conventional zone aggregation: ranges of contiguous conventional zones can be
+  aggregated into a single larger file instead of the default one file per zone.</li>
+<li>File ownership: The owner UID and GID of zone files is by default 0 (root)
+  but can be changed to any valid UID/GID.</li>
+<li>File access permissions: the default 640 access permissions can be changed.</li>
+</ul>
+<h3 id="io-error-handling">IO error handling</h3>
+<p>Zoned block devices may fail I/O requests for reasons similar to regular block
+devices, e.g. due to bad sectors. However, in addition to such known I/O
+failure pattern, the standards governing zoned block devices behavior define
+additional conditions that can result in I/O errors.</p>
+<ul>
+<li>
+<p>A zone may transition to the read-only condition:
+  While the data already written in the zone is still readable, the zone can
+  no longer be written. No user action on the zone (zone management command or
+  read/write access) can change the zone condition back to a normal read/write
+  state. While the reasons for the device to transition a zone to read-only
+  state are not defined by the standards, a typical cause for such transition
+  would be a defective write head on an HDD (all zones under this head are
+  changed to read-only).</p>
+</li>
+<li>
+<p>A zone may transition to the offline condition:
+  An offline zone cannot be read nor written. No user action can transition an
+  offline zone back to an operational good state. Similarly to zone read-only
+  transitions, the reasons for a drive to transition a zone to the offline
+  condition are undefined. A typical cause would be a defective read-write head
+  on an HDD causing all zones on the platter under the broken head to be
+  inaccessible.</p>
+</li>
+<li>
+<p>Unaligned write errors:
+  These errors result from the host issuing write requests with a start sector
+  that does not correspond to a zone write pointer position when the write
+  request is executed by the device. Even though <em>zonefs</em> enforces sequential
+  file write for sequential zones, unaligned write errors may still happen in
+  the case of a partial failure of a very large direct I/O operation split into
+  multiple BIOs/requests or asynchronous I/O operations.  If one of the write
+  request within the set of sequential write requests issued to the device
+  fails, all write requests queued after it will become unaligned and fail.</p>
+</li>
+<li>
+<p>Delayed write errors:
+  Similarly to regular block devices, if the device side write cache is enabled,
+  write errors may occur in ranges of previously completed writes when the
+  device write cache is flushed, e.g. on <code>fsync()</code>.  Similarly to the previous
+  immediate unaligned write error case, delayed write errors can propagate
+  through a stream of cached sequential data for a zone causing all data to be
+  dropped after the sector that caused the error.</p>
+</li>
+</ul>
+<p>All I/O errors detected by <em>zonefs</em> are notified to the user with an error code
+return for the system call that triggered or detected the error. The recovery
+actions taken by <em>zonefs</em> in response to I/O errors depend on the I/O type
+(read vs write) and on the reason for the error (bad sector, unaligned writes or
+zone condition change).</p>
+<ul>
+<li>
+<p>For read I/O errors, <em>zonefs</em> does not execute any particular recovery action,
+  but only if the file zone is still in a good condition and there is no
+  inconsistency between the file inode size and its zone write pointer position.
+  If a problem is detected, I/O error recovery is executed (see below table).</p>
+</li>
+<li>
+<p>For write I/O errors, <em>zonefs</em> I/O error recovery is always executed.</p>
+</li>
+<li>
+<p>A zone condition change to read-only or offline also always triggers <em>zonefs</em>
+  I/O error recovery.</p>
+</li>
+</ul>
+<p><em>zonefs</em> minimal I/O error recovery may change a file size and file access
+permissions.</p>
+<ul>
+<li>
+<p>File size changes:
+  Immediate or delayed write errors in a sequential zone file may cause the file
+  inode size to be inconsistent with the amount of data successfully written in
+  the file zone. For instance, the partial failure of a multi-BIO large write
+  operation will cause the zone write pointer to advance partially, even though
+  the entire write operation will be reported as failed to the user. In such
+  case, the file inode size must be advanced to reflect the zone write pointer
+  change and eventually allow the user to restart writing at the end of the
+  file.
+  A file size may also be reduced to reflect a delayed write error detected on
+  fsync(): in this case, the amount of data effectively written in the zone may
+  be less than originally indicated by the file inode size. After such I/O
+  error, <em>zonefs</em> always fixes the file inode size to reflect the amount of data
+  persistently stored in the file zone.</p>
+</li>
+<li>
+<p>Access permission changes:
+  A zone condition change to read-only is indicated with a change in the file
+  access permissions to render the file read-only. This disables changes to the
+  file attributes and data modification. For offline zones, all permissions
+  (read and write) to the file are disabled.</p>
+</li>
+</ul>
+<p>Further action taken by <em>zonefs</em> I/O error recovery can be controlled by the
+user with the "errors=xxx" mount option. The table below summarizes the result
+of <em>zonefs</em> I/O error processing depending on the mount option and on the zone
+conditions.</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th align="center">"errors=xxx"</br>mount option</th>
+<th align="center">device zone</br>condition</th>
+<th align="center">file</br>size</th>
+<th align="center">file</br>read</th>
+<th align="center">file</br>write</th>
+<th align="center">device</br>read</th>
+<th align="center">device</br>write</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">remount-ro</td>
+<td align="center">good</td>
+<td align="center">fixed</td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+</tr>
+<tr>
+<td align="center">remount-ro</td>
+<td align="center">read-only</td>
+<td align="center">as is</td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:red">no</span></td>
+</tr>
+<tr>
+<td align="center">remount-ro</td>
+<td align="center">offline</td>
+<td align="center">0</td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+</tr>
+<tr>
+<td align="center">zone-ro</td>
+<td align="center">good</td>
+<td align="center">fixed</td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+</tr>
+<tr>
+<td align="center">zone-ro</td>
+<td align="center">read-only</td>
+<td align="center">as is</td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:red">no</span></td>
+</tr>
+<tr>
+<td align="center">zone-ro</td>
+<td align="center">offline</td>
+<td align="center">0</td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+</tr>
+<tr>
+<td align="center">zone-offline</td>
+<td align="center">good</td>
+<td align="center">0</td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+</tr>
+<tr>
+<td align="center">zone-offline</td>
+<td align="center">read-only</td>
+<td align="center">0</td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:red">no</span></td>
+</tr>
+<tr>
+<td align="center">zone-offline</td>
+<td align="center">offline</td>
+<td align="center">0</td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+</tr>
+<tr>
+<td align="center">repair</td>
+<td align="center">good</td>
+<td align="center">fixed</td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+</tr>
+<tr>
+<td align="center">repair</td>
+<td align="center">read-only</td>
+<td align="center">as is</td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:green">yes</span></td>
+<td align="center"><span style="color:red">no</span></td>
+</tr>
+<tr>
+<td align="center">repair</td>
+<td align="center">offline</td>
+<td align="center">0</td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+<td align="center"><span style="color:red">no</span></td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>Further notes:</p>
+<ul>
+<li>The "errors=remount-ro" mount option is the default behavior of zonefs I/O
+  error processing if no errors mount option is specified.</li>
+<li>With the "errors=remount-ro" mount option, the change of the file access
+  permissions to read-only applies to all files. The file system is remounted
+  read-only.</li>
+<li>Access permission and file size changes due to the device transitioning zones
+  to the offline condition are permanent. Remounting or reformatting the device
+  with mkfs.zonefs (mkzonefs) will not change back offline zone files to a good
+  state.</li>
+<li>File access permission changes to read-only due to the device transitioning
+  zones to the read-only condition are permanent. Remounting or reformatting
+  the device will not re-enable file write access.</li>
+<li>File access permission changes implied by the remount-ro, zone-ro and
+  zone-offline mount options are temporary for zones in a good condition.
+  Unmounting and remounting the file system will restore the previous default
+  (format time values) access rights to the files affected.</li>
+<li>The repair mount option triggers only the minimal set of I/O error recovery
+  actions, that is, file size fixes for zones in a good condition. Zones
+  indicated as being read-only or offline by the device still imply changes to
+  the zone file access permissions as noted in the table above.</li>
+</ul>
+<h3 id="mount-options">Mount options</h3>
+<p>zonefs define the "errors=<behavior>" mount option to allow the user to specify
+zonefs behavior in response to I/O errors, inode size inconsistencies or zone
+condition changes. The defined behaviors are as follow:</p>
+<ul>
+<li>remount-ro (default)</li>
+<li>zone-ro</li>
+<li>zone-offline</li>
+<li>repair</li>
+</ul>
+<p>The run-time I/O error actions defined for each behavior are detailed in the
+previous section. Mount time I/O errors will cause the mount operation to fail.
+The handling of read-only zones also differs between mount-time and run-time.
+If a read-only zone is found at mount time, the zone is always treated in the
+same manner as offline zones, that is, all accesses are disabled and the zone
+file size set to 0. This is necessary as the write pointer of read-only zones
+is defined as invalib by the ZBC and ZAC standards, making it impossible to
+discover the amount of data that has been written to the zone. In the case of a
+read-only zone discovered at run-time, as indicated in the previous section.
+the size of the zone file is left unchanged from its last updated value.</p>
+<h3 id="zonefs-user-space-tools">Zonefs User Space Tools</h3>
+<p>The <code>mkzonefs</code> tool is used to format zoned block devices for use with <em>zonefs</em>.
+This tool is available on
+<a href="https://github.com/damien-lemoal/zonefs-tools" target="_blank">GitHub</a>.</p>
+<p><em>zonefs-tools</em> also includes a test suite which can be run against any zoned
+block device, including
+<a href="/getting-started/nullblk.md"><em>nullblk</em> block device created with zoned mode</a>.</p>
+<h3 id="examples">Examples</h3>
+<p>The following formats a 15TB host-managed SMR HDD with 256 MB zones
+with the conventional zones aggregation feature enabled::</p>
+<pre><code class="language-plaintext"># mkzonefs -o aggr_cnv /dev/sdX
+# mount -t zonefs /dev/sdX /mnt
+# ls -l /mnt/
+total 0
+dr-xr-xr-x 2 root root     1 Nov 25 13:23 cnv
+dr-xr-xr-x 2 root root 55356 Nov 25 13:23 seq
+</code></pre>
+<p>The size of the zone files sub-directories indicate the number of files
+existing for each type of zones. In this example, there is only one
+conventional zone file (all conventional zones are aggregated under a single
+file).</p>
+<pre><code class="language-plaintext"># ls -l /mnt/cnv
+total 137101312
+-rw-r----- 1 root root 140391743488 Nov 25 13:23 0
+</code></pre>
+<p>This aggregated conventional zone file can be used as a regular file::</p>
+<pre><code class="language-plaintext"># mkfs.ext4 /mnt/cnv/0
+# mount -o loop /mnt/cnv/0 /data
+</code></pre>
+<p>The "seq" sub-directory grouping files for sequential write zones has in this
+example 55356 zones::</p>
+<pre><code class="language-plaintext"># ls -lv /mnt/seq
+total 14511243264
+-rw-r----- 1 root root 0 Nov 25 13:23 0
+-rw-r----- 1 root root 0 Nov 25 13:23 1
+-rw-r----- 1 root root 0 Nov 25 13:23 2
+...
+-rw-r----- 1 root root 0 Nov 25 13:23 55354
+-rw-r----- 1 root root 0 Nov 25 13:23 55355
+</code></pre>
+<p>For sequential write zone files, the file size changes as data is appended at
+the end of the file, similarly to any regular file system::</p>
+<pre><code class="language-plaintext"># dd if=/dev/zero of=/mnt/seq/0 bs=4096 count=1 conv=notrunc oflag=direct
+1+0 records in
+1+0 records out
+4096 bytes (4.1 kB, 4.0 KiB) copied, 0.00044121 s, 9.3 MB/s
+
+# ls -l /mnt/seq/0
+-rw-r----- 1 root root 4096 Nov 25 13:23 /mnt/seq/0
+</code></pre>
+<p>The written file can be truncated to the zone size, preventing any further
+write operation::</p>
+<pre><code class="language-plaintext"># truncate -s 268435456 /mnt/seq/0
+# ls -l /mnt/seq/0
+-rw-r----- 1 root root 268435456 Nov 25 13:49 /mnt/seq/0
+</code></pre>
+<p>Truncation to 0 size allows freeing the file zone storage space and restart
+append-writes to the file::</p>
+<pre><code class="language-plaintext"># truncate -s 0 /mnt/seq/0
+# ls -l /mnt/seq/0
+-rw-r----- 1 root root 0 Nov 25 13:49 /mnt/seq/0
+</code></pre>
+<p>Since files are statically mapped to zones on the disk, the number of blocks of
+a file as reported by stat() and fstat() indicates the size of the file zone::</p>
+<pre><code class="language-plaintext"># stat /mnt/seq/0
+File: /mnt/seq/0
+Size: 0             Blocks: 524288     IO Block: 4096   regular empty file
+Device: 870h/2160d  Inode: 50431       Links: 1
+Access: (0640/-rw-r-----)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2019-11-25 13:23:57.048971997 +0900
+Modify: 2019-11-25 13:52:25.553805765 +0900
+Change: 2019-11-25 13:52:25.553805765 +0900
+Birth: -
+</code></pre>
+<p>The number of blocks of the file ("Blocks") in units of 512B blocks gives the
+maximum file size of 524288 * 512 B = 256 MB, corresponding to the device zone
+size in this example. Of note is that the "IO block" field always indicates the
+minimum I/O size for writes and corresponds to the device physical sector size.</p>
+<h2 id="f2fs">f2fs</h2>
+<p>The <em>Flash-Friendly File System</em> (<em>f2fs</em>) was designed on a basis of a
+log-structured file system approach but modified to avoid the classical problems
+of the traditional log-structured approach (e.g. The snowball effect of
+wandering trees and the high cleaning overhead).</p>
+<p><em>f2fs</em> supports various parameters not only for configuring on-disk layout but
+also for selecting allocation and cleaning algorithms.</p>
+<h3 id="zoned-block-device-support">Zoned Block Device Support</h3>
+<p>Zoned block device support was added to <em>f2fs</em> with kernel 4.10. Since <em>f2fs</em>
+uses a metadata block on-disk format with fixed block location, only zoned block
+devices which include conventional zones can be supported. Zoned devices composed
+entirely of sequential zones cannot be used with <em>f2fs</em> as a standalone device
+and require a multi-device setup to place metadata blocks on a randomly
+writable storage. <em>f2fs</em> supports multi-device setup where multiple block device
+address spaces are linearly concatenated to form a logically larger block
+device. The <a href="../dm/#dm-linear"><em>dm-linear</em></a> device mapper target can also be used
+to create a logical device composed of conventional zones and sequential zones
+suitable for <em>f2fs</em>.</p>
+<p><em>f2fs</em> zoned block device support was achieved using the following principles.</p>
+<ol>
+<li><strong>Section Alignment</strong> In <em>f2fs</em>, a section is a group of fixed size
+   segments (2 MB). The number of segments in a section is determined to match
+   the zoned device zone size. For instance, with a 256 MB zone size, a section
+   contains 128 segments of 2MB.</li>
+<li><strong>Forced LFS mode</strong> By default, <em>f2fs</em> tries to optimize block allocation to
+   avoid excessive append write by allowing some random writes within segments.
+   The LFS mode forces sequential writes to segments and the sequential use of
+   segments within sections, resulting in full compliance with zoned block
+   devices write constraint.</li>
+<li><strong>Zone reset as discard operation</strong> Block <em>discard</em> (or <em>trim</em>) used to
+   indicate to a device that a block or range of blocks are no longer in use is
+   replaced with execution of a zone write pointer reset command when all blocks
+   of all segments of a section are free, allowing the section to be reused.</li>
+</ol>
+<h3 id="limitations">Limitations</h3>
+<p><em>f2fs</em> uses 32 bits block number with a block size of 4 KB. This results in a
+maximum volume size of 16 TB. Any device with a total capacity larger than 16 TB
+cannot be used with <em>f2fs</em>.</p>
+<p>To overcome this limit, the <a href="../dm/#dm-linear"><em>dm-linear</em></a> device mapper target
+can be used to partition a zoned block device into serviceable smaller logical
+devices.  This configuration must ensure that each logical device created is
+assigned a sufficient amount of conventional zones to store <em>f2fs</em> fixed
+location metadata blocks.</p>
+<h3 id="usage-example">Usage Example</h3>
+<p>To format a zoned block device with <em>mkfs.f2fs</em>, the option <code>-m</code> must be specified.</p>
+<pre><code class="language-plaintext"># mkfs.f2fs -m /dev/sdb
+
+    f2fs-tools: mkfs.f2fs Ver: 1.12.0 (2018-11-12)
+
+Info: Disable heap-based policy
+Info: Debug level = 0
+Info: Trim is enabled
+Info: [/dev/sdb] Disk Model: HGST HSH721415AL
+Info: Host-managed zoned block device:
+      55880 zones, 524 randomly writeable zones
+      65536 blocks per zone
+Info: Segments per section = 128
+Info: Sections per zone = 1
+Info: sector size = 4096
+Info: total sectors = 3662151680 (14305280 MB)
+Info: zone aligned segment0 blkaddr: 65536
+Info: format version with
+  &quot;Linux version 5.0.16-300.fc30.x86_64 (mockbuild@bkernel03.phx2.fedoraproject.org) (gcc version 9.1.1 20190503 (Red Hat 9.1.1-1) (GCC)) #1 SMP Tue May 14 19:33:09 UTC 2019&quot;
+Info: [/dev/sdb] Discarding device
+Info: Discarded 14305280 MB
+Info: Overprovision ratio = 0.600%
+Info: Overprovision segments = 86254 (GC reserved = 43690)
+Info: format successful
+</code></pre>
+<p>The formatted zoned block device can now be directly mounted without any other
+setup necessary.</p>
+<pre><code class="language-plaintext"># mount /dev/sdb /mnt
+</code></pre>
+<p>Compared to the <em>dm-zoned</em> device mapper target solution, performance of <em>f2fs</em>
+does not suffer from zone reclaim overhead as writes are always sequential and
+do not require on-disk temporary buffering. <em>f2fs</em> garbage collection (segment
+cleanup) will generate performance overhead only for workloads frequently
+deleting file or modifying files data.</p>
+<h2 id="btrfs">Btrfs</h2>
+<p><em>Btrfs</em> is a file system based on the copy-on-write (CoW) principle resulting in
+any block update to never be written in-place. Work is ongoing to add native ZBD
+support by changing the block allocation algorithm and block IO issuing code.</p>
+<h3 id="block-allocation-changes">Block Allocation Changes</h3>
+<p><em>Btrfs</em> block management relies on grouping of blocks into <em>block groups</em>, with
+each group composed of one or more <em>device extent</em>. The device extents of a
+block group may belong to different devices (e.g. In the case of a RAID volume).
+ZBD support changes the default device extent size to the size of the device
+zones so that all device extents are always aligned to a zone.</p>
+<p>Allocation of blocks within a block group is changed so that the allocation is
+always sequential from the beginning of the block group. To do so, an allocation
+pointer is added to block groups and used as the allocation hint. The changes
+also ensure that block freed below the allocation pointer are ignored, resulting
+in sequential block allocation within each group regardless of the block group
+usage.</p>
+<h3 id="io-management">I/O Management</h3>
+<p>While the introduction of the allocation pointer ensures that blocks are
+allocated sequentially within groups, so sequentially within zones, I/Os to
+write out newly allocated blocks may be issued out of order causing errors when
+writing to sequential zones. This problem is solved by introducing a write I/O
+request staging list to each block group. This list is used to delay the
+execution of unaligned write requests within a block group.</p>
+<p>The zones of a block group are reset to allow rewriting only when the block
+group is being freed, that is, when all the blocks within the block group are
+unused.</p>
+<p>For <em>Btrfs</em> volumes composed of multiple disks, restrictions are added to ensure
+that all disks have the same zone model and in the case of zoned block devices,
+the same zone size. This matches the existing <em>Btrfs</em> constraint that all device
+extents in a block group must have the same size.</p>
+<h3 id="upstream-contribution">Upstream Contribution</h3>
+<p><em>Btrfs</em> zoned block device support is still in development and will be available
+in stable releases after the usual upstream review process completes.</p>
+<h2 id="xfs">XFS</h2>
+<p><em>XFS</em> currently does not support zoned block devices. The <a href="../dm/#dm-zoned"><em>dm-zoned</em></a>
+device mapper target must be used to enable zoned device use with <em>XFS</em>.</p>
+<p>An early <a href="http://xfs.org/images/f/f6/Xfs-smr-structure-0.2.pdf" target="_blank">
+design document</a> discussed the development work necessary to support host
+aware and host managed disks with <em>XFS</em>. Parts of this design have already been
+implemented and included into the kernel stable releases (e.g. Per inode
+reverse block mapping b-trees feature). However, more work is necessary to
+fully support zoned block devices.</p>
+<h2 id="ext4">ext4</h2>
+<p><a href="https://lwn.net/Articles/720226/" target="_blank">This article</a>
+describes attempts at improving <em>ext4</em> performance with host aware zoned block
+devices using changes to the file system journal management. The changes are
+small and succeed in maintaining good performance. However, support for host
+managed zoned block devices is not provided as some fundamental <em>ext4</em> design
+aspects cannot be easily changed to match host managed device constraints.</p>
+<p>These optimizations for host aware zoned block devices is a research work and is
+not included in <em>ext4</em> stable kernel releases. <em>ext4</em> also does not support host
+managed disks. Similarly to <em>XFS</em>, the <em>ext4</em> file system can however be used
+together with the <a href="../dm/#dm-zoned"><em>dm-zoned</em></a> device mapper target.</p></div>
+        
+        
+    </div>
+    
+
+    <footer class="col-md-12 text-center">
+        
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/c.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/bash.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/plaintext.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

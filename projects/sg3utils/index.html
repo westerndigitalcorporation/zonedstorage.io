@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linux Zoned Storage Documentation">
+    
+    <link rel="canonical" href="https://zonedstorage.io/projects/sg3utils/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>SCSI Generic Utilities - Zoned Storage</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D23L5EBB2E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D23L5EBB2E');
+    </script>
+    
+
+     
+</head>
+
+<body style="padding-top:90px" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Zoned Storage</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../community/">Community</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active" style="min-height:60;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/introduction/">Introduction</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../introduction/zoned-storage/">Zoned Storage Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/smr/">Shingled Magnetic Recording (SMR) HDDs</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/zns/">Zoned Namespace (ZNS) SSDs</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/getting-started/">Getting Started</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../getting-started/prerequisite/">System Prerequisite</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-disk/">Getting Started With SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-emulation/">Getting Started With Emulated SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/linux/">Linux Kernel Support</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../linux/overview/">Support Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/config/">Kernel Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/zbd-api/">User Interface</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/sched/">Write Command Ordering</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/part/">Zoned Block Device Partition Support</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/fs/">File Systems</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="/projects/">Applications and Libraries</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../util-linux/">Linux System Utilities</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">SCSI Generic Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../libzbc/">libzbc User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../libnvme/">libnvme User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../libzbd/">libzbd User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
+<li >
+    <a href="../qemu/">QEMU and KVM</a>
+</li>
+
+        
+            
+<li >
+    <a href="../zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/tests/">System Compliance Tests</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../tests/zbc-tests/">ZBC/ZAC Compliance Tests</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../tests/blktests/">Kernel Block Layer Tests</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../distributions/linux/">Linux Distributions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../benchmarking/fio/">Benchmarking</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../faq/faq/">Frequently Asked Questions</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../about/">About</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../util-linux/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../libzbc/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <h5 style="text-align:center"><b>Table of contents</b></h5>
+  <ul class="nav bs-sidenav">
+
+  
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active"><a href="/projects/" style="font-weight:bold">Applications and Libraries</a></li>
+          
+        
+
+        
+
+  	  
+            <li class="second-level"><a href="../util-linux/">Linux System Utilities</a></li>
+          
+
+  	  
+
+        
+
+  	  
+
+  	  
+            
+              <li class="second-level active"><a href="#scsi-generic-utilities">SCSI Generic Utilities</a></li>
+              
+                <li class="third-level"><a href="#lsscsi">lsscsi</a></li>
+                
+                  <li class="fourth-level"><a href="#identifying-host-managed-disks">Identifying Host Managed Disks</a></li>
+                
+                  <li class="fourth-level"><a href="#disks-interface-and-transport">Disks Interface and Transport</a></li>
+                
+              
+                <li class="third-level"><a href="#sg3_utils">sg3_utils</a></li>
+                
+                  <li class="fourth-level"><a href="#sg_rep_zone">sg_rep_zone</a></li>
+                
+                  <li class="fourth-level"><a href="#sg_reset_wp">sg_reset_wp</a></li>
+                
+                  <li class="fourth-level"><a href="#sg_zone">sg_zone</a></li>
+                
+              
+            
+          
+
+        
+
+  	  
+            <li class="second-level"><a href="../libzbc/">libzbc User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libnvme/">libnvme User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libzbd/">libzbd User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../qemu/">QEMU and KVM</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../zns/">Linux Tools for ZNS</a></li>
+          
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+
+      
+
+    
+
+  
+
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="scsi-generic-utilities">SCSI Generic Utilities</h1>
+<p>Various open source projects provide support for directly manipulating SCSI
+devices. The <em>lsscsi</em> command line tool and the <em>sg3_utils</em> library and
+utilities collection are among the most widely used and they are available as
+pre-compiled packages with most Linux&reg; distributions.</p>
+<p><em>lsscsi</em> has the capability to indicate if a device is a ZBC host managed zoned
+block device, and the <em>sg3_utils</em> collection gained ZBC support with version
+1.42.</p>
+<h2 id="lsscsi">lsscsi</h2>
+<p>The <a href="http://sg.danny.cz/scsi/lsscsi.html" target="_blank"><em>lsscsi</em></a>
+command lists information about the SCSI devices connected to a Linux system.
+<em>lsscsi</em> is generally available as a package with most Linux distributions. For
+instance, on <a href="../../distributions/linux/#fedora-linux">Fedora&reg;</a> Linux,
+<em>lssci</em> can be installed using the following command.</p>
+<pre><code class="language-plaintext"># dnf install lsscsi
+</code></pre>
+<p>The name of the package may differ between distributions. Please refer to the
+distribution documentation to find out the correct package name.</p>
+<h3 id="identifying-host-managed-disks">Identifying Host Managed Disks</h3>
+<p>Executing <em>lsscsi</em> will list the disks that are managed using the kernel SCSI
+subsystem. This always includes SATA disks directly connected to a SATA port on
+the system mainboard or to a SATA PCIe adapter.</p>
+<pre><code class="language-plaintext"># lsscsi
+[2:0:0:0]    disk    ATA      INTEL SSDSC2CT18 335u  /dev/sda
+[4:0:0:0]    zbc     ATA      HGST HSH721414AL T220  /dev/sdb
+[10:0:1:0]   zbc     HGST     HSH721414AL52M0  a220  /dev/sdc
+[10:0:3:0]   zbc     ATA      HGST HSH721415AL T220  /dev/sdd
+</code></pre>
+<p>The second column of the default output indicates the device type. For
+host managed disks, the type name is <code>zbc</code>. For regular disks, it is <code>disk</code>.
+Older versions of lsscsi may directly list the numerical value of the device
+type. In the case of host managed disks, the value displayed is <code>0x14</code>.</p>
+<p>Adding the option <code>-g</code> will output the SCSI Generic node file path associated
+with a device. This is useful when using <a href="../libzbc/">libzbc</a> or any of the
+<em>sg3_utils</em> command line tools.</p>
+<pre><code class="language-plaintext"># lsscsi -g
+[2:0:0:0]    disk    ATA      INTEL SSDSC2CT18 335u  /dev/sda   /dev/sg0
+[4:0:0:0]    zbc     ATA      HGST HSH721414AL T220  /dev/sdb   /dev/sg1
+[10:0:1:0]   zbc     HGST     HSH721414AL52M0  a220  /dev/sdc   /dev/sg2
+[10:0:3:0]   zbc     ATA      HGST HSH721415AL T220  /dev/sdd   /dev/sg3
+
+</code></pre>
+<h3 id="disks-interface-and-transport">Disks Interface and Transport</h3>
+<p>The third column of the output is the disk vendor ID. For ATA disks, this is
+always <code>ATA</code> even for ATA disks connected to a SAS host-bus-adapter (HBA). The
+<em>transport</em> used to communicate with the disk can be more precisely discovered
+using the <code>-t</code> option.</p>
+<pre><code class="language-plaintext"># lsscsi -t
+[2:0:0:0]    disk    sata:55cd2e4000111f9b           /dev/sda
+[4:0:0:0]    zbc     sata:5000cca25bc03731           /dev/sdb
+[10:0:1:0]   zbc     sas:0x5000cca0000025c5          /dev/sdc
+[10:0:3:0]   zbc     sas:0x300062b200f35d43          /dev/sdd
+</code></pre>
+<h2 id="sg3_utils">sg3_utils</h2>
+<p>The <a href="http://sg.danny.cz/sg/sg3_utils.html" target="_blank"><em>sg3_utils</em></a>
+project provides a library and a collection of command line tools that directly
+send SCSI commands to a SCSI device using the kernel SCSI generic driver.</p>
+<p>The SCSI generic driver (<em>sg</em> driver) is generally enabled by default on most
+distributions. The following command allows checking if the <em>sg</em> driver module
+is already loaded.</p>
+<pre><code class="language-plaintext"># cat /proc/modules | grep sg
+</code></pre>
+<p>If this command output is empty, the <em>sg</em> driver should be loaded.</p>
+<pre><code class="language-plaintext"># modprobe sg
+</code></pre>
+<p>These commands will work only if the <em>sg</em> driver was compiled as a loadable
+kernel module. In case of error, to verify if the <em>sg</em> driver was instead
+compiled as part of the kernel, the following command can be used.</p>
+<pre><code class="language-plaintext"># modprobe sg
+modinfo: ERROR: Module sg not found.
+
+# cat /lib/modules/`uname -r`/modules.builtin | grep sg
+kernel/drivers/scsi/sg.ko
+</code></pre>
+<p>Since all disks in Linux are exposed as SCSI devices, including all ATA
+drives, these utilities can be used to manage both SCSI ZBC disks and SATA ZAC
+disks. For SATA disks connected to SATA ports (e.g. an AHCI adapter), the
+kernel SCSI subsystem translates SCSI commands to ATA commands.</p>
+<p><em>sg3_utils</em> includes three command line tools that are specific to ZBC disks.</p>
+<table>
+<thead>
+<tr>
+<th>Utility Name</th>
+<th>Main SCSI Command Invoked</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>sg_rep_zones</strong></td>
+<td>REPORT ZONES</td>
+<td>Get a ZBC disk zone information</td>
+</tr>
+<tr>
+<td><strong>sg_reset_wp</strong></td>
+<td>RESET WRITE POINTER</td>
+<td>Reset one or all zones of a ZBC disk</td>
+</tr>
+<tr>
+<td><strong>sg_zone</strong></td>
+<td>CLOSE ZONE, FINISH ZONE, OPEN ZONE</td>
+<td>Sends one of these commands to the given ZBC device</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The help output of the commands below uses the term LBA. In this
+context, the term LBA refers to a 512 bytes sector size regardless of
+the logical and physical block size of the disk.</p>
+</div>
+<h3 id="sg_rep_zone">sg_rep_zone</h3>
+<p>Executing the command with the <code>--help</code> option gives a simple usage explanation.</p>
+<pre><code class="language-plaintext"># sg_rep_zones --help
+Usage: sg_rep_zones  [--help] [--hex] [--maxlen=LEN] [--partial]
+                     [--raw] [--readonly] [--report=OPT] [--start=LBA]
+                     [--verbose] [--version] DEVICE
+  where:
+    --help|-h          print out usage message
+    --hex|-H           output response in hexadecimal; used twice
+                       shows decoded values in hex
+    --maxlen=LEN|-m LEN    max response length (allocation length in cdb)
+                           (def: 0 -&gt; 8192 bytes)
+    --partial|-p       sets PARTIAL bit in cdb
+    --raw|-r           output response in binary
+    --readonly|-R      open DEVICE read-only (def: read-write)
+    --report=OPT|-o OP    reporting options (def: 0: all zones)
+    --start=LBA|-s LBA    report zones from the LBA (def: 0)
+                          need not be a zone starting LBA
+    --verbose|-v       increase verbosity
+    --version|-V       print version string and exit
+
+Performs a SCSI REPORT ZONES command.
+</code></pre>
+<p>Below is an example of the <code>sg_rep_zone</code> utility output.</p>
+<pre><code class="language-plaintext"># sg_rep_zone /dev/sdd
+Report zones response:
+  Same=1: zone type and length same in each descriptor
+
+  Maximum LBA: 0xda47ffff
+ Zone descriptor: 0
+   Zone type: Conventional
+   Zone condition: Not write pointer
+   Non_seq: 0
+   Reset: 0
+   Zone Length: 0x10000
+   Zone start LBA: 0x0
+   Write pointer LBA: 0xffffffffffff
+ Zone descriptor: 1
+   Zone type: Conventional
+   Zone condition: Not write pointer
+   Non_seq: 0
+   Reset: 0
+   Zone Length: 0x10000
+   Zone start LBA: 0x10000
+   Write pointer LBA: 0xffffffffffff
+ Zone descriptor: 2
+   Zone type: Conventional
+   Zone condition: Not write pointer
+   Non_seq: 0
+   Reset: 0
+   Zone Length: 0x10000
+   Zone start LBA: 0x20000
+   Write pointer LBA: 0xffffffffffff
+ ...
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The block device file path or the device SCSI Generic node file path can
+both be used to specify a disk.</p>
+</div>
+<p>It is possible to start a zone report at a specific zone by using the
+<code>--start</code> option. For instance, to obtain the zone information starting at the
+first sequential zone of the disk (LBA 34340864), the following command
+can be used.</p>
+<pre><code class="language-plaintext"># sg_rep_zones --start=34340864 /dev/sdd
+Report zones response:
+  Same=1: zone type and length same in each descriptor
+
+  Maximum LBA: 0xda47ffff
+ Zone descriptor: 0
+   Zone type: Sequential write required
+   Zone condition: Empty
+   Non_seq: 0
+   Reset: 0
+   Zone Length: 0x10000
+   Zone start LBA: 0x20c0000
+   Write pointer LBA: 0x20c0000
+ Zone descriptor: 1
+   Zone type: Sequential write required
+   Zone condition: Empty
+   Non_seq: 0
+   Reset: 0
+   Zone Length: 0x10000
+   Zone start LBA: 0x20d0000
+   Write pointer LBA: 0x20d0000
+ ...
+</code></pre>
+<h3 id="sg_reset_wp">sg_reset_wp</h3>
+<p>The command usage is as follows.</p>
+<pre><code class="language-plaintext"># sg_reset_wp --help
+Usage: sg_reset_wp  [--all] [--help] [--verbose] [--version]
+                    [--zone=ID] DEVICE
+  where:
+    --all|-a           sets the ALL flag in the cdb
+    --help|-h          print out usage message
+    --verbose|-v       increase verbosity
+    --version|-V       print version string and exit
+
+    --zone=ID|-z ID    ID is the starting LBA of the zone whose
+                       write pointer is to be reset
+Performs a SCSI RESET WRITE POINTER command. ID is decimal by default,
+for hex use a leading '0x' or a trailing 'h'. Either the --zone=ID
+or --all option needs to be given.
+</code></pre>
+<p>Resetting all sequential write zones of the disk can be done using the <code>--all</code>
+option.</p>
+<pre><code class="language-plaintext"># sg_reset_wp --all /dev/sdd
+</code></pre>
+<p>A single sequential zone write pointer can be reset using the <code>--zone</code> option.</p>
+<pre><code class="language-plaintext"># sg_reset_wp --zone=34340864 /dev/sdd
+</code></pre>
+<p>Specifying the zone ID (zone start LBA) of a conventional zone results in
+an error.</p>
+<pre><code class="language-plaintext"># sg_reset_wp --zone=0 /dev/sdd
+Reset write pointer command: Illegal request
+</code></pre>
+<p>Reseting the write pointer of an empty sequential write zone has no effect
+and does not result in an error.</p>
+<h3 id="sg_zone">sg_zone</h3>
+<p>The command usage is as follows.</p>
+<pre><code class="language-plaintext"># sg_zone --help
+Usage: sg_zone  [--all] [--close] [--finish] [--help] [--open]
+                [--verbose] [--version] [--zone=ID] DEVICE
+  where:
+    --all|-a           sets the ALL flag in the cdb
+    --close|-c         issue CLOSE ZONE command
+    --finish|-f        issue FINISH ZONE command
+    --help|-h          print out usage message
+    --open|-o          issue OPEN ZONE command
+    --verbose|-v       increase verbosity
+    --version|-V       print version string and exit
+    --zone=ID|-z ID    ID is the starting LBA of the zone
+
+*sg_zone* can perform OPEN ZONE, CLOSE ZONE or FINISH ZONE SCSI commands. ID is
+decimal by default. To enter a hexadecimal value, use a leading '0x' or
+a trailing 'h'. Either --close, --finish, or --open option needs to be given.
+There is no --reset option as it would duplicate the functionality provided
+by *sg_reset_wp* utility.
+</code></pre>
+<p>The following example command sequence illustrates <em>sg_zone</em> and <em>sg_reset_wp</em>
+effects on condition of a zone as reported with <em>sg_rep_zone</em>. At first, the
+beginning sequential zone on the disk is explicitly open from empty condition.
+Then, the zone is transitioned to full condition using the zone finish command
+and, finally, reset again to return to empty condition.</p>
+<pre><code class="language-plaintext"># sg_rep_zones --start=34340864 /dev/sdd
+Report zones response:
+  Same=1: zone type and length same in each descriptor
+
+  Maximum LBA: 0xda47ffff
+ Zone descriptor: 0
+   Zone type: Sequential write required
+   Zone condition: <mark class="critic">Empty</mark>
+   Non_seq: 0
+   Reset: 0
+   Zone Length: 0x10000
+   Zone start LBA: 0x20c0000
+   Write pointer LBA: 0x20c0000
+ ...
+# sg_zone --open --zone=34340864 /dev/sdd
+# sg_rep_zones --start=34340864 /dev/sdd
+Report zones response:
+  Same=1: zone type and length same in each descriptor
+
+  Maximum LBA: 0xda47ffff
+ Zone descriptor: 0
+   Zone type: Sequential write required
+   Zone condition: <mark class="critic">Explicitly opened</mark>
+   Non_seq: 0
+   Reset: 0
+   Zone Length: 0x10000
+   Zone start LBA: 0x20c0000
+   Write pointer LBA: 0x20c0000
+ ...
+# sg_zone --finish --zone=34340864 /dev/sdd
+# sg_rep_zones --start=34340864 /dev/sdd
+Report zones response:
+  Same=1: zone type and length same in each descriptor
+
+  Maximum LBA: 0xda47ffff
+ Zone descriptor: 0
+   Zone type: Sequential write required
+   Zone condition: <mark class="critic">Full</mark>
+   Non_seq: 0
+   Reset: 0
+   Zone Length: 0x10000
+   Zone start LBA: 0x20c0000
+   Write pointer LBA: 0xffffffffffff
+ ...
+# sg_reset_wp --zone=34340864 /dev/sdd
+# sg_rep_zones --start=34340864 /dev/sdd
+Report zones response:
+  Same=1: zone type and length same in each descriptor
+
+  Maximum LBA: 0xda47ffff
+ Zone descriptor: 0
+   Zone type: Sequential write required
+   Zone condition: <mark class="critic">Empty</mark>
+   Non_seq: 0
+   Reset: 0
+   Zone Length: 0x10000
+   Zone start LBA: 0x20c0000
+   Write pointer LBA: 0x20c0000
+ ...
+</code></pre></div>
+        
+        
+    </div>
+    
+
+    <footer class="col-md-12 text-center">
+        
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/c.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/bash.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/plaintext.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

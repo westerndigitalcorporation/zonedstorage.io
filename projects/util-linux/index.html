@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linux Zoned Storage Documentation">
+    
+    <link rel="canonical" href="https://zonedstorage.io/projects/util-linux/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Linux System Utilities - Zoned Storage</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D23L5EBB2E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D23L5EBB2E');
+    </script>
+    
+
+     
+</head>
+
+<body style="padding-top:90px" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Zoned Storage</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../community/">Community</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active" style="min-height:60;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/introduction/">Introduction</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../introduction/zoned-storage/">Zoned Storage Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/smr/">Shingled Magnetic Recording (SMR) HDDs</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/zns/">Zoned Namespace (ZNS) SSDs</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/getting-started/">Getting Started</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../getting-started/prerequisite/">System Prerequisite</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-disk/">Getting Started With SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-emulation/">Getting Started With Emulated SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/linux/">Linux Kernel Support</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../linux/overview/">Support Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/config/">Kernel Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/zbd-api/">User Interface</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/sched/">Write Command Ordering</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/part/">Zoned Block Device Partition Support</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/fs/">File Systems</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="/projects/">Applications and Libraries</a>
+    <ul class="dropdown-menu">
+        
+            
+<li class="active">
+    <a href="./">Linux System Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../sg3utils/">SCSI Generic Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../libzbc/">libzbc User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../libnvme/">libnvme User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../libzbd/">libzbd User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
+<li >
+    <a href="../qemu/">QEMU and KVM</a>
+</li>
+
+        
+            
+<li >
+    <a href="../zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/tests/">System Compliance Tests</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../tests/zbc-tests/">ZBC/ZAC Compliance Tests</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../tests/blktests/">Kernel Block Layer Tests</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../distributions/linux/">Linux Distributions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../benchmarking/fio/">Benchmarking</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../faq/faq/">Frequently Asked Questions</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../about/">About</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../../linux/fs/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../sg3utils/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <h5 style="text-align:center"><b>Table of contents</b></h5>
+  <ul class="nav bs-sidenav">
+
+  
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active"><a href="/projects/" style="font-weight:bold">Applications and Libraries</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+            
+              <li class="second-level active"><a href="#linux-system-utilities">Linux System Utilities</a></li>
+              
+                <li class="third-level"><a href="#lsblk">lsblk</a></li>
+                
+              
+                <li class="third-level"><a href="#blkzone">blkzone</a></li>
+                
+                  <li class="fourth-level"><a href="#zone-report">Zone Report</a></li>
+                
+                  <li class="fourth-level"><a href="#device-capacity">Device capacity</a></li>
+                
+                  <li class="fourth-level"><a href="#zone-reset">Zone Reset</a></li>
+                
+              
+            
+          
+
+        
+
+  	  
+            <li class="second-level"><a href="../sg3utils/">SCSI Generic Utilities</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libzbc/">libzbc User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libnvme/">libnvme User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libzbd/">libzbd User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../qemu/">QEMU and KVM</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../zns/">Linux Tools for ZNS</a></li>
+          
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+
+      
+
+    
+
+  
+
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="linux-system-utilities">Linux System Utilities</h1>
+<p>As defined by the project itself, <em>util-linux</em> is a random collection of
+Linux&reg; utilities. This project is hosted on
+<a href="https://github.com/karelzak/util-linux" target="_blank">GitHub</a>.
+This project generally packaged in most distributions under the name
+<em>util-linux</em> and installed by default.</p>
+<p>Among many utilities, <em>util-linux</em> provides the <em>lsblk</em> and <em>blkzone</em> command
+line tools to list zoned block devices and to obtain zone configuration. The
+<em>blkzone</em> tool also allows resetting write pointer of sequential zones.</p>
+<p>These utilities are especially useful for shell scripting and for
+troubleshooting of zone management problems in user applications.</p>
+<h2 id="lsblk">lsblk</h2>
+<p>The lsblk command lists all block devices of a system, regardless of the block
+device type, that is, also including zoned block devices. The output of <em>lsblk</em>
+is as follows.</p>
+<pre><code class="language-plaintext"># lsblk
+NAME     MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda        8:0    0 167.7G  0 disk
+├─sda1     8:1    0     1G  0 part /boot
+├─sda2     8:2    0 150.7G  0 part /
+└─sda3     8:3    0    16G  0 part [SWAP]
+sdb        8:16   0  12.8T  0 disk
+sdc        8:32   0  12.8T  0 disk
+sdd        8:48   0  13.7T  0 disk
+</code></pre>
+<p>By default, there is no indication of the zone model of the listed block
+devices. To discover this information, the option <code>-z</code> can be used.</p>
+<pre><code class="language-plaintext"># lsblk -z
+NAME     ZONED
+sda      none
+├─sda1   none
+├─sda2   none
+└─sda3   none
+sdb      host-managed
+sdc      host-managed
+sdd      host-managed
+</code></pre>
+<p>The output of <em>lsblk</em> can also be formatted as needed using the <code>-o</code> option. For
+instance, the following command will display block device names, size and zone
+model.</p>
+<pre><code class="language-plaintext"># lsblk -o NAME,SIZE,ZONED
+NAME       SIZE ZONED
+sda      167.7G none
+├─sda1       1G none
+├─sda2   150.7G none
+└─sda3      16G none
+sdb       12.8T host-managed
+sdc       12.8T host-managed
+sdd       13.7T host-managed
+</code></pre>
+<h2 id="blkzone">blkzone</h2>
+<p>The <em>blkzone</em> command line utility allows listing (reporting) the zones of a
+zoned block device and resetting the write pointer of sequential zones. Unlike
+the <em>sg_rep_zone</em> and <em>sg_reset_wp</em> utilities of the
+<a href="../sg3utils/"><em>sg3utils</em></a> project, <em>blkzone</em> relies on the kernel
+provided ZBD <code>ioctl()</code> interface to perform zone report and zone reset
+operations. SCSI commands are not issued directly to the device by <em>blkzone</em>.</p>
+<p><em>blkzone</em> command usage is as shown below.</p>
+<pre><code class="language-plaintext"># blkzone --help
+
+Usage:
+ blkzone &lt;command&gt; [options] &lt;device&gt;
+
+Run zone command on the given block device.
+
+Commands:
+ report       Report zone information about the given device
+ capacity     Report zone capacity for the given device
+ reset        Reset a range of zones.
+ open         Open a range of zones.
+ close        Close a range of zones.
+ finish       Set a range of zones to Full.
+
+Options:
+ -o, --offset &lt;sector&gt;  start sector of zone to act (in 512-byte sectors)
+ -l, --length &lt;sectors&gt; maximum sectors to act (in 512-byte sectors)
+ -c, --count &lt;number&gt;   maximum number of zones
+ -f, --force            enforce on block devices used by the system
+ -v, --verbose          display more details
+
+ -h, --help             display this help
+ -V, --version          display version
+
+Arguments:
+ &lt;sector&gt; and &lt;sectors&gt; arguments may be followed by the suffixes for
+   GiB, TiB, PiB, EiB, ZiB, and YiB (the &quot;iB&quot; is optional)
+
+For more details see blkzone(8).
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The open, close and finish commands of <em>blkzone</em> are available with
+<em>util-linux</em> version 2.36 onward. The capacity command is available
+on the master branch.</p>
+</div>
+<h3 id="zone-report">Zone Report</h3>
+<p>For listing the zones of device, the following command can be used.</p>
+<pre><code class="language-plaintext"># blkzone report /dev/sdd
+  start: 0x000000000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000080000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000100000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000180000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000200000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000280000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000300000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000380000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000400000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000480000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  ...
+  start: 0x010500000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x010580000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x010600000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x010680000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x010700000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x010780000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x010800000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  ...
+</code></pre>
+<p>To restrict the range of zones reported, the options <code>--offset</code> and <code>--count</code>
+can be used. For instance, to report only the first sequential zone of a disk
+starting at sector 274726912, the following command can be used.</p>
+<pre><code class="language-plaintext"># blkzone report --offset 274726912 --count 1 /dev/sdd
+start: 0x010600000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+</code></pre>
+<h3 id="device-capacity">Device capacity</h3>
+<p>If zone capacity is smaller than zone size, the size listed in blockdev and
+lsblk is not indicating how much data that can be stored on on the zoned block
+device. The storage capacity of the device is the sum of the capacity of all
+zones.</p>
+<p>For determining the storage capcity of a device in sectors, the following command can be used:</p>
+<pre><code class="language-plaintext"># blkzone capacity /dev/nullb1
+0x00c350000
+</code></pre>
+<h3 id="zone-reset">Zone Reset</h3>
+<p>Sequential write zones can be reset with <em>blkzone</em> using the <code>reset</code> operation.
+For instance, to reset the first sequential zone of a disk starting at sector
+274726912, the following command can be used.</p>
+<pre><code class="language-plaintext"># blkzone reset --offset 274726912 --count 1 /dev/sdd
+</code></pre>
+<p>If the range of zones specified with the <code>reset</code> operation includes conventional
+zones, the command will fail.</p>
+<pre><code class="language-plaintext"># blkzone reset /dev/sdd
+blkzone: /dev/sdh: BLKRESETZONE ioctl failed: Remote I/O error
+</code></pre>
+<p>The user must exclude all conventional zones. With the disk used for the above
+example, all conventional zones are located between sector 0 and 274726912. The
+remaining of the disk is composed of sequential write zones. Therefore, the
+following command will reset write pointer in all zones.</p>
+<pre><code class="language-plaintext"># blkzone reset --offset 274726912 /dev/sdd
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This command results in the kernel looping over all sequential zone of the
+disk and executing a zone reset command on each zone. This can be time
+consuming and takes a significantly longer time compared to using the
+<a href="../sg3utils/#sg_reset_wp"><em>sg_reset_wp</em></a> command with the
+<code>--all</code> option specified.</p>
+</div></div>
+        
+        
+    </div>
+    
+
+    <footer class="col-md-12 text-center">
+        
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/c.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/bash.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/plaintext.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

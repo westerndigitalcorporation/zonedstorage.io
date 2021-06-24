@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linux Zoned Storage Documentation">
+    
+    <link rel="canonical" href="https://zonedstorage.io/linux/sched/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Write Command Ordering - Zoned Storage</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D23L5EBB2E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D23L5EBB2E');
+    </script>
+    
+
+     
+</head>
+
+<body style="padding-top:90px" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Zoned Storage</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../community/">Community</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active" style="min-height:60;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/introduction/">Introduction</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../introduction/zoned-storage/">Zoned Storage Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/smr/">Shingled Magnetic Recording (SMR) HDDs</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/zns/">Zoned Namespace (ZNS) SSDs</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/getting-started/">Getting Started</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../getting-started/prerequisite/">System Prerequisite</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-disk/">Getting Started With SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/smr-emulation/">Getting Started With Emulated SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../getting-started/zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="/linux/">Linux Kernel Support</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../overview/">Support Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../config/">Kernel Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../zbd-api/">User Interface</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">Write Command Ordering</a>
+</li>
+
+        
+            
+<li >
+    <a href="../part/">Zoned Block Device Partition Support</a>
+</li>
+
+        
+            
+<li >
+    <a href="../dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li >
+    <a href="../fs/">File Systems</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/projects/">Applications and Libraries</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../projects/util-linux/">Linux System Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbc/">libzbc User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libnvme/">libnvme User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbd/">libzbd User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/qemu/">QEMU and KVM</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/tests/">System Compliance Tests</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../tests/zbc-tests/">ZBC/ZAC Compliance Tests</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../tests/blktests/">Kernel Block Layer Tests</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../distributions/linux/">Linux Distributions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../benchmarking/fio/">Benchmarking</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../faq/faq/">Frequently Asked Questions</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../about/">About</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../zbd-api/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../part/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <h5 style="text-align:center"><b>Table of contents</b></h5>
+  <ul class="nav bs-sidenav">
+
+  
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active"><a href="/linux/" style="font-weight:bold">Linux Kernel Support</a></li>
+          
+        
+
+        
+
+  	  
+            <li class="second-level"><a href="../overview/">Support Overview</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../config/">Kernel Configuration</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../zbd-api/">User Interface</a></li>
+          
+
+  	  
+
+        
+
+  	  
+
+  	  
+            
+              <li class="second-level active"><a href="#write-ordering-control-for-zoned-block-devices">Write Ordering Control For Zoned Block Devices</a></li>
+              
+                <li class="third-level"><a href="#zone-write-locking">Zone Write Locking</a></li>
+                
+                  <li class="fourth-level"><a href="#initial-implementation">Initial Implementation</a></li>
+                
+                  <li class="fourth-level"><a href="#improved-implementation-block-io-scheduler">Improved Implementation: Block I/O Scheduler</a></li>
+                
+              
+                <li class="third-level"><a href="#block-io-scheduler-configuration">Block I/O Scheduler Configuration</a></li>
+                
+                  <li class="fourth-level"><a href="#manual-configuration">Manual Configuration</a></li>
+                
+                  <li class="fourth-level"><a href="#automatic-persistent-configuration">Automatic Persistent Configuration</a></li>
+                
+              
+            
+          
+
+        
+
+  	  
+            <li class="second-level"><a href="../part/">Zoned Block Device Partition Support</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../dm/">Device Mapper</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../fs/">File Systems</a></li>
+          
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+
+      
+
+    
+
+  
+
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="write-ordering-control-for-zoned-block-devices">Write Ordering Control For Zoned Block Devices</h1>
+<p>Historically, Linux&reg; kernel block I/O stack (block layer and SCSI layer)
+has never provided guarantees regarding the exact execution order of block I/O
+requests. The main reasons for this are the asynchronous nature of block I/O
+request execution in the kernel and a fine granularity lock model for a device
+request queue to minimize lock contention overhead when multiple contexts are
+issuing I/O requests to a block device.</p>
+<p>A direct result of this design is the inability to give guarantees to a well
+behaving ZBD compliant application that write commands for a zone will be
+delivered in increasing LBA order matching the zone sequential write constraint.</p>
+<p>To address this problem, the kernel ZBD support adds <em>zone write locking</em> to
+ensure that write requests are processed in order per zone.</p>
+<h2 id="zone-write-locking">Zone Write Locking</h2>
+<p>As its name indicates, zone write locking implements a per-zone write lock to
+serialize the execution of write request targeting the same zone. Considering a
+target zone, this feature does not guarantee that write commands will always be
+issued at the zone write pointer location. This is the responsibility of the
+write I/O issuer. Zone write locking will only guarantee that the order in which
+write commands are issued by an application, file system or device mapper target
+will be respected by the block I/O stack. A well behaved user of zoned block
+devices will thus avoid unaligned write command failures.</p>
+<p>Zone write locking does not affect read commands in any way. Read requests are
+not serialized and processed in exactly the same manner as with regular block
+devices.</p>
+<h3 id="initial-implementation">Initial Implementation</h3>
+<p>The initial implementation of zone write locking in kernel 4.10 was done in the
+SCSI disk driver, below the block layer, operating on requests already passed to
+the device dispatch queue by the block I/O scheduler.</p>
+<p>This early implementation was relying on the fact that the SCSI layer may delay
+issuing any request to the device. By maintaining a bitmap with one bit per
+zone, the SCSI disk driver marked a zone as <em>locked</em> whenever a write command
+was seen. In more details, the algorithm is as follows.</p>
+<ol>
+<li>
+<p>If the next command to dispatch to the device is not a write command, the
+   command is dispatched immediately.</p>
+</li>
+<li>
+<p>If the next command to dispatch is a write command, the zone write lock bit
+   for the target zone of the command is inspected.</p>
+<ol>
+<li>
+<p>If the target zone of the write command is not write locked (bit not
+   set), then the zone is locked and the write command issued to the device.
+   Both operations are atomically executed under the device request queue
+   spinlock.</p>
+</li>
+<li>
+<p>If the target zone is already locked (bit set), the SCSI disk driver
+   temporarily delays the command issuing to the device until the zone write
+   lock is released.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>When a write command completes, the zone write lock for the target zone of
+   the command is released and the dispatch process resumed. This means that if
+   the command at the head of the dispatch queue is targeting the same zone,
+   this command can now be issued (step 2.a).</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Zone write locking implemented as shown above also prevents unintended
+command reordering by the SAS HBAs or SATA adapters. The <em>AHCI</em>
+specifications are unclear regarding the definition of command issuing order
+to a device and as a result, many chipsets suffer from an inability to
+guarantee the proper command ordering.</p>
+</div>
+<p>While providing write ordering guarantees for the legacy single queue block
+I/O path without any dependence on the HBA being used, this implementation
+suffered from several limitations.</p>
+<ul>
+<li>
+<p><strong>Potential performance degradation</strong> Any write command to any zone result in
+  the command dispatch processing to be stalled, preventing the dispatching of
+  all other commands, including read commands. This can limit performance
+  benefits that can be obtained with device level command reordering when
+  operating the device at high queue depth. The extreme case is an application
+  issuing a write stream to a zone with asynchronous I/O system calls (e.g.
+  <code>io_submit()</code>). In this case, the sequential write commands would be queued in
+  sequence in the device dispatch queue, resulting in the drive being operated
+  at a queue depth of one, one write command at a time.</p>
+</li>
+<li>
+<p><strong>No support for the block multi-queue I/O path</strong> Unlike the legacy single
+  queue block I/O interface, the multi-queue block I/O implementation does not
+  heavily rely on the device queue spin-lock for processing block I/O requests
+  issued by the disk users (applications or kernel components). This results in
+  potential block I/O request reordering happening before requests are passed on
+  to the device dispatch queue and the ineffectiveness of zone write locking.</p>
+</li>
+</ul>
+<p>These limitations led to a new implementation of zone write locking at a higher
+level in the I/O stack, using the block layer I/O schedulers.</p>
+<h3 id="improved-implementation-block-io-scheduler">Improved Implementation: Block I/O Scheduler</h3>
+<p>By moving zone write locking implementation higher up in the I/O stack, the
+block multi-queue (and SCSI multi-queue) infrastructure can also be supported.
+This improvement was added with kernel version 4.16 and the SCSI layer
+implementation of zone write locking removed.</p>
+<p>This new implementation of zone write locking relies on the block layer I/O
+<em>deadline</em> and <em>mq-deadline</em> I/O scheduler and addresses also the performance
+limitations of the previous implementation. In details, the new algorithm is as
+follows.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <em>deadline</em> and <em>mq-deadline</em> schedulers operate by grouping commands per
+type (reads vs writes) and always process these two groups of commands
+separately, e.g. first issuing many reads, then many writes. This allows for
+an increased performance by benefiting from hardware features such as device
+level read-ahead.</p>
+</div>
+<ol>
+<li>
+<p>If the scheduler is processing read commands...</p>
+<ol>
+<li>...the first command queued in the list of read commands is allowed to
+   proceed and submitted to the device dispatch queue.</li>
+<li>When no read commands are available, activate write processing (step 2).</li>
+<li>If read command processing time limit is reached, write command
+   processing (step 2) is activated to avoid write command starvation.</li>
+<li>If read commands are still available, restart at step 1.</li>
+</ol>
+</li>
+<li>
+<p>When processing write commands, the list of write commands queued in the
+   scheduler is scanned in order, starting with the command at the head of the
+   LBA ordered list, or the first command in the arrival time ordered list (when
+   there is a risk of starving commands).</p>
+<ol>
+<li>If the target zone of the first write command is not write locked (zone
+   bitmap bit not set), then the zone is locked and the write command issued
+   to the device. Both operations are atomically executed under a spinlock
+   maintained by the scheduler.</li>
+<li>If the target zone is already locked (bit set), the command is skipped
+   and the first write command targetting a different zone is searched for
+   in the queue write command. If a command is found, step 2 is executed
+   again.</li>
+<li>If all queued write commands are targeting locked zones, the scheduler
+   operation mode (batch mode) is switched to <em>read</em> and step 1 called.</li>
+</ol>
+</li>
+<li>
+<p>When a write command completes, the zone write lock for the target zone of
+   the command is released and the scheduler is activated, resuming operation
+   at step 1 or 2 depending on the current batch mode.</p>
+</li>
+</ol>
+<p>From this algorithm, it is clear that the device can now be operated at higher
+queue depth and that only sequential writes targeting the same zone will be
+throttled. All read commands can proceed, always, and write commands targeting
+different zones are not impacting each other.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This new implementation does not guarantee overall command ordering.
+Guarantees are given only for write commands targetting the same zone. The
+dispatch order of write commands targetting different zones may be changed
+by the scheduler. For any single sequential zone, at any time, there is
+always at most a single write command in-flight being executed. Overall disk
+operation at high queue depth is possible in the presence of read accesses
+and if multiple zones are being written simultaneously.</p>
+</div>
+<h2 id="block-io-scheduler-configuration">Block I/O Scheduler Configuration</h2>
+<p>The <em>deadline</em> and <em>mq-deadline</em> schedulers need to be enabled in the kernel
+compilation configuration. Refer to the
+<a href="../config/#write-ordering-control">Write Ordering Control</a> section for details.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The legacy single queue block I/O path was removed from the kernel with
+version 5.0. Starting with the version, the <em>deadline</em> scheduler cannot be
+enabled. The <em>mq-deadline</em> scheduler is the only ZBD compliant scheduler.</p>
+</div>
+<h3 id="manual-configuration">Manual Configuration</h3>
+<p>A system may define a default I/O scheduler other than <em>deadline</em> or
+<em>mq-deadline</em>. The block I/O scheduler for a zoned block device can be checked
+with the following command.</p>
+<pre><code class="language-plaintext"># cat /sys/block/sdb/queue/scheduler
+[none] mq-deadline kyber bfq
+</code></pre>
+<p>If the block I/O scheduler selected is not <em>deadline</em> nor <em>mq-deadline</em> as in
+the example above, the scheduler can be changed with the following command.</p>
+<pre><code class="language-plaintext"># echo mq-deadline &gt; /sys/block/sdb/queue/scheduler
+# cat sys/block/sdb/queue/scheduler
+[mq-deadline] kyber bfq none
+</code></pre>
+<p><em>deadline</em> is also an alias name for the <em>mq-deadline</em> scheduler. The
+following command can thus be used with equal results in environements using
+the legacy single queue I/O path (kernels 4.16 to 4.20) as well as using the
+block multi-queue infrastructure (sole possibility starting with kernel
+version 5.0.</p>
+<pre><code class="language-plaintext"># echo deadline &gt; /sys/block/sdb/queue/scheduler
+# cat sys/block/sdb/queue/scheduler
+[mq-deadline] kyber bfq none
+</code></pre>
+<h3 id="automatic-persistent-configuration">Automatic Persistent Configuration</h3>
+<p>Automatically configuring the <em>deadline</em> scheduler at system boot time can also
+be done using a <em>udev</em> rule. The procedure to follow to define a new <em>udev</em>
+rule slightly varies between distributions. Refer to your distribution
+documentation for details.</p>
+<pre><code class="language-plaintext">ACTION==&quot;add|change&quot;, KERNEL==&quot;sd*[!0-9]&quot;, ATTRS{queue/zoned}==&quot;host-managed&quot;, ATTR{queue/scheduler}=&quot;deadline&quot;
+</code></pre>
+<p>This rule will setup the <em>deadline</em> scheduler for any host-managed zoned block
+device found in the system. Host aware zoned block disk can accept random
+writes and thus tolerate occasional write reordering within a zone sequential
+write stream. Nevertheless, write ordering can be maintained for these disks too
+by using the <em>deadline</em> scheduler. The above <em>udev</em> rule modified will
+automatically enable this.</p>
+<pre><code class="language-plaintext">ACTION==&quot;add|change&quot;, KERNEL==&quot;sd*[!0-9]&quot;, ATTRS{queue/zoned}==&quot;host-aware&quot;, ATTR{queue/scheduler}=&quot;deadline&quot;
+</code></pre>
+<p>The following single rule will enable the <em>deadline</em> scheduler for any zoned
+block device, regardless of the device zone model.</p>
+<pre><code class="language-plaintext">ACTION==&quot;add|change&quot;, KERNEL==&quot;sd*[!0-9]&quot;, ATTRS{queue/zoned}!=&quot;none&quot;, ATTR{queue/scheduler}=&quot;deadline&quot;
+</code></pre></div>
+        
+        
+    </div>
+    
+
+    <footer class="col-md-12 text-center">
+        
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/c.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/bash.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/plaintext.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

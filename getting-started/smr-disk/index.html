@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linux Zoned Storage Documentation">
+    
+    <link rel="canonical" href="https://zonedstorage.io/getting-started/smr-disk/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Getting Started With SMR Disks - Zoned Storage</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D23L5EBB2E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D23L5EBB2E');
+    </script>
+    
+
+     
+</head>
+
+<body style="padding-top:90px" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Zoned Storage</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../community/">Community</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active" style="min-height:60;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/introduction/">Introduction</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../introduction/zoned-storage/">Zoned Storage Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/smr/">Shingled Magnetic Recording (SMR) HDDs</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../introduction/zns/">Zoned Namespace (ZNS) SSDs</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="/getting-started/">Getting Started</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../prerequisite/">System Prerequisite</a>
+</li>
+
+        
+            
+<li >
+    <a href="../nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">Getting Started With SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../smr-emulation/">Getting Started With Emulated SMR Disks</a>
+</li>
+
+        
+            
+<li >
+    <a href="../zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/linux/">Linux Kernel Support</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../linux/overview/">Support Overview</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/config/">Kernel Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/zbd-api/">User Interface</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/sched/">Write Command Ordering</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/part/">Zoned Block Device Partition Support</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/fs/">File Systems</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/projects/">Applications and Libraries</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../projects/util-linux/">Linux System Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbc/">libzbc User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libnvme/">libnvme User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/libzbd/">libzbd User Library</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/qemu/">QEMU and KVM</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="/tests/">System Compliance Tests</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../tests/zbc-tests/">ZBC/ZAC Compliance Tests</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../tests/blktests/">Kernel Block Layer Tests</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../distributions/linux/">Linux Distributions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../benchmarking/fio/">Benchmarking</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../faq/faq/">Frequently Asked Questions</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../about/">About</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../nullblk/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../smr-emulation/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <h5 style="text-align:center"><b>Table of contents</b></h5>
+  <ul class="nav bs-sidenav">
+
+  
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active"><a href="/getting-started/" style="font-weight:bold">Getting Started</a></li>
+          
+        
+
+        
+
+  	  
+            <li class="second-level"><a href="../prerequisite/">System Prerequisite</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../nullblk/">Getting Started with an Emulated Zoned Block Device</a></li>
+          
+
+  	  
+
+        
+
+  	  
+
+  	  
+            
+              <li class="second-level active"><a href="#getting-started-with-smr-disks">Getting Started with SMR Disks</a></li>
+              
+                <li class="third-level"><a href="#serial-ata-zac-disks-and-sata-host-controllers">Serial ATA ZAC Disks and SATA Host Controllers</a></li>
+                
+                  <li class="fourth-level"><a href="#verifying-the-disk">Verifying The Disk</a></li>
+                
+                  <li class="fourth-level"><a href="#checking-the-disk-information">Checking The Disk Information</a></li>
+                
+                  <li class="fourth-level"><a href="#discovering-the-disk-zone-configuration">Discovering The Disk Zone Configuration</a></li>
+                
+              
+                <li class="third-level"><a href="#using-a-sas-host-bus-adapter">Using a SAS Host Bus Adapter</a></li>
+                
+                  <li class="fourth-level"><a href="#hba-compatibility">HBA Compatibility</a></li>
+                
+                  <li class="fourth-level"><a href="#verifying-the-disk_1">Verifying The Disk</a></li>
+                
+              
+            
+          
+
+        
+
+  	  
+            <li class="second-level"><a href="../smr-emulation/">Getting Started With Emulated SMR Disks</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a></li>
+          
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+
+      
+
+    
+
+      
+
+        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+
+      
+
+    
+
+  
+
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="getting-started-with-smr-disks">Getting Started with SMR Disks</h1>
+<p>Hard disk drives using the <a href="../../introduction/smr/">Shingled Magnetic Recording</a>
+technology can have different interface implementations resulting in different
+usage models.</p>
+<ul>
+<li>
+<p><strong>Drive Managed Interface</strong> SMR disks implementing this interface are, from
+  the host kernel and applications point of view, identical to regular disks and
+  do not need any particular attention. Most Linux&reg; kernels will be able to
+  handle these disks and no LBA space zoning information will be available to
+  the host.  Drive Managed disks should thus not be considered as zoned block
+  devices.</p>
+</li>
+<li>
+<p><strong>Zoned Block Interface</strong> SMR hard-disk drives implementing the ZBC and ZAC
+  feature sets provide to the host commands allowing the indentification and
+  control of the device zones. This interface has two different variations, or
+  model implementations (See <a href="../../introduction/smr/#smr-implementations">SMR Interface Implementations</a>).</p>
+<ul>
+<li>
+<p><strong>Host Aware</strong> While this zone model offers the convenience and
+  flexibility of Drive Managed disks (i.e. random write capabilities),
+  Host Aware disks support the full set of zone commands defined by the
+  ZBC and ZAC standards. As such, Host Aware disks can support both the
+  regular block device abstraction (regular disk) as well as the zoned
+  block device abstraction.</p>
+</li>
+<li>
+<p><strong>Host Managed</strong> This zone model defines a device type that is
+  different from regular disk. Host-Managed disks can only be used as
+  zoned block devices in order to satisfy the strong sequential write
+  constraints the model defines.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>In the following sections, Host Aware disk models are considered as zoned block
+devices with similar characteristics as Host Managed drives, that is, sequential
+writes are assumed to be a constraint for the correct operation of the disk.</p>
+<h2 id="serial-ata-zac-disks-and-sata-host-controllers">Serial ATA ZAC Disks and SATA Host Controllers</h2>
+<p>Serial ATA (SATA) host adapters, including those using the Advance Host
+Controller Interface (AHCI) standard, should have no problem scanning and
+initializing a connection with Host Aware disks. Most AHCI host adapters are
+also know to work with Host Managed disk drives as the adapter itself generally
+does not react to the device signature of the connected disk.</p>
+<h3 id="verifying-the-disk">Verifying The Disk</h3>
+<p>For a system fullfilling all <a href="../prerequisite/">prerequisites</a>, a SATA host
+Aware or Host Managed disk can simply be connected directly to a SATA port of
+the host controller. After booting the system, the disk should be listed by the
+<em>lsscsi</em> utility.</p>
+<pre><code class="language-plaintext"># lsscsi -g
+[2:0:0:0]    disk    ATA      INTEL SSDSC2CT18 335u  /dev/sda   /dev/sg0
+[5:0:0:0]    zbc     ATA      HGST HSH721415AL T220  /dev/sdb   /dev/sg1
+</code></pre>
+<p>In this example, the disk '/dev/sda' is the system boot disk and the disk
+'/dev/sdb' is being recognized as a ZBC disk.</p>
+<p>The second column of <code>lsscsi</code> output indicates the device type. The value <em>zbc</em>
+is always used for Host Managed ZBC and ZAC disks. This corresponds to the ZBC
+defined device type <em>0x14</em> for SAS disks and to the ZAC defined device signature
+<em>0xabcd</em> for SATA disks. Since Host Aware disks have the same device type or
+device signature as regular disks, lsscsi will list host aware disks as <em>disk</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <em>lsscsi</em> utility will not list a SATA ZAC disk with the type <em>zac</em>. The
+type <em>zbc</em> is always used as the kernel internally implements a SCSI to ATA
+translation layer (SAT), a;;owing ther representation of all SATA devices as
+SCSI devices.</p>
+</div>
+<h3 id="checking-the-disk-information">Checking The Disk Information</h3>
+<p>The zone model of the disk can be verified through the <em>zoned</em> sysfs attribute.</p>
+<pre><code class="language-plaintext"># cat /sys/block/sdb/queue/zoned
+host-managed
+</code></pre>
+<p>The possible values of the <em>zoned</em> attribute are shown in the table below.</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>none</td>
+<td>Regular disk or drive managed ZBC/ZAC disk</td>
+</tr>
+<tr>
+<td>host-aware</td>
+<td>Host aware ZBC/ZAC disk</td>
+</tr>
+<tr>
+<td>host-managed</td>
+<td>Host managed ZBC/ZAC disk</td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>The kernel messages also include useful information on the disk.</p>
+<pre><code class="language-plaintext"># dmesg
+ahci 0000:00:11.5: version 3.0
+ahci 0000:00:11.5: AHCI 0001.0301 32 slots 2 ports 6 Gbps 0x3 impl SATA mode
+ahci 0000:00:11.5: flags: 64bit ncq sntf led clo only pio slum part ems deso sadm sds apst
+...
+scsi host5: ahci
+ata5: SATA max UDMA/133 abar m524288@0x9d100000 port 0x9d100200 irq 55
+ata5: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+ata5.00: ATA-9: HGST HSH721414ALN6M0, L4GMT220, max UDMA/133
+ata5.00: 27344764928 sectors, multi 0: LBA48 NCQ (depth 32), AA
+ata5.00: configured for UDMA/133
+...
+sd 5:0:0:0: Attached scsi generic sg1 type 20
+sd 5:0:0:0: [sdb] Host-managed zoned block device
+sd 5:0:0:0: [sdb] 3662151680 4096-byte logical blocks: (15.0 TB/13.6 TiB)
+sd 5:0:0:0: [sdb] 55880 zones of 65536 logical blocks
+sd 5:0:0:0: [sdb] Write Protect is off
+sd 5:0:0:0: [sdb] Mode Sense: 00 3a 00 00
+sd 5:0:0:0: [sdb] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+sd 5:0:0:0: [sdb] Attached SCSI disk
+...
+</code></pre>
+<p>Among other information, the zone model of the disk is confirmed as
+host managed. The total number of zones of the disk is also displayed. In this
+example, the disk capacity is 15 TB and has 55880 zones.</p>
+<p>The zone size of the disk can also be inspected through sysfs, with the
+attribute <em>chunk_sectors</em>.</p>
+<pre><code class="language-plaintext"># cat /sys/block/sdb/queue/chunk_sectors 
+524288
+</code></pre>
+<p>The value is displayed as a number of 512B sectors, regardless of the actual
+logical and physical block size of the disk. In this example, the disk zone size
+is <em>524288 x 512 = 256 MiB</em>.</p>
+<p>Starting with Linux kernel version 4.20.0, the sysfs attribute <em>nr_zones</em>
+is also available to verify the total number of zones of the disk.</p>
+<pre><code class="language-plaintext"># cat /sys/block/sdb/queue/nr_zones
+55880
+</code></pre>
+<h3 id="discovering-the-disk-zone-configuration">Discovering The Disk Zone Configuration</h3>
+<p>To obtain detailed information on the disk zone configuration, for instance the
+number of conventional zones available, the
+<a href="/projects/util-linux#blkzone"><em>blkzone</em></a> utility can be used.</p>
+<pre><code class="language-plaintext"># blkzone report /dev/sdb
+  start: 0x000000000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000080000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x000100000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  ...
+  start: 0x010480000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x010500000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x010580000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
+  start: 0x010600000, len 0x080000, wptr 0x000008 reset:0 non-seq:0, zcond: 4(cl) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x010680000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x010700000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  ...
+  start: 0x6d2280000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x6d2300000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x6d2380000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+</code></pre>
+<p>From the output, one can see that the 512B sector range from 0 up to
+0x010600000 is divided into 524 conventional zones. The sector space starting
+from 0x010600000 until the last sector of the disk is devided into 55356
+sequential write required zones.</p>
+<p>The <a href="/projects/libzbc#zone-information"><em>zbc_report_zones</em></a> of
+<a href="/projects/libzbc"><em>libzbc</em></a> provides more detailed information in a more
+readable format.</p>
+<pre><code class="language-plaintext"># zbc_report_zones /dev/sdb
+Device /dev/sdb:
+    Vendor ID: ATA HGST HSH721415AL T220
+    Zoned block device interface, Host-managed zone model
+    29297213440 512-bytes sectors
+    3662151680 logical blocks of 4096 B
+    3662151680 physical blocks of 4096 B
+    15000.173 GB capacity
+    Read commands are unrestricted
+    Maximum number of open sequential write required zones: 128
+    55880 zones from 0, reporting option 0x00
+55880 / 55880 zones:
+Zone 00000: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 0, 524288 sectors
+Zone 00001: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 524288, 524288 sectors
+Zone 00002: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 1048576, 524288 sectors
+...
+Zone 00521: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 273154048, 524288 sectors
+Zone 00522: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 273678336, 524288 sectors
+Zone 00523: type 0x1 (Conventional), cond 0x0 (Not-write-pointer), sector 274202624, 524288 sectors
+Zone 00524: type 0x2 (Sequential-write-required), cond 0x4 (Closed), reset recommended 0, non_seq 0, sector 274726912, 524288 sectors, wp 274726920
+Zone 00525: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 275251200, 524288 sectors, wp 275251200
+Zone 00526: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 275775488, 524288 sectors, wp 275775488
+...
+Zone 55877: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 29295640576, 524288 sectors, wp 29295640576
+Zone 55878: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 29296164864, 524288 sectors, wp 29296164864
+Zone 55879: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 29296689152, 524288 sectors, wp 29296689152
+</code></pre>
+<h2 id="using-a-sas-host-bus-adapter">Using a SAS Host Bus Adapter</h2>
+<p>AHCI adapters can only accomodate Serial ATA disks and generally only provide a
+limited number of ports. SAS Host Bus Adapters (HBA) are widely used in
+enterprise applications to overcome AHCI limitations. The SAS transport layer
+used by SAS HBAs can equally accomodate both Serial ATA and SCSI disks.</p>
+<h3 id="hba-compatibility">HBA Compatibility</h3>
+<p>While most AHCI adapters for Serial ATA disks generally do not cause any
+problem with host managed ZAC disks identification, SAS HBAs on the other
+hand may suffer from a lack of support depending on the HBA model being used.</p>
+<p>The compatibility of a SAS HBA with host managed disks mainly depends on
+the following factors.</p>
+<ol>
+<li>
+<p>The HBA must have the ability to recognize the host managed device type
+   <em>0x14</em> of host managed SAS disks (ZBC/SCSI).</p>
+</li>
+<li>
+<p>The HBA must have the ability to recognize the host managed device signature 
+   <em>0xabcd</em> of SATA host managed ZAC disks and translate this signature into
+   the ZBC defined SCSI device type <em>0x14</em>.</p>
+</li>
+<li>
+<p>Generalizing the previous point, the HBA must implement a SCSI-to-ATA
+   translation (SAT) layer supporting the conversion of host issued ZBC zone
+   commands into ZAC zone commands that can be executed by a SATA ZAC disk
+   connected to the HBA.</p>
+</li>
+</ol>
+<p>Any HBA failing the first requirement will not expose a ZBC host managed disk to
+the host. Similarly, an HBA failing to comply with the second and third
+requirement will fail to expose to the host a host managed ZAC disk as a ZBC
+host managed disk.</p>
+<p>In the case of a host aware disk model, the device type and device signature
+handling will not cause any problem (recall that host aware disks use the
+regular disk device type and signatur <em>0x00</em>). Host aware disks will thus always
+be useable as regular disks with any HBA. The execution of ZBC zone commands
+with a SAS host aware disk may also work most of the time. However, similarly
+to host managed disk, the absence of a ZBC/ZAC compatible SAT layer will prevent
+the use of a Serial ATA host aware disk as a ZBC host aware disk. The ZBC zone
+commands sent to the SATA disk will not be translated and result in command
+failures.</p>
+<p>The compatibility of an HBA model with the ZBC and ZAC standards should be
+checked with the HBA vendor. Under some conditions, an HBA compatibility can
+also be checked using the <a href="/tests/zbc-tests"><em>libzbc</em> conformance test suite</a>.</p>
+<h3 id="verifying-the-disk_1">Verifying The Disk</h3>
+<p>Assuming that a compatible HBA is being used, after connecting the drive and
+eventually rebooting the system (most SAS HBAs have plug-and-play features in
+which case rebooting the system after connecting or disconnecting a disk is
+not necessary), verifying the disk identification and checking the disk
+parameters and zone configuration can be done in the exact same manner as with
+Serial ATA disks as discussed above.</p>
+<p>In these examples, <code>/dev/sdc</code> is a SAS disk connected to a SAS HBA and
+<em>/dev/sdd</em> is a SATA disk connected to the same HBA.</p>
+<pre><code class="language-plaintext"># lsscsi -g
+[2:0:0:0]    disk    ATA      INTEL SSDSC2CT18 335u  /dev/sda   /dev/sg0
+[5:0:0:0]    zbc     ATA      HGST HSH721415AL T220  /dev/sdb   /dev/sg1
+[10:0:2:0]   zbc     HGST     HSH721414AL52M0  a220  /dev/sdc   /dev/sg2
+[10:0:3:0]   zbc     ATA      HGST HSH721415AL T220  /dev/sdd   /dev/sg3
+</code></pre>
+<p>Inspecting the kernel messages shows no differences between the initialization
+of the SAS drive and the SATA disk.</p>
+<pre><code class="language-plaintext"># dmesg
+...
+scsi 10:0:2:0: Direct-Access-ZBC HGST     HSH721414AL52M0  a220 PQ: 0 ANSI: 7
+scsi 10:0:2:0: SSP: handle(0x001b), sas_addr(0x5000cca0000025c5), phy(1), device_name(0x5000cca0000025c7)
+scsi 10:0:2:0: enclosure logical id (0x500062b200f35d40), slot(2)
+scsi 10:0:2:0: enclosure level(0x0000), connector name(     )
+sd 10:0:2:0: Attached scsi generic sg2 type 20
+sd 10:0:2:0: [sdc] Host-managed zoned block device
+sd 10:0:2:0: [sdc] 27344764928 512-byte logical blocks: (14.0 TB/12.7 TiB)
+sd 10:0:2:0: [sdc] 4096-byte physical blocks
+sd 10:0:2:0: [sdc] 52156 zones of 524288 logical blocks
+sd 10:0:2:0: [sdc] Write Protect is off
+sd 10:0:2:0: [sdc] Mode Sense: f7 00 10 08
+sd 10:0:2:0: [sdc] Write cache: enabled, read cache: enabled, supports DPO and FUA
+sd 10:0:2:0: [sdc] Attached SCSI disk
+...
+scsi 10:0:3:0: Direct-Access-ZBC ATA      HGST HSH721415AL T220 PQ: 0 ANSI: 6
+scsi 10:0:3:0: SATA: handle(0x001c), sas_addr(0x300062b200f35d43), phy(3), device_name(0x5000cca25bc2e26f)
+scsi 10:0:3:0: enclosure logical id (0x500062b200f35d40), slot(1)
+scsi 10:0:3:0: enclosure level(0x0000), connector name(     )
+scsi 10:0:3:0: atapi(n), ncq(y), asyn_notify(n), smart(y), fua(y), sw_preserve(y)
+sd 10:0:3:0: Attached scsi generic sg3 type 20
+sd 10:0:3:0: [sdd] Host-managed zoned block device
+sd 10:0:3:0: [sdd] 3662151680 4096-byte logical blocks: (15.0 TB/13.6 TiB)
+sd 10:0:3:0: [sdd] 55880 zones of 65536 logical blocks
+sd 10:0:3:0: [sdd] Write Protect is off
+sd 10:0:3:0: [sdd] Mode Sense: 9b 00 10 08
+sd 10:0:3:0: [sdd] Write cache: enabled, read cache: enabled, supports DPO and FUA
+sd 10:0:3:0: [sdd] Attached SCSI disk
+...
+</code></pre>
+<p>Both disks are identified by the kernel as <em>Direct-Access-ZBC</em> devices
+indicating that the HBA is correctly translating the ZAC host managed device
+signature into a ZBC host managed device type.</p></div>
+        
+        
+    </div>
+    
+
+    <footer class="col-md-12 text-center">
+        
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/c.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/bash.min.js"></script>
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/plaintext.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
