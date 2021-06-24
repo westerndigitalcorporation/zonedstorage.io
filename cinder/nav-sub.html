@@ -1,0 +1,17 @@
+{% if not nav_item.children %}
+<li {% if nav_item.active %}class="active"{% endif %}>
+    <a href="{{ nav_item.url|url }}">{{ nav_item.title }}</a>
+</li>
+{% else %}
+  {% set navurl = (nav_item.children | first).url %}
+  {% set navdir = navurl.split('/') %}
+  {% set pagedir = page.url.split('/') %}
+  <li class="dropdown-submenu{% if pagedir[0] == navdir[0] %} active{% endif %}">
+    <a tabindex="-1" href="{{ navdir[0]|url }}">{{ nav_item.title }}</a>
+    <ul class="dropdown-menu">
+        {% for nav_item in nav_item.children %}
+            {% include "nav-sub.html" %}
+        {% endfor %}
+    </ul>
+  </li>
+{% endif %}

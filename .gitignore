@@ -1,0 +1,8 @@
+site
+cinder/css/*.min.css
+
+# Mac files
+.DS*
+._*
+._~*
+~$*

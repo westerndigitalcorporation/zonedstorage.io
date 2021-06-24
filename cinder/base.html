@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if config.site_description %}<meta name="description" content="{{ config.site_description }}">{% endif %}
+    {% if config.site_author %}<meta name="author" content="{{ config.site_author }}">{% endif %}
+    {% if page.canonical_url %}<link rel="canonical" href="{{ page.canonical_url }}">{% endif %}
+    <link rel="shortcut icon" href="{{ 'img/favicon.ico'|url }}">
+
+    {% block htmltitle %}
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
+    {% endblock %}
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="{{ 'css/bootstrap-custom.min.css'|url }}" rel="stylesheet">
+    <link href="{{ 'css/base.min.css'|url }}" rel="stylesheet">
+    <link href="{{ 'css/cinder.min.css'|url }}" rel="stylesheet">
+
+    {% if config.theme.highlightjs is defined and config.theme.highlightjs is sameas false %}
+
+    {% else %}
+        {% if config.theme.colorscheme %}
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/{{ config.theme.colorscheme }}.min.css">
+        {% else %}
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        {% endif %}
+    {% endif %}
+
+    {%- for path in config['extra_css'] %}
+    <link href="{{ path|url }}" rel="stylesheet">
+    {%- endfor %}
+
+    {% if config.google_analytics %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ config.google_analytics[0] }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ config.google_analytics[0] }}');
+    </script>
+    {% endif %}
+
+    {% block extrahead %} {% endblock %}
+</head>
+
+<body{% if page and page.is_homepage %} class="homepage"
+{% elif page and page.title == "About" %} class="homepage"
+{% elif page and page.title == "Community" %} class="homepage"
+{% else %} style="padding-top:90px" {% endif %}>
+
+    {% include "nav.html" %}
+
+    {% if page.is_homepage or page.title == "About" or page.title == "Community" %}
+    <main>{% include "content.html" %}</main>
+    {% else %}
+    <div class="container">
+        {% block content %}
+        {% if page.meta.disable_toc %}
+        <div class="col-md-12" role="main">{% include "content.html" %}</div>
+        {% else %}
+        <div class="col-md-3">{% include "toc.html" %}</div>
+        <div class="col-md-9" role="main">{% include "content.html" %}</div>
+        {% endif %}
+        {% endblock %}
+    </div>
+    {% endif %}
+
+    <footer class="col-md-12 text-center">
+        {% block footer %}
+        <span class="text-muted" style="color:hsla(0,0%,100%,.7);font-size:13px;">
+	&copy; 2020 Western Digital Corporation or its affiliates. All rights reserved.<br>
+        By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use"
+	target="_blank" style="color:white;">Terms of Use</a> and
+	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
+        All example scripts and program snippets on this site are licensed under
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
+	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
+        </span>
+        {% endblock %}
+    </footer>
+
+    {%- block scripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{{ 'js/bootstrap-3.0.3.min.js'|url }}"></script>
+
+    {% if config.theme.highlightjs is defined and config.theme.highlightjs is sameas false %}  <!-- default is to include highlightjs -->
+
+    {% else %}
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        {% if config.theme.hljs_languages %}
+            {%- for lang in config.theme.hljs_languages %}
+                <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/languages/{{lang}}.min.js"></script>
+            {%- endfor %}
+        {% endif %}
+    <script>hljs.initHighlightingOnLoad();</script>
+    {% endif %}
+
+    <script>var base_url = {{ base_url | tojson }}</script>
+    {% if config.shortcuts %}
+        <script>var shortcuts = {{ config.shortcuts | tojson }}</script>
+    {% endif %}
+    <script src="{{ 'js/base.js'|url }}"></script>
+    {%- for path in config['extra_javascript'] %}
+    <script src="{{ path|url }}"></script>
+    {%- endfor %}
+    {%- endblock %}
+
+    {% if 'search' in config['plugins'] %}{%- include "search-modal.html" %}{% endif %}
+    {%- include "keyboard-modal.html" %}
+</body>
+
+</html>
+{% if page and page.is_homepage %}
+<!--
+MkDocs version : {{ mkdocs_version }}
+Build Date UTC : {{ build_date_utc }}
+-->
+{% endif %}
