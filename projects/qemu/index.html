@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Linux Zoned Storage Documentation">
     
-    <link rel="canonical" href="https://westerndigitalcorporation.github.io/zonedstorage.io/projects/qemu/">
+    <link rel="canonical" href="https://zonedstorage.io/projects/qemu/">
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
     
@@ -574,6 +574,9 @@
                   <li class="fourth-level"><a href="#attaching-an-emulated-zbc-disk">Attaching an emulated ZBC disk</a></li>
                 
               
+                <li class="third-level"><a href="#qemu-nvme-zns-device-emulation">QEMU NVMe ZNS Device emulation</a></li>
+                
+              
             
           
 
@@ -654,12 +657,14 @@ emulator and virtualizer. <em>QEMU</em> also provides the userspace components
 of the widely used <a href="https://www.linux-kvm.org/" target="_blank"><em>KVM</em>
 (Kernel-based Virtual Machine)</a>.</p>
 <h2 id="qemu-and-zoned-block-devices">QEMU and zoned block devices</h2>
-<p>Host managed SMR disks can be directly attached to a QEMU guest for running
+<p>Host managed SMR disks can be directly attached to a <em>QEMU</em> guest for running
 applications in a virtual machine environment. This is especially useful in the
-case of software and kernel tests.</p>
+case of software and kernel development and tests.</p>
 <p>There are two supported methods to attach Host managed SMR zoned disks to a QEMU
 guest: <em>virtio-scsi</em> and <em>vhost-scsi</em>.</p>
-<h2 id="qemu-virtio-scsi">QEMU virtio-scsi</h2>
+<p>Furthermore, <em>QEMU</em> also allows emulating NVMe devices implementing zoned
+namespaces.</p>
+<h2 id="qemu-virtio-scsi"><em>QEMU virtio-scsi</em></h2>
 <p>This is the simplest method to attach a zoned block device for access from a
 QEMU guest. To do so, the QEMU option <em>virtio-scsi-pci</em> is used after defining a
 virtual PCI bus and SCSI host.</p>
@@ -711,7 +716,7 @@ above example setup.</p>
 [0:0:0:0]    disk    ATA      QEMU HARDDISK    2.5+  /dev/sda   /dev/sg0
 [6:0:1:0]    zbc     HGST     HSH721415AL42M0  a250  /dev/sdb   /dev/sg1
 </code></pre>
-<h2 id="qemu-vhost-scsi">QEMU vhost-scsi</h2>
+<h2 id="qemu-vhost-scsi"><em>QEMU vhost-scsi</em></h2>
 <p>This attachment method uses a fabric module in the host kernel to provide KVM
 guests with a fast virtio-based connection to SCSI LUNs. This method cannot be
 used without QEMU KVM acceleration.</p>
@@ -844,7 +849,11 @@ using the World-Wide port name assigned by <em>targetcli</em>.</p>
 <pre><code class="language-plaintext"># lsscsi -g
 [0:0:0:0]    disk    ATA      QEMU HARDDISK    2.5+  /dev/sda   /dev/sg0
 [6:0:1:0]    zbc     LIO-ORG  TCMU ZBC device  0002  /dev/sdb   /dev/sg1
-</code></pre></div>
+</code></pre>
+<h2 id="qemu-nvme-zns-device-emulation"><em>QEMU</em> NVMe ZNS Device emulation</h2>
+<p><a href="../../getting-started/zns-emulation/">This article</a> describes in details, with
+examples, how <em>QEMU</em> can be configured to create an emulated NVMe ZNS namespace
+visible by the guest operating system.</p></div>
         
         
     </div>
