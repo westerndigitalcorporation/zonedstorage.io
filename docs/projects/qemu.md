@@ -7,14 +7,17 @@ of the widely used <a href="https://www.linux-kvm.org/" target="_blank">*KVM*
 
 ## QEMU and zoned block devices
 
-Host managed SMR disks can be directly attached to a QEMU guest for running
+Host managed SMR disks can be directly attached to a *QEMU* guest for running
 applications in a virtual machine environment. This is especially useful in the
-case of software and kernel tests.
+case of software and kernel development and tests.
 
 There are two supported methods to attach Host managed SMR zoned disks to a QEMU
 guest: *virtio-scsi* and *vhost-scsi*.
 
-## QEMU virtio-scsi
+Furthermore, *QEMU* also allows emulating NVMe devices implementing zoned
+namespaces.
+
+## *QEMU virtio-scsi*
 
 This is the simplest method to attach a zoned block device for access from a
 QEMU guest. To do so, the QEMU option *virtio-scsi-pci* is used after defining a
@@ -83,7 +86,7 @@ above example setup.
 [6:0:1:0]    zbc     HGST     HSH721415AL42M0  a250  /dev/sdb   /dev/sg1
 ```
 
-## QEMU vhost-scsi
+## *QEMU vhost-scsi*
 
 This attachment method uses a fabric module in the host kernel to provide KVM
 guests with a fast virtio-based connection to SCSI LUNs. This method cannot be
@@ -245,3 +248,8 @@ The disk is listed on the guest with tools such as *lsscsi*.
 [6:0:1:0]    zbc     LIO-ORG  TCMU ZBC device  0002  /dev/sdb   /dev/sg1
 ```
 
+## *QEMU* NVMe ZNS Device emulation
+
+[This article](../getting-started/zns-emulation.md) describes in details, with
+examples, how *QEMU* can be configured to create an emulated NVMe ZNS namespace
+visible by the guest operating system.
