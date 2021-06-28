@@ -650,8 +650,8 @@ pre-compiled binary kernels shipped with various Linux distributions.</p>
 <h2 id="fedora-linux">Fedora Linux</h2>
 <p><a href="https://getfedora.org" target="_blank"><em>Fedora&reg;</em></a>
 is a Linux distribution developed by the
-community-supported <em>Fedora Project</em> and sponsored by
-<a href="https://www.redhat.com" target="_blank"><em>Red Hat&reg;</em></a></p>
+community-supported <em>Fedora Project</em> and primarily sponsored by
+<a href="https://www.redhat.com" target="_blank"><em>Red Hat&reg;</em></a>.</p>
 <p>The following table gives an overview of the kernel versions and configuration
 used with the latest releases of the <em>Fedora</em> distribution. A more complete
 list of kernel versions for all releases can be found
@@ -671,58 +671,65 @@ list of kernel versions for all releases can be found
 <tr>
 <td>Fedora 26 (EOL)</td>
 <td>4.11</td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>Fedora 27 (EOL)</td>
 <td>4.13</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>Fedora 28</td>
 <td>4.16</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>Fedora 29</td>
 <td>4.18</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>Fedora 30</td>
 <td>5.0</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>Fedora 31</td>
 <td>5.3</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>Fedora 32</td>
 <td>5.6</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>Fedora 33</td>
 <td>5.8</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span> (after updates)</td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span> (after updates)</td>
+</tr>
+<tr>
+<td>Fedora 34</td>
+<td>5.11</td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
 </tr>
 </tbody>
 </table>
@@ -748,6 +755,7 @@ for the most recent distribution releases.</p>
 <th>Kernel version</th>
 <th>ZBD support</th>
 <th><em>dm-zoned</em> support</th>
+<th>ZNS support</th>
 </tr>
 </thead>
 <tbody>
@@ -756,12 +764,14 @@ for the most recent distribution releases.</p>
 <td>4.9</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>10 (Buster)</td>
 <td>4.19</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 </tbody>
 </table>
@@ -783,6 +793,7 @@ recent releases.</p>
 <th>Kernel version</th>
 <th>ZBD support</th>
 <th><em>dm-zoned</em> support</th>
+<th>ZNS support</th>
 </tr>
 </thead>
 <tbody>
@@ -791,10 +802,12 @@ recent releases.</p>
 <td>3.2</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>14.04 LTS (Trusty Tahr)</td>
 <td>3.13</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -803,54 +816,70 @@ recent releases.</p>
 <td>4.4</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>17.04 (Zesty Zapus)</td>
 <td>4.10</td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>17.10 (Artful Aardvark)</td>
 <td>4.13</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>18.04 LTS (Bionic Beaver)</td>
 <td>4.15</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>18.10 (Cosmic Cuttlefish)</td>
 <td>4.18</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>19.04 (Disco Dingo)</td>
 <td>5.0</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>19.10 (Eoan Ermine)</td>
 <td>5.3</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>20.04 LTS (Focal Fossa)</td>
 <td>5.4</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>20.10 (Groovy Gorilla)</td>
 <td>5.8</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
+</tr>
+<tr>
+<td>21.04 (Hirsute Hippo)</td>
+<td>5.11</td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
 </tr>
 </tbody>
 </table>
@@ -876,6 +905,7 @@ distribution.</p>
 <th>Kernel version</th>
 <th>ZBD support</th>
 <th><em>dm-zoned</em> support</th>
+<th>ZNS support</th>
 </tr>
 </thead>
 <tbody>
@@ -884,10 +914,12 @@ distribution.</p>
 <td>4.18.0-80</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 8.1</td>
 <td>4.18.0-147</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -896,10 +928,12 @@ distribution.</p>
 <td>4.18.0-193</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 8.3</td>
 <td>4.18.0-240</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -921,6 +955,7 @@ kernel version 3.10 which lacks zoned block device support.</p>
 <th>Kernel version</th>
 <th>ZBD support</th>
 <th><em>dm-zoned</em> support</th>
+<th>ZNS support</th>
 </tr>
 </thead>
 <tbody>
@@ -929,10 +964,12 @@ kernel version 3.10 which lacks zoned block device support.</p>
 <td>3.10.0-123</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 7.1</td>
 <td>3.10.0-229</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -941,10 +978,12 @@ kernel version 3.10 which lacks zoned block device support.</p>
 <td>3.10.0-327</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 7.3</td>
 <td>3.10.0-514</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -953,10 +992,12 @@ kernel version 3.10 which lacks zoned block device support.</p>
 <td>3.10.0-693</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 7.5</td>
 <td>3.10.0-862</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -965,10 +1006,12 @@ kernel version 3.10 which lacks zoned block device support.</p>
 <td>3.10.0-957</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 7.7</td>
 <td>3.10.0-1062</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -977,10 +1020,12 @@ kernel version 3.10 which lacks zoned block device support.</p>
 <td>3.10.0-1127</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 7.9</td>
 <td>3.10.0-1160</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -997,6 +1042,7 @@ supported.</p>
 <th>Kernel version</th>
 <th>ZBD support</th>
 <th><em>dm-zoned</em> support</th>
+<th>ZNS support</th>
 </tr>
 </thead>
 <tbody>
@@ -1005,10 +1051,12 @@ supported.</p>
 <td>2.6.32-71</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 6.1</td>
 <td>2.6.32-131</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -1017,10 +1065,12 @@ supported.</p>
 <td>2.6.32-220</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 6.3</td>
 <td>2.6.32-279</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -1029,10 +1079,12 @@ supported.</p>
 <td>2.6.32-358</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 6.5</td>
 <td>2.6.32-431</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -1041,10 +1093,12 @@ supported.</p>
 <td>2.6.32-504</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 6.7</td>
 <td>2.6.32-573</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -1053,10 +1107,12 @@ supported.</p>
 <td>2.6.32-642</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 6.9</td>
 <td>2.6.32-696</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -1065,10 +1121,12 @@ supported.</p>
 <td>2.6.32-754</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>RHEL 6 ELS+</td>
 <td>2.6.32-754</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -1082,10 +1140,48 @@ Linux (RHEL)</em>. <em>CentOS</em> release versions follow closely <em>RHEL</em>
 the same version and release numbers. More information on the distribution
 releases and kernel versions can be found <a href="https://en.wikipedia.org/wiki/CentOS"
 target="_blank">here</a>.</p>
-<p>Due to this design approach, <em>CentOS</em> zoned block device support level is
-identical to that of <em>Red Hat Enterprise Linux</em>. There is currently no zoned
-block device support available with the pre-compiled kernels shipped with the
+<p>Due to this design approach, <em>CentOS</em> zoned block device support is
+identical to that of <em>Red Hat Enterprise Linux</em>: zoned block device support
+is not available by default with the pre-compiled kernels shipped with the
 distribution.</p>
+<p>However, third party repositories such as <a href="http://elrepo.org/tiki/HomePage"
+target="_blank">The Community Enterprise Linux Repository</a> provide recent kernels
+packages precompiled with zoned block device suport enabled. <em>elrepo</em> provides kernels
+version 5.12 and 5.13 for <em>CentOS 7</em>, <em>CentOS 8</em> and <em>CentOS 8 STream</em>.</p>
+<table>
+<thead>
+<tr>
+<th>Distribution version</th>
+<th>Kernel version</th>
+<th>ZBD support</th>
+<th><em>dm-zoned</em> support</th>
+<th>ZNS support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CentOS 7 + elrepo</td>
+<td>5.12, 5.13</td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+</tr>
+<tr>
+<td>CentOS 8 + elrepo</td>
+<td>5.12, 5.13</td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+</tr>
+<tr>
+<td>CentOS 8 Stream + elrepo</td>
+<td>5.12, 5.13</td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+</tr>
+</tbody>
+</table>
 <h2 id="suse-linux-enterprise-server">SUSE Linux Enterprise Server</h2>
 <p><a href="https://www.suse.com/products/server/" target="_blank">
 <em>SUSE Linux Enterprise Server (SLES)</em></a> is a Linux-based operating system
@@ -1105,6 +1201,7 @@ versions under long term service support.</p>
 <th>Kernel version</th>
 <th>ZBD support</th>
 <th><em>dm-zoned</em> support</th>
+<th>ZNS Support</th>
 </tr>
 </thead>
 <tbody>
@@ -1113,10 +1210,12 @@ versions under long term service support.</p>
 <td>3.0.76</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>11.4</td>
 <td>3.0.101</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -1125,10 +1224,12 @@ versions under long term service support.</p>
 <td>3.12</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>12.1</td>
 <td>3.12</td>
+<td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
 </tr>
@@ -1137,36 +1238,49 @@ versions under long term service support.</p>
 <td>4.4</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>12.3</td>
 <td>4.4</td>
 <td><span style="color:red">No</span></td>
 <td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>12.4</td>
 <td>4.12</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>15</td>
 <td>4.12</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>15.1</td>
 <td>4.12.14</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>15.2</td>
 <td>5.3.18</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
+</tr>
+<tr>
+<td>15.3</td>
+<td>5.3.18</td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
 </tr>
 </tbody>
 </table>
@@ -1193,32 +1307,44 @@ the latest releases is shown in the table below.</p>
 <th>Kernel version</th>
 <th>ZBD support</th>
 <th><em>dm-zoned</em> support</th>
+<th>ZNS Support</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Leap 15.0</td>
 <td>4.12</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:red">NO</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>Leap 15.1</td>
 <td>4.12</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:red">NO</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
+<td><span style="color:red">No</span></td>
 </tr>
 <tr>
 <td>Leap 15.2</td>
 <td>5.3</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:red">No</span></td>
+</tr>
+<tr>
+<td>Leap 15.3</td>
+<td>5.3</td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
 </tr>
 <tr>
 <td>Tumbleweed</td>
 <td>latest stable (5.9+)</td>
-<td><span style="color:green">YES</span></td>
-<td><span style="color:green">YES</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
+<td><span style="color:green">Yes</span></td>
 </tr>
 </tbody>
 </table>
