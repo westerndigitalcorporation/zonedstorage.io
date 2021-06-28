@@ -9,8 +9,8 @@ pre-compiled binary kernels shipped with various Linux distributions.
 
 <a href="https://getfedora.org" target="_blank">*Fedora&reg;*</a>
 is a Linux distribution developed by the
-community-supported *Fedora Project* and sponsored by
-<a href="https://www.redhat.com" target="_blank">*Red Hat&reg;*</a>
+community-supported *Fedora Project* and primarily sponsored by
+<a href="https://www.redhat.com" target="_blank">*Red Hat&reg;*</a>.
 
 
 The following table gives an overview of the kernel versions and configuration
@@ -22,14 +22,15 @@ list of kernel versions for all releases can be found
 
 | Distribution version | Initial Kernel version | ZBD support | *dm-zoned* support | ZNS support |
 | -------------------- | ---------------------- | ----------- | ------------------ | ----------- |
-| Fedora 26 (EOL) | 4.11 | <span style="color:green">YES</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| Fedora 27 (EOL) | 4.13 | <span style="color:green">YES</span> | <span style="color:green">YES</span> | <span style="color:red">No</span> |
-| Fedora 28 | 4.16 | <span style="color:green">YES</span> | <span style="color:green">YES</span> | <span style="color:red">No</span> |
-| Fedora 29 | 4.18 | <span style="color:green">YES</span> | <span style="color:green">YES</span> | <span style="color:red">No</span> |
-| Fedora 30 | 5.0 | <span style="color:green">YES</span> | <span style="color:green">YES</span> | <span style="color:red">No</span> |
-| Fedora 31 | 5.3 | <span style="color:green">YES</span> | <span style="color:green">YES</span> | <span style="color:red">No</span> |
-| Fedora 32 | 5.6 | <span style="color:green">YES</span> | <span style="color:green">YES</span> | <span style="color:red">No</span> |
-| Fedora 33 | 5.8 | <span style="color:green">YES</span> | <span style="color:green">YES</span> | <span style="color:green">YES</span> (after updates) |
+| Fedora 26 (EOL) | 4.11 | <span style="color:green">Yes</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| Fedora 27 (EOL) | 4.13 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| Fedora 28 | 4.16 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| Fedora 29 | 4.18 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| Fedora 30 | 5.0 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| Fedora 31 | 5.3 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| Fedora 32 | 5.6 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| Fedora 33 | 5.8 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> (after updates) |
+| Fedora 34 | 5.11 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> |
 
 </center>
 
@@ -51,10 +52,10 @@ for the most recent distribution releases.
 
 <center>
 
-| Distribution version | Kernel version | ZBD support | *dm-zoned* support |
-| -------------------- | -------------- | ----------- | ------------------ |
-| 9 (Stretch) |	4.9 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| 10 (Buster) |	4.19 |  <span style="color:green">YES</span> | <span style="color:green">YES</span> |
+| Distribution version | Kernel version | ZBD support | *dm-zoned* support | ZNS support |
+| -------------------- | -------------- | ----------- | ------------------ | ----------- |
+| 9 (Stretch) |	4.9 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| 10 (Buster) |	4.19 |  <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
 
 </center>
 
@@ -72,19 +73,20 @@ recent releases.
 
 <center>
 
-| Distribution version | Kernel version | ZBD support | *dm-zoned* support |
-| -------------------- | -------------- | ----------- | ------------------ |
-| 12.04 LTS (Precise Pangolin) | 3.2 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| 14.04 LTS (Trusty Tahr) | 3.13 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| 16.04 LTS (Xenial Xerus) | 4.4 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| 17.04 (Zesty Zapus) | 4.10 | <span style="color:green">YES</span> | <span style="color:red">No</span> |
-| 17.10 (Artful Aardvark) | 4.13 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
-| 18.04 LTS (Bionic Beaver) | 4.15 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
-| 18.10	(Cosmic Cuttlefish) | 4.18 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
-| 19.04	(Disco Dingo) | 5.0 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
-| 19.10	(Eoan Ermine) | 5.3 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
-| 20.04	LTS (Focal Fossa) | 5.4 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
-| 20.10	(Groovy Gorilla) | 5.8 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
+| Distribution version | Kernel version | ZBD support | *dm-zoned* support | ZNS support |
+| -------------------- | -------------- | ----------- | ------------------ | ----------- |
+| 12.04 LTS (Precise Pangolin) | 3.2 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| 14.04 LTS (Trusty Tahr) | 3.13 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| 16.04 LTS (Xenial Xerus) | 4.4 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| 17.04 (Zesty Zapus) | 4.10 | <span style="color:green">Yes</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| 17.10 (Artful Aardvark) | 4.13 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 18.04 LTS (Bionic Beaver) | 4.15 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 18.10	(Cosmic Cuttlefish) | 4.18 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 19.04	(Disco Dingo) | 5.0 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 19.10	(Eoan Ermine) | 5.3 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 20.04	LTS (Focal Fossa) | 5.4 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 20.10	(Groovy Gorilla) | 5.8 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 21.04	(Hirsute Hippo) | 5.11 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> |
 
 </center>
 
@@ -108,12 +110,12 @@ distribution.
 
 <center>
 
-| Distribution version | Kernel version | ZBD support | *dm-zoned* support |
-| -------------------- | -------------- | ----------- | ------------------ |
-| RHEL 8 | 4.18.0-80 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 8.1 | 4.18.0-147 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 8.2 | 4.18.0-193 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 8.3 | 4.18.0-240 | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| Distribution version | Kernel version | ZBD support | *dm-zoned* support | ZNS support |
+| -------------------- | -------------- | ----------- | ------------------ | ----------- |
+| RHEL 8 | 4.18.0-80 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 8.1 | 4.18.0-147 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 8.2 | 4.18.0-193 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 8.3 | 4.18.0-240 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
 
 </center>
 
@@ -129,18 +131,18 @@ kernel version 3.10 which lacks zoned block device support.
 
 <center>
 
-| Distribution version | Kernel version | ZBD support | *dm-zoned* support |
-| -------------------- | -------------- | ----------- | ------------------ |
-| RHEL 7.0 | 3.10.0-123 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 7.1 | 3.10.0-229 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 7.2 | 3.10.0-327 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 7.3 | 3.10.0-514 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 7.4 | 3.10.0-693 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 7.5 | 3.10.0-862 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 7.6 | 3.10.0-957 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 7.7 | 3.10.0-1062 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 7.8 | 3.10.0-1127 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 7.9 | 3.10.0-1160 | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| Distribution version | Kernel version | ZBD support | *dm-zoned* support | ZNS support |
+| -------------------- | -------------- | ----------- | ------------------ | ----------- |
+| RHEL 7.0 | 3.10.0-123 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 7.1 | 3.10.0-229 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 7.2 | 3.10.0-327 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 7.3 | 3.10.0-514 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 7.4 | 3.10.0-693 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 7.5 | 3.10.0-862 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 7.6 | 3.10.0-957 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 7.7 | 3.10.0-1062 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 7.8 | 3.10.0-1127 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 7.9 | 3.10.0-1160 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
 
 </center>
 
@@ -149,20 +151,20 @@ supported.
 
 <center>
 
-| Distribution version | Kernel version | ZBD support | *dm-zoned* support |
-| -------------------- | -------------- | ----------- | ------------------ |
-| RHEL 6.0 | 2.6.32-71 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 6.1 | 2.6.32-131 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 6.2 | 2.6.32-220 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 6.3 | 2.6.32-279 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 6.4 | 2.6.32-358 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 6.5 | 2.6.32-431 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 6.6 | 2.6.32-504 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 6.7 | 2.6.32-573 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 6.8 | 2.6.32-642 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 6.9 | 2.6.32-696 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 6.10 | 2.6.32-754 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| RHEL 6 ELS+ | 2.6.32-754 | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| Distribution version | Kernel version | ZBD support | *dm-zoned* support | ZNS support |
+| -------------------- | -------------- | ----------- | ------------------ | ----------- |
+| RHEL 6.0 | 2.6.32-71 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 6.1 | 2.6.32-131 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 6.2 | 2.6.32-220 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 6.3 | 2.6.32-279 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 6.4 | 2.6.32-358 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 6.5 | 2.6.32-431 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 6.6 | 2.6.32-504 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 6.7 | 2.6.32-573 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 6.8 | 2.6.32-642 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 6.9 | 2.6.32-696 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 6.10 | 2.6.32-754 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| RHEL 6 ELS+ | 2.6.32-754 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
 
 </center>
 
@@ -175,10 +177,21 @@ the same version and release numbers. More information on the distribution
 releases and kernel versions can be found <a href="https://en.wikipedia.org/wiki/CentOS"
 target="_blank">here</a>.
 
-Due to this design approach, *CentOS* zoned block device support level is
-identical to that of *Red Hat Enterprise Linux*. There is currently no zoned
-block device support available with the pre-compiled kernels shipped with the
+Due to this design approach, *CentOS* zoned block device support is
+identical to that of *Red Hat Enterprise Linux*: zoned block device support
+is not available by default with the pre-compiled kernels shipped with the
 distribution.
+
+However, third party repositories such as <a href="http://elrepo.org/tiki/HomePage"
+target="_blank">The Community Enterprise Linux Repository</a> provide recent kernels
+packages precompiled with zoned block device suport enabled. *elrepo* provides kernels
+version 5.12 and 5.13 for *CentOS 7*, *CentOS 8* and *CentOS 8 STream*.
+
+| Distribution version | Kernel version | ZBD support | *dm-zoned* support | ZNS support |
+| -------------------- | -------------- | ----------- | ------------------ | ----------- |
+| CentOS 7 + elrepo | 5.12, 5.13 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> |
+| CentOS 8 + elrepo | 5.12, 5.13 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> |
+| CentOS 8 Stream + elrepo | 5.12, 5.13 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> |
 
 ## SUSE Linux Enterprise Server
 
@@ -196,18 +209,19 @@ versions under long term service support.
 
 <center>
 
-| Distribution version | Kernel version | ZBD support | *dm-zoned* support |
-| -------------------- | -------------- | ----------- | ------------------ |
-| 11.3 | 3.0.76 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| 11.4 | 3.0.101 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| 12.0 | 3.12 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| 12.1 | 3.12 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| 12.2 | 4.4 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| 12.3 | 4.4 | <span style="color:red">No</span> | <span style="color:red">No</span> |
-| 12.4 | 4.12 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
-| 15 | 4.12 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
-| 15.1 | 4.12.14 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
-| 15.2 | 5.3.18 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
+| Distribution version | Kernel version | ZBD support | *dm-zoned* support | ZNS Support |
+| -------------------- | -------------- | ----------- | ------------------ | ----------- |
+| 11.3 | 3.0.76 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| 11.4 | 3.0.101 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| 12.0 | 3.12 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| 12.1 | 3.12 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| 12.2 | 4.4 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| 12.3 | 4.4 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| 12.4 | 4.12 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 15 | 4.12 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 15.1 | 4.12.14 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 15.2 | 5.3.18 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 15.3 | 5.3.18 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> |
 
 </center>
 
@@ -231,12 +245,13 @@ the latest releases is shown in the table below.
 
 <center>
 
-| Distribution version | Kernel version | ZBD support | *dm-zoned* support |
-| -------------------- | -------------- | ----------- | ------------------ |
-| Leap 15.0 | 4.12 | <span style="color:green">YES</span> | <span style="color:red">NO</span> |
-| Leap 15.1 | 4.12 | <span style="color:green">YES</span> | <span style="color:red">NO</span> |
-| Leap 15.2 | 5.3 | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
-| Tumbleweed | latest stable (5.9+) | <span style="color:green">YES</span> | <span style="color:green">YES</span> |
+| Distribution version | Kernel version | ZBD support | *dm-zoned* support | ZNS Support |
+| -------------------- | -------------- | ----------- | ------------------ | ----------- |
+| Leap 15.0 | 4.12 | <span style="color:green">Yes</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| Leap 15.1 | 4.12 | <span style="color:green">Yes</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
+| Leap 15.2 | 5.3 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| Leap 15.3 | 5.3 | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> |
+| Tumbleweed | latest stable (5.9+) | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> |
 
 </center>
 
