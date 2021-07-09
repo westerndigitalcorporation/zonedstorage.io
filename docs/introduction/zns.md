@@ -4,10 +4,10 @@ Zoned Namespace (ZNS) SSDs represent a new division of functionality between hos
 
 ZNS SSDs implement the <a href="https://nvmexpress.org/developers/nvme-command-set-specifications/" target="_blank_">NVMe ZNS Command Set specification</a> as defined by the NVM Express (NVMe) organization and released as part of the NVMe 2.0 specifications. The latest revision available is 1.1.
 
-!!! Note
-     For a deep-dive on ZNS SSDs, please see the following USENIX ATC 2021 article: <a
+!!! NOTE
+     See <a
      href="https://www.usenix.org/conference/atc21/presentation/bjorling"
-     target="_blank_">ZNS: Avoiding the Flash-Based Block Interface Tax for Flash-Based SSDs</a>.
+     target="_blank_">ZNS: Avoiding the Flash-Based Block Interface Tax for Flash-Based SSDs</a> for a deep dive on ZNS SSDs. The article was published at USENIX ATC 2021.
 
 ## Overview
 
@@ -20,9 +20,9 @@ style="max-width:100%;">
 <br><em>Conventional SSDs and ZNS SSDs internal data placement</em></br>
 </center>
 
-## NVMe Zoned Namespace Zoned Storage Model
+## The ZNS Zoned Storage Model
 
-The ZNS Command Set specification builds upon the existing 
+The ZNS Command Set specification builds upon the existing
 [Host Managed Zoned Storage Model](smr.md#host-managed-model) introduced for SMR
 hard-disks with the SCSI ZBC (Zoned Block Command) standard and the ATA ZAC
 (Zoned ATA Commands) standard. A compatible zone state machine was defined, and
@@ -123,7 +123,7 @@ zone to one. This can potentially result in poor performance, especially for
 workloads issuing mostly small write operations.
 
 To avoid this problem, the ZNS specification introduced the new *Zone
-Append* command. 
+Append* command.
 
 A zone append command is a write operation that specifies the first
 logical block of a zone as the write position. When executing the command, the
@@ -160,9 +160,9 @@ host command issuing order as the device controller is free to reorder command
 execution as it sees fit. The host can discover the effective write position
 of each request through the zone append completion information.
 
-## Conference Presentations
+## Presentations
 
-More information is also available through presetations:
+Additional information is available here:
 
 <center>
 <br><a href="https://www.youtube.com/watch?v=9yVWb3rbces" target="_blank">From Open-Channel SSDs to Zoned Namespaces, OCP 2019 Global Summit.</a></br>
@@ -175,20 +175,20 @@ Namespace Presentation at the OCP 2019 Global Summit")</a>
 <center>
 <br><a href="https://www.youtube.com/watch?v=qpbBuyYT6fc" target="_blank">File System Native Support of Zoned Block Devices: Regular vs Append Writes, SDC2020</a></br>
 <a href="https://www.youtube.com/watch?v=qpbBuyYT6fc" target="_blank">
-![ZNS btrfs at SDC2020](https://www.youtube.com/watch?v=qpbBuyYT6fc/0.jpg "ZNS and btrfs at SNIA SDC 2020")</a>
+![ZNS btrfs at SDC2020](https://img.youtube.com/vi/qpbBuyYT6fc/0.jpg "ZNS and btrfs at SNIA SDC 2020")</a>
 <br>*ZNS and btrfs.*</br>
 </center>
 
 <center>
 <br><a href="https://www.youtube.com/watch?v=FwMQqIGZFsE" target="_blank">Zoned Block Device Support in Hadoop HDFS, SDC2020</a></br>
 <a href="https://www.youtube.com/watch?v=FwMQqIGZFsE" target="_blank">
-![ZNS HDFS at SDC2020](https://www.youtube.com/watch?v=FwMQqIGZFsE/0.jpg "ZNS and HDFS at SNIA SDC 2020")</a>
+![ZNS HDFS at SDC2020](https://img.youtube.com/vi/FwMQqIGZFsE/0.jpg "ZNS and HDFS at SNIA SDC 2020")</a>
 <br>*ZNS and HDFS.*</br>
 </center>
 
 <center>
 <br><a href="https://www.youtube.com/watch?v=cbX3P56Jp0o" target="_blank">Zoned Namespaces (ZNS) SSDs: Disrupting the Storage Industry, SDC2020</a></br>
 <a href="https://www.youtube.com/watch?v=cbX3P56Jp0o" target="_blank">
-![ZNS HDFS at SDC2020](https://www.youtube.com/watch?v=cbX3P56Jp0o/0.jpg "ZNS at SNIA SDC 2020")</a>
+![ZNS HDFS at SDC2020](https://img.youtube.com/vi/cbX3P56Jp0o/0.jpg "ZNS at SNIA SDC 2020")</a>
 <br>*ZNS Overview*</br>
 </center>
