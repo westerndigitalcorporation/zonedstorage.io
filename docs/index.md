@@ -36,9 +36,9 @@ Learn more about Linux&reg; Software Support &raquo;
 <div class="container" align="center">
 <h1 style="font-weight:bold;font-size:3em" id="quick-start-guide">QUICK START GUIDE</h1>
 <p align="center">
-Learn how to setup a Linux system supporting zoned block devices
-and start experimenting with physical and emulated zoned storage
-devices.
+Learn how to set up a Linux system that supports zoned block devices
+so that you can start experimenting with physical and emulated zoned
+storage devices.
 </p>
 <div class="container">
 <div class="row" align="center">
