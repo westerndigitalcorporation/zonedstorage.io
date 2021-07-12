@@ -6,8 +6,8 @@ zoned storage devices.
 * [Support Overview](overview.md): See an overview of Linux kernel and Linux
   ecosystem support for zoned block devices.
 
-* [Kernel Configuration](config.md): Learn how to configure the Linux kernel
-  before compilation to enable zoned block device support.
+* [Enabling Zoned Block Device Support](config.md): Learn how to configure,
+  compile and install a Linux kernel to enable zoned block device support.
 
 * [User Interface](zbd-api.md): Learn about the user application programming
   interface provided by the kernel for managing and accessing zoned block
