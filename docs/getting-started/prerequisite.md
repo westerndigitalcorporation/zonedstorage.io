@@ -1,19 +1,18 @@
-# System Prerequisite
+# System Prerequisites
 
-The zoned block device (ZBD) interface supporting ZBC and ZAC disks was added to
-Linux&reg; kernel version 4.10. All Linux kernel versions since 4.10 include the
-ZBD interface.
+The zoned block device (ZBD) interface that supports ZBC and ZAC disks was
+added to Linux&reg; in kernel version 4.10. All Linux kernel versions since
+4.10 include the ZBD interface.
 
 !!! Note
-    Linux kernels prior to version 4.10 do not have the ZBD interface
-    implemented. As a result of using such older kernel, access and management
-    of ZBC and ZAC disks will be limited but still possible. This is discussed
-    in more details in the [Linux Support](../linux/overview.md)
-    document.
 
-In addition to a correct Linux kernel version, several user utilities should be
-installed on the test system to easily verify if the zoned device is discovered
-and initialized correctly.
+    Linux kernels prior to version 4.10 do not implement the ZBD interface.  If
+    you use a kernel older than kernel 4.10, you can access and manage ZBC and
+    ZAC disks, but only in a limited way. This is discussed in more detail in
+    the [Linux Support](../linux/overview.md) document.
+
+To verify that the zoned device has been discovered and correctly initalized,
+several user utilities must be installed on the test system. These utilities are discussed in more detail in the section called [User Utilities](#prerequisites_user_utilities).
 
 ## Linux Kernel
 
@@ -149,7 +148,9 @@ above, the scheduler can be changed with the following command.
 [mq-deadline] kyber bfq none
 ```          
 
+<a name="prerequisites_user_utilities">
 ## User Utilities
+</a>
 
 Various user level tools should also be installed in order to verify the
 correct operation of zoned block devices and to troubleshoot problems.
