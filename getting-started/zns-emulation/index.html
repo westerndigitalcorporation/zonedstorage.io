@@ -174,7 +174,7 @@
         
             
 <li >
-    <a href="../../linux/config/">Kernel Configuration</a>
+    <a href="../../linux/config/">Enabling Zoned Block Device Support</a>
 </li>
 
         
@@ -821,16 +821,11 @@ znsimg=&quot;/var/lib/qemu/zns.raw&quot;
 # Run QEMU
 #
 sudo /usr/local/bin/qemu-system-x86_64 \
--name guest=FedoraServer34,debug-threads=on \
--machine pc-q35-5.2,accel=kvm,usb=off,vmport=off,dump-guest-core=off,memory-backend=pc.ram \
--cpu EPYC-Rome,x2apic=on,tsc-deadline=on,hypervisor=on,tsc-adjust=on,stibp=on,arch-capabilities=on,ssbd=on,xsaves=on,cmp-legacy=on,amd-ssbd=on,virt-ssbd=on,rdctl-no=on,skip-l1dfl-vmentry=on,mds-no=on,pschange-mc-no=on \
+-name guest=FedoraServer34 \
+-machine pc-q35-5.2,accel=kvm \
 -m 16384 \
--object memory-backend-ram,id=pc.ram,size=17179869184 \
--overcommit mem-lock=off \
 -smp 8,sockets=8,cores=1,threads=1 \
--uuid e629893b-a9fd-48aa-9505-f32503ab3405 \
 -rtc base=utc,driftfix=slew \
--global kvm-pit.lost_tick_policy=delay \
 -nographic \
 -no-hpet \
 -global ICH9-LPC.disable_s3=1 \
