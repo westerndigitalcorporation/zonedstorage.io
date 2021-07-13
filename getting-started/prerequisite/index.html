@@ -407,7 +407,7 @@
 
   	  
             
-              <li class="second-level active"><a href="#system-prerequisite">System Prerequisite</a></li>
+              <li class="second-level active"><a href="#system-prerequisites">System Prerequisites</a></li>
               
                 <li class="third-level"><a href="#linux-kernel">Linux Kernel</a></li>
                 
@@ -652,21 +652,19 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="system-prerequisite">System Prerequisite</h1>
-<p>The zoned block device (ZBD) interface supporting ZBC and ZAC disks was added to
-Linux&reg; kernel version 4.10. All Linux kernel versions since 4.10 include the
-ZBD interface.</p>
+<h1 id="system-prerequisites">System Prerequisites</h1>
+<p>The zoned block device (ZBD) interface that supports ZBC and ZAC disks was
+added to Linux&reg; in kernel version 4.10. All Linux kernel versions since
+4.10 include the ZBD interface.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Linux kernels prior to version 4.10 do not have the ZBD interface
-implemented. As a result of using such older kernel, access and management
-of ZBC and ZAC disks will be limited but still possible. This is discussed
-in more details in the <a href="../../linux/overview/">Linux Support</a>
-document.</p>
+<p>Linux kernels prior to version 4.10 do not implement the ZBD interface.  If
+you use a kernel older than kernel 4.10, you can access and manage ZBC and
+ZAC disks, but only in a limited way. This is discussed in more detail in
+the <a href="../../linux/overview/">Linux Support</a> document.</p>
 </div>
-<p>In addition to a correct Linux kernel version, several user utilities should be
-installed on the test system to easily verify if the zoned device is discovered
-and initialized correctly.</p>
+<p>To verify that the zoned device has been discovered and correctly initalized,
+several user utilities must be installed on the test system. These utilities are discussed in more detail in the section called <a href="#prerequisites_user_utilities">User Utilities</a>.</p>
 <h2 id="linux-kernel">Linux Kernel</h2>
 <p>A system with a Linux kernel version 4.10 or higher is recommended to get
 started with ZBC and ZAC hard disks. For a quick start, it is recommended to
@@ -772,7 +770,9 @@ above, the scheduler can be changed with the following command.</p>
 # cat sys/block/sdb/queue/scheduler
 [mq-deadline] kyber bfq none
 </code></pre>
+<p><a name="prerequisites_user_utilities"></p>
 <h2 id="user-utilities">User Utilities</h2>
+<p></a></p>
 <p>Various user level tools should also be installed in order to verify the
 correct operation of zoned block devices and to troubleshoot problems.</p>
 <h3 id="lsblk">lsblk</h3>
