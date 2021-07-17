@@ -16,19 +16,26 @@ several user utilities must be installed on the test system. These utilities are
 
 ## Linux Kernel
 
-A system with a Linux kernel version 4.10 or higher is recommended to get
-started with ZBC and ZAC hard disks. For a quick start, it is recommended to
-use a Linux distribution including ZBD support. More information on recommended
-Linux distributions can be found [here](../distributions/linux.md).
+We recommend only systems with Linux kernels that are version 4.10 or
+higher for use with ZBC and ZAC hard disks. If you intend to follow
+the examples in this Quick Start Guide, we recommend that you use a
+Linux distribution that includes ZBD support. More information on
+recommended Linux distributions can be found
+[here](../distributions/linux.md).
 
-Advanced users may want to compile and install a specific Linux kernel version
-to be used in place of the default kernel shipped with the distribution being
-used. Instructions on how to enable ZBD support in the kernel configuration
-are provided [here](../linux/config.md).
-It is recommended to always use the highest available stable kernel version, or
-a long term stable kernel version higher than 4.10. Information on available
-kernel versions can be found
-<a href="https://www.kernel.org/" target="_blank">here</a>.
+ZNS SSDs require zone capacity support, which was introduced in
+Linux kernel version 5.9. More information on ZNS SSDs can be found
+[here](../introduction/zns.md).
+
+Advanced users might want to compile and install a specific Linux
+kernel version instead of using the default kernel. If this is the
+case, you must enable ZBD support in that kernel.  An explanation of
+how to enable ZBD support in the kernel configuration is provided
+[here](../linux/config.md).  We recommend that you always use the
+highest available stable kernel version or a long term stable kernel
+version higher than 4.10.  Information on available kernel versions
+can be found <a href="https://www.kernel.org/"
+target="_blank">here</a>.
 
 ## Kernel Version and ZBD Support
 
