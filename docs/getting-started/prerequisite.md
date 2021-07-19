@@ -32,7 +32,7 @@ kernel versions can be found
 
 ## Kernel Version and ZBD Support
 
-Two conditions must be met to ensure that a system Linux kernel supports the
+Two conditions must be met to ensure that a system's Linux kernel supports the
 ZBD interface.
 
 1. The kernel version must be 4.10.0 or higher,
