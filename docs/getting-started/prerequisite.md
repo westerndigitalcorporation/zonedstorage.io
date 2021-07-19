@@ -42,14 +42,12 @@ ZBD interface.
 
 ### Kernel Version
 
-The command *uname* allows checking the version of the kernel running on a
-system. For example, on a *Fedora 29* distribution, this command output is as
-follows.
+The command `uname` makes it possible to check the version of the
+kernel running on a system. For example, on a *Fedora 29*
+distribution, this command and its output is as follows.
 
-```plaintext
-# uname -r
-5.0.13-200.fc29.x86_64
-```
+    # uname -r
+    5.0.13-200.fc29.x86_64
 
 ### Zoned Block Device Support
 
