@@ -58,17 +58,19 @@ distribution, this command and its output is as follows.
 
 ### Zoned Block Device Support
 
-Zoned block device support is optional and may not be enabled in the running
-kernel. The kernel configuration option enabling zoned block device support is
-*CONFIG_BLK_DEV_ZONED*.
+Zoned block device support might not be enabled by default in the
+running kernel. The kernel configuration option that is used to enable
+zoned block device support is `CONFIG_BLK_DEV_ZONED`.
 
-To check if the *CONFIG_BLK_DEV_ZONED* option is enabled for the kernel, several
-method can be used. Not all method may work for a particular distribution.
-In many cases, the configuration file for the running kernel can be found under
-the `/boot` directory and/or within the directory containing the kernel modules.
+There are several methods that can be used to determine whether the
+`CONFIG_BLK_DEV_ZONED` option has been enabled in the kernel.  Not all
+of these methods work for every Linux distribution.  In some
+distributions, the configuration file for the running kernel can be
+found in the `/boot` directory or in the directory containing the
+kernel modules.
 
-In such case, the following commands allow testing if the installed kernel
-supports zoned block devices.
+The following commands test whether your installed kernel supports
+zoned block devices.
 
 ```plaintext
 # cat /boot/config-`uname -r` | grep CONFIG_BLK_DEV_ZONED
@@ -82,17 +84,18 @@ or
 CONFIG_BLK_DEV_ZONED=y
 ```
 
-If the output of one of these commands is `CONFIG_BLK_DEV_ZONED=y`, then zoned
-block devices are supported by the kernel. If the output is
-`CONFIG_BLK_DEV_ZONED=n`, then block device support is disabled and the kernel
-needs to be recompiled.
+If the output of one of these commands is `CONFIG_BLK_DEV_ZONED=y`,
+then zoned block devices are supported by the kernel. If the output is
+`CONFIG_BLK_DEV_ZONED=n`, then block device support is disabled and
+the kernel must be recompiled in order to enable block device support.
 
 !!! Note
-    For kernels older than kernel version 4.10, the output of these commands is
-    always empty.
+    For kernels older than kernel version 4.10, the output of these
+    commands is always empty.
 
-For kernels exporting the configuration through the *proc* file system, the
-following command can also be used.
+If your kernel exports its configuration through the *proc* file
+system, use one of the following sets of commands to retreive the
+status of `CONFIG_BLK_DEV_ZONED`:
 
 ```plaintext
 # modprobe configs
