@@ -16,19 +16,26 @@ several user utilities must be installed on the test system. These utilities are
 
 ## Linux Kernel
 
-A system with a Linux kernel version 4.10 or higher is recommended to get
-started with ZBC and ZAC hard disks. For a quick start, it is recommended to
-use a Linux distribution including ZBD support. More information on recommended
-Linux distributions can be found [here](../distributions/linux.md).
+We recommend only systems with Linux kernels that are version 4.10 or
+higher for use with ZBC and ZAC hard disks. If you intend to follow
+the examples in this Quick Start Guide, we recommend that you use a
+Linux distribution that includes ZBD support. More information on
+recommended Linux distributions can be found
+[here](../distributions/linux.md).
 
-Advanced users may want to compile and install a specific Linux kernel version
-to be used in place of the default kernel shipped with the distribution being
-used. Instructions on how to enable ZBD support in the kernel configuration
-are provided [here](../linux/config.md).
-It is recommended to always use the highest available stable kernel version, or
-a long term stable kernel version higher than 4.10. Information on available
-kernel versions can be found
-<a href="https://www.kernel.org/" target="_blank">here</a>.
+ZNS SSDs require zone capacity support, which was introduced in
+Linux kernel version 5.9. More information on ZNS SSDs can be found
+[here](../introduction/zns.md).
+
+Advanced users might want to compile and install a specific Linux
+kernel version instead of using the default kernel. If this is the
+case, you must enable ZBD support in that kernel.  An explanation of
+how to enable ZBD support in the kernel configuration is provided
+[here](../linux/config.md).  We recommend that you always use the
+highest available stable kernel version or a long term stable kernel
+version higher than 4.10.  Information on available kernel versions
+can be found <a href="https://www.kernel.org/"
+target="_blank">here</a>.
 
 ## Kernel Version and ZBD Support
 
@@ -42,28 +49,28 @@ ZBD interface.
 
 ### Kernel Version
 
-The command *uname* allows checking the version of the kernel running on a
-system. For example, on a *Fedora 29* distribution, this command output is as
-follows.
+The command `uname` makes it possible to check the version of the
+kernel running on a system. For example, on a *Fedora 29*
+distribution, this command and its output is as follows.
 
-```plaintext
-# uname -r
-5.0.13-200.fc29.x86_64
-```
+    # uname -r
+    5.0.13-200.fc29.x86_64
 
 ### Zoned Block Device Support
 
-Zoned block device support is optional and may not be enabled in the running
-kernel. The kernel configuration option enabling zoned block device support is
-*CONFIG_BLK_DEV_ZONED*.
+Zoned block device support might not be enabled by default in the
+running kernel. The kernel configuration option that is used to enable
+zoned block device support is `CONFIG_BLK_DEV_ZONED`.
 
-To check if the *CONFIG_BLK_DEV_ZONED* option is enabled for the kernel, several
-method can be used. Not all method may work for a particular distribution.
-In many cases, the configuration file for the running kernel can be found under
-the `/boot` directory and/or within the directory containing the kernel modules.
+There are several methods that can be used to determine whether the
+`CONFIG_BLK_DEV_ZONED` option has been enabled in the kernel.  Not all
+of these methods work for every Linux distribution.  In some
+distributions, the configuration file for the running kernel can be
+found in the `/boot` directory or in the directory containing the
+kernel modules.
 
-In such case, the following commands allow testing if the installed kernel
-supports zoned block devices.
+The following commands test whether your installed kernel supports
+zoned block devices.
 
 ```plaintext
 # cat /boot/config-`uname -r` | grep CONFIG_BLK_DEV_ZONED
@@ -77,17 +84,18 @@ or
 CONFIG_BLK_DEV_ZONED=y
 ```
 
-If the output of one of these commands is `CONFIG_BLK_DEV_ZONED=y`, then zoned
-block devices are supported by the kernel. If the output is
-`CONFIG_BLK_DEV_ZONED=n`, then block device support is disabled and the kernel
-needs to be recompiled.
+If the output of one of these commands is `CONFIG_BLK_DEV_ZONED=y`,
+then zoned block devices are supported by the kernel. If the output is
+`CONFIG_BLK_DEV_ZONED=n`, then block device support is disabled and
+the kernel must be recompiled in order to enable block device support.
 
 !!! Note
-    For kernels older than kernel version 4.10, the output of these commands is
-    always empty.
+    For kernels older than kernel version 4.10, the output of these
+    commands is always empty.
 
-For kernels exporting the configuration through the *proc* file system, the
-following command can also be used.
+If your kernel exports its configuration through the *proc* file
+system, use one of the following sets of commands to retreive the
+status of `CONFIG_BLK_DEV_ZONED`:
 
 ```plaintext
 # modprobe configs
