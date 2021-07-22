@@ -113,41 +113,44 @@ CONFIG_BLK_DEV_ZONED=y
 
 ### Write Ordering Control
 
-By default, Linux kernel does not provide any guarantee on the order in which
-commands are delivered to a block device. That is, an application writing
-sequentially to a disk may see write commands being delivered to the disk in a
-different order. This can cause write errors when writing to a zoned device
-sequential zones.
+By default, the Linux kernel does not guarantee the order in which
+commands are delivered to a block device. This means that an
+application that writes sequentially to a disk might have its write
+commands delivered to the disk in a different order than the order
+sent by the application. This might cause write errors if the  
+application is writing to a zoned device over sequential zones.
 
-To avoid this problem, a zone write lock mechanism serializing writes to
-sequential zones is implemented by all kernels supporting zoned block devices.
-For kernel versions between 4.10 and 4.15 included, no special configuration is
-necessary and the kernel will provide guarantees that write commands are
-delivered to the device in the same order as the application write requests
-issuing order.
+To avoid this problem, a "zone write lock mechanism" that serializes
+writes to sequential zones is implemented by all kernels that support
+zoned block devices. For kernel versions between 4.10 and 4.15
+(inclusive) no special configuration is necessary and the kernel
+guarantees the delivery of write commands to the device in the same
+order as the order of write requests issued by the application.
 
-However, starting with kernel version 4.16, zone write locking implementation
-was moved to the *deadline* and *mq-deadline* block I/O scheduler. Using this
-scheduler with zoned block devices is mandatory to ensure write command order
-guarantees.
+However, in kernel version 4.16, the implementation of zone write
+locking was moved to the *deadline* and *mq-deadline*
+block I/O scheduler. Therefore, in kernels of version 4.16 and
+higher, you must use this scheduler with zoned block devices in order
+to make the kernel guarantee the order of write commands.
 
 !!!note
-	The *mq-deadline* block I/O scheduler is enabled only if the SCSI
-	multi-queue (*scsi-mq*) infrastructure is enabled. This feature use can
-	be controlled using the kernel boot argument *scsi_mod.use_blk_mq".
-	*scsi-mq* is the default since kernel version 5.0 and the legacy single
-	queue SCSI command path is no longer supported.
+	The *mq-deadline* block I/O scheduler is enabled only if the
+	SCSI multi-queue (*scsi-mq*) infrastructure is enabled. This
+	feature use can be controlled by using the kernel boot
+	argument *scsi_mod.use_blk_mq*. The default has been
+	*scsi-mq* since kernel version 5.0 and the legacy single-queue
+	SCSI command path is no longer supported.
 
-To verify the block I/O scheduler of a zoned disk, the following command can be
-used.
+To see which block I/O scheduler a zoned disk uses, run the following command: 
 
 ```plaintext
 # cat /sys/block/sdb/queue/scheduler
 [none] mq-deadline kyber bfq
 ```
 
-If the disk block I/O scheduler selected is not *mq-deadline* as in the example
-above, the scheduler can be changed with the following command.
+If the disk block I/O scheduler that has been selected is not
+*mq-deadline* as in the example above, use the following command to
+change the scheduler:
 
 ```plaintext
 # echo deadline > /sys/block/sdb/queue/scheduler
