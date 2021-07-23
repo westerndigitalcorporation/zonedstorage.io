@@ -666,20 +666,26 @@ the <a href="../../linux/overview/">Linux Support</a> document.</p>
 <p>To verify that the zoned device has been discovered and correctly initalized,
 several user utilities must be installed on the test system. These utilities are discussed in more detail in the section called <a href="#prerequisites_user_utilities">User Utilities</a>.</p>
 <h2 id="linux-kernel">Linux Kernel</h2>
-<p>A system with a Linux kernel version 4.10 or higher is recommended to get
-started with ZBC and ZAC hard disks. For a quick start, it is recommended to
-use a Linux distribution including ZBD support. More information on recommended
-Linux distributions can be found <a href="../../distributions/linux/">here</a>.</p>
-<p>Advanced users may want to compile and install a specific Linux kernel version
-to be used in place of the default kernel shipped with the distribution being
-used. Instructions on how to enable ZBD support in the kernel configuration
-are provided <a href="../../linux/config/">here</a>.
-It is recommended to always use the highest available stable kernel version, or
-a long term stable kernel version higher than 4.10. Information on available
-kernel versions can be found
-<a href="https://www.kernel.org/" target="_blank">here</a>.</p>
+<p>We recommend only systems with Linux kernels that are version 4.10 or
+higher for use with ZBC and ZAC hard disks. If you intend to follow
+the examples in this Quick Start Guide, we recommend that you use a
+Linux distribution that includes ZBD support. More information on
+recommended Linux distributions can be found
+<a href="../../distributions/linux/">here</a>.</p>
+<p>ZNS SSDs require zone capacity support, which was introduced in
+Linux kernel version 5.9. More information on ZNS SSDs can be found
+<a href="../../introduction/zns/">here</a>.</p>
+<p>Advanced users might want to compile and install a specific Linux
+kernel version instead of using the default kernel. If this is the
+case, you must enable ZBD support in that kernel.  An explanation of
+how to enable ZBD support in the kernel configuration is provided
+<a href="../../linux/config/">here</a>.  We recommend that you always use the
+highest available stable kernel version or a long term stable kernel
+version higher than 4.10.  Information on available kernel versions
+can be found <a href="https://www.kernel.org/"
+target="_blank">here</a>.</p>
 <h2 id="kernel-version-and-zbd-support">Kernel Version and ZBD Support</h2>
-<p>Two conditions must be met to ensure that a system Linux kernel supports the
+<p>Two conditions must be met to ensure that a system's Linux kernel supports the
 ZBD interface.</p>
 <ol>
 <li>
@@ -691,22 +697,24 @@ ZBD interface.</p>
 </li>
 </ol>
 <h3 id="kernel-version">Kernel Version</h3>
-<p>The command <em>uname</em> allows checking the version of the kernel running on a
-system. For example, on a <em>Fedora 29</em> distribution, this command output is as
-follows.</p>
-<pre><code class="language-plaintext"># uname -r
+<p>The command <code>uname</code> makes it possible to check the version of the
+kernel running on a system. For example, on a <em>Fedora 29</em>
+distribution, this command and its output is as follows.</p>
+<pre><code># uname -r
 5.0.13-200.fc29.x86_64
 </code></pre>
 <h3 id="zoned-block-device-support">Zoned Block Device Support</h3>
-<p>Zoned block device support is optional and may not be enabled in the running
-kernel. The kernel configuration option enabling zoned block device support is
-<em>CONFIG_BLK_DEV_ZONED</em>.</p>
-<p>To check if the <em>CONFIG_BLK_DEV_ZONED</em> option is enabled for the kernel, several
-method can be used. Not all method may work for a particular distribution.
-In many cases, the configuration file for the running kernel can be found under
-the <code>/boot</code> directory and/or within the directory containing the kernel modules.</p>
-<p>In such case, the following commands allow testing if the installed kernel
-supports zoned block devices.</p>
+<p>Zoned block device support might not be enabled by default in the
+running kernel. The kernel configuration option that is used to enable
+zoned block device support is <code>CONFIG_BLK_DEV_ZONED</code>.</p>
+<p>There are several methods that can be used to determine whether the
+<code>CONFIG_BLK_DEV_ZONED</code> option has been enabled in the kernel.  Not all
+of these methods work for every Linux distribution.  In some
+distributions, the configuration file for the running kernel can be
+found in the <code>/boot</code> directory or in the directory containing the
+kernel modules.</p>
+<p>The following commands test whether your installed kernel supports
+zoned block devices.</p>
 <pre><code class="language-plaintext"># cat /boot/config-`uname -r` | grep CONFIG_BLK_DEV_ZONED
 CONFIG_BLK_DEV_ZONED=y
 </code></pre>
@@ -714,17 +722,18 @@ CONFIG_BLK_DEV_ZONED=y
 <pre><code class="language-plaintext"># cat /lib/modules/`uname -r`/config | grep CONFIG_BLK_DEV_ZONED
 CONFIG_BLK_DEV_ZONED=y
 </code></pre>
-<p>If the output of one of these commands is <code>CONFIG_BLK_DEV_ZONED=y</code>, then zoned
-block devices are supported by the kernel. If the output is
-<code>CONFIG_BLK_DEV_ZONED=n</code>, then block device support is disabled and the kernel
-needs to be recompiled.</p>
+<p>If the output of one of these commands is <code>CONFIG_BLK_DEV_ZONED=y</code>,
+then zoned block devices are supported by the kernel. If the output is
+<code>CONFIG_BLK_DEV_ZONED=n</code>, then block device support is disabled and
+the kernel must be recompiled in order to enable block device support.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For kernels older than kernel version 4.10, the output of these commands is
-always empty.</p>
+<p>For kernels older than kernel version 4.10, the output of these
+commands is always empty.</p>
 </div>
-<p>For kernels exporting the configuration through the <em>proc</em> file system, the
-following command can also be used.</p>
+<p>If your kernel exports its configuration through the <em>proc</em> file
+system, use one of the following sets of commands to retreive the
+status of <code>CONFIG_BLK_DEV_ZONED</code>:</p>
 <pre><code class="language-plaintext"># modprobe configs
 # cat /proc/config.gz | gunzip | grep CONFIG_BLK_DEV_ZONED
 CONFIG_BLK_DEV_ZONED=y
@@ -735,36 +744,39 @@ CONFIG_BLK_DEV_ZONED=y
 CONFIG_BLK_DEV_ZONED=y
 </code></pre>
 <h3 id="write-ordering-control">Write Ordering Control</h3>
-<p>By default, Linux kernel does not provide any guarantee on the order in which
-commands are delivered to a block device. That is, an application writing
-sequentially to a disk may see write commands being delivered to the disk in a
-different order. This can cause write errors when writing to a zoned device
-sequential zones.</p>
-<p>To avoid this problem, a zone write lock mechanism serializing writes to
-sequential zones is implemented by all kernels supporting zoned block devices.
-For kernel versions between 4.10 and 4.15 included, no special configuration is
-necessary and the kernel will provide guarantees that write commands are
-delivered to the device in the same order as the application write requests
-issuing order.</p>
-<p>However, starting with kernel version 4.16, zone write locking implementation
-was moved to the <em>deadline</em> and <em>mq-deadline</em> block I/O scheduler. Using this
-scheduler with zoned block devices is mandatory to ensure write command order
-guarantees.</p>
+<p>By default, the Linux kernel does not guarantee the order in which
+commands are delivered to a block device. This means that an
+application that writes sequentially to a disk might have its write
+commands delivered to the disk in a different order than the order
+sent by the application. This might cause write errors if the<br />
+application is writing to a zoned device over sequential zones.</p>
+<p>To avoid this problem, a "zone write lock mechanism" that serializes
+writes to sequential zones is implemented by all kernels that support
+zoned block devices. For kernel versions between 4.10 and 4.15
+(inclusive) no special configuration is necessary and the kernel
+guarantees the delivery of write commands to the device in the same
+order as the order of write requests issued by the application.</p>
+<p>However, in kernel version 4.16, the implementation of zone write
+locking was moved to the <em>deadline</em> and <em>mq-deadline</em>
+block I/O scheduler. Therefore, in kernels of version 4.16 and
+higher, you must use this scheduler with zoned block devices in order
+to make the kernel guarantee the order of write commands.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <em>mq-deadline</em> block I/O scheduler is enabled only if the SCSI
-multi-queue (<em>scsi-mq</em>) infrastructure is enabled. This feature use can
-be controlled using the kernel boot argument <em>scsi_mod.use_blk_mq".
-</em>scsi-mq* is the default since kernel version 5.0 and the legacy single
-queue SCSI command path is no longer supported.</p>
+<p>The <em>mq-deadline</em> block I/O scheduler is enabled only if the
+SCSI multi-queue (<em>scsi-mq</em>) infrastructure is enabled. This
+feature use can be controlled by using the kernel boot
+argument <em>scsi_mod.use_blk_mq</em>. The default has been
+<em>scsi-mq</em> since kernel version 5.0 and the legacy single-queue
+SCSI command path is no longer supported.</p>
 </div>
-<p>To verify the block I/O scheduler of a zoned disk, the following command can be
-used.</p>
+<p>To see which block I/O scheduler a zoned disk uses, run the following command: </p>
 <pre><code class="language-plaintext"># cat /sys/block/sdb/queue/scheduler
 [none] mq-deadline kyber bfq
 </code></pre>
-<p>If the disk block I/O scheduler selected is not <em>mq-deadline</em> as in the example
-above, the scheduler can be changed with the following command.</p>
+<p>If the disk block I/O scheduler that has been selected is not
+<em>mq-deadline</em> as in the example above, use the following command to
+change the scheduler:</p>
 <pre><code class="language-plaintext"># echo deadline &gt; /sys/block/sdb/queue/scheduler
 
 # cat sys/block/sdb/queue/scheduler
