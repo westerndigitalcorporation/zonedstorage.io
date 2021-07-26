@@ -1,23 +1,28 @@
 # Zoned Block Device Emulation with *null_blk*
 
-Linux&reg; *null_blk* driver is a powerful tool to emulate various types of
-block devices for tests. Since kernel 4.19, the *null_blk* driver gain the
-ability to emulate zoned block devices. With the addition of memory backup for
-data read and writen to a *null_blk* device, this driver provides an easy to use
-but yet powerful tool for application development and tests.
+The 
+[Linux&reg; *null_blk* driver](https://www.kernel.org/doc/Documentation/block/null_blk.txt)
+is a powerful tool that can emulate various types of block devices.
+Since kernel version 4.19, the *null_blk* driver has been able to
+emulate zoned block devices. Because memory backup has been added to
+the *null_blk* device for data reading and writing operations, the
+*null_blk* driver has become a practical, powerful tool that can be
+used for application development and tests.
 
 ## Creating a Zoned *null* Block Device
 
-The simplest method to create a *null_blk* emulated zoned block device is to
-specify the `zoned=1` argument to *null_blk* modrpobe command line.
+The simplest method for creating a *null_blk* emulated zoned block
+device is to specify `zoned=1` as an argument that follows the
+*modprobe **null_blk* command on the command line, as in the following
+example:
 
 ```plaintext
 # modprobe null_blk nr_devices=1 zoned=1
 ```
 
-This creates a single host managed zoned block device with a zone size of 256M
-and a total capacity of 250 GB (1000 zones). No conventional zones are created
-with this simple command.
+This creates a single, host-managed zoned block device that has a zone
+size of 256M and a total capacity of 250 GB (1000 zones). No
+conventional zones are created with this simple command.
 
 ```plaintext
 # blkzone report /dev/nullb0
@@ -33,9 +38,9 @@ with this simple command.
 ## *null_blk* Zoned Block Device Parameters
 
 The *null_blk* kernel module accepts many arguments to adjust the zone
-configuration of the emulated device. The zone related arguments can be listed
-using the *modinfo* command and using *configfs* once the *null_blk* module is
-loaded.
+configuration of the emulated device. The zone-related arguments can
+be listed using the *modinfo* command and those arguments can be
+modified by using *configfs* once the *null_blk* module is loaded.
 
 ```
 # modinfo null_blk
@@ -47,7 +52,8 @@ parm:           zone_nr_conv:Number of conventional zones when block device is z
 parm:           zone_max_open:Maximum number of open zones when block device is zoned. Default: 0 (no limit) (uint)
 parm:           zone_max_active:Maximum number of active zones when block device is zoned. Default: 0 (no limit) (uint)
 ```
-The parameters related to zoned device emulation are shown in the table below.
+The parameters that are related to zoned-device emulation are shown in
+the table below.
 
 <center>
 
