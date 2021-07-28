@@ -454,7 +454,7 @@ devices.  This configuration must ensure that each logical device created is
 assigned a sufficient amount of conventional zones to store *f2fs* fixed
 location metadata blocks.
 
-### Usage Example
+### Usage Example with Host Managed SMR HDD
 
 To format a zoned block device with *mkfs.f2fs*, the option `-m` must be specified.
 
@@ -489,6 +489,64 @@ setup necessary.
 
 ```plaintext
 # mount /dev/sdb /mnt
+```
+
+### Support for ZNS SSDs.
+ZNS SSDs have zones which can have a writeable area which is less than zone size,
+this writeable area per zone is called zone capacity. To support ZNS devices,
+*f2fs* needs to ensure that writes do not go beyond zone capacity and account
+for the useable blocks per zone, otherwise the zoned block device support added
+in *f2fs* is adequate to handle ZNS SSDs. Support to manage ZNS SSD zone capacity
+in f2fs is available from Linux kernel version 5.10.
+
+*f2fs* filesystem needs random writable storage device to place it's metadata
+blocks. Since ZNS drives are sequentially write only, f2fs filesytem cannot be
+created on a standalone ZNS drive. It needs a multi-device setup to create
+a *f2fs* filesystem on a ZNS SSD, where the first device should be
+randomly writeable block device.
+
+### Usage Example with ZNS SSDs.
+
+The ZNS SSD device IO scheduler needs to be set to mq-deadline.
+```plaintext
+echo mq-deadline > /sys/block/nvme1n1/queue/scheduler
+```
+For a multi-device setup, format a ZNS device /dev/nvme1n1 with a randomly writeable
+conventional storage device /dev/nvme0n1 with *mkfs.f2fs* with -c(multi-device)
+and -m(zone mode) options.
+
+```plaintext
+mkfs.f2fs -f -m -c /dev/nvme1n1 /dev/nvme0n1
+
+        F2FS-tools: mkfs.f2fs Ver: 1.14.0 (2021-06-23)
+
+Info: Disable heap-based policy
+Info: Debug level = 0
+Info: Trim is enabled
+Info: Host-managed zoned block device:
+      2048 zones, 0 randomly writeable zones
+      524288 blocks per zone
+Info: Segments per section = 1024
+Info: Sections per zone = 1
+Info: sector size = 4096
+Info: total sectors = 1107296256 (4325376 MB)
+Info: zone aligned segment0 blkaddr: 524288
+Info: format version with
+  "Linux version 5.13.0-rc6+ (user1@brahmaputra) (gcc (Ubuntu 10.3.0-1ubuntu1) 10.3.0, GNU ld (GNU Binutils for Ubuntu) 2.36.1) #2 SMP Fri Jun 18 16:45:29 IST 2021"
+Info: [/dev/nvme0n1] Discarding device
+Info: This device doesn't support BLKSECDISCARD
+Info: This device doesn't support BLKDISCARD
+Info: [/dev/nvme1n1] Discarding device
+Info: Discarded 4194304 MB
+Info: Overprovision ratio = 3.090%
+Info: Overprovision segments = 74918 (GC reserved = 40216)
+Info: format successful
+
+```
+Mount the formatted conventional device on to a mount point.
+
+```plaintext
+mount -t f2fs /dev/nvme0n1 /mnt/f2fs/
 ```
 
 Compared to the *dm-zoned* device mapper target solution, performance of *f2fs*
