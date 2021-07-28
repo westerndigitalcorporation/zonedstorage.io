@@ -646,19 +646,24 @@
         <div class="col-md-9" role="main">
 
 <h1 id="zoned-block-device-emulation-with-null_blk">Zoned Block Device Emulation with <em>null_blk</em></h1>
-<p>Linux&reg; <em>null_blk</em> driver is a powerful tool to emulate various types of
-block devices for tests. Since kernel 4.19, the <em>null_blk</em> driver gain the
-ability to emulate zoned block devices. With the addition of memory backup for
-data read and writen to a <em>null_blk</em> device, this driver provides an easy to use
-but yet powerful tool for application development and tests.</p>
+<p>The 
+<a href="https://www.kernel.org/doc/Documentation/block/null_blk.txt">Linux&reg; <em>null_blk</em> driver</a>
+is a powerful tool that can emulate various types of block devices.
+Since kernel version 4.19, the <em>null_blk</em> driver has been able to
+emulate zoned block devices. Because memory backup has been added to
+the <em>null_blk</em> device for data reading and writing operations, the
+<em>null_blk</em> driver has become a practical, powerful tool that can be
+used for application development and tests.</p>
 <h2 id="creating-a-zoned-null-block-device">Creating a Zoned <em>null</em> Block Device</h2>
-<p>The simplest method to create a <em>null_blk</em> emulated zoned block device is to
-specify the <code>zoned=1</code> argument to <em>null_blk</em> modrpobe command line.</p>
+<p>The simplest method for creating a <em>null_blk</em> emulated zoned block
+device is to specify <code>zoned=1</code> as an argument that follows the
+<em>modprobe </em><em>null_blk</em> command on the command line, as in the following
+example:</p>
 <pre><code class="language-plaintext"># modprobe null_blk nr_devices=1 zoned=1
 </code></pre>
-<p>This creates a single host managed zoned block device with a zone size of 256M
-and a total capacity of 250 GB (1000 zones). No conventional zones are created
-with this simple command.</p>
+<p>This creates a single, host-managed zoned block device that has a zone
+size of 256M and a total capacity of 250 GB (1000 zones). No
+conventional zones are created with this simple command.</p>
 <pre><code class="language-plaintext"># blkzone report /dev/nullb0
   start: 0x000000000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
   start: 0x000080000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
@@ -670,9 +675,9 @@ with this simple command.</p>
 </code></pre>
 <h2 id="null_blk-zoned-block-device-parameters"><em>null_blk</em> Zoned Block Device Parameters</h2>
 <p>The <em>null_blk</em> kernel module accepts many arguments to adjust the zone
-configuration of the emulated device. The zone related arguments can be listed
-using the <em>modinfo</em> command and using <em>configfs</em> once the <em>null_blk</em> module is
-loaded.</p>
+configuration of the emulated device. The zone-related arguments can
+be listed using the <em>modinfo</em> command and those arguments can be
+modified by using <em>configfs</em> once the <em>null_blk</em> module is loaded.</p>
 <pre><code># modinfo null_blk
 ...
 parm:           zoned:Make device as a host-managed zoned block device. Default: false (bool)
@@ -682,7 +687,8 @@ parm:           zone_nr_conv:Number of conventional zones when block device is z
 parm:           zone_max_open:Maximum number of open zones when block device is zoned. Default: 0 (no limit) (uint)
 parm:           zone_max_active:Maximum number of active zones when block device is zoned. Default: 0 (no limit) (uint)
 </code></pre>
-<p>The parameters related to zoned device emulation are shown in the table below.</p>
+<p>The parameters that are related to zoned-device emulation are shown in
+the table below.</p>
 <p><center></p>
 <table>
 <thead>
