@@ -81,6 +81,7 @@ nav:
          - 'tcmu-runner ZBC Disk Emulation': projects/tcmu-runner.md
          - 'QEMU and KVM': projects/qemu.md
          - 'Linux Tools for ZNS': projects/zns.md
+         - 'Getting started with RocksDB and ZNS SSDs': projects/zenfs.md
      - 'System Compliance Tests':
          - 'ZBC/ZAC Compliance Tests': tests/zbc-tests.md
          - 'Kernel Block Layer Tests': tests/blktests.md
