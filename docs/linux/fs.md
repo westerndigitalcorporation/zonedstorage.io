@@ -442,11 +442,35 @@ suitable for *f2fs*.
    replaced with execution of a zone write pointer reset command when all blocks
    of all segments of a section are free, allowing the section to be reused.
 
+Compared to a solution using the *dm-zoned* device mapper target, performance
+of *f2fs* on zoned devices does not suffer from zone reclaim overhead as writes
+are always sequential and do not require on-disk temporary buffering. *f2fs*
+garbage collection (segment cleanup) will generate overhead only for workloads
+frequently deleting file or modifying files data.
+
+### Zone Capacity Support
+
+NVMe ZNS SSDs can have a per
+[zone capacity that is smaller than the zone size](/introduction/zns#zone-capacity-and-zone-size).
+To support ZNS devices, *f2fs* ensures that block allocation and accounting
+only considers the blocks in a zone that are within the zone capacity. This
+support for NVMe ZNS zone capacity is available since Linux kernel version 5.10.
+
+Additionally, *f2fs* volumes need some storage space that is randomly writable
+to store and update in-place metadata blocks for the volume. Since NVMe zoned
+namespaces do not have conventional zones, a *f2fs* volume cannot be
+self-contained within a single NVMe zoned namespace. To format a *f2fs* volume
+using a NVMe zoned namespace, a multi-device volume format must be used to
+provide an additional regular block device to store the volume metadata blocks.
+This additional regular block device can be either a regular namespace on
+the same NVMe device or a regular namespace on another NVMe device.
+
 ### Limitations
 
-*f2fs* uses 32 bits block number with a block size of 4 KB. This results in a
-maximum volume size of 16 TB. Any device with a total capacity larger than 16 TB
-cannot be used with *f2fs*.
+*f2fs* uses 32-bits block numbers with a block size of 4 KB. This results in a
+maximum volume size of 16 TB. Any device or combination of devices (for a
+multi-device volume) with a total capacity larger than 16 TB cannot be used
+with *f2fs*.
 
 To overcome this limit, the [*dm-linear*](dm.md#dm-linear) device mapper target
 can be used to partition a zoned block device into serviceable smaller logical
@@ -454,9 +478,10 @@ devices.  This configuration must ensure that each logical device created is
 assigned a sufficient amount of conventional zones to store *f2fs* fixed
 location metadata blocks.
 
-### Usage Example
+### Usage Example with a Host Managed SMR HDD
 
-To format a zoned block device with *mkfs.f2fs*, the option `-m` must be specified.
+To format a zoned block device with *mkfs.f2fs*, the option `-m` must be
+specified.
 
 ```plaintext
 # mkfs.f2fs -m /dev/sdb
@@ -491,11 +516,57 @@ setup necessary.
 # mount /dev/sdb /mnt
 ```
 
-Compared to the *dm-zoned* device mapper target solution, performance of *f2fs*
-does not suffer from zone reclaim overhead as writes are always sequential and
-do not require on-disk temporary buffering. *f2fs* garbage collection (segment
-cleanup) will generate performance overhead only for workloads frequently
-deleting file or modifying files data.
+### Usage Example with a NVMe ZNS SSD
+
+Unlike SMR hard-disks, the kernel does not select by default the *mq-deadline*
+block IO scheduler block devices representing NVMe ZNS namespaces. To ensure
+that the regular write operations used by *f2fs* are delivered to the device in
+sequential order, the IO scheduler fo the NVMe ZNS namespace device must be set
+to *mq-deadline*. This is done with the following command.
+
+```plaintext
+# echo mq-deadline > /sys/block/nvme1n1/queue/scheduler
+```
+
+Where /dev/nvme1n1 is the zoned namespace that will be used for the *f2fs*
+volume. Using this namespace, a multi-device *f2fs* volume using an additional
+regular block device (`/dev/nvme0n1` in the following example) can be formatted
+using the *-c* option of *mkfs.f2fs*, as shown in the following example.
+
+```plaintext
+# mkfs.f2fs -f -m -c /dev/nvme1n1 /dev/nvme0n1
+
+        F2FS-tools: mkfs.f2fs Ver: 1.14.0 (2021-06-23)
+
+Info: Disable heap-based policy
+Info: Debug level = 0
+Info: Trim is enabled
+Info: Host-managed zoned block device:
+      2048 zones, 0 randomly writeable zones
+      524288 blocks per zone
+Info: Segments per section = 1024
+Info: Sections per zone = 1
+Info: sector size = 4096
+Info: total sectors = 1107296256 (4325376 MB)
+Info: zone aligned segment0 blkaddr: 524288
+Info: format version with
+  "Linux version 5.13.0-rc6+ (user1@brahmaputra) (gcc (Ubuntu 10.3.0-1ubuntu1) 10.3.0, GNU ld (GNU Binutils for Ubuntu) 2.36.1) #2 SMP Fri Jun 18 16:45:29 IST 2021"
+Info: [/dev/nvme0n1] Discarding device
+Info: This device doesn't support BLKSECDISCARD
+Info: This device doesn't support BLKDISCARD
+Info: [/dev/nvme1n1] Discarding device
+Info: Discarded 4194304 MB
+Info: Overprovision ratio = 3.090%
+Info: Overprovision segments = 74918 (GC reserved = 40216)
+Info: format successful
+```
+
+To mount the volume formatted with the above command, the regulr block device
+must be specified.
+
+```plaintext
+# mount -t f2fs /dev/nvme0n1 /mnt/f2fs/
+```
 
 
 ## Btrfs
