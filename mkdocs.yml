@@ -74,13 +74,14 @@ nav:
          - 'File Systems': linux/fs.md
      - 'Applications and Libraries':
          - 'Linux System Utilities': projects/util-linux.md
+         - 'Linux Tools for ZNS': projects/zns.md
          - 'SCSI Generic Utilities': projects/sg3utils.md
          - 'libzbc User Library': projects/libzbc.md
          - 'libnvme User Library': projects/libnvme.md
          - 'libzbd User Library': projects/libzbd.md
          - 'tcmu-runner ZBC Disk Emulation': projects/tcmu-runner.md
          - 'QEMU and KVM': projects/qemu.md
-         - 'Linux Tools for ZNS': projects/zns.md
+         - 'RocksDB and ZenFS': projects/zenfs.md
      - 'System Compliance Tests':
          - 'ZBC/ZAC Compliance Tests': tests/zbc-tests.md
          - 'Kernel Block Layer Tests': tests/blktests.md
