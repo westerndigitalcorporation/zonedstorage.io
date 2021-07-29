@@ -197,13 +197,14 @@ information on `lssci` as well as usage examples.
 ### sg3_utils
 
 The <a href="http://sg.danny.cz/sg/sg3_utils.html"
-target="_blank">*sg3_utils*</a> package is a collection of command line tools
-that send SCSI commands to a SCSI device.
+target="_blank">*sg3_utils*</a> package is a collection of command
+line tools that send SCSI commands to a SCSI device.
 
-In Linux, all disks are exposed as SCSI disks. This includes ATA drives.
-`sg3_utils` can be used to manage SAS ZBC disks as well as SATA ZAC disks. When
-dealing with SATA disks connected to SATA ports (for example, an AHCI adapter),
-the kernel SCSI subsystem translates SCSI commands into ATA commands.
+In Linux, all disks are exposed as SCSI disks. This includes ATA
+drives.  `sg3_utils` can be used to manage SAS ZBC disks as well as
+SATA ZAC disks. When dealing with SATA disks connected to SATA ports
+(for example, an AHCI adapter), the kernel ATA subsystem (libata)
+translates SCSI commands into ATA commands.
 
 *sg3_utils* includes three command line tools specific to ZBC disks:
 
@@ -212,18 +213,17 @@ the kernel SCSI subsystem translates SCSI commands into ATA commands.
 | Utility Name     | SCSI Command Invoked   | Description                       |
 | :--------------- | :--------------------- | :-------------------------------- |
 | **sg_rep_zones** | REPORT ZONES           | Get a ZBC disk's zone information |
-| **sg_reset_wp**  | RESET WRITE POINTER    | Reset one zone or all zones on a ZBC disk |
-| **sg_zone**      | CLOSE ZONE, FINISH ZONE, OPEN ZONE | Sends one of these commands to the specified ZBC disk |
+| **sg_reset_wp**  | RESET WRITE POINTER    | Reset one zone or all zones of ZBC disk |
+| **sg_zone**      | CLOSE ZONE, FINISH ZONE, OPEN ZONE | Sends one of these commands to the given ZBC disk |
 
 </center>
 
-See the sg3_utils section under [SCSI Generic
-Utilites](../projects/sg3utils.md#sg3_utils) for sg3_utils usage examples. 
-
+[This section](../projects/sg3utils.md#sg3_utils) shows some examples of these
+utilities execution
 
 ### libzbc
 
-*libzbc* is a user space library that provides functions for manipulating ZBC and
+*libzbc* is a user space library providing functions for manipulating ZBC and
 ZAC disks.  The *libzbc* project is hosted on
 <a href="https://github.com/westerndigitalcorporation/libzbc" target="_blank">
 GitHub</a>. Documentation is provided in the project
@@ -231,11 +231,10 @@ GitHub</a>. Documentation is provided in the project
 target="_blank"> README</a> file. The API documentation can also be
 automatically generated using *doxygen*.
 
-*libzbc* also provides a set of command line utilities that have functions
-similar to the functions of both the `blkzone` utility and *the sg3_utils*
-command line tools.
+*libzbc* also provides a set of command line utilities with similar
+functionalities as the `blkzone` utility and *the sg3_utils* command line tools.
 
-More information on how to compile and install *libzbc* (as well as usage
-examples of the command line utilities provided) can be found in 
-[the libzbc User Library section of the Applications and Libraries Guide](../projects/libzbc.md).
+More information on how to compile and install *libzbc* as well as usage
+examples of the command line utilities provided can be found
+[here](../projects/libzbc.md).
 
