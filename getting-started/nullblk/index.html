@@ -228,6 +228,12 @@
         
             
 <li >
+    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+</li>
+
+        
+            
+<li >
     <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
 </li>
 
@@ -264,7 +270,7 @@
         
             
 <li >
-    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+    <a href="../../projects/zenfs/">RocksDB and ZenFS</a>
 </li>
 
         
@@ -417,22 +423,26 @@
             
               <li class="second-level active"><a href="#zoned-block-device-emulation-with-null_blk">Zoned Block Device Emulation with null_blk</a></li>
               
-                <li class="third-level"><a href="#creating-a-zoned-null-block-device">Creating a Zoned null Block Device</a></li>
+                <li class="third-level"><a href="#creating-a-zoned-null-block-device-simplest-case">Creating a Zoned null Block Device &mdash; Simplest Case</a></li>
                 
               
-                <li class="third-level"><a href="#null_blk-zoned-block-device-parameters">null_blk Zoned Block Device Parameters</a></li>
+                <li class="third-level"><a href="#listing-null_blk-zoned-block-device-parameters">Listing null_blk Zoned Block Device Parameters</a></li>
                 
               
-                <li class="third-level"><a href="#creating-a-null_blk-zoned-block-device">Creating a null_blk Zoned Block Device</a></li>
+                <li class="third-level"><a href="#creating-a-null_blk-zoned-block-device-more-advanced-cases-configfs">Creating a null_blk Zoned Block Device &mdash; More Advanced Cases (configfs)</a></li>
                 
               
                 <li class="third-level"><a href="#deleting-a-null_blk-zoned-block-device">Deleting a null_blk Zoned Block Device</a></li>
                 
-              
-                <li class="third-level"><a href="#smr-hdd-emulation">SMR HDD Emulation</a></li>
+                  <li class="fourth-level"><a href="#deleting-zbd-that-were-created-with-modprobe">Deleting ZBD that were created with modprobe</a></li>
+                
+                  <li class="fourth-level"><a href="#deleting-zbd-that-were-created-with-configfs">Deleting ZBD that were created with configfs</a></li>
                 
               
-                <li class="third-level"><a href="#nvme-zns-ssd-emulation">NVMe ZNS SSD Emulation</a></li>
+                <li class="third-level"><a href="#emulating-smr-hdd">Emulating SMR HDD</a></li>
+                
+              
+                <li class="third-level"><a href="#emulating-nvme-zns-ssd">Emulating NVMe ZNS SSD</a></li>
                 
               
             
@@ -584,6 +594,12 @@
 
         
 
+  	  
+
+  	  
+
+        
+
       
 
     
@@ -654,7 +670,7 @@ emulate zoned block devices. Because memory backup has been added to
 the <em>null_blk</em> device for data reading and writing operations, the
 <em>null_blk</em> driver has become a practical, powerful tool that can be
 used for application development and tests.</p>
-<h2 id="creating-a-zoned-null-block-device">Creating a Zoned <em>null</em> Block Device</h2>
+<h2 id="creating-a-zoned-null-block-device-simplest-case">Creating a Zoned <em>null</em> Block Device &mdash; Simplest Case</h2>
 <p>The simplest method for creating a <em>null_blk</em> emulated zoned block
 device is to specify <code>zoned=1</code> as an argument that follows the
 <em>modprobe </em><em>null_blk</em> command on the command line, as in the following
@@ -673,7 +689,7 @@ conventional zones are created with this simple command.</p>
   start: 0x01f300000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
   start: 0x01f380000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
 </code></pre>
-<h2 id="null_blk-zoned-block-device-parameters"><em>null_blk</em> Zoned Block Device Parameters</h2>
+<h2 id="listing-null_blk-zoned-block-device-parameters">Listing <em>null_blk</em> Zoned Block Device Parameters</h2>
 <p>The <em>null_blk</em> kernel module accepts many arguments to adjust the zone
 configuration of the emulated device. The zone-related arguments can
 be listed using the <em>modinfo</em> command and those arguments can be
@@ -732,7 +748,7 @@ the table below.</p>
 </tbody>
 </table>
 <p></center>  </p>
-<h2 id="creating-a-null_blk-zoned-block-device">Creating a <em>null_blk</em> Zoned Block Device</h2>
+<h2 id="creating-a-null_blk-zoned-block-device-more-advanced-cases-configfs">Creating a <em>null_blk</em> Zoned Block Device &mdash; More Advanced Cases (configfs)</h2>
 <p>To create an emulated zoned block device with <em>null_blk</em>, as shown above, the
 <em>modprobe</em> command can be used. Additional parameters can be passed to this
 command to configure the emulated disk.</p>
@@ -741,9 +757,16 @@ command to configure the emulated disk.</p>
     zone_nr_conv=4 \
     zone_size=64 \
 </code></pre>
+<p>In this example, the arguments mean the following:</p>
+<ol>
+<li><code>nr_devices=1</code> means that only one (1) device will be created.</li>
+<li><code>zoned=1</code> means that all devices that are created will be zoned devices.</li>
+<li><code>zone_nr_conv=4</code> sets the number of conventional zones to four (4).</li>
+<li><code>zone_size=64</code> sets the size of each zone to sixty-four (64) megabytes.</li>
+</ol>
 <p>The <em>configfs</em> interface of the <em>null_blk</em> driver provides a more powerful
 method for creating emulated zoned block devices. The <em>configfs</em> parameters
-of the <em>null_blk</em> driver can be listed with the following command.</p>
+of the <em>null_blk</em> driver can be listed by running the following commands:</p>
 <pre><code class="language-plaintext"># modprobe null_blk nr_devices=0
 
 # cat /sys/kernel/config/nullb/features
@@ -804,14 +827,19 @@ function create_zoned_nullb()
 nulldev=$(create_zoned_nullb $1 $2 $3 $4)
 echo &quot;Created /dev/nullb$nulldev&quot;
 </code></pre>
-<p>This script (<em>nullblk-zoned.sh</em>) takes four arguments: the sector size in bytes,
-of the emulated device, the device zone size in MiB, the number of conventional
-zones (which can be 0) and the number of sequential write required zones. Memory
-backing for writen sectors is turned on with this script (memory_backed=1).
-This enables run-time persistancy of the data written to the sectors of the
-emulated device. The writen data is lost when the emulated device is destroyed.</p>
+<p>This script (<em>nullblk-zoned.sh</em>) takes four arguments:</p>
+<ol>
+<li>the sector size in bytes of the emulated device</li>
+<li>the device zone size in MiB</li>
+<li>the number of conventional zones (which can be 0)</li>
+<li>the number of sequential write required zones.</li>
+</ol>
+<p>Memory-backing for written sectors can be turned on with this script
+(memory_backed=1). This enables run-time persistence of the data written to
+the sectors of the emulated device. The writen data is lost when the emulated
+device is destroyed.</p>
 <p>For example, a small zoned device with 4 conventional zones and 8 sequential
-write required zones of 64 MiB can be created with the following command.</p>
+write required zones of 64 MiB can be created with the following command:</p>
 <pre><code class="language-plaintext"># nullblk-zoned.sh 4096 64 4 8
 Created /dev/nullb0
 # blkzone report /dev/nullb0 
@@ -830,14 +858,21 @@ Created /dev/nullb0
   start: 0x000860000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
 </code></pre>
 <h2 id="deleting-a-null_blk-zoned-block-device">Deleting a <em>null_blk</em> Zoned Block Device</h2>
-<p>For emulated devices created through <em>modprobe</em>, the emulated devices can be
-deleted by simply removing the <em>null_blk</em> kernel module.</p>
+<p>There are two ways to delete <em>null_blk</em> zoned block devices. One way is used to
+delete <em>null_blk</em> zoned block devices that were created using <em>modprobe</em> and
+the other way is used to delete <em>null_blk</em> zoned block devices that were
+created using <em>configfs</em>.</p>
+<h3 id="deleting-zbd-that-were-created-with-modprobe">Deleting ZBD that were created with modprobe</h3>
+<p>Emulated devices created by using <em>modprobe</em> (and not created using <em>configfs</em>)
+can be deleted by removing the <em>null_blk</em> kernel module:</p>
 <pre><code class="language-plaintext"># rmmod null_blk
 </code></pre>
-<p>This command does not work to delete emulated devices created through the
-<em>configfs</em> interface. The following script is the counter part of the zoned
-block device creation script show above. It can be used to destroy <em>null_blk</em>
-devices created through <em>configfs</em>.</p>
+<p>This command will not delete emulated devices that were created through the
+<em>configfs</em> interface.</p>
+<h3 id="deleting-zbd-that-were-created-with-configfs">Deleting ZBD that were created with configfs</h3>
+<p>The following script is the counterpart of the zoned block device creation
+script shown above. It can be used to destroy <em>null_blk</em> devices created
+through <em>configfs</em>.</p>
 <pre><code class="language-bash">#!/bin/bash
 
 if [ $# != 1 ]; then
@@ -857,21 +892,23 @@ rmdir /sys/kernel/config/nullb/nullb$nid
 
 echo &quot;Destroyed /dev/nullb$nid&quot;
 </code></pre>
-<h2 id="smr-hdd-emulation">SMR HDD Emulation</h2>
-<p>As is, the <em>nullblk-zoned.sh</em> script allows creating zoned block devices that
-correspond to a possible configuration of an SMR hard disk with no limit on the
-maximum number of open zones. This script can be easily modified to add a
-limit on the number of open zones of the emulated device (<em>zone_max_open</em>
-parameter) to more facefully emulate an SMR HDD characteristics.</p>
+<h2 id="emulating-smr-hdd">Emulating SMR HDD</h2>
+<p>As it is written, the <em>nullblk-zoned.sh</em> script makes it possible to create
+zoned block devices that correspond to a possible configuration of an SMR hard
+disk, with no limit on the maximum number of open zones. This script can be
+easily modified, however, to add a limit to the number of open zones on the
+emulated device (<em>zone_max_open</em> parameter), to more faithfully emulate an SMR
+HDD's characteristics.</p>
 <p>The <em>zone_capacity</em> and <em>zone_max_active</em> parameters should not be used when the
-emulated device must mimic the characteristics of a SMR hard disk.</p>
-<h2 id="nvme-zns-ssd-emulation">NVMe ZNS SSD Emulation</h2>
-<p>The <em>zone_capacity</em> and <em>zone_max_active</em> parameters allow creating an emulated
-zoned block device mimicking the characteristics of a NVMe Zoned Namespace SSD.
-The <em>zone_capacity</em> parameter can be used to specify the amount of sectors in
-each zone that can be read and written, while the <em>zone_max_active</em> argument can
-specify a limit on the number of zones that can be in the closed, implicit open
-and explicit open states.</p></div>
+emulated device is meant to mimic the characteristics of a SMR hard disk.</p>
+<h2 id="emulating-nvme-zns-ssd">Emulating NVMe ZNS SSD</h2>
+<p>The <em>zone_capacity</em> and <em>zone_max_active</em> parameters make it possible to
+create an emulated zoned block device that mimics the characteristics of a
+NVMe Zoned Namespace SSD. The <em>zone_capacity</em> parameter can be used to specify
+the number of sectors in each zone that can be read and written, while the
+<em>zone_max_active</em> argument can be used to specify a limit on the number of
+zones that can be in the closed state, the implicit-open state, and the
+explicit-open state.</p></div>
         
         
     </div>

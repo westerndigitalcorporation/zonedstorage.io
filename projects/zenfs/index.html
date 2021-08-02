@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Linux Zoned Storage Documentation">
     
-    <link rel="canonical" href="https://zonedstorage.io/linux/part/">
+    <link rel="canonical" href="https://zonedstorage.io/projects/zenfs/">
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
     
-    <title>Zoned Block Device Partition Support - Zoned Storage</title>
+    <title>RocksDB and ZenFS - Zoned Storage</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -162,49 +162,49 @@
   
   
   
-  <li class="dropdown-submenu active">
-    <a tabindex="-1" href="..">Linux Kernel Support</a>
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="../../linux">Linux Kernel Support</a>
     <ul class="dropdown-menu">
         
             
 <li >
-    <a href="../overview/">Support Overview</a>
+    <a href="../../linux/overview/">Support Overview</a>
 </li>
 
         
             
 <li >
-    <a href="../config/">Enabling Zoned Block Device Support</a>
+    <a href="../../linux/config/">Enabling Zoned Block Device Support</a>
 </li>
 
         
             
 <li >
-    <a href="../zbd-api/">User Interface</a>
+    <a href="../../linux/zbd-api/">User Interface</a>
 </li>
 
         
             
 <li >
-    <a href="../sched/">Write Command Ordering</a>
-</li>
-
-        
-            
-<li class="active">
-    <a href="./">Zoned Block Device Partition Support</a>
+    <a href="../../linux/sched/">Write Command Ordering</a>
 </li>
 
         
             
 <li >
-    <a href="../dm/">Device Mapper</a>
+    <a href="../../linux/part/">Zoned Block Device Partition Support</a>
 </li>
 
         
             
 <li >
-    <a href="../fs/">File Systems</a>
+    <a href="../../linux/dm/">Device Mapper</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../linux/fs/">File Systems</a>
 </li>
 
         
@@ -216,61 +216,61 @@
   
   
   
-  <li class="dropdown-submenu">
-    <a tabindex="-1" href="../../projects">Applications and Libraries</a>
+  <li class="dropdown-submenu active">
+    <a tabindex="-1" href="..">Applications and Libraries</a>
     <ul class="dropdown-menu">
         
             
 <li >
-    <a href="../../projects/util-linux/">Linux System Utilities</a>
+    <a href="../util-linux/">Linux System Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+    <a href="../zns/">Linux Tools for ZNS</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+    <a href="../sg3utils/">SCSI Generic Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbc/">libzbc User Library</a>
+    <a href="../libzbc/">libzbc User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libnvme/">libnvme User Library</a>
+    <a href="../libnvme/">libnvme User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbd/">libzbd User Library</a>
+    <a href="../libzbd/">libzbd User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+    <a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/qemu/">QEMU and KVM</a>
+    <a href="../qemu/">QEMU and KVM</a>
 </li>
 
         
             
-<li >
-    <a href="../../projects/zenfs/">RocksDB and ZenFS</a>
+<li class="active">
+    <a href="./">RocksDB and ZenFS</a>
 </li>
 
         
@@ -339,12 +339,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../sched/">
+                        <a rel="prev" href="../qemu/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../dm/">
+                        <a rel="next" href="../../tests/zbc-tests/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -448,39 +448,13 @@
         
         
         
-          <li class="first-level active"><a href="/linux/" style="font-weight:bold">Linux Kernel Support</a></li>
+          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
           
         
 
         
 
   	  
-            <li class="second-level"><a href="../overview/">Support Overview</a></li>
-          
-
-  	  
-
-        
-
-  	  
-            <li class="second-level"><a href="../config/">Enabling Zoned Block Device Support</a></li>
-          
-
-  	  
-
-        
-
-  	  
-            <li class="second-level"><a href="../zbd-api/">User Interface</a></li>
-          
-
-  	  
-
-        
-
-  	  
-            <li class="second-level"><a href="../sched/">Write Command Ordering</a></li>
-          
 
   	  
 
@@ -489,31 +463,34 @@
   	  
 
   	  
-            
-              <li class="second-level active"><a href="#zoned-block-device-partition-support">Zoned Block Device Partition Support</a></li>
-              
-                <li class="third-level"><a href="#kernel-versions-410-to-54">Kernel Versions 4.10 to 5.4</a></li>
-                
-              
-                <li class="third-level"><a href="#kernel-versions-55-and-later">Kernel Versions 5.5 and later</a></li>
-                
-              
-            
-          
 
         
 
   	  
-            <li class="second-level"><a href="../dm/">Device Mapper</a></li>
-          
 
   	  
 
         
 
   	  
-            <li class="second-level"><a href="../fs/">File Systems</a></li>
-          
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
 
   	  
 
@@ -528,13 +505,71 @@
         
         
         
-          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          <li class="first-level active"><a href="/projects/" style="font-weight:bold">Applications and Libraries</a></li>
           
         
 
         
 
   	  
+            <li class="second-level"><a href="../util-linux/">Linux System Utilities</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../zns/">Linux Tools for ZNS</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../sg3utils/">SCSI Generic Utilities</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libzbc/">libzbc User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libnvme/">libnvme User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../libzbd/">libzbd User Library</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a></li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level"><a href="../qemu/">QEMU and KVM</a></li>
+          
 
   	  
 
@@ -543,48 +578,32 @@
   	  
 
   	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
+            
+              <li class="second-level active"><a href="#rocksdb-and-zenfs">RocksDB and ZenFS</a></li>
+              
+                <li class="third-level"><a href="#zenfs">ZenFS</a></li>
+                
+              
+                <li class="third-level"><a href="#prerequisites">Prerequisites</a></li>
+                
+              
+                <li class="third-level"><a href="#building-and-installing-zenfs">Building and Installing ZenFS</a></li>
+                
+              
+                <li class="third-level"><a href="#zenfs-utils">ZenFS Utils</a></li>
+                
+                  <li class="fourth-level"><a href="#formatting-a-nvme-zns-device">Formatting a NVMe ZNS Device</a></li>
+                
+                  <li class="fourth-level"><a href="#list-files-of-a-nvme-zns-device">List Files of a NVMe ZNS Device</a></li>
+                
+                  <li class="fourth-level"><a href="#backing-up-a-zenfs-filesystem">Backing-up a ZenFS Filesystem</a></li>
+                
+              
+                <li class="third-level"><a href="#performance-benchmark">Performance Benchmark</a></li>
+                
+              
+            
+          
 
         
 
@@ -649,57 +668,176 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="zoned-block-device-partition-support">Zoned Block Device Partition Support</h1>
-<p>Support for partition tables on zoned block devices depends on the kernel
-version being used.</p>
-<h2 id="kernel-versions-410-to-54">Kernel Versions 4.10 to 5.4</h2>
-<p>All kernels starting with version 4.10.0 (first kernel including zoned block
-device support) up to version 5.4 support partition tables on zoned block
-devices. For these kernels, The start sector and size of partitions of a zoned
-block device must be aligned to zone boundaries of the device. That is, a
-partition must start with the first sector of a zone and ends on the last sector
-of a zone.</p>
-<p>A zone report operation on a partition device (as opposed to a zone report for
-the entire container device) will report zone sector information (zone start
-sector and write pointer position) relative to the partition start sector.
-Similarly, a zone reset operation must specify a target zone range relative to
-the partition start sector. In effect, a zoned block device partition can be
-treated exactly like a regular disk, using the partition zoned block device with
-a start sector of 0. All zone and IO operations will be executed correctly
-taking into account the partition start sector and size.</p>
-<p>For host aware zoned block device models, creating partitions using a standard
-tools such as <a href="https://gparted.org/" target="_blank"><em>gparted</em></a> to
-create a GUID partition table will work as expected. Since well-known partition
-tools do not have zoned block device support implemented, users must manually
-align the partitions to zone boundaries to satisfy the kernel constraint. This
-alignement will not be automatically done by the partitioning tool.</p>
-<p>However, the lack of zoned block device support for partition management tools
-can result in write IO errors for host managed zoned disk models. If the zones
-to be used to store the partition table data are sequential write required
-zones, then the partition tool must be able to correctly write align the
-partition table information on disk with the write pointer position of the
-zones that will be written. For instance, with the GUID partition table format,
-if the last zone of the disk is a sequential write required zone, the secondary
-GPT header and table entries will not necessarily be writable at the end of the
-disk LBA space, that is, at the end of the last zone of the disk. While manually
-performing this alignment is possible, such a procedure would be very difficult
-and unreliable.</p>
-<p>As a result, Using the <a href="../dm/#dm-linear"><em>dm-linear</em></a> device mapper
-target to isolate smaller portions of a large host managed device is a better
-solution than partitions. Users should assume that partitions are not supported
-for host managed zoned block devices.</p>
-<h2 id="kernel-versions-55-and-later">Kernel Versions 5.5 and later</h2>
-<p>Starting with the kernel version 5.5.0, partition support for host managed zoned
-block devices is ino longer provided. If a well formatted partition table is
-detected on a host managed zoned block device, the kernel will ignore it and
-will not create the block device files representing the partitions.</p>
-<p>For host aware zoned block devices, partitions are still supported. However, the
-kernel behavior differs from previosu versions. If a valid partition table is
-detected on a host aware zoned device, the device zone model is changed to
-<em>none</em>, completely disabling the use of the device and of its partitions as
-zoned block devices. In other words, a partitioned host aware device is always
-turned into a logical regular block device. Deleting the device partition table
-will enable again the use of the host aware device as a zoned block device.</p></div>
+<h1 id="rocksdb-and-zenfs">RocksDB and ZenFS</h1>
+<p><a href="https://rocksdb.org/" target="_blank"><em>RocksDB</em></a> is a persistent
+key-value store for fast storage devices. It is implemented using a
+<a href="https://en.wikipedia.org/wiki/Log-structured_merge-tree"target="_blank">
+Log-Structured Merge-Tree (LSM-tree)</a> data structure. Similarly to all
+LSM-tree based key-value engine implementations, values are stored in tables
+sorted by key order. Tables are always sequentially written and never modified.
+This basic principle of the LSM-tree data stucture facilitate the implmentation
+of support for zoned block devices.</p>
+<p><em>RocksDB</em> is implemented as a C++ library. This library provides functions for
+applications to access and manage key-value stores. RocksDB implementation
+relies on a plugin architecture to implement support for different storage
+types.</p>
+<h2 id="zenfs">ZenFS</h2>
+<p><a href="https://github.com/westerndigitalcorporation/zenfs" target="_blank"><em>ZenFS</em></a>
+is a file system plugin for <em>RocksDB</em> that utilizes <em>RockDB</em> FileSystem
+interface to place files into zones on a raw zoned block device. By separating
+files into zones and utilizing write life time hints to co-locate data of
+similar life times, <em>ZenFS</em> can greatly reduce the system write amplification
+compared to regular file systems on conventional block devices. <em>ZenFS</em> ensures
+that there is no background garbage collection in the file system or on the
+device, improving performance in terms of throughput, tail latencies and
+endurance.</p>
+<p><em>ZenFS</em> can store multiple files in a single zone, using an extent allocation
+scheme. A file may be composed of one or more extents and all extents of a file
+can be stored in the same zone or in different zones of the device. An extent
+never spans multiple zones. When all file extents in a zone are invalidated, the
+zone can be reset and reused to store new file extents.</p>
+<p>ZenFS places file extents into zones based on write lifetime hints (WLTH)
+provided by RocksDB library. ZenFS always attempts to palce file extents with
+similar WLTH together in the same zones.</p>
+<p>Using <em>ZenFS</em>, data garbage collection is performed only by RocksDB with the
+LSM-tree table compaction process. There is no garbage collection executed
+by ZenFS, nor by the ZNS device controller.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p><em>ZenFS</em> requires a Linux kernel implementing support for NVMe Zonednamespaces,
+that is, a kernel version 5.9 or newer. The kernel used must also be configured
+with <a href="/linux/config#kernel-configuration">zoned block device support enabled</a>.</p>
+<p><em>ZenFS</em> code uses the <a href="/projects/libzbd"><em>libzbd</em></a> library. The latest
+version of this library must be compiled and installed prior to compiling,
+installing and using <em>RocksDB-ZenFS</em>.</p>
+<h2 id="building-and-installing-zenfs">Building and Installing ZenFS</h2>
+<p>Detailed instructions on how to compile and install <em>ZenFS</em> is provided by the
+<em>ZenFS</em> project <a href="https://github.com/westerndigitalcorporation/zenfs/blob/master/README.md" target="_blank">
+README file</a>.</p>
+<p>As mentioned in the <em>ZenFS</em> build instructions, it is also important to set
+the IO scheduler of the NVMe ZNS device to <em>mq-deadline</em> to avoid write
+operations from being reordered. This can be automatically done on system boot
+using a <a href="/linux/sched#automatic-persistent-configuration"><em>udev</em> rule</a>.</p>
+<h2 id="zenfs-utils">ZenFS Utils</h2>
+<p><em>ZenFS</em> provides a command line utility called <em>zenfs</em>. This utility is used to
+format the zoned device to create a new filesystem, list the files, and back-up
+or restore the filesystem.</p>
+<h3 id="formatting-a-nvme-zns-device">Formatting a NVMe ZNS Device</h3>
+<p>To format the NVMe ZNS device <code>/dev/nvme0n1</code>, the following command is used.</p>
+<pre><code class="language-plaintext"># zenfs mkfs --zbd=nvme0n1 --aux_path=/tmp/zone-aux --force
+ZenFS file system created. Free space: 220246 MB
+</code></pre>
+<h3 id="list-files-of-a-nvme-zns-device">List Files of a NVMe ZNS Device</h3>
+<p>Once formatted, <em>RocksDB</em> use will started creating files on the zoned device
+through <em>ZenFS</em>. Listing the files present on the device is done as follows.</p>
+<pre><code class="language-plaintext"># zenfs list --zbd=nvme0n1 --path=rocksdbtest/dbbench
+           0    Jul 20 2021 18:13:52            LOCK
+       66979    Jul 20 2021 18:14:01            LOG
+    26961453    Jul 20 2021 18:13:55            000014.sst
+    26961524    Jul 20 2021 18:13:55            000015.sst
+    26961904    Jul 20 2021 18:13:55            000016.sst
+    26963148    Jul 20 2021 18:13:55            000017.sst
+   102734225    Jul 20 2021 18:13:56            000019.sst
+    26962608    Jul 20 2021 18:13:55            000020.sst
+    26961566    Jul 20 2021 18:13:56            000021.sst
+    26963214    Jul 20 2021 18:13:56            000022.sst
+    26963380    Jul 20 2021 18:13:57            000023.sst
+   102594916    Jul 20 2021 18:13:58            000025.sst
+    26546055    Jul 20 2021 18:13:59            000026.sst
+   102540090    Jul 20 2021 18:14:00            000028.sst
+   190808702    Jul 20 2021 18:14:01            000029.log
+   102826791    Jul 20 2021 18:14:00            000030.sst
+          16    Jul 20 2021 18:13:52            CURRENT
+          37    Jul 20 2021 18:13:52            IDENTITY
+        1586    Jul 20 2021 18:14:01            MANIFEST-000004
+        6178    Jul 20 2021 18:13:52            OPTIONS-000007
+
+</code></pre>
+<h3 id="backing-up-a-zenfs-filesystem">Backing-up a ZenFS Filesystem</h3>
+<p>To backup all table and metadata files on a NVMe ZNS device to a local
+filesystem, the following command can be used.</p>
+<pre><code class="language-plaintext"># zenfs backup --zbd=nvme0n1 --path=/tmp/backup
+rocksdbtest/dbbench/LOCK
+rocksdbtest/dbbench/LOG
+rocksdbtest/dbbench/000014.sst
+rocksdbtest/dbbench/000015.sst
+rocksdbtest/dbbench/000016.sst
+rocksdbtest/dbbench/000017.sst
+rocksdbtest/dbbench/000019.sst
+rocksdbtest/dbbench/000020.sst
+rocksdbtest/dbbench/000021.sst
+rocksdbtest/dbbench/000022.sst
+rocksdbtest/dbbench/000023.sst
+rocksdbtest/dbbench/000025.sst
+rocksdbtest/dbbench/000026.sst
+rocksdbtest/dbbench/000028.sst
+rocksdbtest/dbbench/000029.log
+rocksdbtest/dbbench/000030.sst
+rocksdbtest/dbbench/CURRENT
+rocksdbtest/dbbench/IDENTITY
+rocksdbtest/dbbench/MANIFEST-000004
+rocksdbtest/dbbench/OPTIONS-000007
+</code></pre>
+<p>To restore a NVMe ZNS device using a previous back-up, the following command can
+be used.</p>
+<pre><code class="language-plaintext"># zenfs restore --zbd=nvme0n1 --path=/tmp/backup/rocksdbtest/dbbench/ \
+        --restore_path=rocksdbtest/dbbench
+/tmp/backup/rocksdbtest/dbbench/CURRENT
+/tmp/backup/rocksdbtest/dbbench/LOCK
+/tmp/backup/rocksdbtest/dbbench/000015.sst
+/tmp/backup/rocksdbtest/dbbench/000022.sst
+/tmp/backup/rocksdbtest/dbbench/LOG
+/tmp/backup/rocksdbtest/dbbench/MANIFEST-000004
+/tmp/backup/rocksdbtest/dbbench/000023.sst
+/tmp/backup/rocksdbtest/dbbench/000028.sst
+/tmp/backup/rocksdbtest/dbbench/000025.sst
+/tmp/backup/rocksdbtest/dbbench/000030.sst
+/tmp/backup/rocksdbtest/dbbench/IDENTITY
+/tmp/backup/rocksdbtest/dbbench/OPTIONS-000007
+/tmp/backup/rocksdbtest/dbbench/000020.sst
+/tmp/backup/rocksdbtest/dbbench/000019.sst
+/tmp/backup/rocksdbtest/dbbench/000016.sst
+/tmp/backup/rocksdbtest/dbbench/000014.sst
+/tmp/backup/rocksdbtest/dbbench/000026.sst
+/tmp/backup/rocksdbtest/dbbench/000029.log
+/tmp/backup/rocksdbtest/dbbench/000021.sst
+/tmp/backup/rocksdbtest/dbbench/000017.sst
+</code></pre>
+<h2 id="performance-benchmark">Performance Benchmark</h2>
+<p><em>RocksDB</em> provides the <em>db_bench</em> utility to test and bechmark performance of a
+device. The following command provides an example of <em>db_bench</em> execution using
+a NVMe ZNS device formatted with <em>ZenFS</em>.</p>
+<pre><code class="language-plaintext"># db_bench --fs_uri=zenfs://dev:nvme0n1 --benchmarks=fillrandom \
+       --use_direct_reads --key_size=16 --value_size=800 \
+       --target_file_size_base=2147483648 \
+       --use_direct_io_for_flush_and_compaction \
+       --max_bytes_for_level_multiplier=4 --write_buffer_size=2147483648 \
+       --target_file_size_multiplier=1 --num=1000000 --threads=2 \
+       --max_background_jobs=4
+Initializing RocksDB Options from the specified file
+Initializing RocksDB Options from command-line flags
+RocksDB:    version 6.21
+Date:       Tue Jul 20 20:24:56 2021
+CPU:        32 * AMD EPYC 7302P 16-Core Processor
+CPUCache:   512 KB
+Keys:       16 bytes each (+ 0 bytes user-defined timestamp)
+Values:     800 bytes each (400 bytes after compression)
+Entries:    1000000
+Prefix:    0 bytes
+Keys per prefix:    0
+RawSize:    778.2 MB (estimated)
+FileSize:   396.7 MB (estimated)
+Write rate: 0 bytes/second
+Read rate: 0 ops/second
+Compression: Snappy
+Compression sampling rate: 0
+Memtablerep: skip_list
+Perf Level: 1
+------------------------------------------------
+Initializing RocksDB Options from the specified file
+Initializing RocksDB Options from command-line flags
+DB path: [rocksdbtest/dbbench]
+fillrandom   :      10.447 micros/op 191441 ops/sec;  149.0 MB/s
+</code></pre></div>
         
         
     </div>

@@ -1,127 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://zonedstorage.io/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/community/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/introduction/zoned-storage/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/introduction/smr/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/introduction/zns/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/getting-started/prerequisite/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/getting-started/nullblk/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/getting-started/smr-disk/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/getting-started/smr-emulation/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/getting-started/zns-emulation/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/linux/overview/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/linux/config/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/linux/zbd-api/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/linux/sched/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/linux/part/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/linux/dm/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/linux/fs/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/projects/util-linux/</loc>
-     <lastmod>2021-07-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://zonedstorage.io/projects/sg3utils/</loc>
-     <lastmod>2021-07-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://zonedstorage.io/projects/libzbc/</loc>
-     <lastmod>2021-07-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://zonedstorage.io/projects/libnvme/</loc>
-     <lastmod>2021-07-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://zonedstorage.io/projects/libzbd/</loc>
-     <lastmod>2021-07-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://zonedstorage.io/projects/tcmu-runner/</loc>
-     <lastmod>2021-07-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://zonedstorage.io/projects/qemu/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/projects/zns/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://zonedstorage.io/projects/sg3utils/</loc>
+     <lastmod>2021-08-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://zonedstorage.io/projects/libzbc/</loc>
+     <lastmod>2021-08-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://zonedstorage.io/projects/libnvme/</loc>
+     <lastmod>2021-08-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://zonedstorage.io/projects/libzbd/</loc>
+     <lastmod>2021-08-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://zonedstorage.io/projects/tcmu-runner/</loc>
+     <lastmod>2021-08-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://zonedstorage.io/projects/qemu/</loc>
+     <lastmod>2021-08-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://zonedstorage.io/projects/zenfs/</loc>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/tests/zbc-tests/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/tests/blktests/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/distributions/linux/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/benchmarking/fio/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/faq/faq/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://zonedstorage.io/about/</loc>
-     <lastmod>2021-07-28</lastmod>
+     <lastmod>2021-08-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
