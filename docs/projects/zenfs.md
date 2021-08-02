@@ -5,9 +5,9 @@ key-value store for fast storage devices. It is implemented using a
 <a href="https://en.wikipedia.org/wiki/Log-structured_merge-tree"target="_blank">
 Log-Structured Merge-Tree (LSM-tree)</a> data structure. Similarly to all
 LSM-tree based key-value engine implementations, values are stored in tables
-sorted by key order. Tables are always sequentially written and never modified.
-This basic principle of the LSM-tree data stucture facilitate the implmentation
-of support for zoned block devices.
+sorted in increasing key order. Tables are always sequentially written and never
+modified.  This basic principle of the LSM-tree data structure facilitates the
+implementation of support for zoned block devices.
 
 *RocksDB* is implemented as a C++ library. This library provides functions for
 applications to access and manage key-value stores. RocksDB implementation
@@ -33,7 +33,7 @@ never spans multiple zones. When all file extents in a zone are invalidated, the
 zone can be reset and reused to store new file extents.
 
 ZenFS places file extents into zones based on write lifetime hints (WLTH)
-provided by RocksDB library. ZenFS always attempts to palce file extents with
+provided by RocksDB library. ZenFS always attempts to place file extents with
 similar WLTH together in the same zones.
 
 Using *ZenFS*, data garbage collection is performed only by RocksDB with the
@@ -42,7 +42,7 @@ by ZenFS, nor by the ZNS device controller.
 
 ## Prerequisites
 
-*ZenFS* requires a Linux kernel implementing support for NVMe Zonednamespaces,
+*ZenFS* requires a Linux kernel implementing support for NVMe Zoned namespaces,
 that is, a kernel version 5.9 or newer. The kernel used must also be configured
 with [zoned block device support enabled](/linux/config#kernel-configuration).
 
@@ -78,7 +78,7 @@ ZenFS file system created. Free space: 220246 MB
 
 ### List Files of a NVMe ZNS Device
 
-Once formatted, *RocksDB* use will started creating files on the zoned device
+Once formatted, *RocksDB* use will start creating files on the zoned device
 through *ZenFS*. Listing the files present on the device is done as follows.
 
 ```plaintext
@@ -165,7 +165,7 @@ be used.
 
 ## Performance Benchmark
 
-*RocksDB* provides the *db_bench* utility to test and bechmark performance of a
+*RocksDB* provides the *db_bench* utility to test and benchmark performance of a
 device. The following command provides an example of *db_bench* execution using
 a NVMe ZNS device formatted with *ZenFS*.
 
