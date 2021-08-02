@@ -519,9 +519,9 @@ setup necessary.
 ### Usage Example with a NVMe ZNS SSD
 
 Unlike SMR hard-disks, the kernel does not select by default the *mq-deadline*
-block IO scheduler block devices representing NVMe ZNS namespaces. To ensure
+block IO scheduler for block devices representing NVMe ZNS namespaces. To ensure
 that the regular write operations used by *f2fs* are delivered to the device in
-sequential order, the IO scheduler fo the NVMe ZNS namespace device must be set
+sequential order, the IO scheduler for the NVMe ZNS namespace device must be set
 to *mq-deadline*. This is done with the following command.
 
 ```plaintext
@@ -561,7 +561,7 @@ Info: Overprovision segments = 74918 (GC reserved = 40216)
 Info: format successful
 ```
 
-To mount the volume formatted with the above command, the regulr block device
+To mount the volume formatted with the above command, the regular block device
 must be specified.
 
 ```plaintext
