@@ -519,19 +519,20 @@ setup necessary.
 ### Usage Example with a NVMe ZNS SSD
 
 Unlike SMR hard-disks, the kernel does not select by default the *mq-deadline*
-block IO scheduler block devices representing NVMe ZNS namespaces. To ensure
-that the regular write operations used by *f2fs* are delivered to the device in
-sequential order, the IO scheduler fo the NVMe ZNS namespace device must be set
-to *mq-deadline*. This is done with the following command.
+block IO scheduler for block devices representing NVMe zoned namespaces. To
+ensure that the regular write operations used by *f2fs* are delivered to the
+device in sequential order, the IO scheduler for the NVMe zoned namespace block
+device must be set to *mq-deadline*. This is done with the following command.
 
 ```plaintext
 # echo mq-deadline > /sys/block/nvme1n1/queue/scheduler
 ```
 
-Where /dev/nvme1n1 is the zoned namespace that will be used for the *f2fs*
-volume. Using this namespace, a multi-device *f2fs* volume using an additional
-regular block device (`/dev/nvme0n1` in the following example) can be formatted
-using the *-c* option of *mkfs.f2fs*, as shown in the following example.
+Where /dev/nvme1n1 is the block device file of the zoned namespace that will be
+used for the *f2fs* volume. Using this namespace, a multi-device *f2fs* volume
+using an additional regular block device (`/dev/nvme0n1` in the following
+example) can be formatted using the *-c* option of *mkfs.f2fs*, as shown in the
+following example.
 
 ```plaintext
 # mkfs.f2fs -f -m -c /dev/nvme1n1 /dev/nvme0n1
@@ -561,7 +562,7 @@ Info: Overprovision segments = 74918 (GC reserved = 40216)
 Info: format successful
 ```
 
-To mount the volume formatted with the above command, the regulr block device
+To mount the volume formatted with the above command, the regular block device
 must be specified.
 
 ```plaintext
