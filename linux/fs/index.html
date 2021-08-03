@@ -1244,16 +1244,17 @@ setup necessary.</p>
 </code></pre>
 <h3 id="usage-example-with-a-nvme-zns-ssd">Usage Example with a NVMe ZNS SSD</h3>
 <p>Unlike SMR hard-disks, the kernel does not select by default the <em>mq-deadline</em>
-block IO scheduler block devices representing NVMe ZNS namespaces. To ensure
-that the regular write operations used by <em>f2fs</em> are delivered to the device in
-sequential order, the IO scheduler fo the NVMe ZNS namespace device must be set
-to <em>mq-deadline</em>. This is done with the following command.</p>
+block IO scheduler for block devices representing NVMe zoned namespaces. To
+ensure that the regular write operations used by <em>f2fs</em> are delivered to the
+device in sequential order, the IO scheduler for the NVMe zoned namespace block
+device must be set to <em>mq-deadline</em>. This is done with the following command.</p>
 <pre><code class="language-plaintext"># echo mq-deadline &gt; /sys/block/nvme1n1/queue/scheduler
 </code></pre>
-<p>Where /dev/nvme1n1 is the zoned namespace that will be used for the <em>f2fs</em>
-volume. Using this namespace, a multi-device <em>f2fs</em> volume using an additional
-regular block device (<code>/dev/nvme0n1</code> in the following example) can be formatted
-using the <em>-c</em> option of <em>mkfs.f2fs</em>, as shown in the following example.</p>
+<p>Where /dev/nvme1n1 is the block device file of the zoned namespace that will be
+used for the <em>f2fs</em> volume. Using this namespace, a multi-device <em>f2fs</em> volume
+using an additional regular block device (<code>/dev/nvme0n1</code> in the following
+example) can be formatted using the <em>-c</em> option of <em>mkfs.f2fs</em>, as shown in the
+following example.</p>
 <pre><code class="language-plaintext"># mkfs.f2fs -f -m -c /dev/nvme1n1 /dev/nvme0n1
 
         F2FS-tools: mkfs.f2fs Ver: 1.14.0 (2021-06-23)
@@ -1280,7 +1281,7 @@ Info: Overprovision ratio = 3.090%
 Info: Overprovision segments = 74918 (GC reserved = 40216)
 Info: format successful
 </code></pre>
-<p>To mount the volume formatted with the above command, the regulr block device
+<p>To mount the volume formatted with the above command, the regular block device
 must be specified.</p>
 <pre><code class="language-plaintext"># mount -t f2fs /dev/nvme0n1 /mnt/f2fs/
 </code></pre>
