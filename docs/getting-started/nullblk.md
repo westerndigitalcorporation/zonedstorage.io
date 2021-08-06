@@ -240,24 +240,25 @@ echo "Destroyed /dev/nullb$nid"
 
 ## Emulating SMR HDD
 
-As it is written, the *nullblk-zoned.sh* script makes it possible to create
-zoned block devices that correspond to a possible configuration of an SMR hard
-disk, with no limit on the maximum number of open zones. This script can be
-easily modified, however, to add a limit to the number of open zones on the
-emulated device (*zone_max_open* parameter), to more faithfully emulate an SMR
-HDD's characteristics.
+The *nullblk-zoned.sh* script makes it possible to create zoned block
+devices that correspond to a possible configuration of an SMR hard
+disk, with no limit on the maximum number of open zones. This script
+can be modified to add a limit to the number of open zones on the
+emulated device (the *zone_max_open* parameter controls this), to more
+faithfully emulate an SMR HDD's characteristics.
 
-The *zone_capacity* and *zone_max_active* parameters should not be used when the
-emulated device is meant to mimic the characteristics of a SMR hard disk.
+The *zone_capacity* and *zone_max_active* parameters should not be
+used when the emulated device is meant to mimic the characteristics of
+an SMR hard disk.
 
 ## Emulating NVMe ZNS SSD
 
 The *zone_capacity* and *zone_max_active* parameters make it possible to
 create an emulated zoned block device that mimics the characteristics of a
-NVMe Zoned Namespace SSD. The *zone_capacity* parameter can be used to specify
-the number of sectors in each zone that can be read and written, while the
-*zone_max_active* argument can be used to specify a limit on the number of
-zones that can be in the closed state, the implicit-open state, and the
+NVMe Zoned Namespace SSD. The *zone_capacity* parameter is used to specify
+the number of sectors in each zone that can be read and written. The
+*zone_max_active* argument is used to specify a limit on the number of
+zones that can be in the closed state, the implicit-open state, or the
 explicit-open state.
 
 
