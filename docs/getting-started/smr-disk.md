@@ -70,7 +70,7 @@ device signature as regular disks, lsscsi will list host aware disks as *disk*.
 
 ### Checking The Disk Information
 
-The zone model of the disk can be verified through the *zoned* sysfs attribute.
+Verify the zone model of the disk by checking the *zoned* sysfs attribute:
 
 ```plaintext
 # cat /sys/block/sdb/queue/zoned
@@ -89,7 +89,7 @@ The possible values of the *zoned* attribute are shown in the table below.
 
 </center>
 
-The kernel messages also include useful information on the disk.
+Kernel messages also contain useful information about the disk:
 
 ```plaintext
 # dmesg
@@ -115,24 +115,25 @@ sd 5:0:0:0: [sdb] Attached SCSI disk
 ...
 ```
 
-Among other information, the zone model of the disk is confirmed as
-host managed. The total number of zones of the disk is also displayed. In this
-example, the disk capacity is 15 TB and has 55880 zones.
+The kernel message "sd 5:0:0:0: [sdb] Host-managed zoned block device" confirms that the zone model of the disk is "host managed". 
 
-The zone size of the disk can also be inspected through sysfs, with the
-attribute *chunk_sectors*.
+The total number of zones on the disk is also displayed. In this example, the
+disk capacity is 15 TB and the disk has 55880 zones.
+
+Check the zone size of the disk by reading the value of
+`/sys/block/sdb/queue/chunk_sectors`:
 
 ```plaintext
 # cat /sys/block/sdb/queue/chunk_sectors 
 524288
 ```
 
-The value is displayed as a number of 512B sectors, regardless of the actual
-logical and physical block size of the disk. In this example, the disk zone size
-is *524288 x 512 = 256 MiB*.
+The value is displayed as a number of 512B sectors regardless of the actual
+logical and physical block size of the disk. In this example, the disk zone
+size is *524288 x 512 = 256 MiB*.
 
-Starting with Linux kernel version 4.20.0, the sysfs attribute *nr_zones*
-is also available to verify the total number of zones of the disk.
+As of Linux kernel version 4.20.0, the sysfs attribute *nr_zones*
+reports the total number of zones on the disk:
 
 ```plaintext
 # cat /sys/block/sdb/queue/nr_zones
@@ -203,50 +204,50 @@ Zone 55879: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 
 ## Using a SAS Host Bus Adapter
 
-AHCI adapters can only accomodate Serial ATA disks and generally only provide a
+AHCI adapters can accomodate only Serial ATA disks and provide only a
 limited number of ports. SAS Host Bus Adapters (HBA) are widely used in
 enterprise applications to overcome AHCI limitations. The SAS transport layer
-used by SAS HBAs can equally accomodate both Serial ATA and SCSI disks.
+that is used by SAS HBAs can accomodate Serial ATA and SCSI disks equally.
 
 ### HBA Compatibility
 
-While most AHCI adapters for Serial ATA disks generally do not cause any
-problem with host managed ZAC disks identification, SAS HBAs on the other
-hand may suffer from a lack of support depending on the HBA model being used.
+Most AHCI adapters for Serial ATA disks do not cause any problem with the
+identification of host managed ZAC disks, but SAS HBAs may not be
+supported (depending on the HBA model being used).
 
-The compatibility of a SAS HBA with host managed disks mainly depends on
+The compatibility of an SAS HBA with host managed disks depends mainly on
 the following factors.
 
 1. The HBA must have the ability to recognize the host managed device type
    *0x14* of host managed SAS disks (ZBC/SCSI).
 
-2. The HBA must have the ability to recognize the host managed device signature 
-   *0xabcd* of SATA host managed ZAC disks and translate this signature into
-   the ZBC defined SCSI device type *0x14*.
+2. The HBA must have the ability to recognize the host managed device signature
+   *0xabcd* of SATA host managed ZAC disks and the ability to translate this
+   signature into the ZBC defined SCSI device type *0x14*.
 
 3. Generalizing the previous point, the HBA must implement a SCSI-to-ATA
-   translation (SAT) layer supporting the conversion of host issued ZBC zone
+   translation (SAT) layer that supports the conversion of host issued ZBC zone
    commands into ZAC zone commands that can be executed by a SATA ZAC disk
-   connected to the HBA.
+   that is connected to the HBA.
 
-Any HBA failing the first requirement will not expose a ZBC host managed disk to
-the host. Similarly, an HBA failing to comply with the second and third
-requirement will fail to expose to the host a host managed ZAC disk as a ZBC
-host managed disk.
+Any HBA that fails the first requirement will not expose a ZBC host managed
+disk to the host. Similarly, an HBA that fails to comply with the second and
+third requirements will fail to expose to the host a host-managed ZAC disk as a
+ZBC host-managed disk.
 
-In the case of a host aware disk model, the device type and device signature
-handling will not cause any problem (recall that host aware disks use the
-regular disk device type and signatur *0x00*). Host aware disks will thus always
-be useable as regular disks with any HBA. The execution of ZBC zone commands
-with a SAS host aware disk may also work most of the time. However, similarly
-to host managed disk, the absence of a ZBC/ZAC compatible SAT layer will prevent
-the use of a Serial ATA host aware disk as a ZBC host aware disk. The ZBC zone
-commands sent to the SATA disk will not be translated and result in command
-failures.
+In the case of a host-aware disk model, the device type and device signature
+handling will not cause a problem (remember that host-aware disks use the
+regular disk device type and signature *0x00*). Host-aware disks will thus
+always be usable as regular disks with any HBA. The execution of ZBC zone
+commands should usually be executable on SAS host-aware disks. However,
+(similar to the behavior of host-managed disks), the absence of a ZBC/ZAC
+compatible SAT layer prevents the use of a Serial ATA host-aware disk as a ZBC
+host-aware disk. Any ZBC zone commands that are sent to the SATA disk will not
+be translated and therefore will result in command failures.
 
 The compatibility of an HBA model with the ZBC and ZAC standards should be
-checked with the HBA vendor. Under some conditions, an HBA compatibility can
-also be checked using the [*libzbc* conformance test suite](/tests/zbc-tests).
+checked with the HBA vendor. Under some conditions, HBA compatibility can
+be checked using the [*libzbc* conformance test suite](/tests/zbc-tests).
 
 ### Verifying The Disk
 

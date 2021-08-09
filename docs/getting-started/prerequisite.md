@@ -223,18 +223,19 @@ utilities execution.
 
 ### libzbc
 
-*libzbc* is a user space library providing functions for manipulating ZBC and
-ZAC disks.  The *libzbc* project is hosted on
-<a href="https://github.com/westerndigitalcorporation/libzbc" target="_blank">
-GitHub</a>. Documentation is provided in the project
-<a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/README.md"
-target="_blank"> README</a> file. The API documentation can also be
-automatically generated using *doxygen*.
+*libzbc* is a user-space library that provides functions that are 
+used to manipulate ZBC and ZAC disks.  The *libzbc* project is hosted
+on <a href="https://github.com/westerndigitalcorporation/libzbc"
+target="_blank"> GitHub</a>. Documentation is provided in the project
+<a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/README.md" target="_blank"> README</a> file. The API documentation can be
+generated using *doxygen*.
 
-*libzbc* also provides a set of command line utilities with similar
-functionalities as the `blkzone` utility and *the sg3_utils* command line tools.
+*libzbc* provides a set of command-line utilities that are
+functionally similar to both the `blkzone` utility and *the sg3_utils*
+command-line tools.
 
-More information on how to compile and install *libzbc* as well as usage
-examples of the command line utilities provided can be found
-[here](../projects/libzbc.md).
+For more information on how to compile and install *libzbc*, as well as usage
+examples of the command line utilities provided by *libzbc*, see [libzbc User
+Library](../projects/libzbc.md) in the Zoned Storage Applications and Libraries
+documentation.
 
