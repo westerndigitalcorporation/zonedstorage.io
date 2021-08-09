@@ -11,7 +11,7 @@ used for application development and tests.
 
 ## Creating a Zoned *null* Block Device &mdash; Simplest Case
 
-The simplest method for creating a *null_blk* emulated zoned block
+The simplest way to create a *null_blk* emulated zoned block
 device is to specify `zoned=1` as an argument that follows the
 *modprobe **null_blk* command on the command line, as in the following
 example:
