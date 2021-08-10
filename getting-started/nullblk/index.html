@@ -671,7 +671,7 @@ the <em>null_blk</em> device for data reading and writing operations, the
 <em>null_blk</em> driver has become a practical, powerful tool that can be
 used for application development and tests.</p>
 <h2 id="creating-a-zoned-null-block-device-simplest-case">Creating a Zoned <em>null</em> Block Device &mdash; Simplest Case</h2>
-<p>The simplest method for creating a <em>null_blk</em> emulated zoned block
+<p>The simplest way to create a <em>null_blk</em> emulated zoned block
 device is to specify <code>zoned=1</code> as an argument that follows the
 <em>modprobe </em><em>null_blk</em> command on the command line, as in the following
 example:</p>
@@ -893,21 +893,22 @@ rmdir /sys/kernel/config/nullb/nullb$nid
 echo &quot;Destroyed /dev/nullb$nid&quot;
 </code></pre>
 <h2 id="emulating-smr-hdd">Emulating SMR HDD</h2>
-<p>As it is written, the <em>nullblk-zoned.sh</em> script makes it possible to create
-zoned block devices that correspond to a possible configuration of an SMR hard
-disk, with no limit on the maximum number of open zones. This script can be
-easily modified, however, to add a limit to the number of open zones on the
-emulated device (<em>zone_max_open</em> parameter), to more faithfully emulate an SMR
-HDD's characteristics.</p>
-<p>The <em>zone_capacity</em> and <em>zone_max_active</em> parameters should not be used when the
-emulated device is meant to mimic the characteristics of a SMR hard disk.</p>
+<p>The <em>nullblk-zoned.sh</em> script makes it possible to create zoned block
+devices that correspond to a possible configuration of an SMR hard
+disk, with no limit on the maximum number of open zones. This script
+can be modified to add a limit to the number of open zones on the
+emulated device (the <em>zone_max_open</em> parameter controls this), to more
+faithfully emulate an SMR HDD's characteristics.</p>
+<p>The <em>zone_capacity</em> and <em>zone_max_active</em> parameters should not be
+used when the emulated device is meant to mimic the characteristics of
+an SMR hard disk.</p>
 <h2 id="emulating-nvme-zns-ssd">Emulating NVMe ZNS SSD</h2>
 <p>The <em>zone_capacity</em> and <em>zone_max_active</em> parameters make it possible to
 create an emulated zoned block device that mimics the characteristics of a
-NVMe Zoned Namespace SSD. The <em>zone_capacity</em> parameter can be used to specify
-the number of sectors in each zone that can be read and written, while the
-<em>zone_max_active</em> argument can be used to specify a limit on the number of
-zones that can be in the closed state, the implicit-open state, and the
+NVMe Zoned Namespace SSD. The <em>zone_capacity</em> parameter is used to specify
+the number of sectors in each zone that can be read and written. The
+<em>zone_max_active</em> argument is used to specify a limit on the number of
+zones that can be in the closed state, the implicit-open state, or the
 explicit-open state.</p></div>
         
         
