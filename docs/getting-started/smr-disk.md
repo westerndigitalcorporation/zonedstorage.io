@@ -43,10 +43,12 @@ react to the device signature of the connected disk).
 
 ### Verifying The Disk
 
-For a system fullfilling all [prerequisites](prerequisite.md), a SATA host
-Aware or Host Managed disk can simply be connected directly to a SATA port of
-the host controller. After booting the system, the disk should be listed by the
-*lsscsi* utility.
+On systems that fulfill all [prerequisites](prerequisite.md), SATA Host Aware
+Disks and Host Managed Disks can be connected directly to SATA ports on the
+host controller.
+
+After booting the system, use the *lsscsi* utility to list all SCSI devices
+attached to the system and verify the presence of the newly-connected disk:
 
 ```plaintext
 # lsscsi -g
@@ -55,19 +57,20 @@ the host controller. After booting the system, the disk should be listed by the
 ```
 
 In this example, the disk '/dev/sda' is the system boot disk and the disk
-'/dev/sdb' is being recognized as a ZBC disk.
+'/dev/sdb' is recognized as a ZBC disk.
 
-The second column of `lsscsi` output indicates the device type. The value *zbc*
-is always used for Host Managed ZBC and ZAC disks. This corresponds to the ZBC
-defined device type *0x14* for SAS disks and to the ZAC defined device signature
-*0xabcd* for SATA disks. Since Host Aware disks have the same device type or
-device signature as regular disks, lsscsi will list host aware disks as *disk*.
+The second column of `lsscsi` output indicates the device type. The value
+*zbc* is always used for Host Managed ZBC and ZAC disks. This corresponds
+to the ZBC-defined device type *0x14* for SAS disks and corresponds to the
+ZAC-defined device signature *0xabcd* for SATA disks. Because Host Aware
+disks have the same device type or device signature as regular disks,
+lsscsi lists host aware disks as *disk*.
 
 !!!note
-    The *lsscsi* utility will not list a SATA ZAC disk with the type *zac*. The
-    type *zbc* is always used as the kernel internally implements a SCSI to ATA
-    translation layer (SAT), a;;owing ther representation of all SATA devices as
-    SCSI devices.
+    The *lsscsi* utility does not list SATA ZAC disks with the type
+    *zac*. The type *zbc* is always used, because the kernel
+    internally implements a SCSI-to-ATA translation layer (SAT), which
+    allows SATA devices to be represented as SCSI devices.
 
 ### Checking The Disk Information
 
