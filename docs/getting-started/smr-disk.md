@@ -74,7 +74,7 @@ lsscsi lists host aware disks as *disk*.
 
 ### Checking The Disk Information
 
-The zone model of the disk can be verified through the *zoned* sysfs attribute.
+Verify the zone model of the disk by checking the *zoned* sysfs attribute:
 
 ```plaintext
 # cat /sys/block/sdb/queue/zoned
@@ -93,7 +93,7 @@ The possible values of the *zoned* attribute are shown in the table below.
 
 </center>
 
-The kernel messages also include useful information on the disk.
+Kernel messages also contain useful information about the disk:
 
 ```plaintext
 # dmesg
@@ -119,24 +119,24 @@ sd 5:0:0:0: [sdb] Attached SCSI disk
 ...
 ```
 
-Among other information, the zone model of the disk is confirmed as
-host managed. The total number of zones of the disk is also displayed. In this
-example, the disk capacity is 15 TB and has 55880 zones.
+The zone model of the disk is confirmed to be "host managed". The total number
+of zones on the disk is also displayed. In this example, the disk capacity is
+15 TB and the disk has 55880 zones.
 
-The zone size of the disk can also be inspected through sysfs, with the
-attribute *chunk_sectors*.
+The zone size of the disk can be inspected by using sysfs to examine the
+attribute *chunk_sectors*:
 
 ```plaintext
 # cat /sys/block/sdb/queue/chunk_sectors 
 524288
 ```
 
-The value is displayed as a number of 512B sectors, regardless of the actual
+The value is displayed as a number of 512B sectors regardless of the actual
 logical and physical block size of the disk. In this example, the disk zone size
 is *524288 x 512 = 256 MiB*.
 
-Starting with Linux kernel version 4.20.0, the sysfs attribute *nr_zones*
-is also available to verify the total number of zones of the disk.
+As of Linux kernel version 4.20.0, the sysfs attribute *nr_zones*
+reports the total number of zones on the disk:
 
 ```plaintext
 # cat /sys/block/sdb/queue/nr_zones
