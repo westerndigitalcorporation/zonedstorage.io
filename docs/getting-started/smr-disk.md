@@ -34,11 +34,11 @@ writes are assumed to be a constraint for the correct operation of the disk.
 
 ## Serial ATA ZAC Disks and SATA Host Controllers
 
-Serial ATA (SATA) host adapters, including those using the Advance Host
-Controller Interface (AHCI) standard, should have no problem scanning and
-initializing a connection with Host Aware disks. Most AHCI host adapters are
-also know to work with Host Managed disk drives as the adapter itself generally
-does not react to the device signature of the connected disk.
+Serial ATA (SATA) host adapters, including those that use the Advance Host
+Controller Interface (AHCI) standard, are able to scan and initialize
+connections with Host Aware disks. Most AHCI host adapters are known to work
+with Host Managed disk drives (this is because the adapter usually does not
+react to the device signature of the connected disk).
 
 ### Verifying The Disk
 
