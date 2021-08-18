@@ -141,9 +141,9 @@ is also available to verify the total number of zones of the disk.
 
 ### Discovering The Disk Zone Configuration
 
-To obtain detailed information on the disk zone configuration, for instance the
-number of conventional zones available, the
-[*blkzone*](/projects/util-linux#blkzone) utility can be used.
+Use [*blkzone*](/projects/util-linux#blkzone) to get detailed information about
+the zone disk configuration. In this example, you can see the number of
+available conventional zones.
 
 ```plaintext
 # blkzone report /dev/sdb
@@ -163,12 +163,12 @@ number of conventional zones available, the
   start: 0x6d2380000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
 ```
 
-From the output, one can see that the 512B sector range from 0 up to
-0x010600000 is divided into 524 conventional zones. The sector space starting
-from 0x010600000 until the last sector of the disk is devided into 55356
-sequential write required zones.
+You can see that the 512B sector range (from 0 to 0x010600000) is divided into
+524 conventional zones. The sector space starting at 0x010600000 and extending
+to the last sector of the disk is devided into 55356 sequential write-required
+zones.
 
-The [*zbc_report_zones*](/projects/libzbc#zone-information) of
+The [*zbc_report_zones*](/projects/libzbc#zone-information) function in 
 [*libzbc*](/projects/libzbc) provides more detailed information in a more
 readable format.
 
