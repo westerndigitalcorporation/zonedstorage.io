@@ -250,14 +250,19 @@ also be checked using the [*libzbc* conformance test suite](/tests/zbc-tests).
 
 ### Verifying The Disk
 
-Assuming that a compatible HBA is being used, after connecting the drive and
-eventually rebooting the system (most SAS HBAs have plug-and-play features in
-which case rebooting the system after connecting or disconnecting a disk is
-not necessary), verifying the disk identification and checking the disk
-parameters and zone configuration can be done in the exact same manner as with
-Serial ATA disks as discussed above.
+If you are using a compatible HBA and you have connected the drive and rebooted
+the system, verifying the disk identification and checking the disk parameters
+and zone configuration can be done in the exact same manner as with Serial ATA
+disks as discussed above.
 
-In these examples, `/dev/sdc` is a SAS disk connected to a SAS HBA and
+!!! Note
+
+    Remember that most SAS HBAs have plug-and-play features that make 
+    it unnecessary to reboot the system after connecting or disconnecting 
+    a disk to it.
+
+
+In these examples, `/dev/sdc` is an SAS disk connected to an SAS HBA and
 */dev/sdd* is a SATA disk connected to the same HBA.
 
 ```plaintext
@@ -304,7 +309,7 @@ sd 10:0:3:0: [sdd] Attached SCSI disk
 ...
 ```
 
-Both disks are identified by the kernel as *Direct-Access-ZBC* devices
-indicating that the HBA is correctly translating the ZAC host managed device
+Both disks are identified by the kernel as *Direct-Access-ZBC* devices.  This
+indicates that the HBA is correctly translating the ZAC host managed device
 signature into a ZBC host managed device type.
 
