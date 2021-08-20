@@ -89,7 +89,7 @@ The possible values of the *zoned* attribute are shown in the table below.
 
 </center>
 
-Kernel-ring-buffer messages also contain useful information about the disk:
+Kernel messages also contain useful information about the disk:
 
 ```plaintext
 # dmesg
