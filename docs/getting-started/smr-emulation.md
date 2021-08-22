@@ -1,18 +1,21 @@
 # Getting Started with Emulated SMR Disks
 
-For users without access to ZBC or ZAC disks, application development and kernel
-tests are possible using emulated ZBC disks. Several methods exist.
+Emulated ZBC disks make it possible to do application development and kernel
+tests even if you do not have access to ZBC or ZAC disks. There are several
+ways to do this.
 
-* ***null_blk***: The *null_blk* kernel driver allows emulating zoned block
-  devices.  This method is discussed in more details [here](nullblk.md).
+* ***null_blk***: The *null_blk* kernel driver makes it possible to emulate
+  zoned block devices.  This method is discussed in more detail in the
+  [Zoned Block Device Emulation with null_blk](nullblk.md) chapter of the
+  Getting Started Guide.
 
-* ***tcmu-runner***: This scsi device emulation application allows the
-  emulation of both host aware or host managed ZBC SCSI disks with a storage
-  backstore using a regular file. For all purposes and intent, the disks created
-  using *tcmu-runner* operate exactly like physical disks.
+* ***tcmu-runner***: This scsi device emulation application makes it possible
+  to use a regular file (as a storage backstore) to emulate both host-aware and
+  host-managed ZBC SCSI disks. The disks created using *tcmu-runner* are
+  function like physical disks.
 
 * ***scsi_debug***: The *scsi_debug* kernel driver can be configured to emulate
-  host aware and host managed ZBC disks that appear to the kernel and
+  host-aware and host-managed ZBC disks that appear to the kernel and
   application exactly as a real disk would.
 
 ## *tcmu-runner*
