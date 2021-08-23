@@ -656,75 +656,78 @@
         <div class="col-md-9" role="main">
 
 <h1 id="getting-started-with-smr-disks">Getting Started with SMR Disks</h1>
-<p>Hard disk drives using the <a href="../../introduction/smr/">Shingled Magnetic Recording</a>
-technology can have different interface implementations resulting in different
-usage models.</p>
+<p>Hard disk drives that use <a href="../../introduction/smr/">Shingled Magnetic Recording</a>
+technology can have different interface implementations. This results in
+different usage models:</p>
 <ul>
 <li>
-<p><strong>Drive Managed Interface</strong> SMR disks implementing this interface are, from
-  the host kernel and applications point of view, identical to regular disks and
-  do not need any particular attention. Most Linux&reg; kernels will be able to
-  handle these disks and no LBA space zoning information will be available to
-  the host.  Drive Managed disks should thus not be considered as zoned block
+<p><strong>Drive Managed Interface:</strong> SMR disks that implement this interface are seen
+  by the host kernel and applications as identical to regular disks and do not
+  need special attention. Most Linux&reg; kernels recognize these disks. With
+  this implementation, no LBA space zoning information is available to the
+  host. Drive Managed disks are therefore not considered to be zoned block
   devices.</p>
 </li>
 <li>
-<p><strong>Zoned Block Interface</strong> SMR hard-disk drives implementing the ZBC and ZAC
-  feature sets provide to the host commands allowing the indentification and
-  control of the device zones. This interface has two different variations, or
-  model implementations (See <a href="../../introduction/smr/#smr-implementations">SMR Interface Implementations</a>).</p>
+<p><strong>Zoned Block Interface:</strong> SMR hard-disk drives that implement ZBC and ZAC
+  feature sets provide commands to the host that allow the host to indentify and
+  control the device zones. This interface has two different variations, or
+  model implementations (See <a href="../../introduction/smr/#smr-implementations">SMR Interface Implementations</a>):</p>
 <ul>
 <li>
-<p><strong>Host Aware</strong> While this zone model offers the convenience and
-  flexibility of Drive Managed disks (i.e. random write capabilities),
-  Host Aware disks support the full set of zone commands defined by the
-  ZBC and ZAC standards. As such, Host Aware disks can support both the
-  regular block device abstraction (regular disk) as well as the zoned
-  block device abstraction.</p>
+<p><strong>Host Aware:</strong> While this zone model offers the convenience and
+  flexibility of Drive Managed disks (for example, random write
+  capabilities), Host Aware disks support the full set of zone commands
+  defined by ZBC and ZAC standards. Host Aware disks can support both
+  the regular block device abstraction ("regular disk") and the
+  zoned block device abstraction.</p>
 </li>
 <li>
 <p><strong>Host Managed</strong> This zone model defines a device type that is
-  different from regular disk. Host-Managed disks can only be used as
-  zoned block devices in order to satisfy the strong sequential write
-  constraints the model defines.</p>
+  different from the "regular disk" device type. Host Managed disks can
+  be used only as zoned block devices in order to satisfy the strong
+  sequential write constraints defined by the model.</p>
 </li>
 </ul>
 </li>
 </ul>
-<p>In the following sections, Host Aware disk models are considered as zoned block
-devices with similar characteristics as Host Managed drives, that is, sequential
+<p>In the following sections, Host Aware disk models are considered similar to
+zoned block devices, with characteristics similar to the characteristics of
+Host Managed drives. This means that, for Host Aware disk models, sequential
 writes are assumed to be a constraint for the correct operation of the disk.</p>
 <h2 id="serial-ata-zac-disks-and-sata-host-controllers">Serial ATA ZAC Disks and SATA Host Controllers</h2>
-<p>Serial ATA (SATA) host adapters, including those using the Advance Host
-Controller Interface (AHCI) standard, should have no problem scanning and
-initializing a connection with Host Aware disks. Most AHCI host adapters are
-also know to work with Host Managed disk drives as the adapter itself generally
-does not react to the device signature of the connected disk.</p>
+<p>Serial ATA (SATA) host adapters, including those that use the Advance Host
+Controller Interface (AHCI) standard, are able to scan and initialize
+connections with Host Aware disks. Most AHCI host adapters are known to work
+with Host Managed disk drives (this is because the adapter usually does not
+react to the device signature of the connected disk).</p>
 <h3 id="verifying-the-disk">Verifying The Disk</h3>
-<p>For a system fullfilling all <a href="../prerequisite/">prerequisites</a>, a SATA host
-Aware or Host Managed disk can simply be connected directly to a SATA port of
-the host controller. After booting the system, the disk should be listed by the
-<em>lsscsi</em> utility.</p>
+<p>On systems that fulfill all <a href="../prerequisite/">prerequisites</a>, SATA Host Aware
+Disks and Host Managed Disks can be connected directly to SATA ports on the
+host controller.</p>
+<p>After booting the system, use the <em>lsscsi</em> utility to list all SCSI devices
+attached to the system and verify the presence of the newly-connected disk:</p>
 <pre><code class="language-plaintext"># lsscsi -g
 [2:0:0:0]    disk    ATA      INTEL SSDSC2CT18 335u  /dev/sda   /dev/sg0
 [5:0:0:0]    zbc     ATA      HGST HSH721415AL T220  /dev/sdb   /dev/sg1
 </code></pre>
 <p>In this example, the disk '/dev/sda' is the system boot disk and the disk
-'/dev/sdb' is being recognized as a ZBC disk.</p>
-<p>The second column of <code>lsscsi</code> output indicates the device type. The value <em>zbc</em>
-is always used for Host Managed ZBC and ZAC disks. This corresponds to the ZBC
-defined device type <em>0x14</em> for SAS disks and to the ZAC defined device signature
-<em>0xabcd</em> for SATA disks. Since Host Aware disks have the same device type or
-device signature as regular disks, lsscsi will list host aware disks as <em>disk</em>.</p>
+'/dev/sdb' is recognized as a ZBC disk.</p>
+<p>The second column of <code>lsscsi</code> output indicates the device type. The value
+<em>zbc</em> is always used for Host Managed ZBC and ZAC disks. This corresponds
+to the ZBC-defined device type <em>0x14</em> for SAS disks and corresponds to the
+ZAC-defined device signature <em>0xabcd</em> for SATA disks. Because Host Aware
+disks have the same device type or device signature as regular disks,
+lsscsi lists host aware disks as <em>disk</em>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <em>lsscsi</em> utility will not list a SATA ZAC disk with the type <em>zac</em>. The
-type <em>zbc</em> is always used as the kernel internally implements a SCSI to ATA
-translation layer (SAT), a;;owing ther representation of all SATA devices as
-SCSI devices.</p>
+<p>The <em>lsscsi</em> utility does not list SATA ZAC disks with the type
+<em>zac</em>. The type <em>zbc</em> is always used, because the kernel
+internally implements a SCSI-to-ATA translation layer (SAT), which
+allows SATA devices to be represented as SCSI devices.</p>
 </div>
 <h3 id="checking-the-disk-information">Checking The Disk Information</h3>
-<p>The zone model of the disk can be verified through the <em>zoned</em> sysfs attribute.</p>
+<p>Verify the zone model of the disk by checking the <em>zoned</em> sysfs attribute:</p>
 <pre><code class="language-plaintext"># cat /sys/block/sdb/queue/zoned
 host-managed
 </code></pre>
@@ -753,7 +756,7 @@ host-managed
 </tbody>
 </table>
 <p></center></p>
-<p>The kernel messages also include useful information on the disk.</p>
+<p>Kernel messages also contain useful information about the disk:</p>
 <pre><code class="language-plaintext"># dmesg
 ahci 0000:00:11.5: version 3.0
 ahci 0000:00:11.5: AHCI 0001.0301 32 slots 2 ports 6 Gbps 0x3 impl SATA mode
@@ -776,19 +779,19 @@ sd 5:0:0:0: [sdb] Write cache: enabled, read cache: enabled, doesn't support DPO
 sd 5:0:0:0: [sdb] Attached SCSI disk
 ...
 </code></pre>
-<p>Among other information, the zone model of the disk is confirmed as
-host managed. The total number of zones of the disk is also displayed. In this
-example, the disk capacity is 15 TB and has 55880 zones.</p>
-<p>The zone size of the disk can also be inspected through sysfs, with the
-attribute <em>chunk_sectors</em>.</p>
+<p>The zone model of the disk is confirmed to be "host managed". The total number
+of zones on the disk is also displayed. In this example, the disk capacity is
+15 TB and the disk has 55880 zones.</p>
+<p>The zone size of the disk can be inspected by using sysfs to examine the
+attribute <em>chunk_sectors</em>:</p>
 <pre><code class="language-plaintext"># cat /sys/block/sdb/queue/chunk_sectors 
 524288
 </code></pre>
-<p>The value is displayed as a number of 512B sectors, regardless of the actual
+<p>The value is displayed as a number of 512B sectors regardless of the actual
 logical and physical block size of the disk. In this example, the disk zone size
 is <em>524288 x 512 = 256 MiB</em>.</p>
-<p>Starting with Linux kernel version 4.20.0, the sysfs attribute <em>nr_zones</em>
-is also available to verify the total number of zones of the disk.</p>
+<p>As of Linux kernel version 4.20.0, the sysfs attribute <em>nr_zones</em>
+reports the total number of zones on the disk:</p>
 <pre><code class="language-plaintext"># cat /sys/block/sdb/queue/nr_zones
 55880
 </code></pre>
@@ -891,13 +894,17 @@ failures.</p>
 checked with the HBA vendor. Under some conditions, an HBA compatibility can
 also be checked using the <a href="/tests/zbc-tests"><em>libzbc</em> conformance test suite</a>.</p>
 <h3 id="verifying-the-disk_1">Verifying The Disk</h3>
-<p>Assuming that a compatible HBA is being used, after connecting the drive and
-eventually rebooting the system (most SAS HBAs have plug-and-play features in
-which case rebooting the system after connecting or disconnecting a disk is
-not necessary), verifying the disk identification and checking the disk
-parameters and zone configuration can be done in the exact same manner as with
-Serial ATA disks as discussed above.</p>
-<p>In these examples, <code>/dev/sdc</code> is a SAS disk connected to a SAS HBA and
+<p>If you are using a compatible HBA and you have connected the drive and rebooted
+the system, verifying the disk identification and checking the disk parameters
+and zone configuration can be done in the exact same manner as with Serial ATA
+disks as discussed above.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember that most SAS HBAs have plug-and-play features that make 
+it unnecessary to reboot the system after connecting or disconnecting 
+a disk to it.</p>
+</div>
+<p>In these examples, <code>/dev/sdc</code> is an SAS disk connected to an SAS HBA and
 <em>/dev/sdd</em> is a SATA disk connected to the same HBA.</p>
 <pre><code class="language-plaintext"># lsscsi -g
 [2:0:0:0]    disk    ATA      INTEL SSDSC2CT18 335u  /dev/sda   /dev/sg0
@@ -938,8 +945,8 @@ sd 10:0:3:0: [sdd] Write cache: enabled, read cache: enabled, supports DPO and F
 sd 10:0:3:0: [sdd] Attached SCSI disk
 ...
 </code></pre>
-<p>Both disks are identified by the kernel as <em>Direct-Access-ZBC</em> devices
-indicating that the HBA is correctly translating the ZAC host managed device
+<p>Both disks are identified by the kernel as <em>Direct-Access-ZBC</em> devices.  This
+indicates that the HBA is correctly translating the ZAC host managed device
 signature into a ZBC host managed device type.</p></div>
         
         
