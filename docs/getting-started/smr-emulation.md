@@ -164,16 +164,22 @@ Zone 00079: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 ## *scsi_debug*
 
 The *scsi_debug* kernel module can be used to create emulated ZBC SCSI disks
-with memory backing used to store data written to sectors. Since memory is used
-as a backing store, creating large disks requires a host with a large amount of
-DRAM. Furthermore, the data written to the emulated device does not survive the
-device destruction or a host reboot.
+that use memory backing used to store data, which is written to sectors.
+Because this method uses memory as a backing store, the creation of large disks
+requires a host with a large amount of DRAM.
+
+!!! Note
+
+    This method stores sector data using volatile memory. This means that the
+    data written to the emulated device will not survive the device's
+    destruction and the data written to this emulated device will not survive
+    a host reboot.
 
 ### Creating an Emulated ZBC Disk
 
-*scsi_debug* ZBC disks can be created using *modprobe* with arguments.
-Below is an example to create a 16GiB capacity host managed ZBC disk with 64MiB
-zones and 32 conventional zones.
+*scsi_debug* ZBC disks can be created using *modprobe* with arguments.  The
+following is an example that creates a host managed ZBC disk with 16GiB
+capacity, 64MiB zones, and 32 conventional zones.
 
 ```plaintext
 # modprobe scsi_debug \
@@ -185,7 +191,8 @@ zones and 32 conventional zones.
 	zone_nr_conv=32
 ```
 
-The disk created can be seen using the *lsscsi* command.
+After the disk has been created, it can be examined by using the *lsscsi*
+command.
 
 ```plaintext
 # lsscsi -g
@@ -194,8 +201,8 @@ The disk created can be seen using the *lsscsi* command.
 ...
 ```
 
-The vendor field of the disk created is set to "scsi_debug". The kernel messages
-also show this disk coming online.
+The vendor field of the disk is set to "scsi_debug". The kernel messages
+also show the process whereby this disk came online.
 
 ```plaintext
 # dmesg
@@ -218,11 +225,14 @@ sd 11:0:0:0: [sdj] Attached SCSI disk
 
 ### Verifying The Emulated Disk
 
-The zone configuration of the emulated disk can be inspected using
+The zone configuration of the emulated disk can be inspected by using
 [*libzbc*](../projects/libzbc.md), [*sg3utils*](../projects/sg3utils.md) and 
 [*util-linux*](../projects/util-linux.md) tools.
 
-For instance, using [*zbc_report_zones*](../projects/libzbc.md#zone-information):
+#### Using zbc_report_zones
+
+Use [*zbc_report_zones*](../projects/libzbc.md#zone-information) to verify the
+zone configuration of the newly-created emulated ZBC disk:
 
 ```plaintext
 # zbc_report_zones /dev/sg9
@@ -250,8 +260,12 @@ Zone 00254: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 Zone 00255: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 33423360, 131072 sectors, wp 33423360
 ```
 
-[*blkzone*](../projects/util-linux.md#zone-report), the same information is
-obtained and displayed in a different format.
+#### Using blkzone
+
+Use [*blkzone*](../projects/util-linux.md#zone-report) to verify the zone
+configuration of the newly-created emulated ZBC disk. This displays the same
+information that is returned by "zbc_report_zones", but it is displayed in a
+different format:
 
 ```plaintext
 # blkzone report /dev/sdj
