@@ -83,13 +83,14 @@ o- / ..................................................................... [...]
 
 ### Verifying The Emulated Disk
 
-Verifying the emulated disk identification, its parameters and its zone
-configuration can be done in the exact same manner as with Serial ATA disk
-and SAS disks, as discussed in the [Getting started with an SMR disk](smr-disk.md)
-chapter.
+You can verify that the emulated disk has been identified and initialized by
+the kernel in the same way that you verify the kernel identification and
+initialization of Serial ATA disks and SAS disks, as discussed in the [Getting
+started with an SMR disk](smr-disk.md) chapter.
 
-Identification of the emulated disk is facilitated by looking at the disk vendor
-ID displayed by the *lsscsi* utility.
+
+Identify the emulated disk by looking at the disk vendor ID that is displayed
+by the *lsscsi* utility:
 
 ```plaintext
 # lsscsi -g
@@ -98,11 +99,11 @@ ID displayed by the *lsscsi* utility.
 [11:0:1:0]   zbc     LIO-ORG  TCMU ZBC device  0002  /dev/sdc   /dev/sg2
 ```   
 
-The emulated disk is listed with the device vendor name "LIO-ORG" and the device
-model name "TCMU ZBC device".
+In this example, the emulated disk is listed with the device vendor name
+"LIO-ORG" and the device model name is "TCMU ZBC device".
 
-Similarly to physical ZBC or ZAC disks, the kernel messages will show the drive
-being identified and initialized.
+As with physical ZBC and ZAC disks, the kernel messages will show that the
+drive has been identified and initialized:
 
 ```plaintext
 # dmesg
@@ -122,12 +123,13 @@ sd 11:0:1:0: [sdc] Attached SCSI disk
 ...
 ```
 
-The emulated disk is identified by the kernel exactly like a physical SAS host
-managed disk, that is, with a device type *Direct-Access-ZBC*.
+The kernel identifies the emulated disk in the same way that it would identify
+a physical SAS host managed disk (that is, with the device type
+"*Direct-Access-ZBC*").
 
 The emulated disk can now be used in the same manner as any physical disk. For
 instance, the *blkzone* or *zbc_report_zones* utilities can be used to inspect
-the disk zone configuration.
+the disk zone configuration:
 
 ```plaintext
 # zbc_report_zones /dev/sdc
