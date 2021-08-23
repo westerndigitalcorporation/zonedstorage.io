@@ -21,24 +21,27 @@ ways to do this.
 ## *tcmu-runner*
 
 Detailed information on how to install and operate *tcmu-runner* can be found
-[here](../projects/tcmu-runner.md).
+in the [tcmu-runner ZBC Disk Emulation](../projects/tcmu-runner.md) chapter of
+the Applications and Libraries Guide.
 
 ### tcmu-runner ZBC File Handler
 
-The *ZBC file handler* is *tcmu-runner* internal handler implementing the
-emulation of a ZBC SCSI disk using a file as a backstore. *tcmu-runner*
-infrastructure connects the emulated disk to a virtual HBA implemented as a
-kernel driver. This structure results in an identical command path for the
-emulated disk as for physical disks. Applications and kernel components will
-not perceive any difference.
+The *ZBC file handler* is *tcmu-runner* internal handler that emulates a ZBC
+SCSI disk and uses file as a backstore. *tcmu-runner* infrastructure connects
+the emulated disk to a virtual HBA that has been implemented as a kernel
+driver. This structure provides a command path for the emulated disk that is
+identical to the command path that would be available if the physical disk were
+in its place. Applications and kernel components will not perceive any
+difference.
 
-[This section](../projects/tcmu-runner.md) describes in more details the options
-available to create an emulated disk such as the disk zone model, the disk zone
-size, the disk capacity and the number of conventional zones of the disk.
+The [tcmu-runner ZBC Disk Emulation](../projects/tcmu-runner.md) chapter of the
+Applications and Libraries Guide describes in more detail the options available
+for creating emulated disks. These include the disk zone model, the disk zone
+size, the disk capacity, and the number of conventional zones of the disk.
 
-The following example shows how to create a small 20 GB host managed ZBC disk
-with 10 conventional zones and a 256 MiB zone size, with the emulated disk
-capacity stored in the file */var/local/zbc0.raw*.
+The following example shows how to create a small (20 GB) host managed ZBC disk
+that has 10 conventional zones and a 256 MiB zone size. In this example, the
+emulated disk capacity is stored in the file */var/local/zbc0.raw*.
 
 ```plaintext
 # targetcli
