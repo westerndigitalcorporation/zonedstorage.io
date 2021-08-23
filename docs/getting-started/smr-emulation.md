@@ -164,7 +164,7 @@ Zone 00079: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 ## *scsi_debug*
 
 The *scsi_debug* kernel module can be used to create emulated ZBC SCSI disks
-that use memory backing used to store data, which is written to sectors.
+that use memory backing to store data, which is written to sectors.
 Because this method uses memory as a backing store, the creation of large disks
 requires a host with a large amount of DRAM.
 
