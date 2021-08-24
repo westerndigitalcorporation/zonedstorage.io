@@ -654,41 +654,47 @@
         <div class="col-md-9" role="main">
 
 <h1 id="getting-started-with-emulated-smr-disks">Getting Started with Emulated SMR Disks</h1>
-<p>For users without access to ZBC or ZAC disks, application development and kernel
-tests are possible using emulated ZBC disks. Several methods exist.</p>
+<p>Emulated ZBC disks make it possible to do application development and kernel
+tests even if you do not have access to ZBC or ZAC disks. There are several
+ways to do this.</p>
 <ul>
 <li>
-<p><strong><em>null_blk</em></strong>: The <em>null_blk</em> kernel driver allows emulating zoned block
-  devices.  This method is discussed in more details <a href="../nullblk/">here</a>.</p>
+<p><strong><em>null_blk</em></strong>: The <em>null_blk</em> kernel driver makes it possible to emulate
+  zoned block devices.  This method is discussed in more detail in the
+  <a href="../nullblk/">Zoned Block Device Emulation with null_blk</a> chapter of the
+  Getting Started Guide.</p>
 </li>
 <li>
-<p><strong><em>tcmu-runner</em></strong>: This scsi device emulation application allows the
-  emulation of both host aware or host managed ZBC SCSI disks with a storage
-  backstore using a regular file. For all purposes and intent, the disks created
-  using <em>tcmu-runner</em> operate exactly like physical disks.</p>
+<p><strong><em>tcmu-runner</em></strong>: This scsi device emulation application makes it possible
+  to use a regular file (as a storage backstore) to emulate both host-aware and
+  host-managed ZBC SCSI disks. The disks created using <em>tcmu-runner</em> function
+  like physical disks.</p>
 </li>
 <li>
 <p><strong><em>scsi_debug</em></strong>: The <em>scsi_debug</em> kernel driver can be configured to emulate
-  host aware and host managed ZBC disks that appear to the kernel and
+  host-aware and host-managed ZBC disks that appear to the kernel and
   application exactly as a real disk would.</p>
 </li>
 </ul>
 <h2 id="tcmu-runner"><em>tcmu-runner</em></h2>
 <p>Detailed information on how to install and operate <em>tcmu-runner</em> can be found
-<a href="../../projects/tcmu-runner/">here</a>.</p>
+in the <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a> chapter of
+the Applications and Libraries Guide.</p>
 <h3 id="tcmu-runner-zbc-file-handler">tcmu-runner ZBC File Handler</h3>
-<p>The <em>ZBC file handler</em> is <em>tcmu-runner</em> internal handler implementing the
-emulation of a ZBC SCSI disk using a file as a backstore. <em>tcmu-runner</em>
-infrastructure connects the emulated disk to a virtual HBA implemented as a
-kernel driver. This structure results in an identical command path for the
-emulated disk as for physical disks. Applications and kernel components will
-not perceive any difference.</p>
-<p><a href="../../projects/tcmu-runner/">This section</a> describes in more details the options
-available to create an emulated disk such as the disk zone model, the disk zone
-size, the disk capacity and the number of conventional zones of the disk.</p>
-<p>The following example shows how to create a small 20 GB host managed ZBC disk
-with 10 conventional zones and a 256 MiB zone size, with the emulated disk
-capacity stored in the file <em>/var/local/zbc0.raw</em>.</p>
+<p>The <em>ZBC file handler</em> is <em>tcmu-runner</em> internal handler that emulates a ZBC
+SCSI disk and uses file as a backstore. <em>tcmu-runner</em> infrastructure connects
+the emulated disk to a virtual HBA that has been implemented as a kernel
+driver. This structure provides a command path for the emulated disk that is
+identical to the command path that would be available if the physical disk were
+in its place. Applications and kernel components will not perceive any
+difference.</p>
+<p>The <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a> chapter of the
+Applications and Libraries Guide describes in more detail the options available
+for creating emulated disks. These include the disk zone model, the disk zone
+size, the disk capacity, and the number of conventional zones of the disk.</p>
+<p>The following example shows how to create a small (20 GB) host managed ZBC disk
+that has 10 conventional zones and a 256 MiB zone size. In this example, the
+emulated disk capacity is stored in the file <em>/var/local/zbc0.raw</em>.</p>
 <pre><code class="language-plaintext"># targetcli
 targetcli shell version 2.1.fb49
 Copyright 2011-2013 by Datera, Inc and others.
@@ -726,21 +732,21 @@ o- / ..................................................................... [...]
 /&gt; exit
 </code></pre>
 <h3 id="verifying-the-emulated-disk">Verifying The Emulated Disk</h3>
-<p>Verifying the emulated disk identification, its parameters and its zone
-configuration can be done in the exact same manner as with Serial ATA disk
-and SAS disks, as discussed in the <a href="../smr-disk/">Getting started with an SMR disk</a>
-chapter.</p>
-<p>Identification of the emulated disk is facilitated by looking at the disk vendor
-ID displayed by the <em>lsscsi</em> utility.</p>
+<p>You can verify that the emulated disk has been identified and initialized by
+the kernel in the same way that you verify the kernel identification and
+initialization of Serial ATA disks and SAS disks, as discussed in the <a href="../smr-disk/">Getting
+started with an SMR disk</a> chapter.</p>
+<p>Identify the emulated disk by looking at the disk vendor ID that is displayed
+by the <em>lsscsi</em> utility:</p>
 <pre><code class="language-plaintext"># lsscsi -g
 [2:0:0:0]    disk    ATA      INTEL SSDSC2CT18 335u  /dev/sda   /dev/sg0
 [5:0:0:0]    zbc     ATA      HGST HSH721415AL T220  /dev/sdb   /dev/sg1
 [11:0:1:0]   zbc     LIO-ORG  TCMU ZBC device  0002  /dev/sdc   /dev/sg2
 </code></pre>
-<p>The emulated disk is listed with the device vendor name "LIO-ORG" and the device
-model name "TCMU ZBC device".</p>
-<p>Similarly to physical ZBC or ZAC disks, the kernel messages will show the drive
-being identified and initialized.</p>
+<p>In this example, the emulated disk is listed with the device vendor name
+"LIO-ORG" and the device model name is "TCMU ZBC device".</p>
+<p>As with physical ZBC and ZAC disks, the kernel messages will show that the
+drive has been identified and initialized:</p>
 <pre><code class="language-plaintext"># dmesg
 ...
 scsi host11: TCM_Loopback
@@ -757,11 +763,12 @@ sd 11:0:1:0: [sdc] Attached SCSI disk
 
 ...
 </code></pre>
-<p>The emulated disk is identified by the kernel exactly like a physical SAS host
-managed disk, that is, with a device type <em>Direct-Access-ZBC</em>.</p>
+<p>The kernel identifies the emulated disk in the same way that it would identify
+a physical SAS host managed disk (that is, with the device type
+"<em>Direct-Access-ZBC</em>").</p>
 <p>The emulated disk can now be used in the same manner as any physical disk. For
 instance, the <em>blkzone</em> or <em>zbc_report_zones</em> utilities can be used to inspect
-the disk zone configuration.</p>
+the disk zone configuration:</p>
 <pre><code class="language-plaintext"># zbc_report_zones /dev/sdc
 Device /dev/sdc:
     Vendor ID: LIO-ORG TCMU ZBC device 0002
@@ -792,14 +799,20 @@ Zone 00079: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 </code></pre>
 <h2 id="scsi_debug"><em>scsi_debug</em></h2>
 <p>The <em>scsi_debug</em> kernel module can be used to create emulated ZBC SCSI disks
-with memory backing used to store data written to sectors. Since memory is used
-as a backing store, creating large disks requires a host with a large amount of
-DRAM. Furthermore, the data written to the emulated device does not survive the
-device destruction or a host reboot.</p>
+that use memory backing to store data, which is written to sectors.
+Because this method uses memory as a backing store, the creation of large disks
+requires a host with a large amount of DRAM.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method stores sector data using volatile memory. This means that the
+data written to the emulated device will not survive the device's
+destruction and the data written to this emulated device will not survive
+a host reboot.</p>
+</div>
 <h3 id="creating-an-emulated-zbc-disk">Creating an Emulated ZBC Disk</h3>
-<p><em>scsi_debug</em> ZBC disks can be created using <em>modprobe</em> with arguments.
-Below is an example to create a 16GiB capacity host managed ZBC disk with 64MiB
-zones and 32 conventional zones.</p>
+<p><em>scsi_debug</em> ZBC disks can be created using <em>modprobe</em> with arguments.  The
+following is an example that creates a host managed ZBC disk with 16GiB
+capacity, 64MiB zones, and 32 conventional zones.</p>
 <pre><code class="language-plaintext"># modprobe scsi_debug \
     max_luns=1 \
     sector_size=4096 \
@@ -808,14 +821,15 @@ zones and 32 conventional zones.</p>
     zone_size_mb=64 \
     zone_nr_conv=32
 </code></pre>
-<p>The disk created can be seen using the <em>lsscsi</em> command.</p>
+<p>After the disk has been created, it can be examined by using the <em>lsscsi</em>
+command.</p>
 <pre><code class="language-plaintext"># lsscsi -g
 ...
 [11:0:0:0]   zbc     Linux    scsi_debug       0190  /dev/sdj   /dev/sg9
 ...
 </code></pre>
-<p>The vendor field of the disk created is set to "scsi_debug". The kernel messages
-also show this disk coming online.</p>
+<p>The vendor field of the disk is set to "scsi_debug". The kernel messages
+also show the process whereby this disk came online.</p>
 <pre><code class="language-plaintext"># dmesg
 ...
 scsi_debug:sdebug_driver_probe: scsi_debug: trim poll_queues to 0. poll_q/nr_hw = (0/1)
@@ -834,10 +848,12 @@ sd 11:0:0:0: [sdj] 256 zones of 16384 logical blocks
 sd 11:0:0:0: [sdj] Attached SCSI disk
 </code></pre>
 <h3 id="verifying-the-emulated-disk_1">Verifying The Emulated Disk</h3>
-<p>The zone configuration of the emulated disk can be inspected using
+<p>The zone configuration of the emulated disk can be inspected by using
 <a href="../../projects/libzbc/"><em>libzbc</em></a>, <a href="../../projects/sg3utils/"><em>sg3utils</em></a> and 
 <a href="../../projects/util-linux/"><em>util-linux</em></a> tools.</p>
-<p>For instance, using <a href="../../projects/libzbc/#zone-information"><em>zbc_report_zones</em></a>:</p>
+<h4 id="using-zbc_report_zones">Using zbc_report_zones</h4>
+<p>Use <a href="../../projects/libzbc/#zone-information"><em>zbc_report_zones</em></a> to verify the
+zone configuration of the newly-created emulated ZBC disk:</p>
 <pre><code class="language-plaintext"># zbc_report_zones /dev/sg9
 Device /dev/sg9:
     Vendor ID: Linux scsi_debug 0190
@@ -862,8 +878,11 @@ Zone 00033: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 Zone 00254: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 33292288, 131072 sectors, wp 33292288
 Zone 00255: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 33423360, 131072 sectors, wp 33423360
 </code></pre>
-<p><a href="../../projects/util-linux/#zone-report"><em>blkzone</em></a>, the same information is
-obtained and displayed in a different format.</p>
+<h4 id="using-blkzone">Using blkzone</h4>
+<p>Use <a href="../../projects/util-linux/#zone-report"><em>blkzone</em></a> to verify the zone
+configuration of the newly-created emulated ZBC disk. This displays the same
+information that is returned by "zbc_report_zones", but it is displayed in a
+different format:</p>
 <pre><code class="language-plaintext"># blkzone report /dev/sdj
   start: 0x000000000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
   start: 0x000020000, len 0x020000, cap 0x020000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
