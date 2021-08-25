@@ -681,18 +681,18 @@ ways to do this.</p>
 in the <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a> chapter of
 the Applications and Libraries Guide.</p>
 <h3 id="tcmu-runner-zbc-file-handler">tcmu-runner ZBC File Handler</h3>
-<p>The <em>ZBC file handler</em> is <em>tcmu-runner</em> internal handler that emulates a ZBC
-SCSI disk and uses file as a backstore. <em>tcmu-runner</em> infrastructure connects
-the emulated disk to a virtual HBA that has been implemented as a kernel
-driver. This structure provides a command path for the emulated disk that is
-identical to the command path that would be available if the physical disk were
-in its place. Applications and kernel components will not perceive any
-difference.</p>
+<p>The <em>ZBC file handler</em> is <em>tcmu-runner</em>, an internal handler that emulates a
+ZBC SCSI disk and uses a file as a backstore. The <em>tcmu-runner</em> infrastructure
+connects the emulated disk to a virtual HBA that has been implemented as a
+kernel driver. This structure provides a command path for the emulated disk
+that is identical to the command path that would be available if a physical
+disk were in its place. Applications and kernel components will not perceive
+any difference.</p>
 <p>The <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a> chapter of the
 Applications and Libraries Guide describes in more detail the options available
 for creating emulated disks. These include the disk zone model, the disk zone
 size, the disk capacity, and the number of conventional zones of the disk.</p>
-<p>The following example shows how to create a small (20 GB) host managed ZBC disk
+<p>The following example shows how to create a small (20 GB) host-managed ZBC disk
 that has 10 conventional zones and a 256 MiB zone size. In this example, the
 emulated disk capacity is stored in the file <em>/var/local/zbc0.raw</em>.</p>
 <pre><code class="language-plaintext"># targetcli
