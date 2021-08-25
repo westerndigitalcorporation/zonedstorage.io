@@ -26,13 +26,13 @@ the Applications and Libraries Guide.
 
 ### tcmu-runner ZBC File Handler
 
-The *ZBC file handler* is *tcmu-runner*, an internal handler that emulates a
-ZBC SCSI disk and uses a file as a backstore. The *tcmu-runner* infrastructure
-connects the emulated disk to a virtual HBA that has been implemented as a
-kernel driver. This structure provides a command path for the emulated disk
-that is identical to the command path that would be available if a physical
-disk were in its place. Applications and kernel components will not perceive
-any difference.
+The *ZBC file handler* is an internal device handler of *tcmu-runner* that
+emulates a ZBC SCSI disk and uses a file as a backstore. The *tcmu-runner*
+infrastructure connects the emulated disk to a virtual HBA that has been
+implemented as a kernel driver. This structure provides a command path for the
+emulated disk that is identical to the command path that would be available if a
+physical disk were in its place. Applications and kernel components will not
+perceive any difference.
 
 The [tcmu-runner ZBC Disk Emulation](../projects/tcmu-runner.md) chapter of the
 Applications and Libraries Guide describes in more detail the options available
