@@ -35,10 +35,7 @@ create a sparse file or by using the *dd* command to create a fully allocated fi
 
 #### Creating the Backstore
 
-This guide provides instructions for two methods of creating the backstore file:
-
-1. Using truncate
-2. Using dd
+This guide provides instructions for creating the backstore file using ``truncate``.
 
 ##### Using truncate to create an Emulated Zone Namespace Backstore
 
@@ -49,20 +46,6 @@ Run the following command to use ``truncate`` to create a backstore file:
 
 # ls -l /var/lib/qemu/images/zns.raw
 -rw-r--r-- 1 root root 34359738368 Jun 21 15:13 /var/lib/qemu/images/zns.raw
-```
-
-##### Using dd to create an Emulated Zone Namespace Backstore
-
-Run the following command to use ``dd`` to create a backstore file:
-
-```plaintext
-# dd if=/dev/zero of=/var/lib/qemu/images/zns.raw bs=1M count=32768
-32768+0 records in
-32768+0 records out
-34359738368 bytes (34 GB, 32 GiB) copied, 11.4072 s, 3.0 GB/s
-
-# ls -l /var/lib/qemu/images/zns.raw
--rw-r--r-- 1 root root 34359738368 Jun 22 11:22 /var/lib/qemu/images/zns.raw
 ```
 
 #### Creating a ZNS and using the Backstore File
@@ -97,14 +80,6 @@ ZNS](../projects/zns.md).
 Node             SN                   Model                                    Namespace Usage                      Format           FW Rev
 ---------------- -------------------- ---------------------------------------- --------- -------------------------- ---------------- --------
 /dev/nvme0n1     deadbeef             QEMU NVMe Ctrl                           1          34.36  GB /  34.36  GB      4 KiB +  0 B   1.0
-```
-
-The *lsscsi* utility shows the emulated NVMe device:
-
-```
-# lsscsi -g
-[2:0:0:0]    cd/dvd  QEMU     QEMU DVD-ROM     2.5+  /dev/sr0   /dev/sg0
-[N:0:0:1]    disk    QEMU NVMe Ctrl__1                          /dev/nvme0n1  -
 ```
 
 Using the *blkzone* utility, the namespace zone configuration can be inspected.
