@@ -7,7 +7,7 @@
 
 # Use yui-compressor when yuicompressor not available.
 YUICOMPRESSOR := yuicompressor
-ifneq (,$(wildcard yui-compressor))
+ifeq (,$(wildcard yui-compressor))
 	YUICOMPRESSOR := yui-compressor
 endif
 
