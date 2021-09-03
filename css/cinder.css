@@ -63,6 +63,17 @@ pre {
     font-family: Inter,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 13px;
 }
+
+.bs-sidebar {
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.bs-sidebar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
 .well {
     background-color: #FCFDFF;
 }
