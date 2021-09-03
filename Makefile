@@ -1,7 +1,7 @@
 #
 # Copyright (c) 2021 Western Digital Corporation or its affiliates.
 #
-# Note: to manually deploy the built site to GitHub pages, run:
+# Note: to manually deploy changes to GitHub pages, run:
 # git push -f git@github.com:westerndigitalcorporation/zonedstorage.io.git gh-pages:gh-pages
 #
 
@@ -11,6 +11,7 @@ ifneq (,$(wildcard yui-compressor))
 	YUICOMPRESSOR := yui-compressor
 endif
 
+curbranch := $(shell git branch --show-current)
 cssdir=cinder/css
 
 all: doc
@@ -50,11 +51,17 @@ clean:
 	@rm -f ${cssdir}/*.min.css
 
 deploy::
-	@echo "Building and deploying site files to GitHub pages"
+ifeq ($(curbranch),site)
+	@echo "Building and deploying the site files to GitHub pages"
 	@make -s css-all
 	@mkdocs gh-deploy
+else
+	@echo "Invalid current branch \"$(curbranch)\"."
+	@echo -n "Swith to the \"site\" branch and pull-in changes from"
+	@echo "the \"main\" branch to deploy changes."
+endif
 
 help:
 	@echo "make [all|doc]: Build site files"
 	@echo "make serve: Build the site files and serve locally on http://127.0.0.1:8000/"
-	@echo "make deploy: Deploy site files to gh-pages"
+	@echo "make deploy: Deploy changes to the gh-pages site (from the \"site\" branch)"
