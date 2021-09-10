@@ -117,7 +117,7 @@ if [ $convlen -eq 0 ] && [ $seqlen -eq 0 ]; then
 	exit 1
 fi
 
-seqofst=`zbc_report_zones $1 | grep "Sequential-write-required" | head -n1 | cut -f5 -d',' | cut -f3 -d' '`
+seqofst=`blkzone report $1 | grep "SEQ_WRITE_REQUIRED" | head -n1 | cut -f1 -d',' | cut -f2 -d':' | xargs printf "%d\n"`
 if [ $convlen -gt $seqofst ]; then
 	nrconv=$(( $seqofst / 524288 ))
 	echo "Too many conventional zones requested: truncating to $nrconv"
