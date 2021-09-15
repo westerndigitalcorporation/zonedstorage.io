@@ -6,9 +6,12 @@
 #
 
 # Use yui-compressor when yuicompressor not available.
+ifneq ($(shell which yuicompressor 2> /dev/null),)
 YUICOMPRESSOR := yuicompressor
-ifeq (,$(wildcard yui-compressor))
-	YUICOMPRESSOR := yui-compressor
+else
+ifneq ($(shell which yui-compressor 2> /dev/null),)
+YUICOMPRESSOR := yui-compressor
+endif
 endif
 
 curbranch := $(shell git branch --show-current)
@@ -17,20 +20,28 @@ cssdir=cinder/css
 all: doc
 
 base.min.css: ${cssdir}/base.css
+ifdef YUICOMPRESSOR
 	@echo "  Compacting $<"
 	@$(YUICOMPRESSOR) $< > ${cssdir}/$@
+endif
 
 bootstrap-custom.min.css: ${cssdir}/bootstrap-custom.css
+ifdef YUICOMPRESSOR
 	@echo "  Compacting $<"
 	@$(YUICOMPRESSOR) $< > ${cssdir}/$@
+endif
 
 cinder.min.css: ${cssdir}/cinder.css
+ifdef YUICOMPRESSOR
 	@echo "  Compacting $<"
 	@$(YUICOMPRESSOR) $< > ${cssdir}/$@
+endif
 
 highlight.min.css: ${cssdir}/highlight.css
+ifdef YUICOMPRESSOR
 	@echo "  Compacting $<"
 	@$(YUICOMPRESSOR) $< > ${cssdir}/$@
+endif
 
 css-all: base.min.css bootstrap-custom.min.css cinder.min.css highlight.min.css
 
