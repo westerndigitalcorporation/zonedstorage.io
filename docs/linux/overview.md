@@ -1,16 +1,16 @@
 # Linux Zoned Storage Support Overview
 
-Zoned block device support was initially released with the Linux&reg; kernel
-version 4.10. Following versions improved this support and added new features
-beyond the raw block device access interface. More advanced features such as
-device mapper support and ZBD aware file systems are now available.
+Zoned block device support was added to the Linux&reg; kernel in version 4.10.
+Subsequent versions improved this support and added new features beyond the raw
+block device access interface. More advanced features such as device mapper
+support and ZBD-aware file systems are now available.
 
 ## Overview
 
-Applications developers can use zoned block devices through various I/O paths
-controlled with different programming interfaces and exposing the device in
-different ways. A simplistic representation of the different possible access
-paths is shown in the figure below.
+Application developers can use zoned block devices by means of various I/O
+paths, can control them with different programming interfaces, and can expose
+zoned block devices in different ways. A simplistic representation of the
+various access paths is shown in the figure below.
 
 <center>
 <a><img alt="linux-overview" src="../../assets/img/linux-iopath.png"
@@ -19,70 +19,69 @@ style="max-width:100%;"></a>
 <br><em>Linux Zoned Block Device Support Overview</em></br>
 </center>
 
-Three different I/O path implement two POSIX compatible interfaces that
-completely hide the write constraints of zoned block devices sequential zones.
-These three I/O path are suitable to execute legacy applications, that is,
-applications that have not been modified to implement fully sequential write
-streams.
+Three different I/O paths implement two POSIX compatible interfaces that hide
+the write constraints of the sequential zones of the zoned block devices. These
+three I/O paths can run legacy applications (applications that have
+not been modified to implement fully-sequential write streams).
 
-* **File Access Interface** This is the interface implemented by a file system
-  allowing an application to organize its data in files and directories. Two
-  different implementations are available.
+* **File Access Interface** This is the interface that file systems implement
+  to allow applications to organize their data into files and directories. Two
+  different implementations of the file access interface are available:
 
-    - *ZBD Compliant File System* With this implementation, the file system is
-      modified to directly handle the sequential write constraint of zoned block
-      devices. Random writes to files by applications are transformed into
-      sequential write streams by the file system, consealing the device
+    - **ZBD Compliant File System**: With this implementation, the file system
+      is modified to directly handle the sequential write constraint of zoned
+      block devices. Random writes to files by applications are transformed
+      into sequential write streams by the file system, concealing the device
       constraints from the application. An example of this is the
       [*F2FS*](../linux/fs.md#f2fs) file system.
 
-    - *Legacy File System* In this case, an unmodified file system is used and
-      the device sequential write constraint is handled by a device mapper
-      target driver exposing the zoned block device as a regular block device.
-      This device mapper is *dm-zoned*. Its characteristics and use are
-      discussed in detail in [this article](../linux/dm.md#dm-zoned).
+    - **Legacy File System**: With this implementation, an unmodified file
+      system is used and the device-sequential write constraint is handled by a
+      device mapper target driver that exposes the zoned block device as a
+      regular block device. This device mapper is called *dm-zoned*. Its
+      characteristics and use are discussed in detail in [the dm-zoned section
+      of the "Device Mapper" guide ](../linux/dm.md#dm-zoned).
 
 * **Raw Block Access Interface** This is the raw block device file access
   interface that can be used by applications to directly access data stored on
-  the device. Similarly to the legacy file system case, this interface is
-  also implemented using the [*dm-zoned*](dm.md#dm-zoned)
-  device mapper target driver to hide the sequential write constraints from the
-  application.
+  the device. Similar to the legacy file system case, this interface is
+  implemented using the [*dm-zoned*](dm.md#dm-zoned) device mapper target
+  driver to hide the sequential write constraints from the application.
 
 Three additional interfaces are available to applications that have been
 written or modified to comply with the sequential write constraint of zoned
 block devices. These interfaces directly expose the device constraints to
 applications which must ensure that data is written using sequential streams
-starting from zones write pointer positions.
+that start from the write-pointer positions of the zones.
 
-* **File Access Interface** This special interface is implemented by the
+* **File Access Interface**: This special interface is implemented by the
   [*zonefs*](fs.md#zonefs) file system. *zonefs* is a very simple file system
-  that exposes each zone of a zoned block device as a file. However, unlike
-  regular POSIX file systems, the sequential write constraint of the device is
-  not automatically handled by zonefs. It is the responsibility of the
-  application to sequentially write files representing zones.
+  that exposes each zone of a zoned block device as a file. But unlike regular
+  POSIX file systems, the sequential write constraint of the device is not
+  automatically handled by zonefs. It is the responsibility of the application
+  to sequentially write files that represent zones.
 
-* **Zoned Raw Block Access Interface** This is the counterpart of the
-  *Raw Block Access Interface* without any intermediate driver to handle the
-  device constraints. An application can use this interface by directly opening
-  the device file representing the zoned block device to gain access to
-  zone information and management operations provided by the block layer.
-  As an example, [*Linux System Utilities*](../projects/util-linux.md) use this
-  interface. Physical zoned block devices as well as logically created zoned
+* **Zoned Raw Block Access Interface**: This is the counterpart of the *Raw
+  Block Access Interface* (without any intermediate driver to handle the device
+  constraints). An application can use this interface by directly opening the
+  device file that represents the zoned block device to gain access to zone
+  information and management operations that are provided by the block layer.
+  [*Linux System Utilities*](../projects/util-linux.md), for example, use this
+  interface. Physical zoned block devices, as well as logically-created zoned
   block devices (e.g. zoned block devices created with the
-  [*dm-linear*](../linux/dm.md#dm-linear) device mapper target) support this
+  [*dm-linear*](../linux/dm.md#dm-linear) device mapper target), support this
   interface. The [*libzbd*](../projects/libzbd.md) user library and tools can
-  simplify the implementation of applications using this interface.
+  simplify the implementation of applications that use this interface.
 
-* **Passthrough Device Access Interface** This is the interface provided by
-  the SCSI generic driver (SG) and NVMe driver which allows an application to
-  send SCSI or NVMe commands directly to a device. The kernel interfere
+* **Passthrough Device Access Interface** This is the interface (provided by
+  the SCSI generic driver (SG) and the NVMe driver) that allows an application
+  to send SCSI or NVMe commands directly to a device. The kernel interferes
   minimally with the commands sent by applications, resulting in the need for
-  application to handle all device constraints itself (e.g. Logical and
-  physical sector size, zone boundaries, command timeout, command retry count,
-  etc). User level libraries such as [*libzbc*](../projects/libzbc.md) and
-  [*libnvme*](../projects/libnvme.md) can greatly simplify the implementation
-  of applications using this interface.
+  an application that can handle all device constraints itself (e.g. Logical
+  and physical sector size, zone boundaries, command timeout, command retry
+  count, etc). User-level libraries such as [*libzbc*](../projects/libzbc.md)
+  and [*libnvme*](../projects/libnvme.md) can greatly simplify the
+  implementation of applications that use this interface.
 
 ## Kernel Versions
 
