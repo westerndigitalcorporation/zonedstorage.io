@@ -85,14 +85,14 @@ that start from the write-pointer positions of the zones.
 
 ## Kernel Versions
 
-The initial release of the zoned block device support with kernel 4.10 was
-limited to the block layer ZBD user interface, SCSI layer sequential write
-ordering control and native support for the *F2FS* file system. Following
-kernel versions added more feature such as device mapper drivers and support
-for the block multi-queue infrastructure.
+When zoned block device support was first released in kernel 4.10, it offered 
+only the block layer ZBD user interface, SCSI layer sequential write
+ordering control, and native support for the *F2FS* file system. Subsequent 
+kernel versions added more features, such as device-mapper drivers and support
+for block multi-queue infrastructure.
 
-The figure below summarizes the evolution of zoned block device support with
-kernel versions.
+The figure below summarizes the evolution of zoned block device support over 
+time, by kernel version.
 
 <center>
 <a><img alt="linux-versions" src="../../assets/img/linux-versions.png"
@@ -101,30 +101,29 @@ style="max-width:100%;"></a>
 <br><em>Kernel kernel versions and ZBD features</em></br>
 </center>
 
-* **Passthrough Access Support (*SG Access*)** Support for exposing host managed
-  ZBC/ZAC hard-disks as SCSI generic (SG) nodes was officially added to kernel
-  3.18 with the definition of the device type `TYPE_SCSI` for SCSI devices and
-  with the definition of the device class `ATA_DEV_ZAC` for ATA devices. For
-  kernels older than version 3.18, SATA host managed ZAC disks will not be
-  exposed to the users as SG nodes nor as block device files. These older
-  kernels will simply ignore SATA devices reporting a host managed ZAC device
-  signature and the devices will not be usable in any way. For SCSI disks or
-  SATA disks connected to a compatible SAS HBA, host managed disk will be
-  accessible by the user through the node file created by the SG driver to
-  represent these disks.
+* **Passthrough Access Support (*SG Access*)** Support for exposing host
+  managed ZBC/ZAC hard-disks as SCSI generic (SG) nodes was officially added to
+  kernel 3.18 with the definition of the device type `TYPE_SCSI` for SCSI
+  devices and with the definition of the device class `ATA_DEV_ZAC` for ATA
+  devices. For kernels older than version 3.18, SATA host-managed ZAC disks are
+  not exposed to the users either as SG nodes or as block device files. These
+  older kernels will simply ignore SATA devices that report a host-managed ZAC
+  device signature, and the devices will not be usable in any way. For SCSI
+  disks or SATA disks that are connected to a compatible SAS HBA, host-managed
+  disks are accessible by the user through the node file that is created by the
+  SG driver to represent these disks.
 
 * **Zoned Block Device Access and *F2FS* Support** The block I/O layer zoned
-  block device support added to kernel version 4.10 enables exposing
-  host managed ZBC and ZAC disks as block device files, similarly to regular
+  block device support that was added to kernel version 4.10 enables exposing
+  host-managed ZBC and ZAC disks as block device files, similar to regular
   disks. This support also includes changes to the kernel *libata* command
-  translation to enable SCSI ZBC zone block commands translation to ZAC zone ATA
-  commands. For applications relying on SCSI generic direct access, this enables
-  handling both ZBC (SCSI) and ZAC (ATA) disks with the same code (e.g. ATA
-  commands do not need to be issued). Access to zoned block devices is also
-  possible using the disk block device file (e.g. */dev/sdX* device file) with
-  regular POSIX system calls. However, compared to regular disks, some
-  restrictions still apply
-  (see [Kernel ZBD Support Restrictions](#zbd-support-restrictions)).
+  translation that enable SCSI ZBC zone block commands to be translated to ZAC
+  zone ATA commands. For applications relying on SCSI generic direct access,
+  this enables handling both ZBC (SCSI) and ZAC (ATA) disks with the same code
+  (e.g. ATA commands do not need to be issued). Access to zoned block devices
+  is also possible using the disk block device file (e.g. */dev/sdX* device
+  file) with regular POSIX system calls. However, compared to regular disks,
+  some restrictions still apply (see [Kernel ZBD Support Restrictions](#zbd-support-restrictions)).
 
 * **Device Mapper and *dm-zoned* Support** With kernel version 4.13.0, support
   for zoned block devices was added to the device mapper infrastructure. This
@@ -132,33 +131,33 @@ style="max-width:100%;"></a>
   top of zoned block devices. Additionally, the *dm-zoned* device mapper
   target driver was also added.
 
-* **Block multi-queue and SCSI multi-queue Support** With kernel
-  version 4.16.0, support for the block multi-queue infrastructure was added.
-  This improvement enables using host managed ZBC and ZAC disks with the SCSI
-  multiqueue (*scsi-mq*) support enabled while retaining support for the legacy
-  single queue block I/O path. The block multi queue and *scsi-mq* I/O path are
-  the default since kernel version 5.0 with the removal of the legacy single
-  queue block I/O path support.
+* **Block multi-queue and SCSI multi-queue Support** With kernel version
+  4.16.0, support for the block multi-queue infrastructure was added.  This
+  improvement makes it possible to use host-managed ZBC and ZAC disks with SCSI
+  multiqueue (*scsi-mq*) support enabled, while retaining support for the
+  legacy single-queue block I/O path. The block multi-queue and *scsi-mq* I/O
+  path have been the default since kernel version 5.0, when legacy single queue
+  block I/O path support was removed.
 
-* **zonefs** Kernel 5.6.0 first introduced the *zonefs* file system which
-  exposes zones of a zoned block device as regular files. *zonefs* being
-  implemented using the kernel internal zoned block device interface, all types
-  of zoned block devices are supported (SCSI ZBC, ATA ZAC and NVMe ZNS).
+* **zonefs** Kernel 5.6.0 introduced the *zonefs* file system, which exposes
+  the zones of a zoned block device as regular files. *zonefs* is  implemented
+  using the kernel internal zoned block device interface, and all types of
+  zoned block devices are supported (SCSI ZBC, ATA ZAC and NVMe ZNS).
 
 * **Zone Append Operation Support** Kernel version 5.8.0 introduced a generic
   block layer interface for supporting
   [zone append write operations](../introduction/zns.md#zone-append). This
-  release also modifies the SCSI layer to emulate these operations using regular
+  release also modified the SCSI layer to emulate these operations using regular
   write commands. With the introduction of NVMe ZNS support (see below), this
   emulation unifies the interface and capabilities of all zoned block devices,
-  simplifying the implementation of other features such as file systems.
+  and simplifies the implementation of other features (including file systems).
 
 * **NVM Express Zoned Namespaces** With kernel version 5.9, support for the
   NVMe ZNS command set was added. This enables the nvme driver with the command
-  set enhancements required to discover zoned namespaces, and registers these
-  with the block layer as host managed zone block devices. This kernel release
-  only support devices that do *not* implement any of the zone optional
-  characteristics (ZOC), and also requires that the device implements the
+  set enhancements required to discover zoned namespaces and register them with
+  the block layer (as host managed zone block devices). This kernel release
+  supports only devices that do *not* implement any of the zone-optional
+  characteristics (ZOC), and also requires that the device must implement the
   optional Zone Append command.
 
 Improvements to the kernel zoned block device support are still ongoing. Support
