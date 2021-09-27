@@ -88,12 +88,12 @@ host-managed
 
 The following shows a script facilitating the creation of *dm-linear* devices
 using zone ranges from a single zoned block device. Such small zoned block
-devices are useful for testing applications limits (e.g. Disk full conditions).
+devices are useful for testing application limits (e.g. Disk full conditions).
 
 ```bash
 #!/bin/bash
 
-if [ $# != 3 ]; then
+if [ $# -ne 3 ]; then
 	echo "Usage: $0 <disk> <num conv zones> <num seq zones>"
 	exit 1
 fi
@@ -101,7 +101,7 @@ fi
 disk="$1"
 nrconv=$2
 nrseq=$3
-dname="`basename ${disk}`"
+dname="$(basename ${disk})"
 
 # Linear table entries: "start length linear device offset"
 # start: starting block in virtual device
@@ -109,34 +109,30 @@ dname="`basename ${disk}`"
 # device: block device, referenced by the device name or by major:minor
 # offset: starting offset of the mapping on the device
 
-convlen=$(( $nrconv * 524288 ))
-seqlen=$(( $nrseq * 524288 ))
+convlen=$(( nrconv * 524288 ))
+seqlen=$(( nrseq * 524288 ))
 
-if [ $convlen -eq 0 ] && [ $seqlen -eq 0 ]; then
+if [ ${convlen} -eq 0 ] && [ ${seqlen} -eq 0 ]; then
 	echo "0 zones..."
 	exit 1
 fi
 
-seqofst=`blkzone report $1 | grep "SEQ_WRITE_REQUIRED" | head -n1 | cut -f1 -d',' | cut -f2 -d':' | xargs printf "%d\n"`
-if [ $convlen -gt $seqofst ]; then
-	nrconv=$(( $seqofst / 524288 ))
+seqofst=$(blkzone report "$1" | grep "SEQ_WRITE_REQUIRED" |
+	  head -n1 | cut -f1 -d',' | cut -f2 -d':' | xargs printf "%d\n")
+
+if [ ${convlen} -gt ${seqofst} ]; then
+	nrconv=$(( seqofst / 524288 ))
 	echo "Too many conventional zones requested: truncating to $nrconv"
-	convlen=$seqofst
+	convlen=${seqofst}
 fi
 
-if [ $convlen -eq 0 ]; then
-
-echo "0 ${seqlen} linear ${disk} ${seqofst}" | dmsetup create small-${dname}
-
-elif [ $seqlen -eq 0 ]; then
-
-echo "0 ${convlen} linear ${disk} 0" | dmsetup create small-${dname}
-
+if [ ${convlen} -eq 0 ]; then
+	echo "0 ${seqlen} linear ${disk} ${seqofst}" | dmsetup create small-${dname}
+elif [ ${seqlen} -eq 0 ]; then
+	echo "0 ${convlen} linear ${disk} 0" | dmsetup create small-${dname}
 else
-
-echo "0 ${convlen} linear ${disk} 0
-${convlen} ${seqlen} linear ${disk} ${seqofst}" | dmsetup create small-${dname}
-
+	echo "0 ${convlen} linear ${disk} 0
+	${convlen} ${seqlen} linear ${disk} ${seqofst}" | dmsetup create small-${dname}
 fi
 ```
 
