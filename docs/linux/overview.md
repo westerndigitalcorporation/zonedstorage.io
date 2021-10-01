@@ -167,27 +167,38 @@ for new file systems (e.g. *btrfs*) will be released in the coming months.
 
 ## Recommended Kernel Versions
 
-All kernel versions since 4.10 include zoned block device support. However, as
-shown in the figure [Kernel versions and features](#kernel-versions), some
-versions are recommended over others.
+All upstream official Linux kernel versions since iversion 4.10 include zoned
+block device support. However, as shown in the figure
+[Kernel versions and features](#kernel-versions), different versions provide
+different features.
 
-* **Long Term Stable (LTS) Versions** Kernel versions 4.14, 4.19 and 5.4 are
-  long term kernel stable versions which will see bug fix back-ports from
-  fixes in the mainline (development) kernel. These versions thus benefit from
-  stability improvements developed for higher versions. Fixes to the zoned
-  block device support infrastructure are also back-ported to these versions.
+Furthermore, long-term stable and stable kernel versions have different
+life-time support.
+
+* **Long Term Stable (LTS) Kernel Versions** Kernel versions 4.14, 4.19, 5.4 and
+  5.10 are long term kernel stable versions. These versions will have bug fixes
+  back ported from in the current mainline (development) kernel version. LTS
+  kernel versions thus benefit from stability improvements introduced in higher
+  kernel versions. Fixes to the zoned block device support infrastructure are
+  also back-ported to these versions. For production systems, it is always
+  recommended to use an LTS kernel version.
 
 * **Latest Stable Version** While not necessarily marked as a long term stable
-  version, the latest stable kernel version receives all bug fixes being
-  developed with the mainline development kernel version following it. Except
-  if the version is tagged as a long term support version, back-port of fixes
-  to a stable kernel version stops with the switch of the following version from
-  mainline to stable. Using a particular kernel stable version for a long time
+  version, the latest stable kernel version receives all bug fixes introduced
+  in the mainline development kernel version (the next kernel version). However,
+  back-porting of kernel bugs stops when a new stable version of the kernel is
+  realesed, that is, when the mainline kernel version of the kernel ends its
+  development cysle. Using a kernel stable version that is not an LTS version
   is thus not recommended.
 
 For any stable or long term stable kernel version, it is recommended that system
 administrators use the latest available release within that version to ensure
 that all known problem fixes are applied.
+
+The list of current mainline, stable and long term stable kernel versions can
+be found on
+<a href="https://www.kernel.org/" target="_blank">The Linux Kernel Archives</a>
+site.
 
 ## ZBD Support Restrictions
 
