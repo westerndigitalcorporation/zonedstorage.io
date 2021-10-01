@@ -186,13 +186,13 @@ life-time support.
   version, the latest stable kernel version receives all bug fixes introduced
   in the mainline development kernel version (the next kernel version). However,
   back-porting of kernel bugs stops when a new stable version of the kernel is
-  realesed, that is, when the mainline kernel version of the kernel ends its
-  development cysle. Using a kernel stable version that is not an LTS version
-  is thus not recommended.
+  realesed (that is, when the mainline kernel version of the kernel ends its
+  development cycle). Using a kernel stable version that is not an LTS version
+  is therefore not recommended.
 
 For any stable or long term stable kernel version, it is recommended that system
 administrators use the latest available release within that version to ensure
-that all known problem fixes are applied.
+that all known fixes are applied.
 
 The list of current mainline, stable and long term stable kernel versions can
 be found on
