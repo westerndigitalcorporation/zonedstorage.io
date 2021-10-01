@@ -170,22 +170,22 @@ shown in the figure [Kernel versions and features](#kernel-versions), some
 versions are recommended over others.
 
 * **Long Term Stable (LTS) Versions** Kernel versions 4.14, 4.19 and 5.4 are
-  long term kernel stable versions which will see bug fix back-ports from
-  fixes in the mainline (development) kernel. These versions thus benefit from
-  stability improvements developed for higher versions. Fixes to the zoned
-  block device support infrastructure are also back-ported to these versions.
+  long term kernel stable versions which include bug fix backports from fixes
+  in the mainline (development) kernel. These versions thus benefit from
+  stability improvements developed for higher versions. Fixes to the
+  zoned-block-device support infrastructure are also backported to these
+  versions.
 
-* **Latest Stable Version** While not necessarily marked as a long term stable
-  version, the latest stable kernel version receives all bug fixes being
-  developed with the mainline development kernel version following it. Except
-  if the version is tagged as a long term support version, back-port of fixes
-  to a stable kernel version stops with the switch of the following version from
-  mainline to stable. Using a particular kernel stable version for a long time
-  is thus not recommended.
+* **Latest Stable Version** While not necessarily marked as a long-term stable
+  version, the latest stable kernel version receives all bug fixes developed in
+  the main line of kernel development. Except if the version is tagged as a
+  long term support version, back-port of fixes to a stable kernel version
+  stops with the switch of the following version from mainline to stable. Using
+  a particular kernel stable version for a long time is thus not recommended.
 
-For any stable or long term stable kernel version, it is recommended that system
+For any stable or long term stable kernel version, we recommend that system
 administrators use the latest available release within that version to ensure
-that all known problem fixes are applied.
+that all known fixes are applied.
 
 ## ZBD Support Restrictions
 
