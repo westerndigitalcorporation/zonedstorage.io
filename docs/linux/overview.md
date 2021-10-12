@@ -170,9 +170,9 @@ shown in the figure [Kernel versions and features](#kernel-versions), some
 versions are recommended over others.
 
 * **Long Term Stable (LTS) Versions** Kernel versions 4.14, 4.19 and 5.4 are
-  long term kernel stable versions which include bug fix backports from fixes
-  in the mainline (development) kernel. These versions thus benefit from
-  stability improvements developed for higher versions. Fixes to the
+  long term stable kernel versions that include bug fixes backported from fixes
+  in the mainline (development) kernel. These versions benefit from
+  stability improvements that were developed for higher versions. Fixes to the
   zoned-block-device support infrastructure are also backported to these
   versions.
 
@@ -189,52 +189,57 @@ that all known fixes are applied.
 
 ## ZBD Support Restrictions
 
-In order to minimize the amount of changes to the block layer code, various
-existing features were reused. Furthermore, other kernel components that are
-not compatible with zoned block devices behavior and are too complex to change
-were left unmodified. This approach led to a set of constraints that all zoned
-block devices must meet to be usable with Linux.
+In order to keep changes to the block layer code to a mimimum, various existing
+features of the block layer were reused (for instance, automatic splitting of
+IOs on LBA boundaries implemented for software RAID is one example of this
+reuse). Kernel components that are not compatible with the behavior of zoned
+block devices or were too complex to change were left unmodified. This resulted
+in a set of constraints that constrain all zoned block devices that work with
+Linux.
 
-* **Zone size** While the ZBC, ZAC, and ZNS standards do not impose any
-  constraint on the zone layout of a device, that is, zones can be of any size,
-  the kernel ZBD support is restricted to zoned devices with all zones of equal
-  size. The zone size must also be equal to a power of 2 number of logical
-  blocks. Only the last zone of a device may optionally have a smaller size (a
-  so called *runt* zone). This zone size restriction allows the kernel code to
-  use the block layer "chunked" space management normally used for software RAID
-  devices. The chunked space management uses power of two arithmetic (bit shift
-  operations) to determine which chunk (i.e. which zone) is being accessed and
-  ensures that block I/O operations do not cross zone boundaries.
+* **Zone size** ZBC, ZAC, and ZNS standards do not impose any constraints on
+  the zone layout of a device (this means that zones can be of any size), but
+  kernel ZBD support is restricted to zoned devices on which all zones are of
+  equal size. The zone size must also be equal to a number of logical blocks
+  that is a power of 2. Only the last zone of a device may have a smaller size
+  (a so called *runt* zone). This zone-size restriction allows the kernel code
+  to use the block layer "chunked" space management that is normally used for
+  software RAID devices. The chunked space management uses power-of-two
+  arithmetic (bit shift operations) to determine which chunk (i.e. which zone)
+  is being accessed and it also ensures that block I/O operations do not cross
+  zone boundaries.
 
-* **Unrestricted Reads** The ZBC and ZAC standards define the *URSWRZ* bit
-  indicating if a device will return an error when a read operation is directed
-  at unwritten sectors of a sequential write required zone, that is, for a read
-  command accessing sectors that are after the write pointer position of a zone.
-  Linux only supports ZBC and ZAC host managed hard disks allowing unrestricted
-  read commands, or in other words, SMR hard disks reporting the *URSWRZ* bit as
-  not set. This restriction has been added to ensure that the block layer disk
-  partition scanning process does not result in read commands failing whenever
-  the disk partition table is checked.
+* **Unrestricted Reads** The ZBC and ZAC standards define the *URSWRZ* bit,
+  which determines whether a device will return an error when a read operation
+  is directed at unwritten sectors of a sequential write required zone. (An
+  example of this kind of read operation is when a read command accesses
+  sectors that are after the write-pointer position of a zone.) Linux supports
+  only ZBC and ZAC host-managed hard disks that allow unrestricted read
+  commands. In other words, Linux supports only SMR hard disks that report that
+  the *URSWRZ* bit is not set. This restriction has been added to ensure that
+  the block-layer disk-partition-scanning process does not result in read
+  commands that fail whenever the disk partition table is checked.
 
 * **Direct IO Writes** The kernel page cache does not guarantee that cached
-  dirty pages will be flushed to a block device in sequential sector order. This
-  can lead to unaligned write errors if an application uses buffered writes to
-  write sequential write required zones of a device. To avoid this pitfall,
-  applications directly using a zoned block device without a file system should
-  always write to host managed disk sequential write required zones using
-  direct I/O operations, that is, issue `write()` system calls with a block
-  device file open using the `O_DIRECT` flag.
+  dirty pages will be flushed to a block device in sequential sector order.
+  This can lead to unaligned write errors if an application uses buffered
+  writes to write to the sequential write required zones of a device. To avoid
+  this pitfall, applications that directly use a zoned block device without a
+  file system should always use direct I/O operations to write to the
+  sequential write required zones of a host-managed disk  (that is, they should
+  issue `write()` system calls with a block device "file open" that uses the
+  `O_DIRECT` flag).
 
-* **Zone Append** The ZNS specifications define the optional Zone Append
-  command. This command may be used instead of regular write commands when the
-  host needs to write data, but wants the device to tell it where the data was
-  placed. This allows an efficient host implementation as it does not need to
-  track the write pointer or order write commands in any special way. The Linux
-  IO stack has been enabled to use this with kernel version 5.8, and the NVMe
-  driver requires the device to support this optional command in order for the
-  namespace to be usable through the kernel.
+* **Zone Append** The ZNS specifications define the optional "Zone Append"
+  command. This command can be used instead of regular write commands when the
+  host must write data, but requires the device to report where the data was
+  placed. This allows an efficient host implementation, because (1) the write
+  pointer does not have to be tracked and (2) write commands do not have to be
+  ordered.  The Linux IO stack has been enabled to use this with kernel version
+  5.8 and the NVMe driver requires the device to support this optional command
+  in order for the namespace to be usable through the kernel.
 
-All known ZBC and ZAC host-managed hard disks available on the market today have
-characteristics compatible with these requirements and can operate with a ZBD
-compatible Linux kernel.
+All known ZBC and ZAC host-managed hard disks that are available on the market
+today have characteristics compatible with these requirements and can operate
+with a ZBD-compatible Linux kernel.
 
