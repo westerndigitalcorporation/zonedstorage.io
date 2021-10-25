@@ -9,19 +9,14 @@ support features.
 
 #### Zoned Block Devices Core Support
 
-To allow exposing supported zoned block devices as block device files, the block
-layer configuration option `CONFIG_BLK_DEV_ZONED` must be enabled. This option
-is part of the *Enable the block layer* top menu of `make menuconfig`.
+To allow supported zoned block devices to be exposed as block device files, enable the block-layer configuration option `CONFIG_BLK_DEV_ZONED`. This option is part of the *Enable the block layer* top menu of `make menuconfig`.
 
 <center>
 ![config-zbd](../assets/img/linux-config-zbd.png "Block layer zoned block device support option with `make menuconfig`")
 <br>*Block layer zoned block device support option with `make menuconfig`*</br>
 </center>
 
-Without this configuration option set, users will not have access to the ZBD
-interface and support for zoned block devices will be disabled in all kernel
-subsystems (I/O schedulers, device mapper and file systems) that include support
-for these devices.
+Setting this configuration option gives users access to the ZBD interface. If this configuration option is not set, users do not have access to the ZBD interface and support for zoned block devices is disabled in all kernel subsystems that include support for these devices (this includes I/O schedulers, device mappers, and file systems).
 
 ### Write Ordering Control
 
@@ -31,53 +26,43 @@ scheduler (see [Write Ordering Control](sched.md)). *deadline* and *mq-deadline*
 zoned block device support is automatically enabled if the
 `CONFIG_BLK_DEV_ZONED` configuration option is set.
 
-Enabling this scheduler is mandatory for zoned block devices. This is
-controlled with the `CONFIG_MQ_IOSCHED_DEADLINE` option for *mq-deadline* and
-with the `CONFIG_IOSCHED_DEADLINE` option for *deadline*. Either option can be
-selected from the *IO Schedulers* top menu.
+It is mandatory to enable this scheduler for zoned block devices. The configuration option `CONFIG_MQ_IOSCHED_DEADLINE` enables the *mq-deadline* scheduler. The configuration option `CONFIG_IOSCHED_DEADLINE` enables the *deadline* scheduler. Both options can be selected from the *IO Schedulers* top menu.
 
 <center>
 ![config-sched](../assets/img/linux-config-sched.png "I/O scheduler configuration with `make menuconfig`")
 <br>*I/O scheduler configuration with `make menuconfig`*</br>
 </center>
 
-With the introduction of kernel version 5.0 and the removal of the block layer
-legacy single queue I/O path, only the *mq-deadline* scheduler remains. Since
-kernel version 5.2, the selection of the `CONFIG_MQ_IOSCHED_DEADLINE` option is
-automatic when the `CONFIG_BLK_DEV_ZONED` configuration option is set. 
+As of kernel version 5.0, support for the legacy block-layer single-queue I/O path has been removed. Only the *mq-deadline* scheduler remains. As of kernel version 5.2, `CONFIG_MQ_IOSCHED_DEADLINE` is automatically selected when the `CONFIG_BLK_DEV_ZONED` configuration option is set.
 
 ### Device Drivers Configuration
 
 #### *null_blk* Logical Device
 
-Support for the [zoned block device emulation](/getting-started/nullblk) with
-the *null_blk* device driver zoned mode is automatically enabled with the
-`CONFIG_BLK_DEV_ZONED` configuration option.
+The `CONFIG_BLK_DEV_ZONED` configuration option automatically enables support for zoned block device emulation that uses the *null_blk* device driver.
 
 #### ZBC and ZAC Hard-Disks Support
 
-The SCSI subsystem support for ZBC and ZAC SMR disks is automatically enabled
+SCSI subsystem support for ZBC and ZAC SMR disks is automatically enabled
 with the `CONFIG_BLK_DEV_ZONED` configuration option.
 
 #### NVMe Zoned Namespace Solid State Disks Support
 
-NVM Express Zoned Namespace Command Set depends on `CONFIG_BLK_DEV_ZONED` and
-`CONFIG_NVME_CORE` and is automatically built if both configuration options are
-enabled.
+The NVM Express Zoned Namespace Command Set depends on `CONFIG_BLK_DEV_ZONED` and `CONFIG_NVME_CORE`. It is automatically built if both of these configuration options are enabled.
 
-The driver requires the device to support the Zone Append command to
-successfully bind to a zoned namespace, and does not support Zone Excursions.
+This driver requires the device to support the Zone Append command to
+successfully bind to a zoned namespace. It does not support Zone Excursions.
 See [Zoned Namespace (ZNS) SSDs](/introduction/zns) for more details about
 these features.
 
 ### Device Mapper
 
 Zoned block device support for the device mapper subsystem is automatically
-enabled when the `CONFIG_BLK_DEV_ZONED` option is set. This will enables support
-for the *dm-linear* and *dm-flakey* targets. However, the *dm-zoned*
+enabled when the `CONFIG_BLK_DEV_ZONED` option is set. This enables support
+for *dm-linear* and *dm-flakey* targets. Note that the *dm-zoned*
 device mapper target must be enabled to be usable.
 
-Enabling the *dm-zoned* target can be done by selecting the `CONFIG_DM_ZONED`
+Enable the *dm-zoned* target by selecting the `CONFIG_DM_ZONED`
 option from the menu *Device Drivers --> Multiple devices driver support (RAID
 and LVM) --> Device mapper support --> Drive-managed zoned block device target
 support*.
@@ -96,9 +81,9 @@ is automatically enabled with the `CONFIG_BLK_DEV_ZONED` configuration option.
 
 #### *zonefs*
 
-Enabling compilation of the *zonefs* file system is done by selecting the
+Enable compilation of the *zonefs* file system by selecting the
 `CONFIG_ZONEFS_FS` option from the menu *File systems -> zonefs filesystem
-support*. This option is available only and only if the `CONFIG_BLK_DEV_ZONED`
+support*. This option is available only if the `CONFIG_BLK_DEV_ZONED`
 option is set to enable zoned block device support.
 
 <center>
@@ -108,17 +93,13 @@ option is set to enable zoned block device support.
 
 ## Kernel Compilation
 
-After completing the kernel configuration to enable zoned block device support,
-the kernel compilation process does not differ from building a kernel without
-zoned block device support. That is, the following commands will build the
-kernel.
+The kernel compilation process is the same regardless of whether the kernel has been configured to enable zoned block device support. When the kernel has been configured to enable zoned block device support, the following commands will build the kernel.
 
 ```bash
 $ make all
 ```
 
-The kernel build infrastructure also enables build *.rpm* or *i.deb* packages.
-To build RPM packages, the following command is used.
+The kernel build infrastructure also allows you to build *.rpm* or *i.deb* packages. To build RPM packages, use the following command.
 
 ```bash
 $ make rpm-pkg
@@ -126,43 +107,30 @@ $ make rpm-pkg
 
 ## Kernel Installation
 
-Similarly to the compilation process, installing a zoned block device enabled
-kernel follows the same procedure as a regular kernel. That is, for a local
-installation, the following command can be used.
+The procedure for installing a zoned-block-device-enabled kernel is the same as the procedure for installing a regular kernel. Use the following command to install the kernel locally.
 
 ```bash
 $ sudo make modules_install install
 ```
+Follow this command by configuring the system bootloader (if your distribution requires it). Some distributions might not require you to configure the system bootloader.
 
-This must be followed eventually by the system boot loader configuration as
-required (or not) by the distribution used.
+Then restart the host system to execute the newly-compiled and newly-installed kernel, on which you have enabled support for zoned block devices.
 
-The host system can then be restarted to execute the kernel enabling zoned block
-device support.
+At this point in the installation process, we highly recommend reinstalling the kernel headers. By reinstalling the kernel headers, the file */usr/include/linux/blkzoned.h* will be installed, which will allow applications to be compiled against the [zoned block device API](/linux/zbd-api) supported by the kernel.
 
-One additional step is however highly recommended: reinstalling the kernel
-headers. Doing so, the file */usr/include/linux/blkzoned.h* will be installed,
-thus allowing applications to be compiled against the
-[zoned block device API](/linux/zbd-api) supported by the kernel.
-
-Installing the kernel user header files is done using the following command.
+Run the following command to install the kernel user header files. 
 
 ```bash
 $ sudo make headers_install
 ```
 
-See the kernel `make help` output for more information on this directive.
+See the kernel's `make help` output for more information on this directive.
 
-With the kernel user header files installed, it is recommended to recompile
-from source any package that will be used to manage and access zoned
-block devices. In particular, recompiling and re-instlalling
-[Linux system utilities](/projects/util-linux) is highly recommended as many
-other packages rely on *util-linux* zoned block device features (e.g. file
-systems formatting tools through *libblkid*).
+After the the kernel user header files have been installed, we recommend that
+you recompile from source any package that will be used to manage and access
+zoned block devices. In particular, recompiling and re-instlalling [Linux system
+utilities](/projects/util-linux) is highly recommended because many packages
+rely on *util-linux* zoned block device features (e.g. file systems that use
+*libblkid*).
 
-The kernel installation and user header files installation can be simplified by
-using the RPM packages generated with the `make rpm-pkg` command. Installing
-all the packages generated will install the kernel core itself, the associated
-driver modules and the user API herder files. The RPM package 
-`kernel-headers-<version>.<arch>.rpm` must be installed for the kernel user API
-header files to be updated.
+The installation of the kernel and the installation of the user header files can be simplified by using the RPM packages that are generated with the `make rpm-pkg` command. If you install all of the packages generated by that command, you will install the kernel core itself, the associated driver modules, and the user API herder files. The RPM package `kernel-headers-<version>.<arch>.rpm` must be installed in order for the kernel user API header files to be updated.
