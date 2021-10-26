@@ -26,7 +26,7 @@ scheduler (see [Write Ordering Control](sched.md)). *deadline* and *mq-deadline*
 zoned block device support is automatically enabled if the
 `CONFIG_BLK_DEV_ZONED` configuration option is set.
 
-It is mandatory to enable this scheduler for zoned block devices. For *mq-deadline*, this scheduler is controlled by the `CONFIG_MQ_IOSCHED_DEADLINE` option. For *deadline*, this scheduler is controlled by the `CONFIG_IOSCHED_DEADLINE` option. Both options can be selected from the *IO Schedulers* top menu.
+It is mandatory to enable this scheduler for zoned block devices. The configuration option `CONFIG_MQ_IOSCHED_DEADLINE` enables the *mq-deadline* scheduler. The configuration option `CONFIG_IOSCHED_DEADLINE` enables the *deadline* scheduler. Both options can be selected from the *IO Schedulers* top menu.
 
 <center>
 ![config-sched](../assets/img/linux-config-sched.png "I/O scheduler configuration with `make menuconfig`")
