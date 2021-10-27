@@ -668,118 +668,112 @@
 support features.</p>
 <h3 id="block-layer">Block Layer</h3>
 <h4 id="zoned-block-devices-core-support">Zoned Block Devices Core Support</h4>
-<p>To allow exposing supported zoned block devices as block device files, the block
-layer configuration option <code>CONFIG_BLK_DEV_ZONED</code> must be enabled. This option
+<p>To allow supported zoned block devices to be exposed as block device files,
+enable the block-layer configuration option <code>CONFIG_BLK_DEV_ZONED</code>. This option
 is part of the <em>Enable the block layer</em> top menu of <code>make menuconfig</code>.</p>
-<p><center>
-<img alt="config-zbd" src="../../assets/img/linux-config-zbd.png" title="Block layer zoned block device support option with make menuconfig" />
-<br><em>Block layer zoned block device support option with <code>make menuconfig</code></em></br>
-</center></p>
-<p>Without this configuration option set, users will not have access to the ZBD
-interface and support for zoned block devices will be disabled in all kernel
-subsystems (I/O schedulers, device mapper and file systems) that include support
-for these devices.</p>
+<p><center> <img alt="config-zbd" src="../../assets/img/linux-config-zbd.png" title="Block layer zoned block device support option with make menuconfig" /> <br><em>Block layer zoned
+block device support option with <code>make menuconfig</code></em></br> </center></p>
+<p>Setting this configuration option gives users access to the ZBD interface. If
+this configuration option is not set, users do not have access to the ZBD
+interface and support for zoned block devices is disabled in all kernel
+subsystems that include support for these devices (this includes I/O schedulers,
+device mappers, and file systems).</p>
 <h3 id="write-ordering-control">Write Ordering Control</h3>
 <p>Write ordering control is achieved through the <em>deadline</em> (legacy single queue
 block I/O path) and <em>mq-deadline</em> (multi-queue block I/O path) block I/O
 scheduler (see <a href="../sched/">Write Ordering Control</a>). <em>deadline</em> and <em>mq-deadline</em>
 zoned block device support is automatically enabled if the
 <code>CONFIG_BLK_DEV_ZONED</code> configuration option is set.</p>
-<p>Enabling this scheduler is mandatory for zoned block devices. This is
-controlled with the <code>CONFIG_MQ_IOSCHED_DEADLINE</code> option for <em>mq-deadline</em> and
-with the <code>CONFIG_IOSCHED_DEADLINE</code> option for <em>deadline</em>. Either option can be
-selected from the <em>IO Schedulers</em> top menu.</p>
-<p><center>
-<img alt="config-sched" src="../../assets/img/linux-config-sched.png" title="I/O scheduler configuration with make menuconfig" />
-<br><em>I/O scheduler configuration with <code>make menuconfig</code></em></br>
-</center></p>
-<p>With the introduction of kernel version 5.0 and the removal of the block layer
-legacy single queue I/O path, only the <em>mq-deadline</em> scheduler remains. Since
-kernel version 5.2, the selection of the <code>CONFIG_MQ_IOSCHED_DEADLINE</code> option is
-automatic when the <code>CONFIG_BLK_DEV_ZONED</code> configuration option is set. </p>
+<p>It is mandatory to enable this scheduler for zoned block devices. The
+configuration option <code>CONFIG_MQ_IOSCHED_DEADLINE</code> enables the <em>mq-deadline</em>
+scheduler. The configuration option <code>CONFIG_IOSCHED_DEADLINE</code> enables the
+<em>deadline</em> scheduler. Both options can be selected from the <em>IO Schedulers</em> top
+menu.</p>
+<p><center> <img alt="config-sched" src="../../assets/img/linux-config-sched.png" title="I/O scheduler configuration with make menuconfig" /> <br><em>I/O scheduler configuration with
+<code>make menuconfig</code></em></br> </center></p>
+<p>As of kernel version 5.0, support for the legacy block-layer single-queue I/O
+path has been removed. Only the <em>mq-deadline</em> scheduler remains. As of kernel
+version 5.2, <code>CONFIG_MQ_IOSCHED_DEADLINE</code> is automatically selected when the
+<code>CONFIG_BLK_DEV_ZONED</code> configuration option is set.</p>
 <h3 id="device-drivers-configuration">Device Drivers Configuration</h3>
 <h4 id="null_blk-logical-device"><em>null_blk</em> Logical Device</h4>
-<p>Support for the <a href="/getting-started/nullblk">zoned block device emulation</a> with
-the <em>null_blk</em> device driver zoned mode is automatically enabled with the
-<code>CONFIG_BLK_DEV_ZONED</code> configuration option.</p>
+<p>The <code>CONFIG_BLK_DEV_ZONED</code> configuration option automatically enables support
+for zoned block device emulation that uses the <em>null_blk</em> device driver.</p>
 <h4 id="zbc-and-zac-hard-disks-support">ZBC and ZAC Hard-Disks Support</h4>
-<p>The SCSI subsystem support for ZBC and ZAC SMR disks is automatically enabled
-with the <code>CONFIG_BLK_DEV_ZONED</code> configuration option.</p>
+<p>SCSI subsystem support for ZBC and ZAC SMR disks is automatically enabled with
+the <code>CONFIG_BLK_DEV_ZONED</code> configuration option.</p>
 <h4 id="nvme-zoned-namespace-solid-state-disks-support">NVMe Zoned Namespace Solid State Disks Support</h4>
-<p>NVM Express Zoned Namespace Command Set depends on <code>CONFIG_BLK_DEV_ZONED</code> and
-<code>CONFIG_NVME_CORE</code> and is automatically built if both configuration options are
-enabled.</p>
-<p>The driver requires the device to support the Zone Append command to
-successfully bind to a zoned namespace, and does not support Zone Excursions.
-See <a href="/introduction/zns">Zoned Namespace (ZNS) SSDs</a> for more details about
-these features.</p>
+<p>The NVM Express Zoned Namespace Command Set depends on <code>CONFIG_BLK_DEV_ZONED</code>
+and <code>CONFIG_NVME_CORE</code>. It is automatically built if both of these configuration
+options are enabled.</p>
+<p>This driver requires the device to support the Zone Append command to
+successfully bind to a zoned namespace. It does not support Zone Excursions.
+See <a href="/introduction/zns">Zoned Namespace (ZNS) SSDs</a> for more details about these
+features.</p>
 <h3 id="device-mapper">Device Mapper</h3>
 <p>Zoned block device support for the device mapper subsystem is automatically
-enabled when the <code>CONFIG_BLK_DEV_ZONED</code> option is set. This will enables support
-for the <em>dm-linear</em> and <em>dm-flakey</em> targets. However, the <em>dm-zoned</em>
-device mapper target must be enabled to be usable.</p>
-<p>Enabling the <em>dm-zoned</em> target can be done by selecting the <code>CONFIG_DM_ZONED</code>
-option from the menu <em>Device Drivers &rarr; Multiple devices driver support (RAID
-and LVM) &rarr; Device mapper support &rarr; Drive-managed zoned block device target
-support</em>.</p>
-<p><center>
-<img alt="config-dm" src="../../assets/img/linux-config-dm.png" title="*dm-zoned* device mapper target configuration with make menuconfig" />
-<br><em>dm-zoned device mapper target configuration with <code>make menuconfig</code></em></br>
-</center></p>
+enabled when the <code>CONFIG_BLK_DEV_ZONED</code> option is set. This enables support for
+<em>dm-linear</em> and <em>dm-flakey</em> targets. Note that the <em>dm-zoned</em> device mapper
+target must be enabled to be usable.</p>
+<p>Enable the <em>dm-zoned</em> target by selecting the <code>CONFIG_DM_ZONED</code> option from the
+menu <em>Device Drivers &rarr; Multiple devices driver support (RAID and LVM) &rarr;
+Device mapper support &rarr; Drive-managed zoned block device target support</em>.</p>
+<p><center> <img alt="config-dm" src="../../assets/img/linux-config-dm.png" title="*dm-zoned* device mapper target configuration with make menuconfig" /> <br><em>dm-zoned device mapper
+target configuration with <code>make menuconfig</code></em></br> </center></p>
 <h3 id="file-systems">File Systems</h3>
 <h4 id="f2fs"><em>f2fs</em></h4>
-<p>Support for zoned block devices in the <a href="/linux/fs#f2fs"><em>f2fs</em> file system</a>
-is automatically enabled with the <code>CONFIG_BLK_DEV_ZONED</code> configuration option.</p>
+<p>Support for zoned block devices in the <a href="/linux/fs#f2fs"><em>f2fs</em> file system</a> is
+automatically enabled with the <code>CONFIG_BLK_DEV_ZONED</code> configuration option.</p>
 <h4 id="zonefs"><em>zonefs</em></h4>
-<p>Enabling compilation of the <em>zonefs</em> file system is done by selecting the
+<p>Enable compilation of the <em>zonefs</em> file system by selecting the
 <code>CONFIG_ZONEFS_FS</code> option from the menu <em>File systems -&gt; zonefs filesystem
-support</em>. This option is available only and only if the <code>CONFIG_BLK_DEV_ZONED</code>
-option is set to enable zoned block device support.</p>
-<p><center>
-<img alt="config-zonefs" src="../../assets/img/linux-config-zonefs.png" title="*zonefs* filesystem configuration with make menuconfig" />
-<br><em>zonefs filesystem configuration with <code>make menuconfig</code></em></br>
-</center></p>
+support</em>. This option is available only if the <code>CONFIG_BLK_DEV_ZONED</code> option is
+set to enable zoned block device support.</p>
+<p><center> <img alt="config-zonefs" src="../../assets/img/linux-config-zonefs.png" title="*zonefs* filesystem configuration with make menuconfig" /> <br><em>zonefs filesystem
+configuration with <code>make menuconfig</code></em></br> </center></p>
 <h2 id="kernel-compilation">Kernel Compilation</h2>
-<p>After completing the kernel configuration to enable zoned block device support,
-the kernel compilation process does not differ from building a kernel without
-zoned block device support. That is, the following commands will build the
-kernel.</p>
+<p>The kernel compilation process is the same regardless of whether the kernel has
+been configured to enable zoned block device support. When the kernel has been
+configured to enable zoned block device support, the following commands will
+build the kernel.</p>
 <pre><code class="language-bash">$ make all
 </code></pre>
-<p>The kernel build infrastructure also enables build <em>.rpm</em> or <em>i.deb</em> packages.
-To build RPM packages, the following command is used.</p>
+<p>The kernel build infrastructure also allows you to build <em>.rpm</em> or <em>i.deb</em>
+packages. To build RPM packages, use the following command.</p>
 <pre><code class="language-bash">$ make rpm-pkg
 </code></pre>
 <h2 id="kernel-installation">Kernel Installation</h2>
-<p>Similarly to the compilation process, installing a zoned block device enabled
-kernel follows the same procedure as a regular kernel. That is, for a local
-installation, the following command can be used.</p>
+<p>The procedure for installing a zoned-block-device-enabled kernel is the same as
+the procedure for installing a regular kernel. Use the following command to
+install the kernel locally.</p>
 <pre><code class="language-bash">$ sudo make modules_install install
 </code></pre>
-<p>This must be followed eventually by the system boot loader configuration as
-required (or not) by the distribution used.</p>
-<p>The host system can then be restarted to execute the kernel enabling zoned block
-device support.</p>
-<p>One additional step is however highly recommended: reinstalling the kernel
-headers. Doing so, the file <em>/usr/include/linux/blkzoned.h</em> will be installed,
-thus allowing applications to be compiled against the
-<a href="/linux/zbd-api">zoned block device API</a> supported by the kernel.</p>
-<p>Installing the kernel user header files is done using the following command.</p>
+<p>Follow this command by configuring the system bootloader (if your distribution
+requires it). Some distributions might not require you to configure the system
+bootloader.</p>
+<p>Then restart the host system to execute the newly-compiled and newly-installed
+kernel, on which you have enabled support for zoned block devices.</p>
+<p>At this point in the installation process, we highly recommend reinstalling the
+kernel headers. By reinstalling the kernel headers, the file
+<em>/usr/include/linux/blkzoned.h</em> will be installed, which will allow applications
+to be compiled against the <a href="/linux/zbd-api">zoned block device API</a> supported by
+the kernel.</p>
+<p>Run the following command to install the kernel user header files. </p>
 <pre><code class="language-bash">$ sudo make headers_install
 </code></pre>
-<p>See the kernel <code>make help</code> output for more information on this directive.</p>
-<p>With the kernel user header files installed, it is recommended to recompile
-from source any package that will be used to manage and access zoned
-block devices. In particular, recompiling and re-instlalling
-<a href="/projects/util-linux">Linux system utilities</a> is highly recommended as many
-other packages rely on <em>util-linux</em> zoned block device features (e.g. file
-systems formatting tools through <em>libblkid</em>).</p>
-<p>The kernel installation and user header files installation can be simplified by
-using the RPM packages generated with the <code>make rpm-pkg</code> command. Installing
-all the packages generated will install the kernel core itself, the associated
-driver modules and the user API herder files. The RPM package 
-<code>kernel-headers-&lt;version&gt;.&lt;arch&gt;.rpm</code> must be installed for the kernel user API
-header files to be updated.</p></div>
+<p>See the kernel's <code>make help</code> output for more information on this directive.</p>
+<p>After the the kernel user header files have been installed, we recommend that
+you recompile from source any package that will be used to manage and access
+zoned block devices. In particular, recompiling and re-installing
+<a href="/projects/util-linux">Linux system utilities</a> is highly recommended because
+many packages rely on <em>util-linux</em> zoned block device features (e.g. file
+systems that use <em>libblkid</em>).</p>
+<p>The installation of the kernel and the installation of the user header files can
+be simplified by using the RPM packages that are generated with the <code>make
+rpm-pkg</code> command. If you install all of the packages generated by that command,
+you will install the kernel core itself, the associated driver modules, and the
+user API herder files. The RPM package <code>kernel-headers-&lt;version&gt;.&lt;arch&gt;.rpm</code>
+must be installed in order for the kernel user API header files to be updated.</p></div>
         
         
     </div>
