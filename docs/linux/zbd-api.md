@@ -254,15 +254,16 @@ directly from host-initiated operations. These conditions are
 the device itself, to indicate zones with capabilities that have been limited by
 a hardware defect.
 
-The condition `BLK_ZONE_COND_EXP_OPEN` (or *explicit open*), is the result of
-the successful execution of an `OPEN ZONE` command
-(see [Zone Block Commands](../introduction/smr.md#zone-block-commands).
+Transitions to other conditions result from user operations, either write
+operations or zone management commands. Zone management commands can be issued
+by an application using the kernel *ioctl()* interface
+(see [*ioctl()* Commands](#ioctl-commands).
 
-Because the `OPEN ZONE` command is not supported by the kernel ZBD interface, a
-zone can be transitioned to the *explicit open* zone condition only by using
-direct device access--that is, by issuing the SCSI `OPEN ZONE` command through
-the *SG_IO* interface (using *libzbc*, the *libzbc zbc_open_zone* utility or the
-*sg_zone* utility).
+The SCSI Zoned Block Command specification (ZBC), the ATA Zoned Device ATA
+Command Set specification (ZAC) and the NVM Express Zoned Namespace Command
+Set specification (ZNS) define a zone condition state machine governing the
+possible transitions of a zone from one condition to another depending on the
+commands executed.
 
 ## *ioctl()* Commands
 
