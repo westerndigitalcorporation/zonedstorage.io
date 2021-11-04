@@ -673,16 +673,16 @@
         <div class="col-md-9" role="main">
 
 <h1 id="zoned-block-device-user-interface">Zoned Block Device User Interface</h1>
-<p>User applications can access zone information and manage zones of a zoned block
-device using two types of interfaces.</p>
+<p>User applications can access the zone information of a zoned block device and
+can manage the zones of a zoned block device by using two types of interfaces.</p>
 <ol>
 <li>
-<p><em>sysfs</em> attribute files accessible either directly from applications as
-   regular files or form scripted languages (shell scripts, python, etc).</p>
+<p><em>sysfs</em> attribute files, accessible either directly from applications as
+   regular files or from scripted languages (shell scripts, python, etc).</p>
 </li>
 <li>
-<p><em>ioctl()</em> system calls suitable for use from C programs or other programming
-   languages with an equivalent system call binding.</p>
+<p><em>ioctl()</em> system calls, suitable for use from C programs or other programming
+   languages that have an equivalent system-call binding.</p>
 </li>
 </ol>
 <p>The <em>sysfs</em> files and <em>ioctl()</em> commands available to applications have evolved
@@ -690,9 +690,9 @@ since the introduction of zoned block device support in Kernel 4.10. The
 availability of files and commands per kernel version is detailed in the
 following sections.</p>
 <h2 id="sysfs-interface">Sysfs Interface</h2>
-<p>Programs using script languages (e.g. bash scripts) can access a zoned device
-information through <em>sysfs</em> attribute files. The attribute files provided are
-shown in the following table.</p>
+<p>Programs that use scripting languages (e.g. bash scripts) can access zoned
+device information through <em>sysfs</em> attribute files. The attribute files provided
+are shown in the following table.</p>
 <p><center></p>
 <table>
 <thead>
@@ -737,8 +737,8 @@ shown in the following table.</p>
 </table>
 <p></center></p>
 <h3 id="device-zoned-model">Device Zoned Model</h3>
-<p>The zone model of a zoned device can be discovered using the <code>zoned</code> device
-queue attribute file. For instance, for a zoned block device named <em>sdb</em>, the
+<p>The zone model of a zoned device can be discovered by using the <code>zoned</code> device
+queue attribute file. For example: for a zoned block device named <em>sdb</em>, the
 following shell command displays the device zoned model.</p>
 <pre><code class="language-plaintext"># cat /sys/block/sdb/queue/zoned
 host-managed
@@ -755,23 +755,23 @@ host-managed
 <tbody>
 <tr>
 <td>none</td>
-<td>Regular block device, including drive managed SMR disks</td>
+<td>Regular block device, including drive-managed SMR disks</td>
 </tr>
 <tr>
 <td>host-aware</td>
-<td>Host aware device model</td>
+<td>Host-aware device model</td>
 </tr>
 <tr>
 <td>host-managed</td>
-<td>Host managed device model</td>
+<td>Host-managed device model</td>
 </tr>
 </tbody>
 </table>
 <p></center></p>
 <h3 id="device-zone-size">Device Zone Size</h3>
-<p>The device zone size can be read from the <em>sysfs</em> queue attribute file named
-<code>chunk_sectors</code>. For the same device named <em>sdb</em> as in the previous example, the
-following command gives the device zone size.</p>
+<p>The device zone size can be read from the <em>sysfs</em> queue attribute file that is
+named <code>chunk_sectors</code>. For a device named <em>sdb</em> (the same device as in the
+previous example), the following command gives the device zone size.</p>
 <pre><code class="language-plaintext"># cat /sys/block/sdb/queue/chunk_sectors
 524288
 </code></pre>
@@ -779,22 +779,22 @@ following command gives the device zone size.</p>
 logical and physical block size of the device. In this example, the device zone
 size is <em>524288 x 512 = 256 MiB</em>.</p>
 <h3 id="number-of-zones">Number of Zones</h3>
-<p>Starting with Linux kernel version 4.20.0, the sysfs queue attribute file
-<em>nr_zones</em> is available to obtain the total number of zones of a zoned device.</p>
+<p>The sysfs queue attribute file <em>nr_zones</em> was introduced in Linux kernel version
+4.20.0, and is available to obtain the total number of zones of a zoned device.</p>
 <pre><code class="language-plaintext"># cat /sys/block/sdb/queue/nr_zones
 55880
 </code></pre>
 <p>This attribute value is always 0 for a regular block device.</p>
 <h2 id="ioctl-application-programming-interface"><em>ioctl()</em> Application Programming Interface</h2>
 <p>The C header file <code>/usr/include/linux/blkzoned.h</code> contains macro definitions and
-data structure definitions allowing an application developer to obtain
-information on a zoned block device and to manage the zones of the device.</p>
+data structure definitions that allow application developers to obtain
+information about zoned block devices and to manage the zones of the devices.</p>
 <h3 id="zone-information-data-structures">Zone Information Data Structures</h3>
-<p>The data structure <code>struct blk_zone</code> defines a zone descriptor structure which
-completely describes a zone information: the zone location on the device, the
-zone type, its condition (state), and the position of the zone write pointer
-for sequential zones. Up to kernel version 5.8, this data structure is as shown
-below.</p>
+<p>The data structure <code>struct blk_zone</code> defines a zone-descriptor structure that 
+contains a complete description of a zone: this includes the zone's location on
+the device, the zone type, its condition (state), and the position of the zone
+write pointer (for sequential zones). For kernels Up to kernel version 5.8, this
+data structure is as shown below.</p>
 <pre><code class="language-c">/**
  * struct blk_zone - Zone descriptor for BLKREPORTZONE ioctl.
  *
@@ -810,8 +810,8 @@ below.</p>
  *
  * start, len, capacity and wp use the regular 512 B sector unit, regardless
  * of the device logical block size. The overall structure size is 64 B to
- * match the ZBC, ZAC and ZNS defined zone descriptor and allow support for
- * future additional zone information.
+ * match the size of the ZBC-, ZAC- and ZNS-defined zone descriptor and to 
+ * allow support for future additional zone information.
  */
 struct blk_zone {
         __u64   start;          /* Zone start sector */
@@ -825,12 +825,12 @@ struct blk_zone {
 };
 </code></pre>
 <p>As indicated in the comments to this data structure definition, the unit that
-is used to indicate the zone start position, size and write pointer position is
-512B sector size, regardless of the actual logical block size of the device.
-Even for a device with a 4KB physical sector, the above zone descriptor fields
-use a 512-byte sector size unit.</p>
-<p>The <em>capacity</em> field was added to <em>struct blk_zone</em> starting from kernel
-version 5.9. With this change, the data structure is as follows.</p>
+is used to indicate (1) the zone start position, (2) the zone's size and (3) the
+write pointer position is 512B sector size. This holds true regardless of the
+actual logical block size of the device. Even for a device with a 4KB logical
+sector, the above zone descriptor fields use a 512-byte sector size unit.</p>
+<p>The <em>capacity</em> field was added to <em>struct blk_zone</em> in kernel version 5.9. With
+this change, the data structure is as follows.</p>
 <pre><code>/**
  * struct blk_zone - Zone descriptor for BLKREPORTZONE ioctl.
  *
@@ -865,13 +865,13 @@ struct blk_zone {
         __u8    reserved[24];
 };
 </code></pre>
-<p>The <em>capacity</em> filed indicate the usable zone capacity of a zone in unit of 512B
-sectors. The presence, or validity, of this field within the structure is
+<p>The <em>capacity</em> field indicates the usable zone capacity of a zone in units of
+512B sectors. The presence, or validity, of this field within the structure is
 indicated using a zone report flag.
 See <a href="#obtaining-zone-information"><em>Obtaining Zone Information</em></a> below for
 details.</p>
 <h3 id="zone-type">Zone Type</h3>
-<p>The <code>type</code> field of a zone descriptor can only have one of the values defined by
+<p>The <code>type</code> field of a zone descriptor can have only one of the values defined by
 the enumeration <code>enum blk_zone_type</code>.</p>
 <pre><code class="language-c">/**
  * enum blk_zone_type - Types of zones allowed in a zoned device.
@@ -931,21 +931,23 @@ enum blk_zone_cond {
         BLK_ZONE_COND_OFFLINE   = 0xF,
 };
 </code></pre>
-<p>Under a device normal operation, some of the conditions defined cannot result
-directly from a host initiated operation. These conditions are
-<code>BLK_ZONE_COND_OFFLINE</code> and <code>BLK_ZONE_COND_READONLY</code> and can only be set by the
-device itself to indicate zones with capabilities limited by a hardware defect.</p>
-<p>The condition <code>BLK_ZONE_COND_EXP_OPEN</code>, or <em>explicit open</em>, is the result of a
-successful execution of an <code>OPEN ZONE</code> command
-(see <a href="../../introduction/smr/#zone-block-commands">Zone Block Commands</a>.</p>
-<p>Since the <code>OPEN ZONE</code> command is not supported by the kernel ZBD interface, a
-zone can be transitioned in the <em>explicit open</em> zone condition only by using
-direct device access, that is, issuing the SCSI <code>OPEN ZONE</code> command through the
-<em>SG_IO</em> interface (using <em>libzbc</em>, <em>libzbc zbc_open_zone</em> utility or the
-<em>sg_zone</em> utility).</p>
+<p>Under a device's normal operation, some of these conditions cannot result
+directly from host-initiated operations. These conditions are
+<code>BLK_ZONE_COND_OFFLINE</code> and <code>BLK_ZONE_COND_READONLY</code>. They can be set only by
+the device itself, to indicate zones with capabilities that have been limited by
+a hardware defect.</p>
+<p>Transitions to other conditions result from user operations, either write
+operations or zone management commands. Zone management commands can be issued
+by an application using the kernel <em>ioctl()</em> interface
+(see <a href="#ioctl-commands"><em>ioctl()</em> Commands</a>.</p>
+<p>The SCSI Zoned Block Command specification (ZBC), the ATA Zoned Device ATA
+Command Set specification (ZAC) and the NVM Express Zoned Namespace Command
+Set specification (ZNS) define a zone condition state machine governing the
+possible transitions of a zone from one condition to another depending on the
+commands executed.</p>
 <h2 id="ioctl-commands"><em>ioctl()</em> Commands</h2>
-<p>Several <em>ioctl()</em> commands are defined to manipulate obtain information and
-manipulate zones of a zoned block device. All commands supported are shown
+<p>Several <em>ioctl()</em> commands are defined to manipulate and obtain information and
+manipulate the zones of a zoned block device. All supported commands are shown
 below.</p>
 <pre><code class="language-c">/**
  * Zoned block device ioctl's:
@@ -1023,11 +1025,11 @@ the kernel version that introduced each command.</p>
 </table>
 <p></center></p>
 <h3 id="obtaining-zone-information">Obtaining Zone Information</h3>
-<p>The <em>BLKREPORTZONE</em> command allows an application to obtain a device zone
+<p>The <em>BLKREPORTZONE</em> command allows an application to obtain a device's zone
 information in the form of an array of zone descriptors. The data argument
-passed to the <code>ioctl()</code> must be the address of a memory area large enough to
-store one <code>struct blk_zone_report</code> header structure followed by an array of
-zone descriptors.</p>
+that is passed to the <code>ioctl()</code> must be the address of a memory area large
+enough to store one <code>struct blk_zone_report</code> header structure, followed by an
+array of zone descriptors.</p>
 <p>The zone report header structure <code>blk_zone_report</code> is as shown below.</p>
 <pre><code class="language-c">/**
  * struct blk_zone_report - BLKREPORTZONE ioctl request/reply
@@ -1046,10 +1048,10 @@ struct blk_zone_report {
     struct blk_zone zones[0];
 };
 </code></pre>
-<p>The header indicates the 512-byte sector from which the report should start and
-the number of zone descriptors in the array following the header. A typical use
-of the <code>BLKREPORTZONE</code> command to obtain information on all the zones of a
-device is as shown below.</p>
+<p>The header indicates the 512-byte sector from which the report should start as
+well as  the number of zone descriptors in the array following the header. A
+typical use of the <code>BLKREPORTZONE</code> command to obtain information on all the
+zones of a device is as shown below.</p>
 <pre><code class="language-c">#include &lt;stdlib.h&gt;
 #include &lt;linux/blkzoned.h&gt;
 
@@ -1084,12 +1086,12 @@ while (1) {
                hdr-&gt;zones[hdr-&gt;nr_zones - 1].len;
 }
 </code></pre>
-<p>The number of zone descriptors obtained is returned to the user using the
+<p>The number of zone descriptors obtained is returned to the user in the
 <code>nr_zones</code> field of the report header structure <code>blk_zone_report</code>.</p>
 <p>With the introduction of zone capacity support for NVMe Zoned Namepsaces in
 kernel version 5.9, zone descriptors gained the <code>capacity</code> field. The presence
-of this field is indicated using the new <code>flag</code> field added to
-<code>struct blk_zone_report</code></p>
+of this field is indicated by the new <code>flag</code> field added to
+<code>struct blk_zone_report</code>.</p>
 <pre><code class="language-c">/**
  * enum blk_zone_report_flags - Feature flags of reported zone descriptors.
  *
@@ -1117,12 +1119,12 @@ struct blk_zone_report {
 };
 </code></pre>
 <p>If the <code>flags</code> field of <code>struct blk_zone_report</code> has the flag
-<code>BLK_ZONE_REP_CAPACITY</code> set, then zone descriptors structure will have a valid
-value set in the <code>capacity</code> field of <code>sturct blk_zone</code>. Otherwise, this field
-can be ignored as it will always indicate a value of 0.</p>
+<code>BLK_ZONE_REP_CAPACITY</code> set, then the zone descriptor's structure will have a
+valid value set in the <code>capacity</code> field of <code>sturct blk_zone</code>. Otherwise, this
+field can be ignored as it will show a value of 0.</p>
 <p>The example code below, extracted from the code of the
-<a href="../../projects/libzbd/"><em>libzbd</em></a> library, illustrates how application can
-implement backward compatible support for zone capacity information using the
+<a href="../../projects/libzbd/"><em>libzbd</em></a> library, illustrates how applications can
+implement backward-compatible support for zone capacity information by using the
 autotools build environment.</p>
 <pre><code># less configure.ac
 ...
@@ -1168,17 +1170,17 @@ struct blk_zone zones[0];
 ...
 </code></pre>
 <p>With this method, the main code responsible for issuing and parsing zone reports
-always has access to the <code>capacity</code> field of <code>struct blk_zone</code>, regardless of
-the kernel version the code is executed on. For kernels preceding kernel version
+always has access to the <code>capacity</code> field of <code>struct blk_zone</code> regardless of
+the kernel version the code is executed on. For kernels before kernel version
 5.9, the zone capacity field will always be equal to 0, meaning that the zone
-capacity should be ignored and the zone size used in place. Different coding
-techniques can also be used to always return a zone capacity equal to the zone
-size for kernels lacking support for this field.</p>
-<p>The command line utility <a href="../../projects/util-linux/#blkzone"><code>blkzone</code></a>, part
-of the <em>util-linux</em> project, uses the <em>BLKREPORTZONE</em> command to implement its
-<em>report</em> function. Its code was modified similarly to the above method to allow
-its correct compilation and execution regardless of the version of the kernel
-being used.</p>
+capacity should be ignored and that the zone size should be used in its place.
+Different coding techniques can also be used to always return a zone capacity
+equal to the zone size for kernels lacking support for this field.</p>
+<p>The command line utility <a href="../../projects/util-linux/#blkzone"><code>blkzone</code></a>, which
+is part of the <em>util-linux</em> project, uses the <em>BLKREPORTZONE</em> command to
+implement its <em>report</em> function. Its code was modified similarly to the above
+method to allow its correct compilation and execution regardless of the version
+of the kernel being used.</p>
 <h3 id="resetting-a-zone-write-pointer">Resetting a Zone Write Pointer</h3>
 <p>The write pointer of a single sequential zone or of a range of contiguous
 sequential zones can be reset using the <code>BLKRESETZONE</code> command. Resetting a
@@ -1220,29 +1222,29 @@ if (ret)
     goto error;
 ...
 </code></pre>
-<p>The device file descriptor <code>fd</code> must be open for writing for this command to
-succeed.</p>
+<p>The device file descriptor <code>fd</code> must be open for writing in order for this
+command to succeed.</p>
 <p>The  command line utility <a href="../../projects/util-linux/#blkzone"><code>blkzone</code></a> uses
 the <em>BLKRESETZONE</em> command to implement its <em>reset</em> functionality.</p>
 <h3 id="opening-closing-and-finishing-zones">Opening, Closing and Finishing Zones</h3>
-<p>Explicitely opening a zone or a range of zones can be done using the
+<p>Explicitly opening a zone or a range of zones can be done using the
 <em>BLKOPENZONE</em> command. This command uses the same arguments as the
-<em>BLKRESETZONE</em> command. It takes a pointer to a data structure <code>blk_zone_range</code>
-which must specifies the range of zones to operate on.</p>
-<p>Closing a zone is done using the command <em>BLKCLOSEZONE</em>. Finishing a zone, that
-is transitioning the zone to the <em>full</em> condition (<code>BLK_ZONE_COND_FULL</code>), is
-done using the <em>BLKFINISHZONE</em> command. Both of these commands also take as an
-argument a pointer to a <code>blk_zone_range</code> data structure to specify the range of
-zones to operate on.</p>
+<em>BLKRESETZONE</em> command. It takes a pointer to a data structure <code>blk_zone_range</code>,
+which specifies the range of zones to operate on.</p>
+<p>Closing a zone is done using the command <em>BLKCLOSEZONE</em>. Finishing a zone--that
+is, transitioning the zone to the <em>full</em> condition (<code>BLK_ZONE_COND_FULL</code>), is
+done using the <em>BLKFINISHZONE</em> command. Both of these commands also take as 
+arguments a pointer to the <code>blk_zone_range</code> data structure to specify the range
+of zones to operate on.</p>
 <p>The <em>BLKOPENZONE</em>, <em>BLKCLOSEZONE</em> and <em>BLKFINISHZONE</em> commands were introduced
-with kernel version 5.5.0.</p>
+in kernel version 5.5.0.</p>
 <h3 id="zone-size-and-number-of-zones">Zone Size and Number of Zones</h3>
-<p>Linux&reg; kernel version 4.20 introduced two new additional commands to obtain
-a zoned device zone size (<code>BLKGETZONESZ</code>) and the total number of zones of the
-device (<code>BLKGETNRZONES</code>). Both commands take a pointer to an unsigned 32-bits
-integer variable as argument where the zone size value or the number of zones
-will be returned. The following sample C code illustrates the use of these
-commands.</p>
+<p>Linux&reg; kernel version 4.20 introduced two new commands: one to obtain
+a zoned device's zone size (<code>BLKGETZONESZ</code>), and one to obtain the total number
+of zones of the device (<code>BLKGETNRZONES</code>). Both commands take a pointer to an
+unsigned 32-bit integer variable as an argument, and the zone-size value or the
+number of zones will be returned. The following sample C code illustrates the
+use of these commands.</p>
 <pre><code class="language-c">#include &lt;linux/blkzoned.h&gt;
 #include &lt;stdio.h&gt;
 
@@ -1260,8 +1262,8 @@ printf(&quot;Device has %u zones of %u 512-Bytes sectors\n&quot;,
        nr_zones, zone_size);
 ...
 </code></pre>
-<p>The command <code>BLKGETNRZONES</code> is especially useful to allocate an array of zone
-descriptors large enough for a zone report of all zones of a device.</p></div>
+<p>The command <code>BLKGETNRZONES</code> is especially useful for allocating an array of zone
+descriptors large enough for a zone report on all the zones of a device.</p></div>
         
         
     </div>
