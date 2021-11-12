@@ -64,6 +64,8 @@ nav:
          - 'Getting Started With SMR Disks': getting-started/smr-disk.md
          - 'Getting Started With Emulated SMR Disks': getting-started/smr-emulation.md
          - 'Getting Started With Emulated NVMe ZNS Devices': getting-started/zns-emulation.md
+     - 'Applications':
+         - 'RocksDB': projects/zenfs.md
      - 'Linux Kernel Support':
          - 'Support Overview': linux/overview.md
          - 'Enabling Zoned Block Device Support': linux/config.md
@@ -72,7 +74,7 @@ nav:
          - 'Zoned Block Device Partition Support': linux/part.md
          - 'Device Mapper': linux/dm.md
          - 'File Systems': linux/fs.md
-     - 'Applications and Libraries':
+     - 'Tools and Libraries':
          - 'Linux System Utilities': projects/util-linux.md
          - 'Linux Tools for ZNS': projects/zns.md
          - 'SCSI Generic Utilities': projects/sg3utils.md
@@ -81,7 +83,6 @@ nav:
          - 'libzbd User Library': projects/libzbd.md
          - 'tcmu-runner ZBC Disk Emulation': projects/tcmu-runner.md
          - 'QEMU and KVM': projects/qemu.md
-         - 'RocksDB and ZenFS': projects/zenfs.md
      - 'System Compliance Tests':
          - 'ZBC/ZAC Compliance Tests': tests/zbc-tests.md
          - 'Kernel Block Layer Tests': tests/blktests.md
