@@ -1,4 +1,4 @@
-# RocksDB and ZenFS
+# RocksDB with ZenFS
 
 <a href="https://rocksdb.org/" target="_blank">*RocksDB*</a> is a persistent
 key-value store for fast storage devices. It is implemented using a
@@ -9,12 +9,9 @@ sorted in increasing key order. Tables are always sequentially written and never
 modified.  This basic principle of the LSM-tree data structure facilitates the
 implementation of support for zoned block devices.
 
-*RocksDB* is implemented as a C++ library. This library provides functions for
-applications to access and manage key-value stores. RocksDB implementation
-relies on a plugin architecture to implement support for different storage
-types.
-
-## ZenFS
+Fortunately, RocksDB provides a storage plugin architecture that allows
+different storage backends to be used. Specifically, ZenFS implements support
+for zoned block devices and is integrated into RocksDB.
 
 <a href="https://github.com/westerndigitalcorporation/zenfs" target="_blank">*ZenFS*</a>
 is a file system plugin for *RocksDB* that utilizes *RockDB* FileSystem
@@ -40,49 +37,61 @@ Using *ZenFS*, data garbage collection is performed only by RocksDB with the
 LSM-tree table compaction process. There is no garbage collection executed
 by ZenFS, nor by the ZNS device controller.
 
-## Prerequisites
+!!! Note
+     Further information is available in the <a href="https://www.usenix.org/conference/atc21/presentation/bjorling" target="_blank">ZNS: Avoiding the Block Interface Tax for Flash-based SSDs</a> USENIX ATC 2021 article.
 
-*ZenFS* requires a Linux kernel implementing support for NVMe Zoned namespaces,
-that is, a kernel version 5.9 or newer. The kernel used must also be configured
-with [zoned block device support enabled](/linux/config#kernel-configuration).
+## Getting Started
 
-*ZenFS* code uses the [*libzbd*](/projects/libzbd) library. The latest
-version of this library must be compiled and installed prior to compiling,
-installing and using *RocksDB-ZenFS*.
+### Prerequisites
 
-## Building and Installing ZenFS
+*ZenFS* requires Linux kernel 5.9 or newer and the kernel used must also be
+configured with [zoned block device support enabled](/linux/config#kernel-configuration).
 
-Detailed instructions on how to compile and install *ZenFS* is provided by the
-*ZenFS* project <a href="https://github.com/westerndigitalcorporation/zenfs/blob/master/README.md" target="_blank">
+*ZenFS* utilizes the [*libzbd*](/projects/libzbd) library. The latest
+version of this library must be compiled and installed prior to building and
+installing.
+
+### Building and Installing ZenFS
+
+*ZenFS* is embedded into RocksDB, and is available as a submodule in RocksDB,
+which must be explicitly enabled when compiling RocksDB.
+
+Instructions on how to compile and install RocksDB with *ZenFS* are maintained
+in the *ZenFS* project <a href="https://github.com/westerndigitalcorporation/zenfs/blob/master/README.md" target="_blank">
 README file</a>.
 
-As mentioned in the *ZenFS* build instructions, it is also important to set
-the IO scheduler of the NVMe ZNS device to *mq-deadline* to avoid write
-operations from being reordered. This can be automatically done on system boot
-using a [*udev* rule](/linux/sched#automatic-persistent-configuration).
+!!! NOTE
+     Remember to set the block device IO scheduler to deadline to prevent write
+     operations from being reordered. This can be automatically done on system boot
+     using a [*udev* rule](/linux/sched#automatic-persistent-configuration).
 
-## ZenFS Utils
+### ZenFS Command Line
 
 *ZenFS* provides a command line utility called *zenfs*. This utility is used to
 format the zoned device to create a new filesystem, list the files, and back-up
 or restore the filesystem.
 
-### Formatting a NVMe ZNS Device
+#### Create a ZenFS file system
 
-To format the NVMe ZNS device `/dev/nvme0n1`, the following command is used.
+To create or format a zoned block device (e.g., NVMe ZNS device `/dev/nvme0n1`),
+use the following command:
 
 ```plaintext
-# zenfs mkfs --zbd=nvme0n1 --aux_path=/tmp/zone-aux --force
+zenfs mkfs --zbd=nvme0n1 --aux_path=/tmp/zone-aux --force
+
+# Output example
 ZenFS file system created. Free space: 220246 MB
 ```
 
-### List Files of a NVMe ZNS Device
+#### List files within a ZenFS file system
 
-Once formatted, *RocksDB* use will start creating files on the zoned device
-through *ZenFS*. Listing the files present on the device is done as follows.
+Once formatted, *RocksDB* manages it files through *ZenFS*. To list the files
+present, use the following command:
 
 ```plaintext
-# zenfs list --zbd=nvme0n1 --path=rocksdbtest/dbbench
+zenfs list --zbd=nvme0n1 --path=rocksdbtest/dbbench
+
+# Output example:
            0    Jul 20 2021 18:13:52            LOCK
        66979    Jul 20 2021 18:14:01            LOG
     26961453    Jul 20 2021 18:13:55            000014.sst
@@ -103,16 +112,17 @@ through *ZenFS*. Listing the files present on the device is done as follows.
           37    Jul 20 2021 18:13:52            IDENTITY
         1586    Jul 20 2021 18:14:01            MANIFEST-000004
         6178    Jul 20 2021 18:13:52            OPTIONS-000007
-
 ```
 
-### Backing-up a ZenFS Filesystem
+#### Backup files within a ZenFS file system
 
-To backup all table and metadata files on a NVMe ZNS device to a local
-filesystem, the following command can be used.
+To back up all table and metadata files within a *ZenFS* file system to a local
+filesystem, use the following command:
 
 ```plaintext
-# zenfs backup --zbd=nvme0n1 --path=/tmp/backup
+zenfs backup --zbd=nvme0n1 --path=/tmp/backup
+
+# Output example
 rocksdbtest/dbbench/LOCK
 rocksdbtest/dbbench/LOG
 rocksdbtest/dbbench/000014.sst
@@ -135,12 +145,15 @@ rocksdbtest/dbbench/MANIFEST-000004
 rocksdbtest/dbbench/OPTIONS-000007
 ```
 
-To restore a NVMe ZNS device using a previous back-up, the following command can
-be used.
+#### Restore files within a ZenFS file system
+
+To restore files from a previous backup, use the following command:
 
 ```plaintext
-# zenfs restore --zbd=nvme0n1 --path=/tmp/backup/rocksdbtest/dbbench/ \
+zenfs restore --zbd=nvme0n1 --path=/tmp/backup/rocksdbtest/dbbench/ \
 		--restore_path=rocksdbtest/dbbench
+
+# Output example
 /tmp/backup/rocksdbtest/dbbench/CURRENT
 /tmp/backup/rocksdbtest/dbbench/LOCK
 /tmp/backup/rocksdbtest/dbbench/000015.sst
@@ -163,20 +176,22 @@ be used.
 /tmp/backup/rocksdbtest/dbbench/000017.sst
 ```
 
-## Performance Benchmark
+### Benchmarking
 
 *RocksDB* provides the *db_bench* utility to test and benchmark performance of a
 device. The following command provides an example of *db_bench* execution using
-a NVMe ZNS device formatted with *ZenFS*.
+a zoned block device formatted with *ZenFS*.
 
 ```plaintext
-# db_bench --fs_uri=zenfs://dev:nvme0n1 --benchmarks=fillrandom \
+db_bench --fs_uri=zenfs://dev:nvme0n1 --benchmarks=fillrandom \
 	   --use_direct_reads --key_size=16 --value_size=800 \
 	   --target_file_size_base=2147483648 \
 	   --use_direct_io_for_flush_and_compaction \
 	   --max_bytes_for_level_multiplier=4 --write_buffer_size=2147483648 \
 	   --target_file_size_multiplier=1 --num=1000000 --threads=2 \
 	   --max_background_jobs=4
+
+# Output example
 Initializing RocksDB Options from the specified file
 Initializing RocksDB Options from command-line flags
 RocksDB:    version 6.21
