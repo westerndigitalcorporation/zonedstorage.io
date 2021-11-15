@@ -147,7 +147,7 @@ reports the total number of zones on the disk:
 
 To obtain detailed information on the disk zone configuration, for instance the
 number of conventional zones available, the
-[*blkzone*](/projects/util-linux#blkzone) utility can be used.
+[*blkzone*](/tools/util-linux#blkzone) utility can be used.
 
 ```plaintext
 # blkzone report /dev/sdb
@@ -172,8 +172,8 @@ From the output, one can see that the 512B sector range from 0 up to
 from 0x010600000 until the last sector of the disk is devided into 55356
 sequential write required zones.
 
-The [*zbc_report_zones*](/projects/libzbc#zone-information) of
-[*libzbc*](/projects/libzbc) provides more detailed information in a more
+The [*zbc_report_zones*](/tools/libzbc#zone-information) of
+[*libzbc*](/tools/libzbc) provides more detailed information in a more
 readable format.
 
 ```plaintext

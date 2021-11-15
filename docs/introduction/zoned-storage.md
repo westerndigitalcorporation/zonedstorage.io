@@ -82,7 +82,7 @@ and Linux kernel being used.
    interface protocol to issue zone management commands using a passthrough
    interface. In such case, the applications will need to be re-written with
    the new command sets as well as ensuring that all data streams are
-   sequential. The [*libzbc* library](../projects/libzbc.md) provides functions
+   sequential. The [*libzbc* library](../tools/libzbc.md) provides functions
    facilitating the implementation of applications using such approach.
 
 2. Managing zoned storage directly from the application layer is a valid
@@ -110,6 +110,6 @@ To get started with zoned storage, the
 the first step necessary to setup and verify a system using SMR disks. The
 [Linux Distributions](../distributions/linux.md) section provides information
 regarding the availability of the ZBD interface on various Linux distributions.
-Various tools and open source projects supporting zoned storage are documented
-in the [Applications and Libraries](../projects/index.md) section.
+Various open source tools and libraries supporting zoned storage are documented
+in the [Tools and Libraries](../tools/index.md) section.
 

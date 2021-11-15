@@ -32,7 +32,7 @@ are as shown in the table below.
 </center>
 
 The test groups supporting zoned block devices are *block* and *zbd*.
-[*blkzone*](../projects/util-linux.md#blkzone) and
+[*blkzone*](../tools/util-linux.md#blkzone) and
 [*fio*](../benchmarking/fio.md) version 3.9 or higher must be installed for
 executing these test groups.
 

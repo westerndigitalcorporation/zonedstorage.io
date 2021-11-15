@@ -12,7 +12,9 @@ added to Linux&reg; in kernel version 4.10. All Linux kernel versions since
     the [Linux Support](../linux/overview.md) document.
 
 To verify that the zoned device has been discovered and correctly initalized,
-several user utilities must be installed on the test system. These utilities are discussed in more detail in the section called [User Utilities](#prerequisites_user_utilities).
+several user utilities must be installed on the test system. These utilities
+are discussed in more detail in the section called [User
+Utilities](#prerequisites_user_utilities).
 
 ## Linux Kernel
 
@@ -141,7 +143,7 @@ to make the kernel guarantee the order of write commands.
 	*scsi-mq* since kernel version 5.0 and the legacy single-queue
 	SCSI command path is no longer supported.
 
-To see which block I/O scheduler a zoned disk uses, run the following command: 
+To see which block I/O scheduler a zoned disk uses, run the following command:
 
 ```plaintext
 # cat /sys/block/sdb/queue/scheduler
@@ -181,7 +183,7 @@ makes it possible to reset the write pointer position of a range of zones in
 the device. This utility is usually included in the *util-linux* package, which
 is installed by default on most Linux distributions.
 
-*blkzone* usage examples are provided [here](../projects/util-linux.md#blkzone).
+*blkzone* usage examples are provided [here](../tools/util-linux.md#blkzone).
 
 ### lsscsi
 
@@ -191,7 +193,7 @@ command lists information about the SCSI devices connected to a Linux system.
 Refer to your distribution documentation to find the name of the package
 that provides the *lsscsi* utility.
 
-The [linux utilities](../projects/sg3utils.md#lsscsi) page provides more
+The [linux utilities](../tools/sg3utils.md#lsscsi) page provides more
 information on `lssci` as well as usage examples.
 
 ### sg3_utils
@@ -218,7 +220,7 @@ translates SCSI commands into ATA commands.
 
 </center>
 
-[This section](../projects/sg3utils.md#sg3_utils) shows some examples of these
+[This section](../tools/sg3utils.md#sg3_utils) shows some examples of these
 utilities execution.
 
 ### libzbc
@@ -227,8 +229,9 @@ utilities execution.
 used to manipulate ZBC and ZAC disks.  The *libzbc* project is hosted
 on <a href="https://github.com/westerndigitalcorporation/libzbc"
 target="_blank"> GitHub</a>. Documentation is provided in the project
-<a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/README.md" target="_blank"> README</a> file. The API documentation can be
-generated using *doxygen*.
+<a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/README.md"
+target="_blank"> README</a> file. The API documentation can be generated using
+*doxygen*.
 
 *libzbc* provides a set of command-line utilities that are
 functionally similar to both the `blkzone` utility and *the sg3_utils*
@@ -236,6 +239,6 @@ command-line tools.
 
 For more information on how to compile and install *libzbc*, as well as usage
 examples of the command line utilities provided by *libzbc*, see [libzbc User
-Library](../projects/libzbc.md) in the Zoned Storage Applications and Libraries
-documentation.
+Library](../tools/libzbc.md) in the
+[Tools and Libraries](../tools/index.md) documentation.
 

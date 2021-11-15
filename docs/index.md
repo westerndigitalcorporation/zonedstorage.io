@@ -50,90 +50,110 @@ Get Started &raquo;
 </div>
 </div>
 
-<!-- Linux Support Details -->
+<!-- Details -->
 <br>
 <br>
+
+<!-- First raw: 3 tiles -->
 <div class="container" align="center">
-<div class="row" align="center">
-<div class="col-md-6">
-<h2><b>Linux Kernel Features</b></h2>
+  <div class="row" align="center">
+    <div class="col-md-4">
+      <h2><b>Linux Kernel Support</b></h2>
+    </div>
+    <div class="col-md-4">
+      <h2><b>Tools and Libraries</b></h2>
+    </div>
+    <div class="col-md-4">
+      <h2><b>Applications</b></h2>
+    </div>
+  </div>
+  <div class="row" align="center">
+    <div class="col-md-4">
+      <p align="justify">
+        Linux kernel supports zoned storage devices through various
+        I/O paths with different access characteristics, such as raw
+        device access, file systems and device mapper targets.
+      </p>
+    </div>
+    <div class="col-md-4">
+      <p align="justify">
+        Various open source tools, utilities and libraries now include
+        zoned storage support, greatly facilitating system management and
+        application development.
+      </p>
+    </div>
+    <div class="col-md-4">
+      <p align="justify">
+        Learn about applications providing direct support for zoned block
+	devices and the benefits obtained from using zoned storage hadrware.
+      </p>
+    </div>
+  </div>
+  <div class="row" align="center">
+    <div class="col-md-4">
+      <p><a class="btn btn-info" role="button" href="linux/">View Details &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <p><a class="btn btn-info" role="button" href="tools/">View Details &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <p><a class="btn btn-info" role="button" href="applications/">View Details &raquo;</a></p>
+    </div>
+  </div>
+
+  <br><hr><br>
+
+<!-- Second raw: 3 tiles -->
+  <div class="row" align="center">
+    <div class="col-md-4">
+      <h2><b>Linux Distributions</b></h2>
+    </div>
+    <div class="col-md-4">
+      <h2><b>Benchmarking</b></h2>
+    </div>
+    <div class="col-md-4">
+      <h2><b>System Compliance Tests</b></h2>
+    </div>
+  </div>
+
+  <div class="row" align="center">
+    <div class="col-md-4">
+      <p align="justify">
+        Many Linux distributions today ship with a Linux kernel
+        including zoned block device support and a varying range of
+        additional features. See here a summary of the current support
+        status.
+      </p>
+    </div>
+    <div class="col-md-4">
+      <p align="justify">
+        Learn how to measure performance with zoned storage compliant
+        workloads using the industry standard Flexible I/O tester (fio)
+        application.
+      </p>
+    </div>
+    <div class="col-md-4">
+      <p align="justify">
+        Learn how to verify a system readiness for zoned storage
+        devices and test hadrware components compliance to standards
+        with automated test suites.
+      </p>
+    </div>
+  </div>
+
+  <div class="row" align="center">
+    <div class="col-md-4">
+      <p><a class="btn btn-info" role="button" href="distributions/linux/">View Details &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <p><a class="btn btn-info" role="button" href="benchmarking/fio/">View Details &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <p><a class="btn btn-info" role="button" href="tests/">View Details &raquo;</a></p>
+    </div>
+  </div>
 </div>
-<div class="col-md-6">
-<h2><b>System Compliance Tests</b></h2>
-</div>
-</div>
-<div class="row" align="center">
-<div class="col-md-6">
-<p align="justify">
-Linux kernel supports zoned storage devices through various
-I/O paths with different access characteristics, such as raw
-device access, file systems and device mapper targets.
-</p>
-</div>
-<div class="col-md-6">
-<p align="justify">
-Learn how to verify a system readiness for zoned storage
-devices and test hadrware components compliance to standards
-with automated test suites.
-</p>
-</div>
-</div>
-<div class="row" align="center">
-<div class="col-md-6">
-<p><a class="btn btn-info" role="button" href="linux/">View Details &raquo;</a></p>
-</div>
-<div class="col-md-6">
-<p><a class="btn btn-info" role="button" href="tests/">View Details &raquo;</a></p>
-</div>
-</div>
-<br><hr><br>
-<div class="row" align="center">
-<div class="col-md-4">
-<h2><b>Linux Distributions</b></h2>
-</div>
-<div class="col-md-4">
-<h2><b>Applications and Libraries</b></h2>
-</div>
-<div class="col-md-4">
-<h2><b>Benchmarking</b></h2>
-</div>
-</div>
-<div class="row" align="center">
-<div class="col-md-4">
-<p align="justify">
-Many Linux distributions today ship with a Linux kernel
-including zoned block device support and a varying range of
-additional features. See here a summary of the current support
-status.
-</p>
-</div>
-<div class="col-md-4">
-<p align="justify">
-Various open source tools, utilities and libraries now include
-zoned storage support, greatly facilitating system management and
-application development.
-</p>
-</div>
-<div class="col-md-4">
-<p align="justify">
-Learn how to measure performance with zoned storage compliant
-workloads using the industry standard Flexible I/O tester (fio)
-application.
-</p>
-</div>
-</div>
-<div class="row" align="center">
-<div class="col-md-4">
-<p><a class="btn btn-info" role="button" href="distributions/linux/">View Details &raquo;</a></p>
-</div>
-<div class="col-md-4">
-<p><a class="btn btn-info" role="button" href="projects/">View Details &raquo;</a></p>
-</div>
-<div class="col-md-4">
-<p><a class="btn btn-info" role="button" href="benchmarking/fio/">View Details &raquo;</a></p>
-</div>
-</div>
-</div>
+
 <br>
 <br>
 

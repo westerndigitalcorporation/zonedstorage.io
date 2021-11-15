@@ -21,8 +21,8 @@ ways to do this.
 ## *tcmu-runner*
 
 Detailed information on how to install and operate *tcmu-runner* can be found
-in the [tcmu-runner ZBC Disk Emulation](../projects/tcmu-runner.md) chapter of
-the Applications and Libraries Guide.
+in the [tcmu-runner ZBC Disk Emulation](../tools/tcmu-runner.md) chapter of
+the [Tools and Libraries](../tools/index.md) Guide.
 
 ### tcmu-runner ZBC File Handler
 
@@ -34,10 +34,11 @@ emulated disk that is identical to the command path that would be available if a
 physical disk were in its place. Applications and kernel components will not
 perceive any difference.
 
-The [tcmu-runner ZBC Disk Emulation](../projects/tcmu-runner.md) chapter of the
-Applications and Libraries Guide describes in more detail the options available
-for creating emulated disks. These include the disk zone model, the disk zone
-size, the disk capacity, and the number of conventional zones of the disk.
+The [tcmu-runner ZBC Disk Emulation](../tools/tcmu-runner.md) chapter of the
+[Tools and Libraries](../tools/index.md) guide describes in more
+detail the options available for creating emulated disks. These include the disk
+zone model, the disk zone size, the disk capacity, and the number of
+conventional zones of the disk.
 
 The following example shows how to create a small (20 GB) host-managed ZBC disk
 that has 10 conventional zones and a 256 MiB zone size. In this example, the
@@ -226,12 +227,12 @@ sd 11:0:0:0: [sdj] Attached SCSI disk
 ### Verifying The Emulated Disk
 
 The zone configuration of the emulated disk can be inspected by using
-[*libzbc*](../projects/libzbc.md), [*sg3utils*](../projects/sg3utils.md) and 
-[*util-linux*](../projects/util-linux.md) tools.
+[*libzbc*](../tools/libzbc.md), [*sg3utils*](../tools/sg3utils.md) and 
+[*util-linux*](../tools/util-linux.md) tools.
 
 #### Using zbc_report_zones
 
-Use [*zbc_report_zones*](../projects/libzbc.md#zone-information) to verify the
+Use [*zbc_report_zones*](../tools/libzbc.md#zone-information) to verify the
 zone configuration of the newly-created emulated ZBC disk:
 
 ```plaintext
@@ -262,7 +263,7 @@ Zone 00255: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 
 #### Using blkzone
 
-Use [*blkzone*](../projects/util-linux.md#zone-report) to verify the zone
+Use [*blkzone*](../tools/util-linux.md#zone-report) to verify the zone
 configuration of the newly-created emulated ZBC disk. This displays the same
 information that is returned by "zbc_report_zones", but it is displayed in a
 different format:

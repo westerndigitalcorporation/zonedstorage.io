@@ -90,7 +90,7 @@ uuid=5e40ec5f-eeb6-4317-bc5e-c919796a5f79
 If your guest operating system is a Linux distribution and the Linux
 distribution's kernel version is higher than 5.9.0, the emulated NVMe ZNS
 device can be checked using the *nvme* command (see [Linux Tools for
-ZNS](../projects/zns.md).
+ZNS](../tools/zns.md).
 
 ```
 # nvme list

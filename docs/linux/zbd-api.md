@@ -427,7 +427,7 @@ valid value set in the `capacity` field of `sturct blk_zone`. Otherwise, this
 field can be ignored as it will show a value of 0.
 
 The example code below, extracted from the code of the
-[*libzbd*](../projects/libzbd.md) library, illustrates how applications can
+[*libzbd*](../tools/libzbd.md) library, illustrates how applications can
 implement backward-compatible support for zone capacity information by using the
 autotools build environment.
 
@@ -484,7 +484,7 @@ capacity should be ignored and that the zone size should be used in its place.
 Different coding techniques can also be used to always return a zone capacity
 equal to the zone size for kernels lacking support for this field.
 
-The command line utility [`blkzone`](../projects/util-linux.md#blkzone), which
+The command line utility [`blkzone`](../tools/util-linux.md#blkzone), which
 is part of the *util-linux* project, uses the *BLKREPORTZONE* command to
 implement its *report* function. Its code was modified similarly to the above
 method to allow its correct compilation and execution regardless of the version
@@ -544,7 +544,7 @@ if (ret)
 The device file descriptor `fd` must be open for writing in order for this
 command to succeed.
 
-The  command line utility [`blkzone`](../projects/util-linux.md#blkzone) uses
+The  command line utility [`blkzone`](../tools/util-linux.md#blkzone) uses
 the *BLKRESETZONE* command to implement its *reset* functionality.
 
 ### Opening, Closing and Finishing Zones

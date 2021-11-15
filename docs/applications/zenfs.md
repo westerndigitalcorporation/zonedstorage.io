@@ -38,17 +38,22 @@ LSM-tree table compaction process. There is no garbage collection executed
 by ZenFS, nor by the ZNS device controller.
 
 !!! Note
-     Further information is available in the <a href="https://www.usenix.org/conference/atc21/presentation/bjorling" target="_blank">ZNS: Avoiding the Block Interface Tax for Flash-based SSDs</a> USENIX ATC 2021 article.
+     Further information is available in the
+     <a href="https://www.usenix.org/conference/atc21/presentation/bjorling"
+        target="_blank">
+	ZNS: Avoiding the Block Interface Tax for Flash-based SSDs
+     </a> USENIX ATC 2021 article.
 
 ## Getting Started
 
 ### Prerequisites
 
-*ZenFS* requires Linux kernel 5.9 or newer and the kernel used must also be
-configured with [zoned block device support enabled](/linux/config#kernel-configuration).
+*ZenFS* requires Linux kernel version 5.9 or newer and the kernel used must
+also be configured with
+[zoned block device support enabled](/linux/config#kernel-configuration).
 
-*ZenFS* utilizes the [*libzbd*](/projects/libzbd) library. The latest
-version of this library must be compiled and installed prior to building and
+*ZenFS* utilizes the [*libzbd*](/projects/libzbd) library. The latest version
+of this library must be compiled and installed prior to building and
 installing.
 
 ### Building and Installing ZenFS
@@ -62,8 +67,9 @@ README file</a>.
 
 !!! NOTE
      Remember to set the block device IO scheduler to deadline to prevent write
-     operations from being reordered. This can be automatically done on system boot
-     using a [*udev* rule](/linux/sched#automatic-persistent-configuration).
+     operations from being reordered. This can be automatically done on system
+     boot using a
+     [*udev* rule](/linux/sched#automatic-persistent-configuration).
 
 ### ZenFS Command Line
 

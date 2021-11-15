@@ -1,4 +1,4 @@
-# Applications and Libraries
+# Tools and Libraries
 
 This collection of articles describes user level applications and libraries
 supporting zoned block devices.
@@ -27,7 +27,3 @@ supporting zoned block devices.
 
 * [Linux Tools for ZNS](zns.md): Learn about Linux kernel support and tooling
   for NVM Express' Zoned Namespace (ZNS) Command Set.
-
-
-
-

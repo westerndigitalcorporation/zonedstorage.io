@@ -67,7 +67,7 @@ sdd       13.7T host-managed
 The *blkzone* command line utility allows listing (reporting) the zones of a
 zoned block device and resetting the write pointer of sequential zones. Unlike
 the *sg_rep_zone* and *sg_reset_wp* utilities of the
-[*sg3utils*](../projects/sg3utils.md) project, *blkzone* relies on the kernel
+[*sg3utils*](../tools/sg3utils.md) project, *blkzone* relies on the kernel
 provided ZBD `ioctl()` interface to perform zone report and zone reset
 operations. SCSI commands are not issued directly to the device by *blkzone*.
 
@@ -191,6 +191,6 @@ following command will reset write pointer in all zones.
     This command results in the kernel looping over all sequential zone of the
     disk and executing a zone reset command on each zone. This can be time
     consuming and takes a significantly longer time compared to using the
-    [*sg_reset_wp*](../projects/sg3utils.md#sg_reset_wp) command with the
+    [*sg_reset_wp*](../tools/sg3utils.md#sg_reset_wp) command with the
     `--all` option specified.
 

@@ -7,7 +7,7 @@ time by the device vendor. For a particular device model, it is not possible
 to change the zone size.
 
 Device emulation software such as
-[tcmu-runner](../projects/tcmu-runner.md) allow defining zoned block
+[tcmu-runner](../tools/tcmu-runner.md) allow defining zoned block
 devices with different zone sizes. While this does not replace the ability to
 change an existing device zone size, such solution allows exploring the impact
 of the device zone size on the application being developed.

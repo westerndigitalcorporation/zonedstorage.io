@@ -66,11 +66,11 @@ that start from the write-pointer positions of the zones.
   constraints). An application can use this interface by directly opening the
   device file that represents the zoned block device to gain access to zone
   information and management operations that are provided by the block layer.
-  [*Linux System Utilities*](../projects/util-linux.md), for example, use this
+  [*Linux System Utilities*](../tools/util-linux.md), for example, use this
   interface. Physical zoned block devices, as well as logically-created zoned
   block devices (e.g. zoned block devices created with the
   [*dm-linear*](../linux/dm.md#dm-linear) device mapper target), support this
-  interface. The [*libzbd*](../projects/libzbd.md) user library and tools can
+  interface. The [*libzbd*](../tools/libzbd.md) user library and tools can
   simplify the implementation of applications that use this interface.
 
 * **Passthrough Device Access Interface** This is the interface (provided by
@@ -79,8 +79,8 @@ that start from the write-pointer positions of the zones.
   minimally with the commands sent by applications, resulting in the need for
   an application that can handle all device constraints itself (e.g. Logical
   and physical sector size, zone boundaries, command timeout, command retry
-  count, etc). User-level libraries such as [*libzbc*](../projects/libzbc.md)
-  and [*libnvme*](../projects/libnvme.md) can greatly simplify the
+  count, etc). User-level libraries such as [*libzbc*](../tools/libzbc.md)
+  and [*libnvme*](../tools/libnvme.md) can greatly simplify the
   implementation of applications that use this interface.
 
 ## Kernel Versions

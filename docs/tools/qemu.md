@@ -104,7 +104,7 @@ configuration.
 </center>
 
 To allow attaching physical disks as well as
-[*tcmu-runner*](../projects/tcmu-runner.md) emulated ZBC disks, the kernel
+[*tcmu-runner*](../tools/tcmu-runner.md) emulated ZBC disks, the kernel
 configuration option *COFNGI_TCM_PSCSI* should also be enbaled. This option can
 be found in the menu *Device Drivers* -> *Generic Target Core Mod (TCM) and
 ConfigFS Infrastructure*.

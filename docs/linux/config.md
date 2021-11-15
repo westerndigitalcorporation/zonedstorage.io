@@ -154,7 +154,7 @@ See the kernel's `make help` output for more information on this directive.
 After the the kernel user header files have been installed, we recommend that
 you recompile from source any package that will be used to manage and access
 zoned block devices. In particular, recompiling and re-installing
-[Linux system utilities](/projects/util-linux) is highly recommended because
+[Linux system utilities](/tools/util-linux) is highly recommended because
 many packages rely on *util-linux* zoned block device features (e.g. file
 systems that use *libblkid*).
 
