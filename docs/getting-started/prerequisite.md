@@ -240,3 +240,20 @@ examples of the command line utilities provided by *libzbc*, see [libzbc User
 Library](../tools/libzbc.md) in the
 [Tools and Libraries](../tools/index.md) documentation.
 
+### libzbd
+
+*libzbd* is a another user-space library that provides functions that are 
+used to manipulate all types of zoned block devices. The *libzbd* project is
+hosted on <a href="https://github.com/westerndigitalcorporation/libzbd"
+target="_blank"> GitHub</a>. Documentation is provided in the project
+<a href="https://github.com/westerndigitalcorporation/libzbd/blob/master/README.md"
+target="_blank"> README</a> file.
+
+Like *libzbc*, *libzbd* also provides a set of command-line tools to check and
+manage zones of zoned block devices.
+
+For more information on how to compile and install *libzbd*, as well as usage
+examples of the command line utilities provided by *libzbd*, see [libzbd User
+Library](../tools/libzbd.md) in the
+[Tools and Libraries](../tools/index.md) documentation.
+
