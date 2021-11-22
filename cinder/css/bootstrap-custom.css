@@ -223,6 +223,10 @@ a {
     color: #008cba;
     text-decoration: none;
 }
+a.toc {
+    color: #808080;
+    text-decoration: none;
+}
 a:hover, a:focus {
     color: #00526e;
     text-decoration: underline;

@@ -11,31 +11,53 @@
         {% set navurl = (nav_item.children | first).url %}
         {% set navdir = navurl.split('/') %}
         {% if nav_item.active or nav_item == page %}
-          <li class="first-level active"><a href="/{{ navdir[0] }}/" style="font-weight:bold">{{ nav_item.title }}</a></li>
+          <li class="first-level active">
+	    <a href="/{{ navdir[0] }}/" style="font-weight:bold">{{ nav_item.title }}</a>
+	  </li>
           {% set show_children = 1 %}
         {% elif page.url == navdir[0] + '/' %}
-          <li class="first-level active"><a href="/{{ navdir[0] }}/" style="font-weight:bold">{{ nav_item.title }}</a></li>
+          <li class="first-level active">
+	    <a href="/{{ navdir[0] }}/" style="font-weight:bold">{{ nav_item.title }}</a>
+	  </li>
           {% set show_children = 1 %}
         {% else %}
-          <li class="first-level"><a href="{{ navdir[0] | url }}">{{ nav_item.title }}</a></li>
+          <li class="first-level">
+	    <a class="toc" href="{{ navdir[0] | url }}">{{ nav_item.title }}</a>
+	  </li>
           {% set show_children = 0 %}
         {% endif %}
 
         {% for nav_item in nav_item.children %}
 
   	  {% if show_children == 1 and nav_item != page %}
-            <li class="second-level"><a href="{{ nav_item.url | url }}">{{ nav_item.title }}</a></li>
+            <li class="second-level">
+	      <a href="{{ nav_item.url | url }}">{{ nav_item.title }}</a>
+	    </li>
           {% endif %}
 
   	  {% if nav_item == page %}
             {% for toc_item in page.toc %}
-              <li class="second-level {% if toc_item.active %}active{% endif %}"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+              {% if toc_item.active %}
+                <li class="second-level active">
+		  <a href="{{ toc_item.url }}">{{ toc_item.title }}</a>
+		</li>
+	      {% else %}
+                <li class="second-level">
+		  <a href="{{ toc_item.url }}">{{ toc_item.title }}</a>
+		</li>
+              {% endif %}
+
               {% for toc_item in toc_item.children %}
-                <li class="third-level"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+                <li class="third-level">
+		  <a href="{{ toc_item.url }}">{{ toc_item.title }}</a>
+		</li>
                 {% for toc_item in toc_item.children %}
-                  <li class="fourth-level"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+                  <li class="fourth-level">
+		    <a href="{{ toc_item.url }}">{{ toc_item.title }}</a>
+		  </li>
                 {% endfor %}
               {% endfor %}
+
             {% endfor %}
           {% endif %}
 
@@ -44,18 +66,33 @@
       {% elif nav_item == page %}
 
         {% for toc_item in page.toc %}
-          <li class="first-level {% if toc_item.active %}active{% endif %}"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+          {% if toc_item.active %}
+            <li class="first-level active">
+	      <a href="{{ toc_item.url }}">{{ toc_item.title }}</a>
+	    </li>
+	  {% else %}
+            <li class="first-level">
+	      <a href="{{ toc_item.url }}">{{ toc_item.title }}</a>
+	    </li>
+          {% endif %}
+
           {% for toc_item in toc_item.children %}
-            <li class="second-level"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+            <li class="second-level">
+	      <a href="{{ toc_item.url }}">{{ toc_item.title }}</a>
+	    </li>
             {% for toc_item in toc_item.children %}
-              <li class="third-level"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+              <li class="third-level">
+	        <a href="{{ toc_item.url }}">{{ toc_item.title }}</a>
+	      </li>
             {% endfor %}
           {% endfor %}
         {% endfor %}
 
       {% else %}
 
-        <li class="first-level"><a href="{{ nav_item.url | url }}">{{ nav_item.title }}</a></li>
+        <li class="first-level">
+	  <a class="toc" href="{{ nav_item.url | url }}">{{ nav_item.title }}</a>
+	</li>
 
       {% endif %}
 
