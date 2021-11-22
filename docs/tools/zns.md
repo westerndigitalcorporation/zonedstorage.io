@@ -1,12 +1,12 @@
-# Linux Tools for ZNS
+# Linux Tools for NVMe ZNS
 
-Zoned namespace support was added to the Linux kernel with version 5.9. The
+NVMe Zoned namespace support was added to the Linux kernel with version 5.9. The
 initial driver release requires the namespace implement the Zone Append command
 in order to use with the kernel's block stack.
 
 ## nvme-cli
 
-Open source tooling for zns is provided by
+Open source tooling for NVMe ZNS SSDs is provided by
 <a href="https://github.com/linux-nvme/nvme-cli" target="_blank">nvme-cli</a>
 in the current master branch starting from version 1.12 and onward. It is
 recommended to use the latest version, which is currently at version 1.13.
