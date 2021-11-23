@@ -221,6 +221,19 @@ translates SCSI commands into ATA commands.
 [This section](../tools/sg3utils.md#sg3_utils) shows some examples of these
 utilities execution.
 
+### nvme-cli
+
+The
+<a href="https://github.com/linux-nvme/nvme-cli" target="_blank">*nvme-cli*</a>
+open-source project implements a command line utility to manage NVMe devices.
+NVMe Zoned Namespace support is provided implemented since version 1.12.
+
+The ZNS specific commands provided allow accessing the controller and namespace
+information, as well as managing zones of a zoned namespace.
+
+[This section](../tools/zns.md#nvme-cli) provides more details about the *nvme*
+utility and shows some examples of commands execution.
+
 ### libzbc
 
 *libzbc* is a user-space library that provides functions that are 
