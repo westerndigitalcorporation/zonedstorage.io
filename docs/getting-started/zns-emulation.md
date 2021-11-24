@@ -1,6 +1,8 @@
 # Getting Started with Emulated NVMe ZNS Devices
 
-Emulated NVMe ZNS devices make it possible to do application development and kernel tests even if you do not have access to physical NVMe ZNS devices. There are two ways to emulate NVMe ZNS devices.
+Emulated NVMe ZNS devices make it possible to do application development and
+kernel tests even if you do not have access to physical NVMe ZNS devices. There
+are two ways to emulate NVMe ZNS devices.
 
 * ***null_blk***: The null_blk kernel driver is equipped to emulate zoned block
   devices with a zone configuration that is compatible with real NVMe ZNS
@@ -163,10 +165,8 @@ state.
 The implementation of NVMe device emulation and ZNS namespace emulation in
 *QEMU* provides several configuration options to control the characteristics of
 the device. The full list of options and parameters is documented <a
-href="https://qemu-project.gitlab.io/qemu/system/nvme.html"
+href="https://qemu-project.gitlab.io/qemu/system/devices/nvme.html#zoned-namespaces"
 target="_blank">here</a>.
-
-[comment]: <> (TODO: The link above this comment is broken. It goes nowhere.)
 
 The options and parameters related to Zoned Namespaces are as follows.
 
