@@ -56,6 +56,8 @@ for the most recent distribution releases.
 | -------------------- | -------------- | ----------- | ------------------ | ----------- |
 | 9 (Stretch) |	4.9 | <span style="color:red">No</span> | <span style="color:red">No</span> | <span style="color:red">No</span> |
 | 10 (Buster) |	4.19 |  <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:red">No</span> |
+| 11 (Bullseye) | 5.10 |  <span style="color:green">Yes</span> | <span style="color:green">Yes</span> | <span style="color:green">Yes</span> |
+
 
 </center>
 
