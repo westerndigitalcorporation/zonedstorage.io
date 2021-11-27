@@ -217,60 +217,72 @@
   
   
   <li class="dropdown-submenu">
-    <a tabindex="-1" href="../../projects">Applications and Libraries</a>
+    <a tabindex="-1" href="../../tools">Tools and Libraries</a>
     <ul class="dropdown-menu">
         
             
 <li >
-    <a href="../../projects/util-linux/">Linux System Utilities</a>
+    <a href="../../tools/util-linux/">Linux System Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+    <a href="../../tools/zns/">Linux Tools for ZNS</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+    <a href="../../tools/sg3utils/">SCSI Generic Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbc/">libzbc User Library</a>
+    <a href="../../tools/libzbc/">libzbc User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libnvme/">libnvme User Library</a>
+    <a href="../../tools/libnvme/">libnvme User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbd/">libzbd User Library</a>
+    <a href="../../tools/libzbd/">libzbd User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+    <a href="../../tools/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/qemu/">QEMU and KVM</a>
+    <a href="../../tools/qemu/">QEMU and KVM</a>
 </li>
 
         
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="../../applications">Applications</a>
+    <ul class="dropdown-menu">
+        
             
 <li >
-    <a href="../../projects/zenfs/">RocksDB and ZenFS</a>
+    <a href="../../applications/zenfs/">RocksDB</a>
 </li>
 
         
@@ -370,7 +382,9 @@
         
         
         
-          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../introduction">Introduction</a>
+	  </li>
           
         
 
@@ -403,7 +417,9 @@
         
         
         
-          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../getting-started">Getting Started</a>
+	  </li>
           
         
 
@@ -448,14 +464,18 @@
         
         
         
-          <li class="first-level active"><a href="/linux/" style="font-weight:bold">Linux Kernel Support</a></li>
+          <li class="first-level active">
+	    <a href="/linux/" style="font-weight:bold">Linux Kernel Support</a>
+	  </li>
           
         
 
         
 
   	  
-            <li class="second-level"><a href="../overview/">Support Overview</a></li>
+            <li class="second-level">
+	      <a href="../overview/">Support Overview</a>
+	    </li>
           
 
   	  
@@ -463,7 +483,9 @@
         
 
   	  
-            <li class="second-level"><a href="../config/">Enabling Zoned Block Device Support</a></li>
+            <li class="second-level">
+	      <a href="../config/">Enabling Zoned Block Device Support</a>
+	    </li>
           
 
   	  
@@ -474,44 +496,78 @@
 
   	  
             
-              <li class="second-level active"><a href="#zoned-block-device-user-interface">Zoned Block Device User Interface</a></li>
               
-                <li class="third-level"><a href="#sysfs-interface">Sysfs Interface</a></li>
-                
-                  <li class="fourth-level"><a href="#device-zoned-model">Device Zoned Model</a></li>
-                
-                  <li class="fourth-level"><a href="#device-zone-size">Device Zone Size</a></li>
-                
-                  <li class="fourth-level"><a href="#number-of-zones">Number of Zones</a></li>
-                
+                <li class="second-level active">
+		  <a href="#zoned-block-device-user-interface">Zoned Block Device User Interface</a>
+		</li>
+	      
+
               
-                <li class="third-level"><a href="#ioctl-application-programming-interface">ioctl() Application Programming Interface</a></li>
+                <li class="third-level">
+		  <a href="#sysfs-interface">Sysfs Interface</a>
+		</li>
                 
-                  <li class="fourth-level"><a href="#zone-information-data-structures">Zone Information Data Structures</a></li>
+                  <li class="fourth-level">
+		    <a href="#device-zoned-model">Device Zoned Model</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#zone-type">Zone Type</a></li>
+                  <li class="fourth-level">
+		    <a href="#device-zone-size">Device Zone Size</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#zone-condition">Zone Condition</a></li>
-                
-              
-                <li class="third-level"><a href="#ioctl-commands">ioctl() Commands</a></li>
-                
-                  <li class="fourth-level"><a href="#obtaining-zone-information">Obtaining Zone Information</a></li>
-                
-                  <li class="fourth-level"><a href="#resetting-a-zone-write-pointer">Resetting a Zone Write Pointer</a></li>
-                
-                  <li class="fourth-level"><a href="#opening-closing-and-finishing-zones">Opening, Closing and Finishing Zones</a></li>
-                
-                  <li class="fourth-level"><a href="#zone-size-and-number-of-zones">Zone Size and Number of Zones</a></li>
+                  <li class="fourth-level">
+		    <a href="#number-of-zones">Number of Zones</a>
+		  </li>
                 
               
+                <li class="third-level">
+		  <a href="#ioctl-application-programming-interface">ioctl() Application Programming Interface</a>
+		</li>
+                
+                  <li class="fourth-level">
+		    <a href="#zone-information-data-structures">Zone Information Data Structures</a>
+		  </li>
+                
+                  <li class="fourth-level">
+		    <a href="#zone-type">Zone Type</a>
+		  </li>
+                
+                  <li class="fourth-level">
+		    <a href="#zone-condition">Zone Condition</a>
+		  </li>
+                
+              
+                <li class="third-level">
+		  <a href="#ioctl-commands">ioctl() Commands</a>
+		</li>
+                
+                  <li class="fourth-level">
+		    <a href="#obtaining-zone-information">Obtaining Zone Information</a>
+		  </li>
+                
+                  <li class="fourth-level">
+		    <a href="#resetting-a-zone-write-pointer">Resetting a Zone Write Pointer</a>
+		  </li>
+                
+                  <li class="fourth-level">
+		    <a href="#opening-closing-and-finishing-zones">Opening, Closing and Finishing Zones</a>
+		  </li>
+                
+                  <li class="fourth-level">
+		    <a href="#zone-size-and-number-of-zones">Zone Size and Number of Zones</a>
+		  </li>
+                
+              
+
             
           
 
         
 
   	  
-            <li class="second-level"><a href="../sched/">Write Command Ordering</a></li>
+            <li class="second-level">
+	      <a href="../sched/">Write Command Ordering</a>
+	    </li>
           
 
   	  
@@ -519,7 +575,9 @@
         
 
   	  
-            <li class="second-level"><a href="../part/">Zoned Block Device Partition Support</a></li>
+            <li class="second-level">
+	      <a href="../part/">Zoned Block Device Partition Support</a>
+	    </li>
           
 
   	  
@@ -527,7 +585,9 @@
         
 
   	  
-            <li class="second-level"><a href="../dm/">Device Mapper</a></li>
+            <li class="second-level">
+	      <a href="../dm/">Device Mapper</a>
+	    </li>
           
 
   	  
@@ -535,7 +595,9 @@
         
 
   	  
-            <li class="second-level"><a href="../fs/">File Systems</a></li>
+            <li class="second-level">
+	      <a href="../fs/">File Systems</a>
+	    </li>
           
 
   	  
@@ -551,7 +613,9 @@
         
         
         
-          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../tools">Tools and Libraries</a>
+	  </li>
           
         
 
@@ -590,39 +654,6 @@
   	  
 
   	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-      
-
-    
-
-      
-
-        
-        
-        
-          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
-          
-        
 
         
 
@@ -644,7 +675,22 @@
 
       
 
-        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+        
+        
+        
+          <li class="first-level">
+	    <a class="toc" href="../../applications">Applications</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
 
       
 
@@ -652,7 +698,28 @@
 
       
 
-        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+        
+        
+        
+          <li class="first-level">
+	    <a class="toc" href="../../tests">System Compliance Tests</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
 
       
 
@@ -660,7 +727,29 @@
 
       
 
-        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../distributions/linux/">Linux Distributions</a>
+	</li>
+
+      
+
+    
+
+      
+
+        <li class="first-level">
+	  <a class="toc" href="../../benchmarking/fio/">Benchmarking</a>
+	</li>
+
+      
+
+    
+
+      
+
+        <li class="first-level">
+	  <a class="toc" href="../../faq/faq/">Frequently Asked Questions</a>
+	</li>
 
       
 
@@ -1123,7 +1212,7 @@ struct blk_zone_report {
 valid value set in the <code>capacity</code> field of <code>sturct blk_zone</code>. Otherwise, this
 field can be ignored as it will show a value of 0.</p>
 <p>The example code below, extracted from the code of the
-<a href="../../projects/libzbd/"><em>libzbd</em></a> library, illustrates how applications can
+<a href="../../tools/libzbd/"><em>libzbd</em></a> library, illustrates how applications can
 implement backward-compatible support for zone capacity information by using the
 autotools build environment.</p>
 <pre><code># less configure.ac
@@ -1176,7 +1265,7 @@ the kernel version the code is executed on. For kernels before kernel version
 capacity should be ignored and that the zone size should be used in its place.
 Different coding techniques can also be used to always return a zone capacity
 equal to the zone size for kernels lacking support for this field.</p>
-<p>The command line utility <a href="../../projects/util-linux/#blkzone"><code>blkzone</code></a>, which
+<p>The command line utility <a href="../../tools/util-linux/#blkzone"><code>blkzone</code></a>, which
 is part of the <em>util-linux</em> project, uses the <em>BLKREPORTZONE</em> command to
 implement its <em>report</em> function. Its code was modified similarly to the above
 method to allow its correct compilation and execution regardless of the version
@@ -1224,7 +1313,7 @@ if (ret)
 </code></pre>
 <p>The device file descriptor <code>fd</code> must be open for writing in order for this
 command to succeed.</p>
-<p>The  command line utility <a href="../../projects/util-linux/#blkzone"><code>blkzone</code></a> uses
+<p>The  command line utility <a href="../../tools/util-linux/#blkzone"><code>blkzone</code></a> uses
 the <em>BLKRESETZONE</em> command to implement its <em>reset</em> functionality.</p>
 <h3 id="opening-closing-and-finishing-zones">Opening, Closing and Finishing Zones</h3>
 <p>Explicitly opening a zone or a range of zones can be done using the
@@ -1277,7 +1366,7 @@ descriptors large enough for a zone report on all the zones of a device.</p></di
 	target="_blank" style="color:white;">Terms of Use</a> and
 	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
         All example scripts and program snippets on this site are licensed under
-	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CCO 1.0 Universal</a>.<br>
 	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
 	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
         </span>

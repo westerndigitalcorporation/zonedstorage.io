@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Linux Zoned Storage Documentation">
     
-    <link rel="canonical" href="https://zonedstorage.io/projects/tcmu-runner/">
+    <link rel="canonical" href="https://zonedstorage.io/tools/qemu/">
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
     
-    <title>tcmu-runner ZBC Disk Emulation - Zoned Storage</title>
+    <title>QEMU and KVM - Zoned Storage</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -217,7 +217,7 @@
   
   
   <li class="dropdown-submenu active">
-    <a tabindex="-1" href="..">Applications and Libraries</a>
+    <a tabindex="-1" href="..">Tools and Libraries</a>
     <ul class="dropdown-menu">
         
             
@@ -257,20 +257,32 @@
 
         
             
+<li >
+    <a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+</li>
+
+        
+            
 <li class="active">
-    <a href="./">tcmu-runner ZBC Disk Emulation</a>
+    <a href="./">QEMU and KVM</a>
 </li>
 
         
-            
-<li >
-    <a href="../qemu/">QEMU and KVM</a>
-</li>
+    </ul>
+  </li>
 
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="../../applications">Applications</a>
+    <ul class="dropdown-menu">
         
             
 <li >
-    <a href="../zenfs/">RocksDB and ZenFS</a>
+    <a href="../../applications/zenfs/">RocksDB</a>
 </li>
 
         
@@ -339,12 +351,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../libzbd/">
+                        <a rel="prev" href="../tcmu-runner/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../qemu/">
+                        <a rel="next" href="../../applications/zenfs/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -370,7 +382,9 @@
         
         
         
-          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../introduction">Introduction</a>
+	  </li>
           
         
 
@@ -403,66 +417,11 @@
         
         
         
-          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../getting-started">Getting Started</a>
+	  </li>
           
         
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-      
-
-    
-
-      
-
-        
-        
-        
-          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
-          
-        
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
 
         
 
@@ -505,14 +464,77 @@
         
         
         
-          <li class="first-level active"><a href="/projects/" style="font-weight:bold">Applications and Libraries</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../linux">Linux Kernel Support</a>
+	  </li>
           
         
 
         
 
   	  
-            <li class="second-level"><a href="../util-linux/">Linux System Utilities</a></li>
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active">
+	    <a href="/tools/" style="font-weight:bold">Tools and Libraries</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+            <li class="second-level">
+	      <a href="../util-linux/">Linux System Utilities</a>
+	    </li>
           
 
   	  
@@ -520,7 +542,9 @@
         
 
   	  
-            <li class="second-level"><a href="../zns/">Linux Tools for ZNS</a></li>
+            <li class="second-level">
+	      <a href="../zns/">Linux Tools for ZNS</a>
+	    </li>
           
 
   	  
@@ -528,7 +552,9 @@
         
 
   	  
-            <li class="second-level"><a href="../sg3utils/">SCSI Generic Utilities</a></li>
+            <li class="second-level">
+	      <a href="../sg3utils/">SCSI Generic Utilities</a>
+	    </li>
           
 
   	  
@@ -536,7 +562,9 @@
         
 
   	  
-            <li class="second-level"><a href="../libzbc/">libzbc User Library</a></li>
+            <li class="second-level">
+	      <a href="../libzbc/">libzbc User Library</a>
+	    </li>
           
 
   	  
@@ -544,7 +572,9 @@
         
 
   	  
-            <li class="second-level"><a href="../libnvme/">libnvme User Library</a></li>
+            <li class="second-level">
+	      <a href="../libnvme/">libnvme User Library</a>
+	    </li>
           
 
   	  
@@ -552,7 +582,19 @@
         
 
   	  
-            <li class="second-level"><a href="../libzbd/">libzbd User Library</a></li>
+            <li class="second-level">
+	      <a href="../libzbd/">libzbd User Library</a>
+	    </li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level">
+	      <a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+	    </li>
           
 
   	  
@@ -563,50 +605,51 @@
 
   	  
             
-              <li class="second-level active"><a href="#tcmu-runner-zbc-disk-emulation">tcmu-runner ZBC Disk Emulation</a></li>
               
-                <li class="third-level"><a href="#overview">Overview</a></li>
+                <li class="second-level active">
+		  <a href="#qemu-and-kvm">QEMU and KVM</a>
+		</li>
+	      
+
+              
+                <li class="third-level">
+		  <a href="#qemu-and-zoned-block-devices">QEMU and zoned block devices</a>
+		</li>
                 
               
-                <li class="third-level"><a href="#compilation-and-installation">Compilation and Installation</a></li>
+                <li class="third-level">
+		  <a href="#qemu-virtio-scsi">QEMU virtio-scsi</a>
+		</li>
                 
               
-                <li class="third-level"><a href="#kernel-components">Kernel Components</a></li>
+                <li class="third-level">
+		  <a href="#qemu-vhost-scsi">QEMU vhost-scsi</a>
+		</li>
+                
+                  <li class="fourth-level">
+		    <a href="#enabling-the-host-vhost-target-module">Enabling the host vhost target module</a>
+		  </li>
+                
+                  <li class="fourth-level">
+		    <a href="#attaching-a-host-physical-disk">Attaching a host physical disk</a>
+		  </li>
+                
+                  <li class="fourth-level">
+		    <a href="#attaching-an-emulated-zbc-disk">Attaching an emulated ZBC disk</a>
+		  </li>
                 
               
-                <li class="third-level"><a href="#zbc-file-handler">ZBC File Handler</a></li>
+                <li class="third-level">
+		  <a href="#qemu-nvme-zns-device-emulation">QEMU NVMe ZNS Device emulation</a>
+		</li>
                 
               
-                <li class="third-level"><a href="#creating-an-emulated-disk">Creating an Emulated disk</a></li>
-                
-              
-                <li class="third-level"><a href="#using-an-emulated-disk">Using an Emulated disk</a></li>
-                
-              
-                <li class="third-level"><a href="#scripts">Scripts</a></li>
-                
-              
+
             
           
 
         
 
-  	  
-            <li class="second-level"><a href="../qemu/">QEMU and KVM</a></li>
-          
-
-  	  
-
-        
-
-  	  
-            <li class="second-level"><a href="../zenfs/">RocksDB and ZenFS</a></li>
-          
-
-  	  
-
-        
-
       
 
     
@@ -616,7 +659,9 @@
         
         
         
-          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../applications">Applications</a>
+	  </li>
           
         
 
@@ -628,6 +673,29 @@
 
         
 
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level">
+	    <a class="toc" href="../../tests">System Compliance Tests</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
   	  
 
   	  
@@ -640,7 +708,9 @@
 
       
 
-        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../distributions/linux/">Linux Distributions</a>
+	</li>
 
       
 
@@ -648,7 +718,9 @@
 
       
 
-        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../benchmarking/fio/">Benchmarking</a>
+	</li>
 
       
 
@@ -656,7 +728,9 @@
 
       
 
-        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../faq/faq/">Frequently Asked Questions</a>
+	</li>
 
       
 
@@ -668,140 +742,171 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="tcmu-runner-zbc-disk-emulation">tcmu-runner ZBC Disk Emulation</h1>
-<p><em>tcmu-runner</em> is an application daemon that can handle the execution of SCSI
-commands sent by the kernel SCSI target sub component, allowing exporting SCSI
-Logical Units (LUNs) to be backed by regular files or block devices.</p>
-<h2 id="overview">Overview</h2>
-<p>LinuxIO (LIO&trade;) is the standard open-source SCSI target implementation in the
-Linux&reg; kernel. LIO supports all prevalent storage fabrics, including Fibre
-Channel, FCoE, iEEE 1394, iSCSI, NVMe-OF, iSER, SRP, etc.</p>
-<p>The Target Core Module Userspace (TCMU) implements a fabric that creates a link
-between the kernel SCSI target infrastructure and a user space application.
-The kernel level module involved is <code>target_core_user</code> and can be viewed as a
-virtual HBA.</p>
-<p><em>tcmu-runner</em> implements the userspace level side of the ank processing,
-handling the details of the TCMU interface (UIO, netlink, pthreads, and DBus).
-<em>tcmu-runner</em> exports a more simple C plugin API allowing the creation of
-<em>file handlers</em> to emulate various device types. This organization is shown
-in the figure below.</p>
-<p><center>
-<a><img alt="tcmu-runner" src="../../assets/img/projects-tcmu.png"
-title="*tcmu-runner* overview" width="640" style="max-width:100%;"></a>
-<br><em>tcmu-runner Overview</em></br>
-</center></p>
-<p>The <em>ZBC file handler</em> implements a SCSI ZBC host aware or host managed disk
-emulation using TCMU C plugin API. This handler uses a regular file as the
-backend storage for the emulated device.</p>
-<p>With this infrastructure setup, any command issued by an application or by a
-kernel component (e.g. a file system) will be sent to the <em>tcmu-runner</em> daemon
-through the TCMU kernel driver. The file handler can process the command in user
-space using regular POSIX system calls and a reply sent back on completion of
-the command processing. From the point of view of the application or kernel
-component using the emulated disk, all accesses appear as executing on actual
-hardware.</p>
-<h2 id="compilation-and-installation">Compilation and Installation</h2>
-<p>The <em>tcmu-runner</em> project is hosted on <a href="https://github.com/open-iscsi/tcmu-runner"
-target="_blank">GitHub</a>. The project
-<a href="https://github.com/open-iscsi/tcmu-runner/blob/master/README.md"
-target="_blank"><em>README</em></a> file provides detailed information on how to
-compile, install and execute <em>tcmu-runner</em> daemon.</p>
-<p>The control of <em>tcmu-runner</em> emulated devices is achieved using the <em>targetcli</em>
-utility available as a package with most distributions. For instance, on
-<a href="../../distributions/linux/#fedora-linux">Fedora&reg;</a> Linux, <em>tcmu-runner</em> and
-<em>targetcli</em> can be installed using the following commands.</p>
-<pre><code class="language-plaintext"># dnf install tcmu-runner
-# dnf install targetcli
+<h1 id="qemu-and-kvm">QEMU and KVM</h1>
+<p><a href="https://www.qemu.org/" target="_blank"><em>QEMU</em></a> is a generic machine
+emulator and virtualizer. <em>QEMU</em> also provides the userspace components
+of the widely used <a href="https://www.linux-kvm.org/" target="_blank"><em>KVM</em>
+(Kernel-based Virtual Machine)</a>.</p>
+<h2 id="qemu-and-zoned-block-devices">QEMU and zoned block devices</h2>
+<p>Host managed SMR disks can be directly attached to a <em>QEMU</em> guest for running
+applications in a virtual machine environment. This is especially useful in the
+case of software and kernel development and tests.</p>
+<p>There are two supported methods to attach Host managed SMR zoned disks to a QEMU
+guest: <em>virtio-scsi</em> and <em>vhost-scsi</em>.</p>
+<p>Furthermore, <em>QEMU</em> also allows emulating NVMe devices implementing zoned
+namespaces.</p>
+<h2 id="qemu-virtio-scsi"><em>QEMU virtio-scsi</em></h2>
+<p>This is the simplest method to attach a zoned block device for access from a
+QEMU guest. To do so, the QEMU option <em>virtio-scsi-pci</em> is used after defining a
+virtual PCI bus and SCSI host.</p>
+<p>For instance, the following command will run QEMU with </p>
+<pre><code class="language-plaintext"># qemu-kvm (your options) \
+    -device pcie-root-port,bus=pcie.0,id=rp1 \
+    -device virtio-scsi-pci,bus=pcie.0,id=scsi0 \
+    -drive file=<mark class="critic">/dev/sdf</mark>,format=raw,if=none,id=zbc0 \
+    -device scsi-block,bus=scsi0.0,drive=zbc0
 </code></pre>
-<h2 id="kernel-components">Kernel Components</h2>
-<p><em>tcmu-runner</em> relies on the loopback virtual SAS adapter kernel module to expose
-the emulated device as a regular disk to the kernel SCSI stack. Enabling this
-kernel module first requires that support for the <em>Generic Target Core Mod (TCM)
-and ConfigFS Infrastructure</em> be enabled from the top-level <em>Device Drivers</em>
-menu.</p>
-<p><center>
-<img alt="config-tcm" src="../../assets/img/linux-config-tcm1.png" title="Target Core Module support option with make menuconfig" />
-<br><em>Target Core Module support option with <code>make menuconfig</code></em></br>
-</center></p>
-<p>With  this infrastructure enabled, the configuration option <em>CONFIG_TCM_USER2</em>
-and <em>CONFIG_LOOPBACK_TARGET</em> can be enabled.</p>
-<p><center>
-<img alt="config-tcm-mods" src="../../assets/img/linux-config-tcm2.png" title="TCM user and loopback adapter support option with make menuconfig" />
-<br><em>TCM user and loopback adapter support option with <code>make menuconfig</code></em></br>
-</center></p>
-<h2 id="zbc-file-handler">ZBC File Handler</h2>
-<p><em>tcmu-runner</em> ZBC file handler is compiled and installed by default. This
-handler allows the creation of emulated ZBC disks with a regular file used as
-backing storage.</p>
-<p>The ZBC file handler supports the emulation of both host aware and host managed
-SCSI disks. Furthermore, the characteristics of the emulated device can all be
-configured. The following table shows the configuration parameters available.</p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-<th>Default value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>model-<strong><em>type</em></strong></td>
-<td>Device model type, <em>HA</em> for host aware or <em>HM</em> for host managed</td>
-<td><em>HM</em></td>
-</tr>
-<tr>
-<td>lba-<strong><em>size (B)</em></strong></td>
-<td>LBA size in bytes (512 or 4096)</td>
-<td>512</td>
-</tr>
-<tr>
-<td>zsize-<strong><em>size (MiB)</em></strong></td>
-<td>Zone size in MiB</td>
-<td>256 MiB</td>
-</tr>
-<tr>
-<td>conv-<strong><em>num</em></strong></td>
-<td>Number of conventional zones at LBA 0 (can be 0)</td>
-<td>Number of zones corresponding to 1% of the device capacity</td>
-</tr>
-<tr>
-<td>open-<strong><em>num</em></strong></td>
-<td>Optimal (for host aware) or maximum (for host managed) number of open zones</td>
-<td>128</td>
-</tr>
-</tbody>
-</table>
-<p>These parameters are always grouped together into a configuration string with
-the format <code>/[opt1[/opt2][...]@]path_to_backing_file</code>. For instance, to specify
-a host managed disk with 128MB zone size, 100 conventional zones and the file
-<code>/var/local/zbc0.raw</code> as backing storage, the following configuration string can
-be used.</p>
-<pre><code class="language-plaintext">cfgstring=model-HM/zsize-128/conv-100@/var/local/zbc.raw
+<p>The first line <code>-device pcie-root-port,bus=pcie.0,id=rp1</code> creates a PCIe root
+complex. The second line <code>-device virtio-scsi-pci,bus=pcie.0,id=scsi0</code> defines
+a virtio adapter connected to the PCIe bus previously defined. Finally, the last
+2 lines <code>-drive file=/dev/sdf,format=raw,if=none,id=zbc0</code> and
+<code>-device scsi-block,bus=scsi0.0,drive=zbc0</code> define the device connected to the
+virtio SCSI adapter. In this example, since <code>-device scsi-block</code> is used, the
+host device to attach is specified using the device block device file
+(<code>/dev/sdf</code>) in this example.</p>
+<p>See <a href="https://github.com/qemu/qemu/blob/master/docs/pcie_pci_bridge.txt"
+target="_blank">here</a> for a detailed description of these options.</p>
+<p>Though this method allows attaching a zoned block disk to a QEMU guest, SCSI
+command sense data is not processed correctly in QEMU versions prior to version
+4.1. This causes the guest operating system to hang if the guest attempts to
+access a command sense data (for instance upon command failures). This
+attachment method should thus be avoided with versions of QEMU older than
+version 4.1.</p>
+<p>To avoid the sense data problem with QEMU versions preceding version 4.1, a
+zoned disk can be attached to a guest using the device SG node file as a
+specifier. In this case, the option <code>-device scsi-generic</code> must be used. The
+command line is changed as follows.</p>
+<pre><code class="language-plaintext"># qemu-kvm (your options) \
+    -device pcie-root-port,bus=pcie.0,id=rp1 \
+    -device virtio-scsi-pci,bus=pcie.0,id=scsi0 \
+    -drive file=<mark class="critic">/dev/sg5</mark>,format=raw,if=none,id=zbc0 \
+    -device scsi-generic,bus=scsi0.0,drive=zbc0
 </code></pre>
-<h2 id="creating-an-emulated-disk">Creating an Emulated disk</h2>
-<p>The following example shows how to create a small 20 GB host managed ZBC disk
-with 10 conventional zones and a 256 MiB zone size, with the file
-<code>/var/local/zbc0.raw</code> used as backing storage. The emulated disk will be locally
-emulated using the loopback interface. This require that <em>tcmu-runner</em> be
-executed on the system.</p>
-<p>With <em>tcmu-runner</em> running, the <em>targetcli</em> command is used to create the
-emulated disk.</p>
+<p>On the host, the correspondance between a block device file and its SG node file
+can be discovered using the <code>lsscsi</code> command.</p>
+<pre><code class="language-plaintext"># lsscsi -g
+...
+[10:0:1:0]   zbc     HGST     HSH721415AL42M0  a250  <mark class="critic">/dev/sdf</mark>   <mark class="critic">/dev/sg5</mark>
+...
+</code></pre>
+<p>Once the guest operating system is started, attachment of the host device can be
+checked with any of the methods shown <a href="../../getting-started/smr-disk/">here</a>.
+For instance, the output of the <code>lsscsi</code> command will be as follows with the
+above example setup.</p>
+<pre><code class="language-plaintext"># lsscsi -g
+[0:0:0:0]    disk    ATA      QEMU HARDDISK    2.5+  /dev/sda   /dev/sg0
+[6:0:1:0]    zbc     HGST     HSH721415AL42M0  a250  /dev/sdb   /dev/sg1
+</code></pre>
+<h2 id="qemu-vhost-scsi"><em>QEMU vhost-scsi</em></h2>
+<p>This attachment method uses a fabric module in the host kernel to provide KVM
+guests with a fast virtio-based connection to SCSI LUNs. This method cannot be
+used without QEMU KVM acceleration.</p>
+<h3 id="enabling-the-host-vhost-target-module">Enabling the host vhost target module</h3>
+<p>The host kernel configuration must have the <em>CONFIG_VHOST_SCSI</em> option enabled.
+This option is found in the top level <em>Virtualization</em> menu of the kernel
+configuration.</p>
+<p><center>                                                                      <br />
+<img alt="config-vhost-scsi" src="../../assets/img/linux-config-vhost.png" title="vhost-scsi support option with make menuconfig" />
+<br><em>vhost-scsi support option with <code>make menuconfig</code></em></br> 
+</center></p>
+<p>To allow attaching physical disks as well as
+<a href="../tcmu-runner/"><em>tcmu-runner</em></a> emulated ZBC disks, the kernel
+configuration option <em>COFNGI_TCM_PSCSI</em> should also be enbaled. This option can
+be found in the menu <em>Device Drivers</em> -&gt; <em>Generic Target Core Mod (TCM) and
+ConfigFS Infrastructure</em>.</p>
+<p><center>
+<img alt="config-vhost-scsi" src="../../assets/img/linux-config-pscsi.png" title="pSCSI TCM support option with make menuconfig" />
+<br><em>pSCSI TCM support option with <code>make menuconfig</code></em></br>
+</center></p>
+<h3 id="attaching-a-host-physical-disk">Attaching a host physical disk</h3>
+<p>To attach to a virtual machine guest a zoned device, a virtual TCM SAS adapter
+must first be prepared using the <em>targetcli</em> tool. The device to attach must be
+specified using a block device file. The example below illustrates this
+operation for the disk <code>/dev/sdf</code>.</p>
+<pre><code class="language-plaintext"># targetcli
+targetcli shell version 2.1.fb49
+Copyright 2011-2013 by Datera, Inc and others.
+For help on commands, type 'help'.
+
+/&gt; cd backstores/pscsi
+/backstores/pscsi&gt; create name=disk1 dev=/dev/sdf
+Note: block backstore recommended for SCSI block devices
+Created pscsi storage object disk1 using /dev/sdf
+/backstores/pscsi&gt; cd /vhost
+/vhost&gt; create
+Created target <mark class="critic">naa.5001405a160fe2e1</mark>.
+Created TPG 1.
+/vhost/naa.5001405a160fe2e1&gt; cd /vhost/naa.5001405a160fe2e1/tpg1/luns
+/vhost/naa.50...2e1/tpg1/luns&gt; create /backstores/pscsi/disk1
+Created LUN 0.
+/vhost/naa.50...2e1/tpg1/luns&gt; cd /
+/&gt; ls
+o- / ..................................................................... [...]
+  o- backstores .......................................................... [...]
+  | o- block .............................................. [Storage Objects: 0]
+  | o- fileio ............................................. [Storage Objects: 0]
+  | o- pscsi .............................................. [Storage Objects: 1]
+  | | o- disk1 ............................................ [/dev/sdf activated]
+  | |   o- alua ............................................... [ALUA Groups: 0]
+  | o- ramdisk ............................................ [Storage Objects: 0]
+  | o- user:fbo ........................................... [Storage Objects: 0]
+  | o- user:rbd ........................................... [Storage Objects: 0]
+  | o- user:zbc ........................................... [Storage Objects: 0]
+  o- iscsi ........................................................ [Targets: 0]
+  o- loopback ..................................................... [Targets: 0]
+  o- vhost ........................................................ [Targets: 1]
+    o- <mark class="critic">naa.5001405a160fe2e1</mark> .......................................... [TPGs: 1]
+      o- tpg1 .............................. [naa.500140565cd16730, no-gen-acls]
+        o- acls ...................................................... [ACLs: 0]
+        o- luns ...................................................... [LUNs: 1]
+          o- lun0 .............................. [pscsi/disk1 (/dev/sdf) (None)]
+/&gt; exit
+</code></pre>
+<p>The World-Wide port name assigned by <em>targetcli</em> can then be used to specify the
+device to attach on QEMU command line.</p>
+<pre><code class="language-plaintext"># qemu-kvm (your options) \
+    -device pcie-root-port,bus=pcie.0,id=rp1 \
+    -device vhost-scsi-pci,wwpn=<mark class="critic">naa.5001405a160fe2e1</mark>,bus=pcie.0
+</code></pre>
+<p>The attached disk can then be seen from the guest OS using (for instance) the
+<em>lsscsi</em> command.</p>
+<pre><code class="language-plaintext"># lsscsi -g
+[0:0:0:0]    disk    ATA      QEMU HARDDISK    2.5+  /dev/sda   /dev/sg0
+[6:0:1:0]    zbc     HGST     HSH721415AL42M0  a250  /dev/sdb   /dev/sg1
+</code></pre>
+<h3 id="attaching-an-emulated-zbc-disk">Attaching an emulated ZBC disk</h3>
+<p><em>tcmu-runner</em> can be used to create emulated ZBC host managed SCSI disks. The
+emulated disk created can be used either locally on the host using the loopback
+fabric adapter, as explained <a href="../tcmu-runner/#creating-an-emulated-disk">here</a>.</p>
+<p>Similarly to a physical device (previous section), the emulated ZBC disk can
+also be attached to a vhost virtual adapter for use within a KVM guest operating
+system. The following example illustrates this procedure, creating a small 20GB
+host managed SCSI disk with 256 MB zones including 10 conventional zones.</p>
 <pre><code class="language-plaintext"># targetcli
 targetcli shell version 2.1.fb49
 Copyright 2011-2013 by Datera, Inc and others.
 For help on commands, type 'help'.
 
 /&gt; cd /backstores/user:zbc
-/backstores/user:zbc&gt; <mark class="critic">create name=zbc0 size=20G cfgstring=model-HM/zsize-256/conv-10@/var/local/zbc0.raw</mark>
+/backstores/user:zbc&gt; create name=zbc0 size=20G cfgstring=model-HM/zsize-256/conv-10@/var/local/zbc0.raw
 Created user-backed storage object zbc0 size 21474836480.
-/backstores/user:zbc&gt; cd /loopback
-/loopback&gt; create
-Created target naa.500140529100d742.
-/loopback&gt; cd naa.500140529100d742/luns
-/loopback/naa...9100d742/luns&gt; create /backstores/user:zbc/zbc0 0
+/backstores/user:zbc&gt; cd /vhost
+/vhost&gt; create
+Created target <mark class="critic">naa.5001405a0776dce3</mark>.
+Created TPG 1.
+/vhost&gt; /vhost/naa.5001405a0776dce3/tpg1/luns create /backstores/user:zbc/zbc0
 Created LUN 0.
-/loopback/naa...9100d742/luns&gt; cd /
+/vhost&gt; cd /
 /&gt; ls
 o- / ..................................................................... [...]
   o- backstores .......................................................... [...]
@@ -810,118 +915,36 @@ o- / ..................................................................... [...]
   | o- pscsi .............................................. [Storage Objects: 0]
   | o- ramdisk ............................................ [Storage Objects: 0]
   | o- user:fbo ........................................... [Storage Objects: 0]
-  | o- user:poma .......................................... [Storage Objects: 0]
+  | o- user:rbd ........................................... [Storage Objects: 0]
   | o- user:zbc ........................................... [Storage Objects: 1]
   |   o- zbc0  [model-HM/zsize-256/conv-10@/var/local/zbc0.raw (20.0GiB) activated]
   |     o- alua ............................................... [ALUA Groups: 1]
   |       o- default_tg_pt_gp ................... [ALUA state: Active/optimized]
   o- iscsi ........................................................ [Targets: 0]
-  o- loopback ..................................................... [Targets: 1]
-  | o- naa.500140529100d742 ............................. [naa.50014059e05d5424]
-  |   o- luns ........................................................ [LUNs: 1]
-  |     o- lun0 ................................. [user/zbc0 (default_tg_pt_gp)]
-  o- vhost ........................................................ [Targets: 0]
+  o- loopback ..................................................... [Targets: 0]
+  o- vhost ........................................................ [Targets: 1]
+    o- <mark class="critic">naa.5001405a0776dce3</mark> .......................................... [TPGs: 1]
+      o- tpg1 .............................. [naa.500140533e375d94, no-gen-acls]
+        o- acls ...................................................... [ACLs: 0]
+        o- luns ...................................................... [LUNs: 1]
+          o- lun0 ............................... [user/zbc0 (default_tg_pt_gp)]
 /&gt; exit
 </code></pre>
-<p>The backstore create command specifies the emulated disk capacity with the
-argument <code>size=20G</code>. The backing file <code>/var/local/zbc0.raw</code> will be created if
-necessary and resized to match the requested capacity.</p>
-<p>When the backstore is linked to <code>lun0</code> of the loopback link, the emulated device
-becomes visible by the kernel and its management initialized in the same manner
-as with physical devices. This can be seen in the kernel messages log.</p>
-<pre><code class="language-plaintext"># dmesg
-...
-scsi host11: TCM_Loopback
-scsi 11:0:1:0: Direct-Access-ZBC LIO-ORG  TCMU ZBC device  0002 PQ: 0 ANSI: 5
-sd 11:0:1:0: Attached scsi generic sg4 type 20
-sd 11:0:1:0: [sde] Host-managed zoned block device
-sd 11:0:1:0: [sde] 41943040 512-byte logical blocks: (21.5 GB/20.0 GiB)
-sd 11:0:1:0: [sde] 80 zones of 524288 logical blocks
-sd 11:0:1:0: [sde] Write Protect is off
-sd 11:0:1:0: [sde] Mode Sense: 0f 00 00 00
-sd 11:0:1:0: [sde] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
-sd 11:0:1:0: [sde] Optimal transfer size 65536 bytes
-sd 11:0:1:0: [sde] Attached SCSI disk
+<p>The virtual machine can then be started with the emulated ZBC disk attached
+using the World-Wide port name assigned by <em>targetcli</em>.</p>
+<pre><code class="language-plaintext"># qemu-kvm (your options) \
+    -device pcie-root-port,bus=pcie.0,id=rp1 \
+    -device vhost-scsi-pci,wwpn=<mark class="critic">naa.5001405a0776dce3</mark>,bus=pcie.0
 </code></pre>
-<p>The disk can now be listed with tools such as <em>lsblk</em> and <em>lsscsi</em>.</p>
+<p>The disk is listed on the guest with tools such as <em>lsscsi</em>.</p>
 <pre><code class="language-plaintext"># lsscsi -g
-[2:0:0:0]    disk    ATA      INTEL SSDSC2CT18 335u  /dev/sda   /dev/sg0
-[4:0:0:0]    zbc     ATA      HGST HSH721414AL T220  /dev/sdb   /dev/sg1
-[10:0:1:0]   zbc     ATA      HGST HSH721414AL W209  /dev/sdc   /dev/sg2
-[10:0:2:0]   zbc     HGST     HSH721414AL52M0  a220  /dev/sdd   /dev/sg3
-[11:0:1:0]   zbc     LIO-ORG  TCMU ZBC device  0002  /dev/sde   /dev/sg4
+[0:0:0:0]    disk    ATA      QEMU HARDDISK    2.5+  /dev/sda   /dev/sg0
+[6:0:1:0]    zbc     LIO-ORG  TCMU ZBC device  0002  /dev/sdb   /dev/sg1
 </code></pre>
-<h2 id="using-an-emulated-disk">Using an Emulated disk</h2>
-<p>All ZBD compliant tools and applications will be able to access and control the
-emulated disk in exactly the same manner as a physical device. For instance,
-<a href="../libzbc/#graphical-interface"><em>libzbc</em> graphical interface (gzbc)</a> can be used
-to display the emulated disk zones.</p>
-<p><center>
-<img alt="tcmu-gzbc" src="../../assets/img/projects-tcmu-gzbc.png" title="*tcmu-runner* ZBC emulated disk view in *gzbc*" />
-<br><em>tcmu-runner</em> ZBC emulated disk view in <em>gzbc</em></br>
-</center></p>
-<h2 id="scripts">Scripts</h2>
-<p>The following script is useful to create an emulated disk with a single command.</p>
-<pre><code class="language-bash">#!/bin/bash
-
-if [ $# != 5 ]; then
-        echo &quot;Usage: $0 &lt;disk name&gt; &lt;cap (GB)&gt; HM|HA &lt;zone size (MB)&gt; &lt;conv zones num&gt;&quot;
-        exit 1;
-fi
-
-dname=&quot;$1&quot;
-cap=&quot;$2&quot;
-model=&quot;$3&quot;
-zs=&quot;$4&quot;
-cnum=&quot;$5&quot;
-
-naa=&quot;naa.50014059cfa9ba75&quot;
-
-# Setup emulated disk
-cat &lt;&lt; EOF | targetcli
-
-cd /backstores/user:zbc
-create name=${dname} size=${cap}G cfgstring=model-${model}/zsize-${zs}/conv-${cnum}@/var/local/${dname}.raw
-cd /loopback
-create ${naa}
-cd ${naa}/luns
-create /backstores/user:zbc/${dname} 0
-cd /
-exit
-
-EOF
-
-sleep 1
-disk=`lsscsi | grep &quot;TCMU ZBC device&quot; | cut -d '/' -f3 | sed 's/ //g'`
-echo &quot;mq-deadline&quot; &gt; /sys/block/&quot;${disk}&quot;/queue/scheduler
-</code></pre>
-<p>Tearing down an emulated disk can also be automated with a single command line
-as shown below.</p>
-<pre><code class="language-bash">#!/bin/bash
-
-if [ $# != 1 ]; then
-    echo &quot;Usage: $0 &lt;disk name (e.g. zbc0)&quot;
-    exit 1;
-fi
-
-dname=&quot;$1&quot;
-
-naa=&quot;naa.50014059cfa9ba75&quot;
-
-# Delete emulated disk
-cat &lt;&lt; EOF | targetcli
-
-cd /loopback/${naa}/luns
-delete 0
-cd /loopback
-delete ${naa}
-cd /backstores/user:zbc
-delete ${dname}
-cd /
-exit
-
-EOF
-</code></pre></div>
+<h2 id="qemu-nvme-zns-device-emulation"><em>QEMU</em> NVMe ZNS Device emulation</h2>
+<p><a href="../../getting-started/zns-emulation/">This article</a> describes in details, with
+examples, how <em>QEMU</em> can be configured to create an emulated NVMe ZNS namespace
+visible by the guest operating system.</p></div>
         
         
     </div>
@@ -935,7 +958,7 @@ EOF
 	target="_blank" style="color:white;">Terms of Use</a> and
 	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
         All example scripts and program snippets on this site are licensed under
-	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CCO 1.0 Universal</a>.<br>
 	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
 	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
         </span>

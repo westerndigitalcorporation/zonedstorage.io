@@ -217,60 +217,72 @@
   
   
   <li class="dropdown-submenu">
-    <a tabindex="-1" href="../../projects">Applications and Libraries</a>
+    <a tabindex="-1" href="../../tools">Tools and Libraries</a>
     <ul class="dropdown-menu">
         
             
 <li >
-    <a href="../../projects/util-linux/">Linux System Utilities</a>
+    <a href="../../tools/util-linux/">Linux System Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+    <a href="../../tools/zns/">Linux Tools for ZNS</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+    <a href="../../tools/sg3utils/">SCSI Generic Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbc/">libzbc User Library</a>
+    <a href="../../tools/libzbc/">libzbc User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libnvme/">libnvme User Library</a>
+    <a href="../../tools/libnvme/">libnvme User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbd/">libzbd User Library</a>
+    <a href="../../tools/libzbd/">libzbd User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+    <a href="../../tools/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/qemu/">QEMU and KVM</a>
+    <a href="../../tools/qemu/">QEMU and KVM</a>
 </li>
 
         
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="../../applications">Applications</a>
+    <ul class="dropdown-menu">
+        
             
 <li >
-    <a href="../../projects/zenfs/">RocksDB and ZenFS</a>
+    <a href="../../applications/zenfs/">RocksDB</a>
 </li>
 
         
@@ -370,7 +382,9 @@
         
         
         
-          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../introduction">Introduction</a>
+	  </li>
           
         
 
@@ -403,66 +417,11 @@
         
         
         
-          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../getting-started">Getting Started</a>
+	  </li>
           
         
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-      
-
-    
-
-      
-
-        
-        
-        
-          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
-          
-        
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
 
         
 
@@ -505,7 +464,9 @@
         
         
         
-          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../linux">Linux Kernel Support</a>
+	  </li>
           
         
 
@@ -553,6 +514,59 @@
 
         
 
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level">
+	    <a class="toc" href="../../tools">Tools and Libraries</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
   	  
 
   	  
@@ -574,7 +588,32 @@
         
         
         
-          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../applications">Applications</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level">
+	    <a class="toc" href="../../tests">System Compliance Tests</a>
+	  </li>
           
         
 
@@ -598,7 +637,9 @@
 
       
 
-        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../distributions/linux/">Linux Distributions</a>
+	</li>
 
       
 
@@ -606,7 +647,9 @@
 
       
 
-        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../benchmarking/fio/">Benchmarking</a>
+	</li>
 
       
 
@@ -615,21 +658,36 @@
       
 
         
-          <li class="first-level active"><a href="#frequently-asked-questions">Frequently Asked Questions</a></li>
           
-            <li class="second-level"><a href="#can-i-change-the-size-of-the-zones-of-a-device">Can I change the size of the zones of a device?</a></li>
+            <li class="first-level active">
+	      <a href="#frequently-asked-questions">Frequently Asked Questions</a>
+	    </li>
+	  
+
+          
+            <li class="second-level">
+	      <a href="#can-i-change-the-size-of-the-zones-of-a-device">Can I change the size of the zones of a device?</a>
+	    </li>
             
           
-            <li class="second-level"><a href="#with-a-host-managed-drive-how-do-i-change-the-position-of-a-zone-write-pointer">With a host managed drive, how do I change the position of a zone write pointer?</a></li>
+            <li class="second-level">
+	      <a href="#with-a-host-managed-drive-how-do-i-change-the-position-of-a-zone-write-pointer">With a host managed drive, how do I change the position of a zone write pointer?</a>
+	    </li>
             
           
-            <li class="second-level"><a href="#how-do-i-rewind-the-position-of-a-zone-write-pointer">How do I rewind the position of a zone write pointer?</a></li>
+            <li class="second-level">
+	      <a href="#how-do-i-rewind-the-position-of-a-zone-write-pointer">How do I rewind the position of a zone write pointer?</a>
+	    </li>
             
           
-            <li class="second-level"><a href="#how-do-i-partially-rewind-the-position-of-a-zone-write-pointer">How do I partially rewind the position of a zone write pointer?</a></li>
+            <li class="second-level">
+	      <a href="#how-do-i-partially-rewind-the-position-of-a-zone-write-pointer">How do I partially rewind the position of a zone write pointer?</a>
+	    </li>
             
           
-            <li class="second-level"><a href="#can-i-create-partitions-on-my-host-managed-device">Can I create partitions on my host managed device?</a></li>
+            <li class="second-level">
+	      <a href="#can-i-create-partitions-on-my-host-managed-device">Can I create partitions on my host managed device?</a>
+	    </li>
             
           
         
@@ -650,7 +708,7 @@
 time by the device vendor. For a particular device model, it is not possible
 to change the zone size.</p>
 <p>Device emulation software such as
-<a href="../../projects/tcmu-runner/">tcmu-runner</a> allow defining zoned block
+<a href="../../tools/tcmu-runner/">tcmu-runner</a> allow defining zoned block
 devices with different zone sizes. While this does not replace the ability to
 change an existing device zone size, such solution allows exploring the impact
 of the device zone size on the application being developed.</p>
@@ -713,7 +771,7 @@ preferred solution.</p>
 	target="_blank" style="color:white;">Terms of Use</a> and
 	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
         All example scripts and program snippets on this site are licensed under
-	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CCO 1.0 Universal</a>.<br>
 	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
 	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
         </span>

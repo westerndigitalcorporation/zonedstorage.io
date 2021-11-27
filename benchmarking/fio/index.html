@@ -217,60 +217,72 @@
   
   
   <li class="dropdown-submenu">
-    <a tabindex="-1" href="../../projects">Applications and Libraries</a>
+    <a tabindex="-1" href="../../tools">Tools and Libraries</a>
     <ul class="dropdown-menu">
         
             
 <li >
-    <a href="../../projects/util-linux/">Linux System Utilities</a>
+    <a href="../../tools/util-linux/">Linux System Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+    <a href="../../tools/zns/">Linux Tools for ZNS</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+    <a href="../../tools/sg3utils/">SCSI Generic Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbc/">libzbc User Library</a>
+    <a href="../../tools/libzbc/">libzbc User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libnvme/">libnvme User Library</a>
+    <a href="../../tools/libnvme/">libnvme User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbd/">libzbd User Library</a>
+    <a href="../../tools/libzbd/">libzbd User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+    <a href="../../tools/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/qemu/">QEMU and KVM</a>
+    <a href="../../tools/qemu/">QEMU and KVM</a>
 </li>
 
         
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="../../applications">Applications</a>
+    <ul class="dropdown-menu">
+        
             
 <li >
-    <a href="../../projects/zenfs/">RocksDB and ZenFS</a>
+    <a href="../../applications/zenfs/">RocksDB</a>
 </li>
 
         
@@ -370,7 +382,9 @@
         
         
         
-          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../introduction">Introduction</a>
+	  </li>
           
         
 
@@ -403,66 +417,11 @@
         
         
         
-          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../getting-started">Getting Started</a>
+	  </li>
           
         
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-      
-
-    
-
-      
-
-        
-        
-        
-          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
-          
-        
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
 
         
 
@@ -505,21 +464,11 @@
         
         
         
-          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../linux">Linux Kernel Support</a>
+	  </li>
           
         
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
 
         
 
@@ -574,7 +523,97 @@
         
         
         
-          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../tools">Tools and Libraries</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level">
+	    <a class="toc" href="../../applications">Applications</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level">
+	    <a class="toc" href="../../tests">System Compliance Tests</a>
+	  </li>
           
         
 
@@ -598,7 +637,9 @@
 
       
 
-        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../distributions/linux/">Linux Distributions</a>
+	</li>
 
       
 
@@ -607,28 +648,51 @@
       
 
         
-          <li class="first-level active"><a href="#benchmarking-zoned-block-devices">Benchmarking Zoned Block Devices</a></li>
           
-            <li class="second-level"><a href="#fio-zoned-block-device-support">fio Zoned Block Device Support</a></li>
+            <li class="first-level active">
+	      <a href="#benchmarking-zoned-block-devices">Benchmarking Zoned Block Devices</a>
+	    </li>
+	  
+
+          
+            <li class="second-level">
+	      <a href="#fio-zoned-block-device-support">fio Zoned Block Device Support</a>
+	    </li>
             
-              <li class="third-level"><a href="#command-line-options">Command Line Options</a></li>
+              <li class="third-level">
+	        <a href="#command-line-options">Command Line Options</a>
+	      </li>
             
-              <li class="third-level"><a href="#restrictions">Restrictions</a></li>
+              <li class="third-level">
+	        <a href="#restrictions">Restrictions</a>
+	      </li>
             
           
-            <li class="second-level"><a href="#zonemodezbd-examples">zonemode=zbd Examples</a></li>
+            <li class="second-level">
+	      <a href="#zonemodezbd-examples">zonemode=zbd Examples</a>
+	    </li>
             
-              <li class="third-level"><a href="#sequential-write-workload">Sequential Write Workload</a></li>
+              <li class="third-level">
+	        <a href="#sequential-write-workload">Sequential Write Workload</a>
+	      </li>
             
-              <li class="third-level"><a href="#sequential-read-workload">Sequential Read Workload</a></li>
+              <li class="third-level">
+	        <a href="#sequential-read-workload">Sequential Read Workload</a>
+	      </li>
             
-              <li class="third-level"><a href="#random-read-and-write-workloads">Random Read and Write Workloads</a></li>
+              <li class="third-level">
+	        <a href="#random-read-and-write-workloads">Random Read and Write Workloads</a>
+	      </li>
             
           
-            <li class="second-level"><a href="#direct-access-sg-io-engine">Direct Access sg I/O Engine</a></li>
+            <li class="second-level">
+	      <a href="#direct-access-sg-io-engine">Direct Access sg I/O Engine</a>
+	    </li>
             
           
-            <li class="second-level"><a href="#zone-write-streams">Zone Write Streams</a></li>
+            <li class="second-level">
+	      <a href="#zone-write-streams">Zone Write Streams</a>
+	    </li>
             
           
         
@@ -639,7 +703,9 @@
 
       
 
-        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../faq/faq/">Frequently Asked Questions</a>
+	</li>
 
       
 
@@ -1278,7 +1344,7 @@ Disk stats (read/write):
 	target="_blank" style="color:white;">Terms of Use</a> and
 	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
         All example scripts and program snippets on this site are licensed under
-	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CCO 1.0 Universal</a>.<br>
 	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
 	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
         </span>

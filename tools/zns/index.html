@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Linux Zoned Storage Documentation">
     
-    <link rel="canonical" href="https://zonedstorage.io/projects/zns/">
+    <link rel="canonical" href="https://zonedstorage.io/tools/zns/">
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
     
@@ -217,7 +217,7 @@
   
   
   <li class="dropdown-submenu active">
-    <a tabindex="-1" href="..">Applications and Libraries</a>
+    <a tabindex="-1" href="..">Tools and Libraries</a>
     <ul class="dropdown-menu">
         
             
@@ -268,9 +268,21 @@
 </li>
 
         
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="../../applications">Applications</a>
+    <ul class="dropdown-menu">
+        
             
 <li >
-    <a href="../zenfs/">RocksDB and ZenFS</a>
+    <a href="../../applications/zenfs/">RocksDB</a>
 </li>
 
         
@@ -370,7 +382,9 @@
         
         
         
-          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../introduction">Introduction</a>
+	  </li>
           
         
 
@@ -403,66 +417,11 @@
         
         
         
-          <li class="first-level"><a href="../../getting-started">Getting Started</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../getting-started">Getting Started</a>
+	  </li>
           
         
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-      
-
-    
-
-      
-
-        
-        
-        
-          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
-          
-        
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
 
         
 
@@ -505,14 +464,77 @@
         
         
         
-          <li class="first-level active"><a href="/projects/" style="font-weight:bold">Applications and Libraries</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../linux">Linux Kernel Support</a>
+	  </li>
           
         
 
         
 
   	  
-            <li class="second-level"><a href="../util-linux/">Linux System Utilities</a></li>
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level active">
+	    <a href="/tools/" style="font-weight:bold">Tools and Libraries</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+            <li class="second-level">
+	      <a href="../util-linux/">Linux System Utilities</a>
+	    </li>
           
 
   	  
@@ -523,36 +545,64 @@
 
   	  
             
-              <li class="second-level active"><a href="#linux-tools-for-zns">Linux Tools for ZNS</a></li>
               
-                <li class="third-level"><a href="#nvme-cli">nvme-cli</a></li>
+                <li class="second-level active">
+		  <a href="#linux-tools-for-nvme-zns">Linux Tools for NVMe ZNS</a>
+		</li>
+	      
+
+              
+                <li class="third-level">
+		  <a href="#nvme-cli">nvme-cli</a>
+		</li>
                 
-                  <li class="fourth-level"><a href="#identify-zns-controller">Identify ZNS Controller</a></li>
+                  <li class="fourth-level">
+		    <a href="#identify-zns-controller">Identify ZNS Controller</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#identify-zns-namespace">Identify ZNS Namespace</a></li>
+                  <li class="fourth-level">
+		    <a href="#identify-zns-namespace">Identify ZNS Namespace</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#reporting-zones">Reporting Zones</a></li>
+                  <li class="fourth-level">
+		    <a href="#reporting-zones">Reporting Zones</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#resetting-the-zone">Resetting the zone</a></li>
+                  <li class="fourth-level">
+		    <a href="#resetting-the-zone">Resetting the zone</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#opening-a-zone">Opening a zone</a></li>
+                  <li class="fourth-level">
+		    <a href="#opening-a-zone">Opening a zone</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#closing-a-zone">Closing a zone</a></li>
+                  <li class="fourth-level">
+		    <a href="#closing-a-zone">Closing a zone</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#finishing-a-zone">Finishing a zone</a></li>
+                  <li class="fourth-level">
+		    <a href="#finishing-a-zone">Finishing a zone</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#offlining-a-zone">Offlining a zone</a></li>
+                  <li class="fourth-level">
+		    <a href="#offlining-a-zone">Offlining a zone</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#zone-append">Zone Append</a></li>
+                  <li class="fourth-level">
+		    <a href="#zone-append">Zone Append</a>
+		  </li>
                 
               
+
             
           
 
         
 
   	  
-            <li class="second-level"><a href="../sg3utils/">SCSI Generic Utilities</a></li>
+            <li class="second-level">
+	      <a href="../sg3utils/">SCSI Generic Utilities</a>
+	    </li>
           
 
   	  
@@ -560,7 +610,9 @@
         
 
   	  
-            <li class="second-level"><a href="../libzbc/">libzbc User Library</a></li>
+            <li class="second-level">
+	      <a href="../libzbc/">libzbc User Library</a>
+	    </li>
           
 
   	  
@@ -568,7 +620,9 @@
         
 
   	  
-            <li class="second-level"><a href="../libnvme/">libnvme User Library</a></li>
+            <li class="second-level">
+	      <a href="../libnvme/">libnvme User Library</a>
+	    </li>
           
 
   	  
@@ -576,7 +630,9 @@
         
 
   	  
-            <li class="second-level"><a href="../libzbd/">libzbd User Library</a></li>
+            <li class="second-level">
+	      <a href="../libzbd/">libzbd User Library</a>
+	    </li>
           
 
   	  
@@ -584,7 +640,9 @@
         
 
   	  
-            <li class="second-level"><a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a></li>
+            <li class="second-level">
+	      <a href="../tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+	    </li>
           
 
   	  
@@ -592,15 +650,9 @@
         
 
   	  
-            <li class="second-level"><a href="../qemu/">QEMU and KVM</a></li>
-          
-
-  	  
-
-        
-
-  	  
-            <li class="second-level"><a href="../zenfs/">RocksDB and ZenFS</a></li>
+            <li class="second-level">
+	      <a href="../qemu/">QEMU and KVM</a>
+	    </li>
           
 
   	  
@@ -616,7 +668,32 @@
         
         
         
-          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../applications">Applications</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level">
+	    <a class="toc" href="../../tests">System Compliance Tests</a>
+	  </li>
           
         
 
@@ -640,7 +717,9 @@
 
       
 
-        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../distributions/linux/">Linux Distributions</a>
+	</li>
 
       
 
@@ -648,7 +727,9 @@
 
       
 
-        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../benchmarking/fio/">Benchmarking</a>
+	</li>
 
       
 
@@ -656,7 +737,9 @@
 
       
 
-        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../faq/faq/">Frequently Asked Questions</a>
+	</li>
 
       
 
@@ -668,12 +751,12 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="linux-tools-for-zns">Linux Tools for ZNS</h1>
-<p>Zoned namespace support was added to the Linux kernel with version 5.9. The
+<h1 id="linux-tools-for-nvme-zns">Linux Tools for NVMe ZNS</h1>
+<p>NVMe Zoned namespace support was added to the Linux kernel with version 5.9. The
 initial driver release requires the namespace implement the Zone Append command
 in order to use with the kernel's block stack.</p>
 <h2 id="nvme-cli">nvme-cli</h2>
-<p>Open source tooling for zns is provided by
+<p>Open source tooling for NVMe ZNS SSDs is provided by
 <a href="https://github.com/linux-nvme/nvme-cli" target="_blank">nvme-cli</a>
 in the current master branch starting from version 1.12 and onward. It is
 recommended to use the latest version, which is currently at version 1.13.</p>
@@ -884,7 +967,7 @@ SLBA: 0x100000   WP: 0x100000   Cap: 0x100000   State: EMPTY        Type: SEQWRI
 	target="_blank" style="color:white;">Terms of Use</a> and
 	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
         All example scripts and program snippets on this site are licensed under
-	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CCO 1.0 Universal</a>.<br>
 	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
 	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
         </span>

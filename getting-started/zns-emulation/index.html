@@ -217,60 +217,72 @@
   
   
   <li class="dropdown-submenu">
-    <a tabindex="-1" href="../../projects">Applications and Libraries</a>
+    <a tabindex="-1" href="../../tools">Tools and Libraries</a>
     <ul class="dropdown-menu">
         
             
 <li >
-    <a href="../../projects/util-linux/">Linux System Utilities</a>
+    <a href="../../tools/util-linux/">Linux System Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+    <a href="../../tools/zns/">Linux Tools for ZNS</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+    <a href="../../tools/sg3utils/">SCSI Generic Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbc/">libzbc User Library</a>
+    <a href="../../tools/libzbc/">libzbc User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libnvme/">libnvme User Library</a>
+    <a href="../../tools/libnvme/">libnvme User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbd/">libzbd User Library</a>
+    <a href="../../tools/libzbd/">libzbd User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+    <a href="../../tools/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/qemu/">QEMU and KVM</a>
+    <a href="../../tools/qemu/">QEMU and KVM</a>
 </li>
 
         
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="../../applications">Applications</a>
+    <ul class="dropdown-menu">
+        
             
 <li >
-    <a href="../../projects/zenfs/">RocksDB and ZenFS</a>
+    <a href="../../applications/zenfs/">RocksDB</a>
 </li>
 
         
@@ -370,7 +382,9 @@
         
         
         
-          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../introduction">Introduction</a>
+	  </li>
           
         
 
@@ -403,22 +417,18 @@
         
         
         
-          <li class="first-level active"><a href="/getting-started/" style="font-weight:bold">Getting Started</a></li>
+          <li class="first-level active">
+	    <a href="/getting-started/" style="font-weight:bold">Getting Started</a>
+	  </li>
           
         
 
         
 
   	  
-            <li class="second-level"><a href="../prerequisite/">System Prerequisite</a></li>
-          
-
-  	  
-
-        
-
-  	  
-            <li class="second-level"><a href="../nullblk/">Getting Started with an Emulated Zoned Block Device</a></li>
+            <li class="second-level">
+	      <a href="../prerequisite/">System Prerequisite</a>
+	    </li>
           
 
   	  
@@ -426,7 +436,9 @@
         
 
   	  
-            <li class="second-level"><a href="../smr-disk/">Getting Started With SMR Disks</a></li>
+            <li class="second-level">
+	      <a href="../nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+	    </li>
           
 
   	  
@@ -434,7 +446,19 @@
         
 
   	  
-            <li class="second-level"><a href="../smr-emulation/">Getting Started With Emulated SMR Disks</a></li>
+            <li class="second-level">
+	      <a href="../smr-disk/">Getting Started With SMR Disks</a>
+	    </li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level">
+	      <a href="../smr-emulation/">Getting Started With Emulated SMR Disks</a>
+	    </li>
           
 
   	  
@@ -445,22 +469,40 @@
 
   	  
             
-              <li class="second-level active"><a href="#getting-started-with-emulated-nvme-zns-devices">Getting Started with Emulated NVMe ZNS Devices</a></li>
               
-                <li class="third-level"><a href="#qemu">QEMU</a></li>
+                <li class="second-level active">
+		  <a href="#getting-started-with-emulated-nvme-zns-devices">Getting Started with Emulated NVMe ZNS Devices</a>
+		</li>
+	      
+
+              
+                <li class="third-level">
+		  <a href="#qemu">QEMU</a>
+		</li>
                 
-                  <li class="fourth-level"><a href="#creating-an-emulated-zoned-namespace">Creating an Emulated Zoned Namespace</a></li>
+                  <li class="fourth-level">
+		    <a href="#creating-an-emulated-zoned-namespace">Creating an Emulated Zoned Namespace</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#verifying-an-emulated-zoned-namespace">Verifying an Emulated Zoned Namespace</a></li>
+                  <li class="fourth-level">
+		    <a href="#verifying-an-emulated-zoned-namespace">Verifying an Emulated Zoned Namespace</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#using-an-emulated-zoned-namespace">Using an Emulated Zoned Namespace</a></li>
+                  <li class="fourth-level">
+		    <a href="#using-an-emulated-zoned-namespace">Using an Emulated Zoned Namespace</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#emulated-zoned-namespace-options">Emulated Zoned Namespace Options</a></li>
+                  <li class="fourth-level">
+		    <a href="#emulated-zoned-namespace-options">Emulated Zoned Namespace Options</a>
+		  </li>
                 
               
-                <li class="third-level"><a href="#qemu-execution-example">QEMU Execution Example</a></li>
+                <li class="third-level">
+		  <a href="#qemu-execution-example">QEMU Execution Example</a>
+		</li>
                 
               
+
             
           
 
@@ -475,7 +517,9 @@
         
         
         
-          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../linux">Linux Kernel Support</a>
+	  </li>
           
         
 
@@ -532,7 +576,9 @@
         
         
         
-          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../tools">Tools and Libraries</a>
+	  </li>
           
         
 
@@ -586,6 +632,23 @@
 
         
 
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level">
+	    <a class="toc" href="../../applications">Applications</a>
+	  </li>
+          
+        
+
+        
+
   	  
 
   	  
@@ -601,7 +664,9 @@
         
         
         
-          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../tests">System Compliance Tests</a>
+	  </li>
           
         
 
@@ -625,7 +690,9 @@
 
       
 
-        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../distributions/linux/">Linux Distributions</a>
+	</li>
 
       
 
@@ -633,7 +700,9 @@
 
       
 
-        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../benchmarking/fio/">Benchmarking</a>
+	</li>
 
       
 
@@ -641,7 +710,9 @@
 
       
 
-        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../faq/faq/">Frequently Asked Questions</a>
+	</li>
 
       
 
@@ -654,7 +725,9 @@
         <div class="col-md-9" role="main">
 
 <h1 id="getting-started-with-emulated-nvme-zns-devices">Getting Started with Emulated NVMe ZNS Devices</h1>
-<p>Emulated NVMe ZNS devices make it possible to do application development and kernel tests even if you do not have access to physical NVMe ZNS devices. There are two ways to emulate NVMe ZNS devices.</p>
+<p>Emulated NVMe ZNS devices make it possible to do application development and
+kernel tests even if you do not have access to physical NVMe ZNS devices. There
+are two ways to emulate NVMe ZNS devices.</p>
 <ul>
 <li>
 <p><strong><em>null_blk</em></strong>: The null_blk kernel driver is equipped to emulate zoned block
@@ -727,7 +800,7 @@ uuid=5e40ec5f-eeb6-4317-bc5e-c919796a5f79
 <h3 id="verifying-an-emulated-zoned-namespace">Verifying an Emulated Zoned Namespace</h3>
 <p>If your guest operating system is a Linux distribution and the Linux
 distribution's kernel version is higher than 5.9.0, the emulated NVMe ZNS
-device can be checked using the <em>nvme</em> command (see <a href="../../projects/zns/">Linux Tools for
+device can be checked using the <em>nvme</em> command (see <a href="../../tools/zns/">Linux Tools for
 ZNS</a>.</p>
 <pre><code># nvme list
 Node             SN                   Model                                    Namespace Usage                      Format           FW Rev
@@ -783,7 +856,7 @@ state.</p>
 <p>The implementation of NVMe device emulation and ZNS namespace emulation in
 <em>QEMU</em> provides several configuration options to control the characteristics of
 the device. The full list of options and parameters is documented <a
-href="https://qemu-project.gitlab.io/qemu/system/nvme.html"
+href="https://qemu-project.gitlab.io/qemu/system/devices/nvme.html#zoned-namespaces"
 target="_blank">here</a>.</p>
 <p>The options and parameters related to Zoned Namespaces are as follows.</p>
 <table>
@@ -891,7 +964,7 @@ sudo /usr/local/bin/qemu-system-x86_64 \
 	target="_blank" style="color:white;">Terms of Use</a> and
 	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
         All example scripts and program snippets on this site are licensed under
-	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CCO 1.0 Universal</a>.<br>
 	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
 	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
         </span>

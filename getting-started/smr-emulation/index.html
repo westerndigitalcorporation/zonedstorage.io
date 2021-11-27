@@ -217,60 +217,72 @@
   
   
   <li class="dropdown-submenu">
-    <a tabindex="-1" href="../../projects">Applications and Libraries</a>
+    <a tabindex="-1" href="../../tools">Tools and Libraries</a>
     <ul class="dropdown-menu">
         
             
 <li >
-    <a href="../../projects/util-linux/">Linux System Utilities</a>
+    <a href="../../tools/util-linux/">Linux System Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/zns/">Linux Tools for ZNS</a>
+    <a href="../../tools/zns/">Linux Tools for ZNS</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/sg3utils/">SCSI Generic Utilities</a>
+    <a href="../../tools/sg3utils/">SCSI Generic Utilities</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbc/">libzbc User Library</a>
+    <a href="../../tools/libzbc/">libzbc User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libnvme/">libnvme User Library</a>
+    <a href="../../tools/libnvme/">libnvme User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/libzbd/">libzbd User Library</a>
+    <a href="../../tools/libzbd/">libzbd User Library</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
+    <a href="../../tools/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a>
 </li>
 
         
             
 <li >
-    <a href="../../projects/qemu/">QEMU and KVM</a>
+    <a href="../../tools/qemu/">QEMU and KVM</a>
 </li>
 
         
+    </ul>
+  </li>
+
+                        
+                            
+  
+  
+  
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="../../applications">Applications</a>
+    <ul class="dropdown-menu">
+        
             
 <li >
-    <a href="../../projects/zenfs/">RocksDB and ZenFS</a>
+    <a href="../../applications/zenfs/">RocksDB</a>
 </li>
 
         
@@ -370,7 +382,9 @@
         
         
         
-          <li class="first-level"><a href="../../introduction">Introduction</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../introduction">Introduction</a>
+	  </li>
           
         
 
@@ -403,22 +417,18 @@
         
         
         
-          <li class="first-level active"><a href="/getting-started/" style="font-weight:bold">Getting Started</a></li>
+          <li class="first-level active">
+	    <a href="/getting-started/" style="font-weight:bold">Getting Started</a>
+	  </li>
           
         
 
         
 
   	  
-            <li class="second-level"><a href="../prerequisite/">System Prerequisite</a></li>
-          
-
-  	  
-
-        
-
-  	  
-            <li class="second-level"><a href="../nullblk/">Getting Started with an Emulated Zoned Block Device</a></li>
+            <li class="second-level">
+	      <a href="../prerequisite/">System Prerequisite</a>
+	    </li>
           
 
   	  
@@ -426,7 +436,19 @@
         
 
   	  
-            <li class="second-level"><a href="../smr-disk/">Getting Started With SMR Disks</a></li>
+            <li class="second-level">
+	      <a href="../nullblk/">Getting Started with an Emulated Zoned Block Device</a>
+	    </li>
+          
+
+  	  
+
+        
+
+  	  
+            <li class="second-level">
+	      <a href="../smr-disk/">Getting Started With SMR Disks</a>
+	    </li>
           
 
   	  
@@ -437,29 +459,49 @@
 
   	  
             
-              <li class="second-level active"><a href="#getting-started-with-emulated-smr-disks">Getting Started with Emulated SMR Disks</a></li>
               
-                <li class="third-level"><a href="#tcmu-runner">tcmu-runner</a></li>
+                <li class="second-level active">
+		  <a href="#getting-started-with-emulated-smr-disks">Getting Started with Emulated SMR Disks</a>
+		</li>
+	      
+
+              
+                <li class="third-level">
+		  <a href="#tcmu-runner">tcmu-runner</a>
+		</li>
                 
-                  <li class="fourth-level"><a href="#tcmu-runner-zbc-file-handler">tcmu-runner ZBC File Handler</a></li>
+                  <li class="fourth-level">
+		    <a href="#tcmu-runner-zbc-file-handler">tcmu-runner ZBC File Handler</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#verifying-the-emulated-disk">Verifying The Emulated Disk</a></li>
+                  <li class="fourth-level">
+		    <a href="#verifying-the-emulated-disk">Verifying The Emulated Disk</a>
+		  </li>
                 
               
-                <li class="third-level"><a href="#scsi_debug">scsi_debug</a></li>
+                <li class="third-level">
+		  <a href="#scsi_debug">scsi_debug</a>
+		</li>
                 
-                  <li class="fourth-level"><a href="#creating-an-emulated-zbc-disk">Creating an Emulated ZBC Disk</a></li>
+                  <li class="fourth-level">
+		    <a href="#creating-an-emulated-zbc-disk">Creating an Emulated ZBC Disk</a>
+		  </li>
                 
-                  <li class="fourth-level"><a href="#verifying-the-emulated-disk_1">Verifying The Emulated Disk</a></li>
+                  <li class="fourth-level">
+		    <a href="#verifying-the-emulated-disk_1">Verifying The Emulated Disk</a>
+		  </li>
                 
               
+
             
           
 
         
 
   	  
-            <li class="second-level"><a href="../zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a></li>
+            <li class="second-level">
+	      <a href="../zns-emulation/">Getting Started With Emulated NVMe ZNS Devices</a>
+	    </li>
           
 
   	  
@@ -475,64 +517,9 @@
         
         
         
-          <li class="first-level"><a href="../../linux">Linux Kernel Support</a></li>
-          
-        
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-  	  
-
-  	  
-
-        
-
-      
-
-    
-
-      
-
-        
-        
-        
-          <li class="first-level"><a href="../../projects">Applications and Libraries</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../linux">Linux Kernel Support</a>
+	  </li>
           
         
 
@@ -580,6 +567,59 @@
 
         
 
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level">
+	    <a class="toc" href="../../tools">Tools and Libraries</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
+  	  
+
+  	  
+
+        
+
   	  
 
   	  
@@ -601,7 +641,32 @@
         
         
         
-          <li class="first-level"><a href="../../tests">System Compliance Tests</a></li>
+          <li class="first-level">
+	    <a class="toc" href="../../applications">Applications</a>
+	  </li>
+          
+        
+
+        
+
+  	  
+
+  	  
+
+        
+
+      
+
+    
+
+      
+
+        
+        
+        
+          <li class="first-level">
+	    <a class="toc" href="../../tests">System Compliance Tests</a>
+	  </li>
           
         
 
@@ -625,7 +690,9 @@
 
       
 
-        <li class="first-level"><a href="../../distributions/linux/">Linux Distributions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../distributions/linux/">Linux Distributions</a>
+	</li>
 
       
 
@@ -633,7 +700,9 @@
 
       
 
-        <li class="first-level"><a href="../../benchmarking/fio/">Benchmarking</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../benchmarking/fio/">Benchmarking</a>
+	</li>
 
       
 
@@ -641,7 +710,9 @@
 
       
 
-        <li class="first-level"><a href="../../faq/faq/">Frequently Asked Questions</a></li>
+        <li class="first-level">
+	  <a class="toc" href="../../faq/faq/">Frequently Asked Questions</a>
+	</li>
 
       
 
@@ -678,8 +749,8 @@ ways to do this.</p>
 </ul>
 <h2 id="tcmu-runner"><em>tcmu-runner</em></h2>
 <p>Detailed information on how to install and operate <em>tcmu-runner</em> can be found
-in the <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a> chapter of
-the Applications and Libraries Guide.</p>
+in the <a href="../../tools/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a> chapter of
+the <a href="../../tools/">Tools and Libraries</a> Guide.</p>
 <h3 id="tcmu-runner-zbc-file-handler">tcmu-runner ZBC File Handler</h3>
 <p>The <em>ZBC file handler</em> is an internal device handler of <em>tcmu-runner</em> that
 emulates a ZBC SCSI disk and uses a file as a backstore. The <em>tcmu-runner</em>
@@ -688,10 +759,11 @@ implemented as a kernel driver. This structure provides a command path for the
 emulated disk that is identical to the command path that would be available if a
 physical disk were in its place. Applications and kernel components will not
 perceive any difference.</p>
-<p>The <a href="../../projects/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a> chapter of the
-Applications and Libraries Guide describes in more detail the options available
-for creating emulated disks. These include the disk zone model, the disk zone
-size, the disk capacity, and the number of conventional zones of the disk.</p>
+<p>The <a href="../../tools/tcmu-runner/">tcmu-runner ZBC Disk Emulation</a> chapter of the
+<a href="../../tools/">Tools and Libraries</a> guide describes in more
+detail the options available for creating emulated disks. These include the disk
+zone model, the disk zone size, the disk capacity, and the number of
+conventional zones of the disk.</p>
 <p>The following example shows how to create a small (20 GB) host-managed ZBC disk
 that has 10 conventional zones and a 256 MiB zone size. In this example, the
 emulated disk capacity is stored in the file <em>/var/local/zbc0.raw</em>.</p>
@@ -849,10 +921,10 @@ sd 11:0:0:0: [sdj] Attached SCSI disk
 </code></pre>
 <h3 id="verifying-the-emulated-disk_1">Verifying The Emulated Disk</h3>
 <p>The zone configuration of the emulated disk can be inspected by using
-<a href="../../projects/libzbc/"><em>libzbc</em></a>, <a href="../../projects/sg3utils/"><em>sg3utils</em></a> and 
-<a href="../../projects/util-linux/"><em>util-linux</em></a> tools.</p>
+<a href="../../tools/libzbc/"><em>libzbc</em></a>, <a href="../../tools/sg3utils/"><em>sg3utils</em></a> and 
+<a href="../../tools/util-linux/"><em>util-linux</em></a> tools.</p>
 <h4 id="using-zbc_report_zones">Using zbc_report_zones</h4>
-<p>Use <a href="../../projects/libzbc/#zone-information"><em>zbc_report_zones</em></a> to verify the
+<p>Use <a href="../../tools/libzbc/#zone-information"><em>zbc_report_zones</em></a> to verify the
 zone configuration of the newly-created emulated ZBC disk:</p>
 <pre><code class="language-plaintext"># zbc_report_zones /dev/sg9
 Device /dev/sg9:
@@ -879,7 +951,7 @@ Zone 00254: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 Zone 00255: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 33423360, 131072 sectors, wp 33423360
 </code></pre>
 <h4 id="using-blkzone">Using blkzone</h4>
-<p>Use <a href="../../projects/util-linux/#zone-report"><em>blkzone</em></a> to verify the zone
+<p>Use <a href="../../tools/util-linux/#zone-report"><em>blkzone</em></a> to verify the zone
 configuration of the newly-created emulated ZBC disk. This displays the same
 information that is returned by "zbc_report_zones", but it is displayed in a
 different format:</p>
@@ -908,7 +980,7 @@ different format:</p>
 	target="_blank" style="color:white;">Terms of Use</a> and
 	<a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank" style="color:white;">Privacy Statement</a>.
         All example scripts and program snippets on this site are licensed under
-	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CC0 1.0 Universal</a>.<br>
+	<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" style="color:white;">CCO 1.0 Universal</a>.<br>
 	Documentation built with <a href="https://www.mkdocs.org/" target="_blank" style="color:white;">MkDocs</a> using a theme
 	based on <a href="https://sourcefoundry.org/cinder/" target="_blank" style="color:white;">Cinder</a>.
         </span>
