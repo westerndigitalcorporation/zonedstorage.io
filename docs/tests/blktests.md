@@ -1,3 +1,9 @@
+---
+id: blktests
+title: Kernel Block Layer Tests
+sidebar_label: Kernel Block Layer Tests
+---
+
 # Kernel Block Layer Tests
 
 *blktests* is a test suite for Linux;reg; kernel storage stack, that is, the
@@ -18,7 +24,7 @@ are as shown in the table below.
 <center>
 
 | Group name | Description |
-| ---------- | ----------- |
+| :--------- | :---------- |
 | **block** | Block layer generic tests |
 | **loop** | Loopback device tests |
 | **meta** | *blktests* self tests |
@@ -32,14 +38,13 @@ are as shown in the table below.
 </center>
 
 The test groups supporting zoned block devices are *block* and *zbd*.
-[*blkzone*](../tools/util-linux.md#blkzone) and
-[*fio*](../benchmarking/fio.md) version 3.9 or higher must be installed for
-executing these test groups.
+[*blkzone*](../tools/util-linux.md#blkzone) and [*fio*](../benchmarking/fio.md)
+version 3.9 or higher must be installed for executing these test groups.
 
 ## Configuration
 
-Detailed generic information on how to configure and run *blktests* is provided
-<a href="https://github.com/osandov/blktests/blob/master/Documentation/running-tests.md"
+Detailed generic information on how to configure and run *blktests* is
+provided <a href="https://github.com/osandov/blktests/blob/master/Documentation/running-tests.md"
 target="_blank">here</a>.
 
 For executing tests against a physical zoned block device (e.g. a ZBC/ZAC disk),

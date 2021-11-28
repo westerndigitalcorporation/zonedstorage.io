@@ -1,3 +1,10 @@
+---
+id: index
+title: Overview
+sidebar_label: Overview
+slug: /tests
+---
+
 # System Compliance Tests
 
 These articles provide information and how-to step by step explanations for

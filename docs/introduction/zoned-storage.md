@@ -1,4 +1,12 @@
-# Zoned Storage Overview
+---
+id: zoned-storage
+title: Zoned Storage Overview
+sidebar_label: Zoned Storage Devices
+---
+
+import Image from '/src/components/Image';
+
+# Zoned Storage Devices
 
 Zoned storage devices are a class of storage devices with an address space that
 is divided into zones which have write constraints different from regular
@@ -12,23 +20,20 @@ of the next write. Data in a zone cannot be directly overwritten. The zone must
 first be erased using a special command (zone reset). The figure below
 illustrates this principle.
 
-<center>
-<img alt="zoned storage" src="../../assets/img/intro-zoned-storage.png"
-title="Zoned Storage Devices Principle" width="640" style="max-width:100%;">
-<br><em>Zoned Storage Devices Principle</em></br>
-</center>
+<Image src="intro-zoned-storage.png"
+title="Zoned Storage Devices Principle"/>
 
 Zoned storage devices can be implemented using various recording and media
 technologies. The most common form of zoned storage today uses the SCSI Zoned
 Block Commands (ZBC) and Zoned ATA Commands (ZAC) interfaces on
-[Shingled Magnetic Recording (SMR)](smr.md) HDDs. ZBC and ZAC enable a zoned
+[Shingled Magnetic Recording (SMR)](./smr) HDDs. ZBC and ZAC enable a zoned
 block storage model; SMR technology enables continued areal density growth to
 meet the demands for expanding data needs, and requires the zoned block access
 model.
 
 Solid State Disks (SSD) storage devices can also implement a zoned interface to
 reduce write amplification, reduce the device DRAM needs and improve quality of
-service at scale. The [NVMe Zoned NameSpace (ZNS)](zns.md) is a technical
+service at scale. The [NVMe Zoned NameSpace (ZNS)](./zns) is a technical
 proposal of the NVMe standard committee adding a zoned storage interface to
 the NVMe interface standard.
 
@@ -58,12 +63,8 @@ device types and access protocols.
 A simplified view of the kernel structure including the ZBD interface is shown
 in the figure below.
 
-<center>
-<img alt="linux-support-overview" src="../../assets/img/intro-linux-zbd.png"
-title="Linux kernel Zoned Storage Device Support Overview"
-style="max-width:100%;">
-<br><em>Linux kernel Zoned Storage Device Support Overview</em></br>
-</center>
+<Image src="intro-linux-zbd.png"
+title="Linux kernel Zoned Storage Device Support Overview"/>
 
 Linux ZBD interface implementation provides functions to discover the zone
 configuration of a zoned device and functions to manage zones (e.g. Zone reset).
@@ -82,7 +83,7 @@ and Linux kernel being used.
    interface protocol to issue zone management commands using a passthrough
    interface. In such case, the applications will need to be re-written with
    the new command sets as well as ensuring that all data streams are
-   sequential. The [*libzbc* library](../tools/libzbc.md) provides functions
+   sequential. The [*libzbc* library](../tools/libzbc) provides functions
    facilitating the implementation of applications using such approach.
 
 2. Managing zoned storage directly from the application layer is a valid
@@ -103,13 +104,13 @@ and Linux kernel being used.
    modification.
 
 More information on the features provided by the Linux kernel for different
-versions can be found [here](../linux/overview.md).
+versions can be found [here](../linux/overview).
 
 To get started with zoned storage, the
-[Getting Started with SMR](../getting-started/prerequisite.md) section details
+[Getting Started with SMR](../getting-started/prerequisites) section details
 the first step necessary to setup and verify a system using SMR disks. The
-[Linux Distributions](../distributions/linux.md) section provides information
+[Linux Distributions](../distributions/linux) section provides information
 regarding the availability of the ZBD interface on various Linux distributions.
 Various open source tools and libraries supporting zoned storage are documented
-in the [Tools and Libraries](../tools/index.md) section.
+in the [Tools and Libraries](../tools) section.
 

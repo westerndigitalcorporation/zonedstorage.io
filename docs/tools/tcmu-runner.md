@@ -1,3 +1,11 @@
+---
+id: tcmu-runner
+title: tcmu-runner ZBC Disk Emulation
+sidebar_label: tcmu-runner ZBC Disk Emulation
+---
+
+import Image from '/src/components/Image';
+
 # tcmu-runner ZBC Disk Emulation
 
 *tcmu-runner* is an application daemon that can handle the execution of SCSI
@@ -21,11 +29,7 @@ handling the details of the TCMU interface (UIO, netlink, pthreads, and DBus).
 *file handlers* to emulate various device types. This organization is shown
 in the figure below.
 
-<center>
-<a><img alt="tcmu-runner" src="../../assets/img/projects-tcmu.png"
-title="*tcmu-runner* overview" width="640" style="max-width:100%;"></a>
-<br><em>tcmu-runner Overview</em></br>
-</center>
+<Image src="tools-tcmu.png" title="tcmu-runner overview"/>
 
 The *ZBC file handler* implements a SCSI ZBC host aware or host managed disk
 emulation using TCMU C plugin API. This handler uses a regular file as the
@@ -42,8 +46,7 @@ hardware.
 ## Compilation and Installation
 
 The *tcmu-runner* project is hosted on <a href="https://github.com/open-iscsi/tcmu-runner"
-target="_blank">GitHub</a>. The project
-<a href="https://github.com/open-iscsi/tcmu-runner/blob/master/README.md"
+target="_blank">GitHub</a>.  The project <a href="https://github.com/open-iscsi/tcmu-runner/blob/master/README.md"
 target="_blank">*README*</a> file provides detailed information on how to
 compile, install and execute *tcmu-runner* daemon.
 
@@ -65,18 +68,14 @@ kernel module first requires that support for the *Generic Target Core Mod (TCM)
 and ConfigFS Infrastructure* be enabled from the top-level *Device Drivers*
 menu.
 
-<center>
-![config-tcm](../assets/img/linux-config-tcm1.png "Target Core Module support option with `make menuconfig`")
-<br>*Target Core Module support option with `make menuconfig`*</br>
-</center>
+<Image src="linux-config-tcm1.png"
+title="Target Core Module support option with make menuconfig"/>
 
 With  this infrastructure enabled, the configuration option *CONFIG_TCM_USER2*
 and *CONFIG_LOOPBACK_TARGET* can be enabled.
 
-<center>
-![config-tcm-mods](../assets/img/linux-config-tcm2.png "TCM user and loopback adapter support option with `make menuconfig`")
-<br>*TCM user and loopback adapter support option with `make menuconfig`*</br>
-</center>
+<Image src="linux-config-tcm2.png"
+title="TCM user and loopback adapter support option with make menuconfig"/>
 
 ## ZBC File Handler
 
@@ -197,10 +196,8 @@ emulated disk in exactly the same manner as a physical device. For instance,
 [*libzbc* graphical interface (gzbc)](libzbc.md#graphical-interface) can be used
 to display the emulated disk zones.
 
-<center>
-![tcmu-gzbc](../assets/img/projects-tcmu-gzbc.png "*tcmu-runner* ZBC emulated disk view in *gzbc*")
-<br>*tcmu-runner* ZBC emulated disk view in *gzbc*</br>
-</center>
+<Image src="tools-tcmu-gzbc.png"
+title="tcmu-runner ZBC emulated disk view in gzbc"/>
 
 ## Scripts
 
@@ -270,4 +267,3 @@ exit
 
 EOF
 ```
-

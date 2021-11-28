@@ -1,21 +1,30 @@
+---
+id: libzbd
+sidebar_label: libzbd User Library
+title: libzbd User Library
+---
+
+import Image from '/src/components/Image';
+import Video from '/src/components/Video';
+
 # libzbd User Library
 
 *libzbd* is a user library providing functions for manipulating zoned block
 devices.
 
-Unlike the [*libzbc*](libzbc.md) library, *libzbd* does not implement direct
+Unlike the [*libzbc*](./libzbc) library, *libzbd* does not implement direct
 command access to zoned block devices. Rather, *libzbd* uses the kernel provided
 zoned block device interface based on the *ioctl()* system call. A direct
 consequence of this is that *libzbd* will only allow access to zoned block
 devices supported by the kernel running. This includes both physical devices
 such as hard-disks supporting the ZBC and ZAC standards, as well as all logical
 block devices implemented by various device drivers such as
-[*null_blk*](/getting-started/nullblk) and [device mapper](/linux/dm) drivers.
+[*null_blk*](../getting-started/nullblk) and [device mapper](../linux/dm)
+drivers.
 
-The *libzbd* project is hosted on
-<a href="https://github.com/westerndigitalcorporation/libzbd"
-target="_blank">GitHub</a>. The project
-<a href="https://github.com/westerndigitalcorporation/libzbd/blob/master/README.md"
+The *libzbd* project is hosted on <a href="https://github.com/westerndigitalcorporation/libzbd"
+target="_blank">GitHub</a>.
+The project <a href="https://github.com/westerndigitalcorporation/libzbd/blob/master/README.md"
 target="_blank">*README* file</a> provides information on how to compile and 
 install *libzbd* library and its tools.
 
@@ -50,12 +59,13 @@ The main functions provided by *libzbd* are as follows.
 <center>
 
 | Function | Description |
-| -------- | ----------- |
+| :------- | :---------- |
 | zbd_open() | Open a zoned block device |
 | zbd_close() | Close an open zoned block device |
 | zbd_get_info() | Get a device information |
 | zbd_report_nr_zones() | Get the number of zones of a device|
-| zbd_report_zones()<br>zbd_list_zones() | Get a device zone information |
+| zbd_report_zones() | Get a device zone information |
+| zbd_list_zones() | Get a device zone information |
 | zbd_zones_operation() | Execute an operation on a range of zones |
 | zbd_open_zones() | Explicitly open a range of zone |
 | zbd_close_zones() | Close a range of zones |
@@ -65,8 +75,7 @@ The main functions provided by *libzbd* are as follows.
 </center>
 
 More detailed information about these functions usage and behavior can be found
-in the comments of
-<a href="https://github.com/westerndigitalcorporation/libzbd/blob/master/include/libzbd/zbd.h"
+in the comments of <a href="https://github.com/westerndigitalcorporation/libzbd/blob/master/include/libzbd/zbd.h"
 target="_blank">*libzbd* header file</a>. This header file is by default
 installed as `/usr/include/libzbd/zbd.h`.
 
@@ -83,7 +92,7 @@ development and tests.
 <center>
 
 | Function | Description |
-| -------- | ----------- |
+| :------- | :---------- |
 | zbd_device_is_zoned() | Test if a device is a zoned block device |
 | zbd_device_model_str() | Get a string description of a device model |
 | zbd_zone_type_str() | Get a string description of a zone type |
@@ -104,7 +113,7 @@ provided is shown in the table below.
 <center>
 
 | Tool | Description |
-| -------- | ----------- |
+| :--- | :---------- |
 | zbd | Command line utility to report, open, close, reset and finish zones of a device |
 | gzbd | Similar to the zbd tool but using a graphical user interface |
 | gzbd-viewer | Graphical user interface showing the condition and state of zones of a zoned block device |
@@ -187,7 +196,7 @@ COMMANDS
 
 The following examples use a null zoned block device with 4 conventional zones
 and 12 sequential zones of 32 MB created using the
-[*nullblk-zoned.sh*](/getting-started/nullblk/#creating-a-zoned-null-block-device)
+[*nullblk-zoned.sh*](../getting-started/nullblk#creating-a-zoned-null-block-device)
 script.
 
 ```plaintext
@@ -316,27 +325,18 @@ sectors and green for unwritten sectors). Operations on zones can also be
 executed directly from the interface (reset zone write pointer, open zone,
 close zone, etc).
 
-<center>
-![gzbd](../assets/img/projects-libzbd-gzbd.png "*gzbd* screenshot")
-<br>*gzbd screenshot*</br>
-</center>
+<Image src="tools-libzbd-gzbd.png" title="gzbd screenshot"/>
 
 The *gzbd-viewer* graphical interface is a simpler tool than *gzbd* that only
 allows displaying the current zone condition and state of a zoned block device.
 The zone state is refreshed by defaul twice per second. This period can be
 adjusted using a command line option.
 
-<center>
-![gzbd-viewer](../assets/img/projects-libzbd-gzbd-viewer.png "*gzbd-viewer* screenshot")
-<br>*gzbd-viewer screenshot*</br>
-</center>
+<Image src="tools-libzbd-gzbd-viewer.png" title="gzbd-viewer screenshot"/>
 
 Using *gzbd* enables simple visual cues as to how an application is performaing
 and using the zones of a zoned block device. The following example illustrates
 this.
 
-<video style="width:100%" controls>
-  <source src="/assets/img/projects-libzbd-gzbd-viewer-example.mp4" type="video/mp4">
-*Application execution observed with gzbd-viewer*
-</video>
-
+<Video src="tools-libzbd-gzbd-viewer-example.mp4"
+title="Application execution observed with gzbd-viewer"/>

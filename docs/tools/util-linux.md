@@ -1,8 +1,14 @@
+---
+id: util-linux
+title: Linux System Utilities
+sidebar_label: Linux System Utilities
+---
+
 # Linux System Utilities
 
 As defined by the project itself, *util-linux* is a random collection of
-Linux&reg; utilities. This project is hosted on
-<a href="https://github.com/karelzak/util-linux" target="_blank">GitHub</a>.
+Linux&reg; utilities. This project is hosted
+on <a href="https://github.com/karelzak/util-linux" target="_blank">GitHub</a>.
 This project generally packaged in most distributions under the name
 *util-linux* and installed by default.
 
@@ -106,10 +112,10 @@ Arguments:
 For more details see blkzone(8).
 ```
 
-!!! Note
-    The open, close and finish commands of *blkzone* are available with
-    *util-linux* version 2.36 onward. The capacity command is available
-    on the master branch.
+:::note
+The open, close and finish commands of *blkzone* are available with *util-linux*
+version 2.36 onward. The capacity command is available on the master branch.
+:::
 
 ### Zone Report
 
@@ -187,10 +193,10 @@ following command will reset write pointer in all zones.
 # blkzone reset --offset 274726912 /dev/sdd
 ```
 
-!!! Note
-    This command results in the kernel looping over all sequential zone of the
-    disk and executing a zone reset command on each zone. This can be time
-    consuming and takes a significantly longer time compared to using the
-    [*sg_reset_wp*](../tools/sg3utils.md#sg_reset_wp) command with the
-    `--all` option specified.
-
+:::note
+This command results in the kernel looping over all sequential zone of the disk
+and executing a zone reset command on each zone. This can be time consuming and
+takes a significantly longer time compared to using the
+[*sg_reset_wp*](../tools/sg3utils.md#sg_reset_wp) command with the `--all`
+option specified.
+:::

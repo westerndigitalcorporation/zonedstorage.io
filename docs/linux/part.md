@@ -1,3 +1,8 @@
+---
+id: part
+title: Zoned Block Device Partition Support
+sidebar_label: Zoned Block Device Partition Support
+---
 
 # Zoned Block Device Partition Support
 

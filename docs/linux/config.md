@@ -1,21 +1,26 @@
-# Enabling Zoned Block Device Support
+---
+id: config
+title: Kernel Configuration
+sidebar_label: Kernel Configuration
+---
 
-## Kernel Configuration
+import Image from '/src/components/Image';
+
+# Kernel Configuration
 
 Several kernel compilation configuration options control zoned block device
 support features.
 
-### Block Layer
+## Block Layer
 
-#### Zoned Block Devices Core Support
+### Zoned Block Devices Core Support
 
 To allow supported zoned block devices to be exposed as block device files,
 enable the block-layer configuration option `CONFIG_BLK_DEV_ZONED`. This option
 is part of the *Enable the block layer* top menu of `make menuconfig`.
 
-<center> ![config-zbd](../assets/img/linux-config-zbd.png "Block layer zoned
-block device support option with `make menuconfig`") <br>*Block layer zoned
-block device support option with `make menuconfig`*</br> </center>
+<Image src="linux-config-zbd.png"
+titel="Block layer zoned block device support option with make menuconfig"/>
 
 Setting this configuration option gives users access to the ZBD interface. If
 this configuration option is not set, users do not have access to the ZBD
@@ -23,11 +28,11 @@ interface and support for zoned block devices is disabled in all kernel
 subsystems that include support for these devices (this includes I/O schedulers,
 device mappers, and file systems).
 
-### Write Ordering Control
+## Write Ordering Control
 
 Write ordering control is achieved through the *deadline* (legacy single queue
 block I/O path) and *mq-deadline* (multi-queue block I/O path) block I/O
-scheduler (see [Write Ordering Control](sched.md)). *deadline* and *mq-deadline*
+scheduler (see [Write Ordering Control](./sched.md)). *deadline* and *mq-deadline*
 zoned block device support is automatically enabled if the
 `CONFIG_BLK_DEV_ZONED` configuration option is set.
 
@@ -37,28 +42,27 @@ scheduler. The configuration option `CONFIG_IOSCHED_DEADLINE` enables the
 *deadline* scheduler. Both options can be selected from the *IO Schedulers* top
 menu.
 
-<center> ![config-sched](../assets/img/linux-config-sched.png "I/O scheduler
-configuration with `make menuconfig`") <br>*I/O scheduler configuration with
-`make menuconfig`*</br> </center>
+<Image src="linux-config-sched.png"
+title="I/O scheduler configuration with make menuconfig"/>
 
 As of kernel version 5.0, support for the legacy block-layer single-queue I/O
 path has been removed. Only the *mq-deadline* scheduler remains. As of kernel
 version 5.2, `CONFIG_MQ_IOSCHED_DEADLINE` is automatically selected when the
 `CONFIG_BLK_DEV_ZONED` configuration option is set.
 
-### Device Drivers Configuration
+## Device Drivers Configuration
 
-#### *null_blk* Logical Device
+### *null_blk* Logical Device
 
 The `CONFIG_BLK_DEV_ZONED` configuration option automatically enables support
 for zoned block device emulation that uses the *null_blk* device driver.
 
-#### ZBC and ZAC Hard-Disks Support
+### ZBC and ZAC Hard-Disks Support
 
 SCSI subsystem support for ZBC and ZAC SMR disks is automatically enabled with
 the `CONFIG_BLK_DEV_ZONED` configuration option.
 
-#### NVMe Zoned Namespace Solid State Disks Support
+### NVMe Zoned Namespace Solid State Disks Support
 
 The NVM Express Zoned Namespace Command Set depends on `CONFIG_BLK_DEV_ZONED`
 and `CONFIG_NVME_CORE`. It is automatically built if both of these configuration
@@ -66,10 +70,10 @@ options are enabled.
 
 This driver requires the device to support the Zone Append command to
 successfully bind to a zoned namespace. It does not support Zone Excursions.
-See [Zoned Namespace (ZNS) SSDs](/introduction/zns) for more details about these
+See [Zoned Namespace (ZNS) SSDs](../introduction/zns) for more details about these
 features.
 
-### Device Mapper
+## Device Mapper
 
 Zoned block device support for the device mapper subsystem is automatically
 enabled when the `CONFIG_BLK_DEV_ZONED` option is set. This enables support for
@@ -80,27 +84,25 @@ Enable the *dm-zoned* target by selecting the `CONFIG_DM_ZONED` option from the
 menu *Device Drivers --> Multiple devices driver support (RAID and LVM) -->
 Device mapper support --> Drive-managed zoned block device target support*.
 
-<center> ![config-dm](../assets/img/linux-config-dm.png "*dm-zoned* device
-mapper target configuration with `make menuconfig`") <br>*dm-zoned device mapper
-target configuration with `make menuconfig`*</br> </center>
+<Image src="linux-config-dm.png"
+title="dm-zoned device mapper target configuration with make menuconfig"/>
 
-### File Systems
+## File Systems
 
-#### *f2fs*
+### *f2fs*
 
-Support for zoned block devices in the [*f2fs* file system](/linux/fs#f2fs) is
+Support for zoned block devices in the [*f2fs* file system](./fs#f2fs) is
 automatically enabled with the `CONFIG_BLK_DEV_ZONED` configuration option.
 
-#### *zonefs*
+### *zonefs*
 
 Enable compilation of the *zonefs* file system by selecting the
 `CONFIG_ZONEFS_FS` option from the menu *File systems -> zonefs filesystem
 support*. This option is available only if the `CONFIG_BLK_DEV_ZONED` option is
 set to enable zoned block device support.
 
-<center> ![config-zonefs](../assets/img/linux-config-zonefs.png "*zonefs*
-filesystem configuration with `make menuconfig`") <br>*zonefs filesystem
-configuration with `make menuconfig`*</br> </center>
+<Image src="linux-config-zonefs.png"
+title="zonefs filesystem configuration with make menuconfig"/>
 
 ## Kernel Compilation
 
@@ -140,7 +142,7 @@ kernel, on which you have enabled support for zoned block devices.
 At this point in the installation process, we highly recommend reinstalling the
 kernel headers. By reinstalling the kernel headers, the file
 */usr/include/linux/blkzoned.h* will be installed, which will allow applications
-to be compiled against the [zoned block device API](/linux/zbd-api) supported by
+to be compiled against the [zoned block device API](./zbd-api) supported by
 the kernel.
 
 Run the following command to install the kernel user header files. 
@@ -154,7 +156,7 @@ See the kernel's `make help` output for more information on this directive.
 After the the kernel user header files have been installed, we recommend that
 you recompile from source any package that will be used to manage and access
 zoned block devices. In particular, recompiling and re-installing
-[Linux system utilities](/tools/util-linux) is highly recommended because
+[Linux system utilities](../tools/util-linux) is highly recommended because
 many packages rely on *util-linux* zoned block device features (e.g. file
 systems that use *libblkid*).
 

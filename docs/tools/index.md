@@ -1,3 +1,10 @@
+---
+id: index
+title: Overview
+sidebar_label: Overview
+slug: /tools
+---
+
 # Tools and Libraries
 
 This collection of articles describes user level applications and libraries
@@ -25,6 +32,5 @@ supporting zoned block devices.
 
 * [QEMU](qemu.md): Learn how to attach zoned block devices to a QEMU guest.
 
-* [Linux Tools for NVMe ZNS](zns.md): Learn about Linux kernel support and
-  tooling for solid-state disks supporting the NVM Express Zoned Namespace
-  (ZNS) Command Set.
+* [Linux Tools for ZNS](zns.md): Learn about Linux kernel support and tooling
+  for NVM Express' Zoned Namespace (ZNS) Command Set.

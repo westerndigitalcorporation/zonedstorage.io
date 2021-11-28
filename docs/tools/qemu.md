@@ -1,6 +1,14 @@
+---
+id: qemu
+title: QEMU and KVM
+sidebar_label: QEMU and KVM
+---
+
+import Image from '/src/components/Image';
+
 # QEMU and KVM
 
-<a href="https://www.qemu.org/" target="_blank">*QEMU*</a> is a generic machine
+*<a href="https://www.qemu.org/" target="_blank">QEMU</a>* is a generic machine
 emulator and virtualizer. *QEMU* also provides the userspace components
 of the widely used <a href="https://www.linux-kvm.org/" target="_blank">*KVM*
 (Kernel-based Virtual Machine)</a>.
@@ -98,10 +106,8 @@ The host kernel configuration must have the *CONFIG_VHOST_SCSI* option enabled.
 This option is found in the top level *Virtualization* menu of the kernel
 configuration.
 
-<center>                                                                        
-![config-vhost-scsi](../assets/img/linux-config-vhost.png "vhost-scsi support option with `make menuconfig`")
-<br>*vhost-scsi support option with `make menuconfig`*</br> 
-</center>
+<Image src="linux-config-vhost.png"
+title="vhost-scsi support option with make menuconfig"/>
 
 To allow attaching physical disks as well as
 [*tcmu-runner*](../tools/tcmu-runner.md) emulated ZBC disks, the kernel
@@ -109,10 +115,8 @@ configuration option *COFNGI_TCM_PSCSI* should also be enbaled. This option can
 be found in the menu *Device Drivers* -> *Generic Target Core Mod (TCM) and
 ConfigFS Infrastructure*.
 
-<center>
-![config-vhost-scsi](../assets/img/linux-config-pscsi.png "pSCSI TCM support option with `make menuconfig`")
-<br>*pSCSI TCM support option with `make menuconfig`*</br>
-</center>
+<Image src="linux-config-pscsi.png"
+title="pSCSI TCM support option with make menuconfig"/>
 
 ### Attaching a host physical disk
 
@@ -184,7 +188,7 @@ The attached disk can then be seen from the guest OS using (for instance) the
 
 *tcmu-runner* can be used to create emulated ZBC host managed SCSI disks. The
 emulated disk created can be used either locally on the host using the loopback
-fabric adapter, as explained [here](tcmu-runner.md#creating-an-emulated-disk).
+fabric adapter, as explained [here](./tcmu-runner.md#creating-an-emulated-disk).
 
 Similarly to a physical device (previous section), the emulated ZBC disk can
 also be attached to a vhost virtual adapter for use within a KVM guest operating

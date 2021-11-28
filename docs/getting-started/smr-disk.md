@@ -1,6 +1,12 @@
-# Getting Started with SMR Disks
+---
+id: smr-disk
+title: Getting Started with SMR Hard-Disks
+sidebar_label: Getting Started with SMR Hard-Disks
+---
 
-Hard disk drives that use [Shingled Magnetic Recording](../introduction/smr.md)
+# Getting Started with SMR Hard-Disks
+
+Hard disk drives that use [Shingled Magnetic Recording](../introduction/smr)
 technology can have different interface implementations. This results in
 different usage models:
 
@@ -14,7 +20,7 @@ different usage models:
 * **Zoned Block Interface:** SMR hard-disk drives that implement ZBC and ZAC
   feature sets provide commands to the host that allow the host to indentify and
   control the device zones. This interface has two different variations, or
-  model implementations (See [SMR Interface Implementations](../introduction/smr.md#smr-implementations)):
+  model implementations (See [SMR Interface Implementations](../introduction/smr#smr-implementations)):
 
 	* **Host Aware:** While this zone model offers the convenience and
 	  flexibility of Drive Managed disks (for example, random write
@@ -43,7 +49,7 @@ react to the device signature of the connected disk).
 
 ### Verifying The Disk
 
-On systems that fulfill all [prerequisites](prerequisite.md), SATA Host Aware
+On systems that fulfill all [prerequisites](./prerequisites), SATA Host Aware
 Disks and Host Managed Disks can be connected directly to SATA ports on the
 host controller.
 
@@ -66,11 +72,12 @@ ZAC-defined device signature *0xabcd* for SATA disks. Because Host Aware
 disks have the same device type or device signature as regular disks,
 lsscsi lists host aware disks as *disk*.
 
-!!!note
-    The *lsscsi* utility does not list SATA ZAC disks with the type
-    *zac*. The type *zbc* is always used, because the kernel
-    internally implements a SCSI-to-ATA translation layer (SAT), which
-    allows SATA devices to be represented as SCSI devices.
+:::note
+The *lsscsi* utility does not list SATA ZAC disks with the type *zac*. The type
+*zbc* is always used, because the kernel internally implements a SCSI-to-ATA
+translation layer (SAT), which allows SATA devices to be represented as SCSI
+devices.
+:::
 
 ### Checking The Disk Information
 
@@ -86,7 +93,7 @@ The possible values of the *zoned* attribute are shown in the table below.
 <center>
 
 | Value | Description |
-| ----- | ----------- |
+| :---- | :---------- |
 | none | Regular disk or drive managed ZBC/ZAC disk |
 | host-aware | Host aware ZBC/ZAC disk |
 | host-managed | Host managed ZBC/ZAC disk |
@@ -147,7 +154,7 @@ reports the total number of zones on the disk:
 
 To obtain detailed information on the disk zone configuration, for instance the
 number of conventional zones available, the
-[*blkzone*](/tools/util-linux#blkzone) utility can be used.
+[*blkzone*](../tools/util-linux#blkzone) utility can be used.
 
 ```plaintext
 # blkzone report /dev/sdb
@@ -172,8 +179,8 @@ From the output, one can see that the 512B sector range from 0 up to
 from 0x010600000 until the last sector of the disk is devided into 55356
 sequential write required zones.
 
-The [*zbc_report_zones*](/tools/libzbc#zone-information) of
-[*libzbc*](/tools/libzbc) provides more detailed information in a more
+The [*zbc_report_zones*](../tools/libzbc#zone-information) of
+[*libzbc*](../tools/libzbc) provides more detailed information in a more
 readable format.
 
 ```plaintext
@@ -250,7 +257,7 @@ failures.
 
 The compatibility of an HBA model with the ZBC and ZAC standards should be
 checked with the HBA vendor. Under some conditions, an HBA compatibility can
-also be checked using the [*libzbc* conformance test suite](/tests/zbc-tests).
+also be checked using the [*libzbc* conformance test suite](../tests/zbc-tests).
 
 ### Verifying The Disk
 
@@ -259,12 +266,10 @@ the system, verifying the disk identification and checking the disk parameters
 and zone configuration can be done in the exact same manner as with Serial ATA
 disks as discussed above.
 
-!!! Note
-
-    Remember that most SAS HBAs have plug-and-play features that make 
-    it unnecessary to reboot the system after connecting or disconnecting 
-    a disk to it.
-
+:::note
+Remember that most SAS HBAs have plug-and-play features that make it unnecessary
+to reboot the system after connecting or disconnecting a disk to it.
+:::
 
 In these examples, `/dev/sdc` is an SAS disk connected to an SAS HBA and
 */dev/sdd* is a SATA disk connected to the same HBA.

@@ -1,3 +1,11 @@
+---
+id: zbc-tests
+title: ZBC/ZAC Compliance Tests
+sidebar_label: ZBC/ZAC Compliance Tests
+---
+
+import Image from '/src/components/Image';
+
 # ZBC/ZAC Compliance Tests
 
 Developers may face many problems with an application development if the system
@@ -42,12 +50,13 @@ connected to the same SAS HBA.
 To check a SATA ZAC disk correct operation and conformance to the ZAC standard,
 *libzbc* test suite must be executed using the "--ata" option.
 
-!!!note
-    *libzbc* test suite must be executed against the disk SCSI generic node file
-    (e.g. */dev/sg* path) to enable the full range of direct SCSI or ATA command
-    execution without any interference from the kernel block I/O stack. *libzbc*
-    test suite will not run if the disk block device file (*/dev/sd*) is
-    specified.
+:::note
+*libzbc* test suite must be executed against the disk SCSI generic node file
+(e.g. */dev/sg* path) to enable the full range of direct SCSI or ATA command
+execution without any interference from the kernel block I/O stack. *libzbc*
+test suite will not run if the disk block device file (*/dev/sd*) is
+specified.
+:::
 
 Using the AHCI connected SATA disk */dev/sdb*, which corresponds to the SCSI
 generic node file */dev/sg1*, the execution of the 107 test cases of *libzbc*
@@ -266,10 +275,8 @@ the other hand, if some tests fails while all tests pass with the *--ata* option
 used, then the kernel SAT implementation becomes a candidate as the root cause
 for the failure. This analysis is summarized in the table below.
 
-<center>
-![sata-on-ahci](../assets/img/tests-zbc-kernel.png "Probable failure root cause with SATA disks on AHCI ports")
-<br>*Probable failure root cause with SATA disks on AHCI ports*</br>
-</center>
+<Image src="tests-zbc-kernel.png"
+title="Probable failure root cause with SATA disks on AHCI ports"/>
 
 ## Checking the HBA SCSI-TO-ATA Translation Layer
 
@@ -295,8 +302,5 @@ and without the "--ata" option) gives hints on the root cause of eventual test
 failures. The table below indicates the possible failure root cause when the
 test suite reports errors.
 
-<center>
-![sata-on-sas](../assets/img/tests-zbc-hba.png "Probable failure root cause with SATA disks on SAS HBA")
-<br>*Probable failure root cause with SATA disks on SAS HBA*</br>
-</center>
-
+<Image src="tests-zbc-hba.png"
+title="Probable failure root cause with SATA disks on SAS HBA"/>

@@ -1,4 +1,10 @@
-# Getting Started with Emulated SMR Disks
+---
+id: smr-emulation
+title: Getting Started with Emulated SMR Hard-Disks
+sidebar_label: Getting Started with Emulated SMR Hard-Disks
+---
+
+# Getting Started with Emulated SMR Hard-Disks
 
 Emulated ZBC disks make it possible to do application development and kernel
 tests even if you do not have access to ZBC or ZAC disks. There are several
@@ -169,12 +175,11 @@ that use memory backing to store data, which is written to sectors.
 Because this method uses memory as a backing store, the creation of large disks
 requires a host with a large amount of DRAM.
 
-!!! Note
-
-    This method stores sector data using volatile memory. This means that the
-    data written to the emulated device will not survive the device's
-    destruction and the data written to this emulated device will not survive
-    a host reboot.
+:::note
+This method stores sector data using volatile memory. This means that the data
+written to the emulated device will not survive the device's destruction and the
+data written to this emulated device will not survive a host reboot.
+:::
 
 ### Creating an Emulated ZBC Disk
 

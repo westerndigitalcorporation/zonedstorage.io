@@ -1,3 +1,10 @@
+---
+id: index
+title: Overview
+sidebar_label: Overview
+slug: /linux
+---
+
 # Linux Kernel Support
 
 This collection of articles describes Linux&reg; kernel features supporting

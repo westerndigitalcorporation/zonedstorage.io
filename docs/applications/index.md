@@ -1,3 +1,10 @@
+---
+id: index
+title: Overview
+sidebar_lbel: Overview
+slug: /applications
+---
+
 # Applications
 
 This collection of articles describes user applications supporting zoned block

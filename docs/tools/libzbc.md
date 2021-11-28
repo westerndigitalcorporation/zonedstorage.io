@@ -1,3 +1,11 @@
+---
+id: libzbc
+title: libzbc User Library
+sidebar_label: libzbc User Library
+---
+
+import Image from '/src/components/Image';
+
 # libzbc User Library
 
 *libzbc* is a user library providing functions for manipulating ZBC and ZAC 
@@ -10,17 +18,18 @@ emulation mode allowing the library to imitate the behavior of a host managed
 zoned disk using a regular file or a standard block device as the backing store.
 
 The *libzbc* project is hosted on <a href="https://github.com/westerndigitalcorporation/libzbc"
-target="_blank">GitHub</a>. The project
-<a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/README.md" target="_blank">
+target="_blank">GitHub</a>.
+The project <a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/README.md" target="_blank">
 *README* file</a> provides information on how to compile and install *libzbc*
 library and its tools.
 
-!!! Note
-	The *libzbc* project was formerly hosted on GitHub as part of the
-	<a href="https://github.com/hgst" target="_blank">HGST organization</a>.
-	*libzbc* repository has since then moved to the
-	<a href="https://github.com/westerndigitalcorporation/"
-	target="_blank">Western Digital Corporation organization on GitHub</a>.
+:::note
+The *libzbc* project was formerly hosted on GitHub as part of
+the <a href="https://github.com/hgst" target="_blank">HGST organization</a>.
+*libzbc* repository has since then moved to
+the <a href="https://github.com/westerndigitalcorporation/"
+target="_blank">Western Digital Corporation organization on GitHub</a>.
+:::
 
 *libzbc* also provides a test suite allowing to test the conformance of disks
 and HBAs to the ZBC and ZAC standards. In order to make the test suite available,
@@ -54,18 +63,14 @@ dependent commands.
 
 The figure below shows this structure.
 
-<center>
-<a><img alt="libzbc" src="../../assets/img/projects-libzbc.png"
-title="libzbc internal backend drivers organization" width="800"
-style="max-width:100%;"></a>
-<br><em>libzbc internal backend drivers organization</em></br>
-</center>
+<Image src="tools-libzbc.png"
+title="libzbc internal backend drivers organization"/>
 
 *libzbc* provides functions for discovering the zone configuration of a zoned
 device and for accessing the device. Accesses to the device may result in
-changes to the condition, attributes or state of device zones (such as write pointer
-location in sequential zones). These changes are not internally tracked by *libzbc*.
-That is, *libzbc* is stateless.
+changes to the condition, attributes or state of device zones (such as write
+pointer location in sequential zones). These changes are not internally tracked
+by *libzbc*.  That is, *libzbc* is stateless.
 
 The functions provided to obtain the device zone information only make a
 "snapshot" of the zone condition and state when executed. It is the
@@ -90,12 +95,13 @@ The main functions provided by *libzbc* are as follows.
 <center>
 
 | Function | Description |
-| -------- | ----------- |
+| :------- | :---------- |
 | zbc_open() | Open a zoned device |
 | zbc_close() | Close a zoned device |
 | zbc_get_device_info() | Get device information |
 | zbc_report_nr_zones() | Get the number of zones |
-| zbc_report_zones()<br>zbc_list_zones() | Get zone information |
+| zbc_report_zones() | Get zone information |
+| zbc_list_zones() | Get zone information |
 | zbc_zone_operation() | Execute a zone operation |
 | zbc_open_zone() | Explicitly open a zone |
 | zbc_close_zone() | Close an open zone |
@@ -108,8 +114,7 @@ The main functions provided by *libzbc* are as follows.
 </center>
 
 More detailed information about these functions usage and behavior can be found
-in the comments of
-<a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/include/libzbc/zbc.h"
+in the comments of <a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/include/libzbc/zbc.h"
 target="_blank">*libzbc* header file</a>. This header file is by default
 installed as `/usr/include/libzbc/zbc.h`.
 
@@ -126,7 +131,7 @@ development and tests.
 <center>
 
 | Function | Description |
-| -------- | ----------- |
+| :------- | :---------- |
 | zbc_set_log_level() | Set log level of the library functions |
 | zbc_device_is_zoned() | Test if a device is a zoned block device |
 | zbc_print_device_info() | Print to a file (stream) a device information |
@@ -156,7 +161,7 @@ table below.
 <center>
 
 | Tool | Description |
-| -------- | ----------- |
+| :--- | :---------- |
 | gzbc | gzbc provides a graphical user interface showing zone information of a zoned device |
 | zbc_info | Get information on a disk |
 | zbc_report_zones | List the zones of a device |
@@ -175,7 +180,7 @@ regular block device used as backend storage with *libzbc* emulation mode.
 <center>
 
 | Tool | Description |
-| -------- | ----------- |
+| :--- | :---------- |
 | zbc_set_zones | Initialize (format) a regular file or regular disk to be used with *libzbc* emulation mode |
 | zbc_set_write_ptr | Change the write pointer position of the sequential zones of an emulated disk (intended for testing purposes only as this is not a valid operation for physical ZBC devices |
 
@@ -366,10 +371,7 @@ sectors and green for unwritten sectors). Some operations on zones can also be
 executed directly from the interface (reset zone write pointer, open zone,
 close zone, etc).
 
-<center>
-![gzbc](../assets/img/projects-libzbc-gzbc.png "*gzbc* screenshot")
-<br>*gzbc screenshot*</br>                         
-</center>
+<Image src="tools-libzbc-gzbc.png" title="gzbc screeshot"/>
 
 ## Emulation Mode
 
@@ -433,5 +435,3 @@ Zone 00005: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 Zone 00038: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 19922944, 524288 sectors, wp 19922944
 Zone 00039: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 20447232, 524288 sectors, wp 20447232
 ```
-
-

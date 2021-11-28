@@ -1,3 +1,11 @@
+---
+id: smr
+title: Shingled Magnetic Recording
+sidebar_label: Shingled Magnetic Recording
+---
+
+import Image from '/src/components/Image';
+
 # Shingled Magnetic Recording
 
 Shingled Magnetic Recording (SMR) is a magnetic storage data recording
@@ -17,11 +25,8 @@ Physically, this is done by writing the data sequentially, then overlapping
 data tracks can be placed on each magnetic surface. The figure below
 illustrates this principle.
 
-<center>
-<img alt="shingled-tracks" src="../../assets/img/intro-smr-zones.png"
-title="SMR disks track organization" style="max-width:100%;">
-<br><em>SMR disks track organization</em><br>
-</center>
+<Image src="intro-smr-tracks.png"
+title="SMR disks overlapping tracks"/>
 
 The write head designed for SMR drives is wider than required for a single track
 of data. It produces a stronger magnetic field suitable for magnetizing films of
@@ -34,11 +39,8 @@ more effective data organization and partial update capability. Recording gaps
 between zones are laid to prevent data overwrite by the wide write head from one
 zone to another.
 
-<center>
-<img alt="overlap" src="../../assets/img/intro-smr-tracks.png"
-title="SMR disks overlapping tracks" style="max-width:100%;">
-<br><em>SMR disks overlapping tracks</em><br>
-</center>
+<Image src="intro-smr-zones.png"
+title="SMR disks track organization"/>
 
 ## Fundamental Implications of SMR
 
@@ -126,9 +128,10 @@ All host-side software support and optimization discussed in this site apply
 to host aware SMR disks when these devices are used similarly to host managed
 disks.
 
-!!! info "ZonedStorage.io focuses on host managed devices"
-    The documentation pages of this site focus on host managed SMR disks. Drive
-    managed and host aware disks used as regular devices are not discussed.
+:::info "ZonedStorage.io focuses on host managed devices"
+The documentation pages of this site focus on host managed SMR disks. Drive
+managed and host aware disks used as regular devices are not discussed.
+:::
 
 ## Governing Standards
 
@@ -147,13 +150,12 @@ Host Managed and Host Aware SCSI drives. Implemented in conjunction with the
 applicable clauses of the SPC-5 and SBC-4 specifications, the ZBC specifications
 define the model and command set extensions for zoned block devices.
 
-The Zoned Block Commands specifications document is published as
-<a href="https://standards.incits.org/apps/group_public/project/details.php?project_id=525"
+The Zoned Block Commands specifications document is published
+as <a href="https://standards.incits.org/apps/group_public/project/details.php?project_id=525"
 target="_blank">ANSI INCITS 536-2016: Information technology – Zoned Block
-Commands (ZBC)</a> and can be purchased from the 
-<a href="http://webstore.ansi.org/" target="_blank">ANSI webstore</a>. This
-document is available at no cost to INCITS T10 member companies. Contact INCITS
-for further information.
+Commands (ZBC)</a> and can be purchased from the <a href="http://webstore.ansi.org/"
+target="_blank">ANSI webstore</a>. This document is available at no cost to
+INCITS T10 member companies. Contact INCITS for further information.
 
 ### ATA Standard: ZAC
 
@@ -168,13 +170,12 @@ Model (ATA8-AAM) and provides a common command set for systems manufacturers,
 system integrators, software suppliers, and suppliers of storage devices that
 provide one of the zones feature sets.
 
-The Zoned Device ATA Command Set specifications document is published as
-<a href="https://standards.incits.org/apps/group_public/project/details.php?project_id=403"
+The Zoned Device ATA Command Set specifications document is published
+as <a href="https://standards.incits.org/apps/group_public/project/details.php?project_id=403"
 target="_blank">INCITS 537-2016: Information technology – Zoned Device ATA
-Command Set (ZAC)</a> and can be purchased from the 
-<a href="http://webstore.ansi.org/" target="_blank">ANSI webstore</a>. This
-document is available at no cost to INCITS T13 member companies. Contact INCITS
-for further information.
+Command Set (ZAC)</a> and can be purchased from the <a href="http://webstore.ansi.org/"
+target="_blank">ANSI webstore</a>. This document is available at no cost to
+INCITS T13 member companies. Contact INCITS for further information.
 
 ## Zone Block Commands
 
@@ -220,4 +221,3 @@ basic command set similar to that of a CMR drive.
 * **FINISH ZONE** allows an application to move the write pointer of a zone to
   the end of the zone to prevent any further write operations to the zone until
   it is reset.
-

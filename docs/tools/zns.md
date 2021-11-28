@@ -1,13 +1,19 @@
-# Linux Tools for NVMe ZNS
+---
+id: zns
+title: Linux Tools for ZNS
+sidebar_label: ZNS Tools
+---
 
-NVMe Zoned namespace support was added to the Linux kernel with version 5.9. The
+# ZNS Tools
+
+Zoned namespace support was added to the Linux kernel with version 5.9. The
 initial driver release requires the namespace implement the Zone Append command
 in order to use with the kernel's block stack.
 
 ## nvme-cli
 
-Open source tooling for NVMe ZNS SSDs is provided by
-<a href="https://github.com/linux-nvme/nvme-cli" target="_blank">nvme-cli</a>
+Open source tooling for zns is provided
+by <a href="https://github.com/linux-nvme/nvme-cli" target="_blank">nvme-cli</a>
 in the current master branch starting from version 1.12 and onward. It is
 recommended to use the latest version, which is currently at version 1.13.
 
@@ -131,9 +137,9 @@ SLBA: 0x800000   WP: 0x8c1000   Cap: 0x100000   State: IMP_OPENED   Type: SEQWRI
 SLBA: 0x900000   WP: 0x900000   Cap: 0x100000   State: EMPTY        Type: SEQWRITE_REQ   Attrs: 0x0
 ```
 
-### Resetting the zone
+### Resetting a Zone
 
-To reset the write pointer and return the zone to the EMPTY state, the
+To reset the write pointer and return a zone to the EMPTY state, the
 'zone-reset' command can be used. The following example resets all zones with
 the '-a' option (WARNING: this effectively deletes the zone's data).
 
@@ -159,7 +165,7 @@ SLBA: 0x800000   WP: 0x800000   Cap: 0x100000   State: EMPTY        Type: SEQWRI
 SLBA: 0x900000   WP: 0x900000   Cap: 0x100000   State: EMPTY        Type: SEQWRITE_REQ   Attrs: 0x0
 ```
 
-### Opening a zone
+### Opening a Zone
 
 Explicitly opening a zone will make it ready for immediate write access and
 consumes an Open Resource. Opening the first zone:
@@ -178,7 +184,7 @@ SLBA: 0x0        WP: 0x0        Cap: 0x100000   State: EXP_OPENED   Type: SEQWRI
 SLBA: 0x100000   WP: 0x100000   Cap: 0x100000   State: EMPTY        Type: SEQWRITE_REQ   Attrs: 0x0
 ```
 
-### Closing a zone
+### Closing a Zone
 
 Closing the zone releases the open resource and can be done on either
 explicitly or implicitly open zones. Closing the first zone:
@@ -197,7 +203,7 @@ SLBA: 0x0        WP: 0x0        Cap: 0x100000   State: CLOSED       Type: SEQWRI
 SLBA: 0x100000   WP: 0x100000   Cap: 0x100000   State: EMPTY        Type: SEQWRITE_REQ   Attrs: 0x0
 ```
 
-### Finishing a zone
+### Finishing a Zone
 
 Finishing a zone sets its state to 'full'. Finishing the first zone:
 
@@ -215,7 +221,7 @@ SLBA: 0x0        WP: 0xffffffffffffffff Cap: 0x100000   State: FULL         Type
 SLBA: 0x100000   WP: 0x100000   Cap: 0x100000   State: EMPTY        Type: SEQWRITE_REQ   Attrs: 0x0
 ```
 
-### Offlining a zone
+### Offlining a Zone
 
 Offlining a zone makes the zone inaccessible. The data on the zone will no
 longer be accessible, and writes to the zone will not be possible until the

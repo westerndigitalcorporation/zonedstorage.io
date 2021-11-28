@@ -1,65 +1,73 @@
-# Zoned Storage.io
+Copyright (c) 2021 Western Digital Corporation or its affiliates.
 
-This project implements the zonedstorage.io website.
+# zonedstorage.io
 
-## Requirements
+This website is built using [Docusaurus 2](https://docusaurus.io/), a modern
+static website generator.
 
-To generate the site HTML content, *mkdocs* and *yuicompressor* must first be
-installed.
+## Prerequisites
 
-To install mkdocs, use your favorite distro package management tool.
-Installing directly using *pip3* is also possible.
+To build, locally test and deploy to GitHub pages the zonedstorage.io site,
+*nodejs* and the *yarn* dependency manager must be installed first.
 
-```
-pip3 install --upgrade pymdown-extensions
-pip3 install --upgrade mkdocs
-pip3 install --upgrade mkdocs-pymdownx-material-extras
-```
-
-No mkdocs theme needs to be installed as the local custom *cinder* theme is
-used. This customized theme is in the sub-directory `cinder`.
-
-The *yuicompressor* utility is generally available as a package of the same name
-from most Linux distributions.
-
-## Locally Building and Testing the Site
-
-To locally build the site HTML files, execute:
+On Fedora/CentOS systems, run:
 
 ```
-make
+$ sudo dnf install nodejs yarnpkg
 ```
 
-Changes can be tested locally using the following command:
+On Debian/Ubuntu systems, run:
 
 ```
-make serve
+$ sudo apt-get install nodejs npm
+$ npm install --global yarn
 ```
 
-This builds the site HTML files and start a local server accessible from
-http://127.0.0.1:8000. The local server can be stopped with CTRL-C. This
-local server will automatically rebuild the HTML files if markdown files are
-modified while it is running.
+## Building the site
 
-## Contributions
-
-Contributions should be sent as pull requests against the *main* branch. Please
-make sure to locally test your changes using *make serve* before sending a pull
-request.
-
-## Publishing Updates
-
-To deploy updates to the GitHub pages site, run:
+To build the zonedstorage.io site, run:
 
 ```
-make deploy
+$ make
 ```
 
-This command can be executed only against the *site* branch. Updates in the
-*main* branch must first be merged in the *site* branch after testing.
-The user executing this command must have write access to the zonedstorage.io
-repository.
+To test changes locally before deploying, the following command can be used.
 
-Once deployed, the updated site content can be accessed from
-[zonedstorage.io](https://zonedstorage.io/) and
-[westerndigitalcorporation.github.io/zonedstorage.io/](https://westerndigitalcorporation.github.io/zonedstorage.io/).
+```
+$ make serve
+```
+
+A local http server is run to locally serve the site on http://0.0.0.0:3000.
+
+## Deploying
+
+To build and deploy the site to GitHub pages, the following command is provided.
+
+```
+$ make deploy GH_USER=<gtihub-user-id>
+```
+
+Where *gtihub-user-id* is the GitHub user account ID to gain write access to
+the gh-pages branch of the repository.
+
+## Package Dependencies Management
+
+All package dependendies are installed automatically when running `make all`.
+To manually perform this operation, the following command is available.
+
+```
+$ make dependencies
+```
+
+To upgrade all package dependencies to their latest version, run:
+
+```
+$ make upgrade
+```
+
+## Contributing
+
+Read the [CONTRIBUTING](CONTRIBUTING) file and use GitHub pull request to
+contribute changes and improvements.
+
+For other inquiries, contact the zonedstorage.io team at zonedstorage@wdc.com.

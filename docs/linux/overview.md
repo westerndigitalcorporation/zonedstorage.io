@@ -1,3 +1,11 @@
+---
+id: overview
+title: Linux Kernel Zoned Storage Support
+sidebar_label: Linux Kernel Zoned Storage Support
+---
+
+import Image from '/src/components/Image';
+
 # Linux Zoned Storage Support Overview
 
 Zoned block device support was added to the Linux&reg; kernel in version 4.10.
@@ -12,12 +20,8 @@ paths, can control them with different programming interfaces, and can expose
 zoned block devices in different ways. A simplistic representation of the
 various access paths is shown in the figure below.
 
-<center>
-<a><img alt="linux-overview" src="../../assets/img/linux-iopath.png"
-title="Linux Zoned block device support overview" width="800"
-style="max-width:100%;"></a>
-<br><em>Linux Zoned Block Device Support Overview</em></br>
-</center>
+<Image src="linux-iopath.png"
+title="Linux Zoned block device support overview"/>
 
 Three different I/O paths implement two POSIX compatible interfaces that hide
 the write constraints of the sequential zones of the zoned block devices. These
@@ -94,12 +98,8 @@ for the block multi-queue infrastructure.
 The figure below summarizes the evolution of zoned block device support with
 kernel versions.
 
-<center>
-<a><img alt="linux-versions" src="../../assets/img/linux-versions.png"
-title="Kernel kernel versions and ZBD features" width="680"
-style="max-width:100%;"></a>
-<br><em>Kernel kernel versions and ZBD features</em></br>
-</center>
+<Image src="linux-versions.png"
+title="Kernel kernel versions and ZBD features"/>
 
 * **Passthrough Access Support (*SG Access*)** Support for exposing host managed
   ZBC/ZAC hard-disks as SCSI generic (SG) nodes was officially added to kernel
@@ -189,9 +189,8 @@ administrators use the latest available release within that version to ensure
 that all known fixes are applied.
 
 The list of current mainline, stable and long term stable kernel versions can
-be found on
-<a href="https://www.kernel.org/" target="_blank">The Linux Kernel Archives</a>
-site.
+be found on <a href="https://www.kernel.org/" target="_blank">
+The Linux Kernel Archives</a> site.
 
 ## ZBD Support Restrictions
 

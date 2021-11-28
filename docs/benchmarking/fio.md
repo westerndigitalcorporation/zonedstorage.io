@@ -1,3 +1,9 @@
+---
+id: benchmark
+title: Benchmarking Zoned Block Devices
+sidebar_lbel: Benchmarking Zoned Block Devices
+---
+
 # Benchmarking Zoned Block Devices
 
 The *Flexible I/O Tester (fio)* was originally written as a test tool for the
@@ -320,12 +326,13 @@ Disk stats (read/write):
   sdd: ios=3869/0, merge=0/0, ticks=21868/0, in_queue=18002, util=81.20%
 ```
 
-!!! Note
-	The higher IOPS performance observed with this test compared to the
-	previous one (i.e. IOPS=1411 vs. IOPS=951) results from the disk not
-	physically executing any media access as there is no data to read (no
-	written sectors). The disks returns a fill pattern as data without
-	seeking to the sectors specified by the read commands.
+:::note
+The higher IOPS performance observed with this test compared to the previous one
+(i.e. IOPS=1411 vs. IOPS=951) results from the disk not physically executing any
+media access as there is no data to read (no written sectors). The disks returns
+a fill pattern as data without seeking to the sectors specified by the read
+commands.
+:::
 
 ### Random Read and Write Workloads
 
@@ -558,13 +565,14 @@ Disk stats (read/write):
   sdd: ios=278/0, merge=0/0, ticks=1953/0, in_queue=1677, util=0.39%
 ```
 
-!!! Note
-	SCSI generic direct access bypasses the block layer I/O scheduler. For
-	zoned block devices, this means that the *deadline* I/O scheduler zone
-	write locking is enable to provide write command ordering guarantees.
-	However, the *zbd* mode ensures mutual exclusion between jobs for write
-	access to the same zone. SUch synchronization is in essence identical to
-	zone write locking and execute all write commands without any error.
+:::note
+SCSI generic direct access bypasses the block layer I/O scheduler. For zoned
+block devices, this means that the *deadline* I/O scheduler zone write locking
+is enable to provide write command ordering guarantees.  However, the *zbd* mode
+ensures mutual exclusion between jobs for write access to the same zone. Such
+synchronization is in essence identical to zone write locking and execute all
+write commands without any error.
+:::
 
 ## Zone Write Streams
 

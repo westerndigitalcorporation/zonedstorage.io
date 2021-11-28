@@ -1,24 +1,47 @@
-# Zoned Namespaces (ZNS) SSDs
+---
+id: zns
+title: NVMe Zoned Namespaces (ZNS) SSDs
+sidebar_label: NVMe Zoned Namespaces (ZNS) SSDs
+---
 
-Zoned Namespace (ZNS) SSDs represent a new division of functionality between host software and flash-based SSDs. A ZNS SSD groups its capacity into zones, where each zone can be read in any order but must be written sequentially. These characteristics allow a ZNS SSD to improve its internal data placement and thus lead to higher performance through higher write throughput, lower QoS, and increased capacity.
+import Image from '/src/components/Image';
+import ImageLink from '/src/components/ImageLink';
 
-ZNS SSDs implement the <a href="https://nvmexpress.org/developers/nvme-command-set-specifications/" target="_blank_">NVMe ZNS Command Set specification</a> as defined by the NVM Express (NVMe) organization and released as part of the NVMe 2.0 specifications. The latest revision available is 1.1.
+# NVMe Zoned Namespaces (ZNS) SSDs
 
-!!! NOTE
-     See <a
-     href="https://www.usenix.org/conference/atc21/presentation/bjorling"
-     target="_blank_">ZNS: Avoiding the Flash-Based Block Interface Tax for Flash-Based SSDs</a> for a deep dive on ZNS SSDs. The article was published at USENIX ATC 2021.
+Zoned Namespace (ZNS) SSDs represent a new division of functionality between
+host software and flash-based SSDs. A ZNS SSD groups its capacity into zones,
+where each zone can be read in any order but must be written sequentially. These
+characteristics allow a ZNS SSD to improve its internal data placement and thus
+lead to higher performance through higher write throughput, lower QoS, and
+increased capacity.
+
+ZNS SSDs implement
+the <a href="https://nvmexpress.org/developers/nvme-command-set-specifications/"
+target="_blank_">NVMe ZNS Command Set specification</a> as defined by the NVM
+Express (NVMe) organization and released as part of the NVMe 2.0 specifications.
+The latest revision available is 1.1.
+
+:::note
+See <a href="https://www.usenix.org/conference/atc21/presentation/bjorling"
+target="_blank_">ZNS: Avoiding the Flash-Based Block Interface Tax for
+Flash-Based SSDs</a> for a deep dive on ZNS SSDs. The article was published
+at USENIX ATC 2021.
+:::
 
 ## Overview
 
-The ZNS SSD follows the Zoned Storage Model. This standards-based architecture, which takes a unified approach to storage that enables both Shingled Magnetic Recording (SMR) in HDDs and ZNS SSDs to share a unified software stack. Specifically for ZNS SSDs, the zone abstraction allows the host aligning its writes to the sequential write required properties of flash-based SSDs, and thereby optimizes data placement onto the SSD's media. Note that the management of media reliability continues to be the sole responsibility of the ZNS SSD and should be managed the same way as conventional SSDs.
+The ZNS SSD follows the Zoned Storage Model. This standards-based architecture,
+which takes a unified approach to storage that enables both Shingled Magnetic
+Recording (SMR) in HDDs and ZNS SSDs to share a unified software stack.
+Specifically for ZNS SSDs, the zone abstraction allows the host aligning its
+writes to the sequential write required properties of flash-based SSDs, and
+thereby optimizes data placement onto the SSD's media. Note that the management
+of media reliability continues to be the sole responsibility of the ZNS SSD and
+should be managed the same way as conventional SSDs.
 
-<center>
-<img alt="zns" src="../../assets/img/intro-zns.png"
-title="Conventioal SSDs and ZNS SSDs internal data placement" width="800"
-style="max-width:100%;">
-<br><em>Conventional SSDs and ZNS SSDs internal data placement</em></br>
-</center>
+<Image src="intro-zns.png"
+title="Conventioal SSDs and ZNS SSDs internal data placement"/>
 
 ## The ZNS Zoned Storage Model
 
@@ -32,12 +55,17 @@ These similarities simplify the implementation of the host storage stack and
 applications for simultaneously supporting both host-managed SMR hard-disks and
  ZNS SSDs.
 
-Given that ZNS SSDs typically is implemented using non-volatile memory, the ZNS specification introduces extra functionalities to enable this type of media and is described below.
+Given that ZNS SSDs typically is implemented using non-volatile memory, the ZNS
+specification introduces extra functionalities to enable this type of media and
+is described below.
 
 ### Zone types
 
 ZBC and ZAC SMR hard-disks can optionally expose a number of conventional zones
-which accept random write operations. The ZNS specification does not define this optional set of random write zones, as NVMe supports multiple namespace, and therefore can expose a separate namespace that supports conventional I/O accesses.
+which accept random write operations. The ZNS specification does not define this
+optional set of random write zones, as NVMe supports multiple namespace, and
+therefore can expose a separate namespace that supports conventional I/O
+accesses.
 
 ### Zone Capacity and Zone Size
 
@@ -59,44 +87,43 @@ requiring that the device implements a power-of-two sized erased block.
 
 The figure below illustrates the zone capacity concept.
 
-<center>
-<img alt="zone-capacity" src="../../assets/img/intro-zonesize-vs-capacity.png"
-title="Zone Size and Zone Capacity" width="640" style="max-width:100%;">
-<br><em>Zone Size and Zone Capacity</em></br>
-</center>
+<Image src="intro-zonesize-vs-capacity.png"
+title="Zone Size and Zone Capacity"/>
 
 As the logical block addresses between the zone capacity and the end of the
 zone are not mapped to any physical storage blocks, write accesses to
-these blocks will result in an error. Therefore, reading in this area is handled in the
-same way as when reading unwritted blocks.
+these blocks will result in an error. Therefore, reading in this area is handled
+in the same way as when reading unwritted blocks.
 
 A zone with a zone capacity smaller than the zone size will be transitioned to a
 full condition when the number of written blocks equals the zone capacity.
 
-!!! Note
-	The total namespace capacity reported by a controller is always equal to
-	the total number of logical blocks defined by the zones. In other words,
-	this reported capacity includes unusable logical blocks of zones with a
-	zone capacity lower than the zone size. The usable capacity of the
-	namespace is equal to the sum of all zones capacities. This usable
-	capacity is always smaller than the reported namespace capacity if the
-	namespace contains zones with a zone capacity lower than the zone size.
+:::note
+The total namespace capacity reported by a controller is always equal to the
+total number of logical blocks defined by the zones. In other words, this
+reported capacity includes unusable logical blocks of zones with a zone capacity
+lower than the zone size. The usable capacity of the namespace is equal to the
+sum of all zones capacities. This usable capacity is always smaller than the
+reported namespace capacity if the namespace contains zones with a zone capacity
+lower than the zone size.
+:::
 
 ### Active Zones
 
 A controller implementation typically requires the allocation of internal
 resources (e.g. a write buffer) to execute write operations into zones.
-Therefore, limitations on the total amount of resources available to the controller may imply
-a limit on the total number of zones that can be simultaneously in the implicit
-open or explicit open conditions. This potential limit on the maximum number of
-open zones is similarly defined in the ZNS, ZBC, and ZAC standards.
+Therefore, limitations on the total amount of resources available to the
+controller may imply a limit on the total number of zones that can be
+simultaneously in the implicit open or explicit open conditions. This potential
+limit on the maximum number of open zones is similarly defined in the ZNS, ZBC,
+and ZAC standards.
 
-The ZNS specification however defines an additional limit on the number of zones that can be
-in the implicit open, explicit open or closed conditions. Any zone with such
-condition is defined as an active zone and correspond to any zone that is being
-written or that has been only partially written. A ZNS SSD may
-impose a limit on the maximum number of zones that can be active. This limit is
-always equal or larger than the limit on the maximum number of open zones.
+The ZNS specification however defines an additional limit on the number of zones
+that can be in the implicit open, explicit open or closed conditions. Any zone
+with such condition is defined as an active zone and correspond to any zone that
+is being written or that has been only partially written. A ZNS SSD may impose a
+limit on the maximum number of zones that can be active. This limit is always
+equal or larger than the limit on the maximum number of open zones.
 
 This new limit imposes new constraints on user applications. While the maximum
 number of open zones of a namespace only limits the number of zones that an
@@ -137,11 +164,8 @@ these in any order.
 The figure below illustrates the differences between regular write operations
 and zone append write operations.
 
-<center>
-<img alt="zone-append" src="../../assets/img/intro-zone-append.png"
-title="Regular Writes and Zone Append Writes" width="640" style="max-width:100%;">
-<br><em>Regular Writes and Zone Append Writes</em></br>
-</center>
+<Image src="intro-zone-append.png"
+title="Regular Writes and Zone Append Writes"/>
 
 In the example above, the host must issue to the same zone three different
 write operations for data A (4KB), B (8KB), and C (16KB). Using regular write
@@ -162,33 +186,25 @@ of each request through the zone append completion information.
 
 ## Presentations
 
-Additional information is available here:
+The following OCP 2019 Global Summit presentation covers the motivation for
+ZNS SSDs, the journey, and a general overview of the interface.
 
-<center>
-<br><a href="https://www.youtube.com/watch?v=9yVWb3rbces" target="_blank">From Open-Channel SSDs to Zoned Namespaces, OCP 2019 Global Summit.</a></br>
-<a href="https://www.youtube.com/watch?v=9yVWb3rbces" target="_blank">
-![Zoned Namespaces at OCP](https://img.youtube.com/vi/9yVWb3rbces/0.jpg "Zoned
-Namespace Presentation at the OCP 2019 Global Summit")</a>
-<br>*The presentation covers the motivation for ZNS SSDs, the journey, and a general overview of the interface.*</br>
-</center>
+<ImageLink src="https://img.youtube.com/vi/9yVWb3rbces/0.jpg"
+title="From Open-Channel SSDs to Zoned Namespaces, OCP 2019 Global Summit."
+url="https://www.youtube.com/watch?v=9yVWb3rbces"/>
 
-<center>
-<br><a href="https://www.youtube.com/watch?v=qpbBuyYT6fc" target="_blank">File System Native Support of Zoned Block Devices: Regular vs Append Writes, SDC2020</a></br>
-<a href="https://www.youtube.com/watch?v=qpbBuyYT6fc" target="_blank">
-![ZNS btrfs at SDC2020](https://img.youtube.com/vi/qpbBuyYT6fc/0.jpg "ZNS and btrfs at SNIA SDC 2020")</a>
-<br>*ZNS and btrfs.*</br>
-</center>
+The following SNIA SDC presentations illustrate how ZNS SSDs can be used with
+real-world applications.
 
-<center>
-<br><a href="https://www.youtube.com/watch?v=FwMQqIGZFsE" target="_blank">Zoned Block Device Support in Hadoop HDFS, SDC2020</a></br>
-<a href="https://www.youtube.com/watch?v=FwMQqIGZFsE" target="_blank">
-![ZNS HDFS at SDC2020](https://img.youtube.com/vi/FwMQqIGZFsE/0.jpg "ZNS and HDFS at SNIA SDC 2020")</a>
-<br>*ZNS and HDFS.*</br>
-</center>
+<ImageLink src="https://img.youtube.com/vi/qpbBuyYT6fc/0.jpg"
+url="https://www.youtube.com/watch?v=qpbBuyYT6fc"
+title="File System Native Support of Zoned Block Devices: Regular vs Append
+Writes, SDC2020"/>
 
-<center>
-<br><a href="https://www.youtube.com/watch?v=cbX3P56Jp0o" target="_blank">Zoned Namespaces (ZNS) SSDs: Disrupting the Storage Industry, SDC2020</a></br>
-<a href="https://www.youtube.com/watch?v=cbX3P56Jp0o" target="_blank">
-![ZNS HDFS at SDC2020](https://img.youtube.com/vi/cbX3P56Jp0o/0.jpg "ZNS at SNIA SDC 2020")</a>
-<br>*ZNS Overview*</br>
-</center>
+<ImageLink src="https://img.youtube.com/vi/FwMQqIGZFsE/0.jpg"
+title="Zoned Block Device Support in Hadoop HDFS, SDC2020"
+url="https://www.youtube.com/watch?v=FwMQqIGZFsE"/>
+
+<ImageLink src="https://img.youtube.com/vi/cbX3P56Jp0o/0.jpg"
+title="Zoned Namespaces (ZNS) SSDs: Disrupting the Storage Industry, SDC2020"
+url="https://www.youtube.com/watch?v=cbX3P56Jp0o"/>

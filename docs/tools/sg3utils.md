@@ -1,3 +1,9 @@
+---
+id: sg3utils
+title: SCSI Generic Utilities
+sidebar_label: SCSI Generic Utilities
+---
+
 # SCSI Generic Utilities
 
 Various open source projects provide support for directly manipulating SCSI
@@ -110,16 +116,21 @@ kernel SCSI subsystem translates SCSI commands to ATA commands.
 
 *sg3_utils* includes three command line tools that are specific to ZBC disks.
 
+<center>
+
 | Utility Name | Main SCSI Command Invoked | Description |
-| --- | --- | --- |
+| :----------: | :------------------------ | :---------- |
 | **sg_rep_zones** | REPORT ZONES | Get a ZBC disk zone information |
 | **sg_reset_wp** | RESET WRITE POINTER | Reset one or all zones of a ZBC disk |
 | **sg_zone** | CLOSE ZONE, FINISH ZONE, OPEN ZONE | Sends one of these commands to the given ZBC device |
 
-!!! Caution
-	The help output of the commands below uses the term LBA. In this
-	context, the term LBA refers to a 512 bytes sector size regardless of
-	the logical and physical block size of the disk.
+</center>
+
+:::caution
+The help output of the commands below uses the term LBA. In this
+context, the term LBA refers to a 512 bytes sector size regardless of
+the logical and physical block size of the disk.
+:::
 
 ### sg_rep_zone
 
@@ -183,9 +194,10 @@ Report zones response:
  ...
 ```
 
-!!! Note
-    The block device file path or the device SCSI Generic node file path can
-    both be used to specify a disk.
+:::note
+The block device file path or the device SCSI Generic node file path can
+both be used to specify a disk.
+:::
 
 It is possible to start a zone report at a specific zone by using the
 `--start` option. For instance, to obtain the zone information starting at the

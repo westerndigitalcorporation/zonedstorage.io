@@ -1,27 +1,33 @@
+---
+id: zenfs
+title: RocksDB with ZenFS
+sidebar_lbel: RocksDB with ZenFS
+---
+
 # RocksDB with ZenFS
 
-<a href="https://rocksdb.org/" target="_blank">*RocksDB*</a> is a persistent
-key-value store for fast storage devices. It is implemented using a
-<a href="https://en.wikipedia.org/wiki/Log-structured_merge-tree"target="_blank">
-Log-Structured Merge-Tree (LSM-tree)</a> data structure. Similarly to all
-LSM-tree based key-value engine implementations, values are stored in tables
-sorted in increasing key order. Tables are always sequentially written and never
-modified.  This basic principle of the LSM-tree data structure facilitates the
-implementation of support for zoned block devices.
+*<a href="https://rocksdb.org/" target="_blank">RocksDB</a>* is a persistent
+key-value store for fast storage devices. It is implemented using
+a <a href="https://en.wikipedia.org/wiki/Log-structured_merge-tree"
+target="_blank"> Log-Structured Merge-Tree (LSM-tree)</a> data structure.
+Similarly to all LSM-tree based key-value engine implementations, values are
+stored in tables sorted in increasing key order. Tables are always sequentially
+written and never modified.  This basic principle of the LSM-tree data structure
+facilitates the implementation of support for zoned block devices.
 
 Fortunately, RocksDB provides a storage plugin architecture that allows
 different storage backends to be used. Specifically, ZenFS implements support
 for zoned block devices and is integrated into RocksDB.
 
-<a href="https://github.com/westerndigitalcorporation/zenfs" target="_blank">*ZenFS*</a>
-is a file system plugin for *RocksDB* that utilizes *RockDB* FileSystem
-interface to place files into zones on a raw zoned block device. By separating
-files into zones and utilizing write life time hints to co-locate data of
-similar life times, *ZenFS* can greatly reduce the system write amplification
-compared to regular file systems on conventional block devices. *ZenFS* ensures
-that there is no background garbage collection in the file system or on the
-device, improving performance in terms of throughput, tail latencies and
-endurance.
+*<a href="https://github.com/westerndigitalcorporation/zenfs" target="_blank">
+ZenFS</a>* is a file system plugin for *RocksDB* that utilizes *RockDB*
+FileSystem interface to place files into zones on a raw zoned block device. By
+separating files into zones and utilizing write life time hints to co-locate
+data of similar life times, *ZenFS* can greatly reduce the system write
+amplification compared to regular file systems on conventional block devices.
+*ZenFS* ensures that there is no background garbage collection in the file
+system or on the device, improving performance in terms of throughput, tail
+latencies and endurance.
 
 *ZenFS* can store multiple files in a single zone, using an extent allocation
 scheme. A file may be composed of one or more extents and all extents of a file
@@ -37,12 +43,12 @@ Using *ZenFS*, data garbage collection is performed only by RocksDB with the
 LSM-tree table compaction process. There is no garbage collection executed
 by ZenFS, nor by the ZNS device controller.
 
-!!! Note
-     Further information is available in the
-     <a href="https://www.usenix.org/conference/atc21/presentation/bjorling"
-        target="_blank">
-	ZNS: Avoiding the Block Interface Tax for Flash-based SSDs
-     </a> USENIX ATC 2021 article.
+:::note
+Further information is available in
+the <a href="https://www.usenix.org/conference/atc21/presentation/bjorling"
+target="_blank"> ZNS: Avoiding the Block Interface Tax for Flash-based SSDs </a>
+USENIX ATC 2021 article.
+:::
 
 ## Getting Started
 
@@ -50,9 +56,9 @@ by ZenFS, nor by the ZNS device controller.
 
 *ZenFS* requires Linux kernel version 5.9 or newer and the kernel used must
 also be configured with
-[zoned block device support enabled](/linux/config#kernel-configuration).
+[zoned block device support enabled](../linux/config).
 
-*ZenFS* utilizes the [*libzbd*](/projects/libzbd) library. The latest version
+*ZenFS* utilizes the [*libzbd*](../tools/libzbd) library. The latest version
 of this library must be compiled and installed prior to building and
 installing.
 
@@ -65,11 +71,11 @@ Instructions on how to compile and install RocksDB with *ZenFS* are maintained
 in the *ZenFS* project <a href="https://github.com/westerndigitalcorporation/zenfs/blob/master/README.md" target="_blank">
 README file</a>.
 
-!!! NOTE
-     Remember to set the block device IO scheduler to deadline to prevent write
-     operations from being reordered. This can be automatically done on system
-     boot using a
-     [*udev* rule](/linux/sched#automatic-persistent-configuration).
+:::note
+Remember to set the block device IO scheduler to deadline to prevent write
+operations from being reordered. This can be automatically done on system
+boot using a [*udev* rule](../linux/sched).
+:::
 
 ### ZenFS Command Line
 

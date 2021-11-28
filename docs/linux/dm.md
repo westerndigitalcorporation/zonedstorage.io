@@ -1,3 +1,11 @@
+---
+id: dm
+title: Device Mapper
+sidebar_label: Device Mapper
+---
+
+import Image from '/src/components/Image';
+
 # Device Mapper
 
 Zoned block device support was added to the device mapper subsystem with kernel
@@ -8,8 +16,8 @@ the *dm-flakey* target. ZBD support also added a new target driver, *dm-zoned*.
 
 The *dm-linear* target maps a linear range of blocks of the device-mapper device
 onto a linear range of a backend device. *dm-linear* is the basic building
-block of logical volume managers such as
-<a href="http://www.sourceware.org/lvm2/" target="_blank">*LVM*</a>.
+block of logical volume managers such
+as <a href="http://www.sourceware.org/lvm2/" target="_blank">*LVM*</a>.
 
 ### Zoned Block Device Restrictions
 
@@ -228,9 +236,8 @@ The same restrictions as for the *dm-linear* target apply.
 ### Examples
 
 *dm-linear* detailed documentation and usage examples can be found in the kernel
-source code documentation file
-<a href="https://github.com/torvalds/linux/blob/master/Documentation/device-mapper/dm-flakey.txt" target="_blank">
- Documentation/device-mapper/dm-flakey.txt</a>.
+source code documentation file <a href="https://github.com/torvalds/linux/blob/master/Documentation/device-mapper/dm-flakey.txt"
+target="_blank">Documentation/device-mapper/dm-flakey.txt</a>.
 
 ## dm-zoned
 
@@ -254,10 +261,8 @@ accesses, as well as for storing internal metadata.
 
 The figure below illustrates *dm-zoned* zone usage principle.
 
-<center>
-![dm-zoned](../assets/img/linux-dm-zoned.png "*Zone mapping overview of the *dm-zoned* device mapper target")
-<br>*Zone mapping overview of the dm-zoned device mapper target*</br>
-</center>
+<Image src="linux-dm-zoned.png"
+title="Zone mapping overview of the dm-zoned device mapper target"/>
 
 Optionally, since Linux kernel version 5.8.0, an additional regular block
 device can also be used to provide randomly writable storage used in place of
@@ -391,20 +396,20 @@ use with the *dm-zoned* device mapper target. This utility will verify the
 device zone model and will prepare and write on-disk *dm-zoned* metadata
 according to the device capacity, zone size, etc.
 
-The source code for the *dmzadm* utility is available as part of the
-<a href="https://github.com/westerndigitalcorporation/dm-zoned-tools"
+The source code for the *dmzadm* utility is available as part of
+the <a href="https://github.com/westerndigitalcorporation/dm-zoned-tools"
 target="_blank">*dm-zoned-tools* project hosted on GitHub</a>.
-The project
-<a href="https://github.com/westerndigitalcorporation/dm-zoned-tools/blob/master/README.md"
+The project <a href="https://github.com/westerndigitalcorporation/dm-zoned-tools/blob/master/README.md"
 target="_blank">*README* file</a> provides instructions on how to compile and
 install the utility.
 
-!!! Note
-	The *dm-zoned-tools* project was formerly hosted on GitHub as part of
-	the <a href="https://github.com/hgst" target="_blank">HGST organization</a>.
-	*dm-zoned-tools* repository has since then moved to the
-	<a href="https://github.com/westerndigitalcorporation/"
-	target="_blank">Western Digital Corporation organization on GitHub</a>.
+:::note
+The *dm-zoned-tools* project was formerly hosted on GitHub as part of
+the <a href="https://github.com/hgst" target="_blank">HGST organization</a>.
+*dm-zoned-tools* repository has since then moved to
+the <a href="https://github.com/westerndigitalcorporation/"
+target="_blank">Western Digital Corporation organization on GitHub</a>.
+:::
 
 *dmzadm* detailed usage is as follows.
 
@@ -609,5 +614,3 @@ A *dm-zoned* target device can be disabled using the `--stop` operation.
 
 For a multi-device target, the same list of devices as used for format must be
 specified.
-
-

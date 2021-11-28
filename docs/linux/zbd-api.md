@@ -1,3 +1,9 @@
+---
+id: zbd-api
+title: Zoned Block Device User Interface
+sidebar_label: Zoned Block Device User Interface
+---
+
 # Zoned Block Device User Interface
 
 User applications can access the zone information of a zoned block device and
@@ -23,7 +29,7 @@ are shown in the following table.
 <center>
 
 | File | Kernel version | Description |
-| ----- | -------------- | ----------- |
+| :--- | :------------- | :---------- |
 | /sys/block/*dev name*/queue/zoned | 4.10.0 | Device zoned model |
 | /sys/block/*dev name*/queue/chunk_sectors | 4.10.0 | Device zone size |
 | /sys/block/*dev name*/queue/nr_zones | 4.20.0 | Total number of zones |
@@ -49,7 +55,7 @@ The possible values of the *zoned* attribute file are shown in the table below.
 <center>
 
 | Value | Description |
-| ----- | ----------- |
+| :---- | :---------- |
 | none | Regular block device, including drive-managed SMR disks |
 | host-aware | Host-aware device model |
 | host-managed | Host-managed device model |
@@ -304,7 +310,7 @@ the kernel version that introduced each command.
 <center>
 
 | Command | Kernel version | Description |
-| ----- | -------------- | ----------- |
+| :------ | :------------- | :---------- |
 | BLKREPORTZONE | 4.10.0 | Get zone information |
 | BLKRESETZONE | 4.10.0 | Reset a zone write pointer |
 | BLKGETZONESZ | 4.20.0 | Get a device zone size |

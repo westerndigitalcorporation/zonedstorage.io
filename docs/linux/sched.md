@@ -1,4 +1,10 @@
-# Write Ordering Control For Zoned Block Devices
+---
+id: sched
+title: Write Ordering Control
+sidebar_label: Write Ordering Control
+---
+
+# Write Ordering Control
 
 Historically, the Linux&reg; kernel block I/O stack (i.e., the block layer and
 the SCSI layer) has never guaranteed the exact execution order of block I/O
@@ -69,12 +75,12 @@ command. This algorithm is presented here in more detail:
     </li>
     </ol>
 
-!!! Note
-    Zone write locking that is implemented as shown above also prevents the
-    unintended reordering of commands by the SAS HBAs or SATA adapters. The
-    *AHCI* specifications do not define a clear order for issuing commands to
-    devices. As a result, many chipsets are unable to guarantee the proper
-    order of commands.
+:::note
+Zone write locking that is implemented as shown above also prevents the
+unintended reordering of commands by the SAS HBAs or SATA adapters. The *AHCI*
+specifications do not define a clear order for issuing commands to devices. As a
+result, many chipsets are unable to guarantee the proper order of commands.
+:::
 
 Although this implementation provides write-ordering guarantees for the legacy
 single-queue block I/O path and is not dependent upon any particular HBA, it
@@ -114,12 +120,13 @@ This new implementation of zone write locking relies on the block layer
 limitations of the previous implementation. In detail, the new algorithm is as
 follows.
 
-!!! Note
-    The *deadline* and *mq-deadline* schedulers operate by grouping commands
-    per type (reads vs writes) and always processsing these two groups of
-    commands separately, e.g. first issuing many reads, then many writes. This
-    improves performance by taking advantage of hardware features such as
-    device-level read-ahead.
+:::note
+The *deadline* and *mq-deadline* schedulers operate by grouping commands per
+type (reads vs writes) and always processsing these two groups of commands
+separately, e.g. first issuing many reads, then many writes. This improves
+performance by taking advantage of hardware features such as device-level
+read-ahead.
+:::
 
 1.  If the scheduler is processing read commands...
 
@@ -173,15 +180,15 @@ queue depth and that only sequential writes that target the same zone will be
 throttled. All read commands can proceed, always, and write commands that
 target different zones do not impact each other.
 
-!!! Note
-    This new implementation does not guarantee overall command ordering.
-    Guarantees are given only for write commands that target the same zone.
-    The dispatch order of write commands that target different zones may be
-    changed by the scheduler. For any single sequential zone, at any time,
-    there is always at most a single write command in-flight being
-    executed. Overall disk operation at high queue depth is possible 
-    when there are read accesses and if multiple zones are being written
-    simultaneously.
+:::note
+This new implementation does not guarantee overall command ordering.  Guarantees
+are given only for write commands that target the same zone.  The dispatch order
+of write commands that target different zones may be changed by the scheduler.
+For any single sequential zone, at any time, there is always at most a single
+write command in-flight being executed. Overall disk operation at high queue
+depth is possible when there are read accesses and if multiple zones are being
+written simultaneously.
+:::
 
 ## Block I/O Scheduler Configuration
 
@@ -189,10 +196,11 @@ The *deadline* and *mq-deadline* schedulers must be enabled in the kernel
 compilation configuration. Refer to the
 [Write Ordering Control](config.md#write-ordering-control) section for details.
 
-!!! Note
-    The legacy single queue block I/O path was removed from the kernel in 
-    version 5.0. As of kernel version 5.0, the *deadline* scheduler cannot be
-    enabled. The *mq-deadline* scheduler is the only ZBD compliant scheduler.
+:::note
+The legacy single queue block I/O path was removed from the kernel in version
+5.0. As of kernel version 5.0, the *deadline* scheduler cannot be enabled. The
+*mq-deadline* scheduler is the only ZBD compliant scheduler.
+:::
 
 ### Manual Configuration
 

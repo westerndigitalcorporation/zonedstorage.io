@@ -1,40 +1,47 @@
+---
+id: prerequisites
+title: System Prerequisites
+sidebar_label: System Prerequisites
+---
+
 # System Prerequisites
 
-The zoned block device (ZBD) interface that supports ZBC and ZAC HDDs was
+The zoned block device (ZBD) interface that supports ZBC and ZAC disks was
 added to Linux&reg; in kernel version 4.10. All Linux kernel versions since
-4.10 include the ZBD interface. Linux kernel version 5.9 extended this interface
-support to include NVMe&trade; ZNS SSDs.
+4.10 include the ZBD interface.
 
-!!! Note
+:::note
+Linux kernels prior to version 4.10 do not implement the ZBD interface.  If you
+use a kernel older than kernel 4.10, you can access and manage ZBC and ZAC
+disks, but only in a limited way. This is discussed in more detail in the [Linux
+Support](../linux/overview.md) document.
+:::
 
-    Linux kernels prior to version 4.10 do not implement the ZBD interface. If
-    you use a kernel older than kernel 4.10, you can access and manage ZBC and
-    ZAC disks, but only in a limited way. This is discussed in more detail in
-    the [Linux Support](../linux/overview.md) document.
-
-To verify that a zoned device has been discovered and correctly initalized,
+To verify that the zoned device has been discovered and correctly initalized,
 several user utilities must be installed on the test system. These utilities
-are discussed in more detail in the
-[User Utilities](#prerequisites_user_utilities) section.
+are discussed in more detail in the section called [User
+Utilities](./prerequisites#user-utilities).
 
 ## Linux Kernel
 
-We recommend only systems with Linux kernels that are version 4.10 or higher
-for use with ZBC and ZAC hard disks. If you intend to follow the examples in
-this Quick Start Guide, we recommend that you use a Linux distribution that
-includes ZBD support. More information on recommended Linux distributions can
-be found [here](../distributions/linux.md).
+We recommend only systems with Linux kernels that are version 4.10 or
+higher for use with ZBC and ZAC hard disks. If you intend to follow
+the examples in this Quick Start Guide, we recommend that you use a
+Linux distribution that includes ZBD support. More information on
+recommended Linux distributions can be found
+[here](../distributions/linux.md).
 
-ZNS SSDs require zone capacity support, which was introduced in Linux kernel
-version 5.9. More information on ZNS SSDs can be found
+ZNS SSDs require zone capacity support, which was introduced in
+Linux kernel version 5.9. More information on ZNS SSDs can be found
 [here](../introduction/zns.md).
 
-Advanced users might want to compile and install a specific Linux kernel version
-instead of using the default kernel. If this is the case, you must enable ZBD
-support in that kernel.  An explanation of how to enable ZBD support in the
-kernel configuration is provided [here](../linux/config.md).  We recommend that
-you always use the highest available stable kernel version or a long term stable
-kernel version higher than 4.10.  Information on available kernel versions
+Advanced users might want to compile and install a specific Linux
+kernel version instead of using the default kernel. If this is the
+case, you must enable ZBD support in that kernel.  An explanation of
+how to enable ZBD support in the kernel configuration is provided
+[here](../linux/config.md).  We recommend that you always use the
+highest available stable kernel version or a long term stable kernel
+version higher than 4.10.  Information on available kernel versions
 can be found <a href="https://www.kernel.org/" target="_blank">here</a>.
 
 ## Kernel Version and ZBD Support
@@ -89,9 +96,10 @@ then zoned block devices are supported by the kernel. If the output is
 `CONFIG_BLK_DEV_ZONED=n`, then block device support is disabled and
 the kernel must be recompiled in order to enable block device support.
 
-!!! Note
-    For kernels older than kernel version 4.10, the output of these
-    commands is always empty.
+:::note
+For kernels older than kernel version 4.10, the output of these commands is
+always empty.
+:::
 
 If your kernel exports its configuration through the *proc* file
 system, use one of the following sets of commands to retreive the
@@ -133,13 +141,13 @@ block I/O scheduler. Therefore, in kernels of version 4.16 and
 higher, you must use this scheduler with zoned block devices in order
 to make the kernel guarantee the order of write commands.
 
-!!!note
-	The *mq-deadline* block I/O scheduler is enabled only if the
-	SCSI multi-queue (*scsi-mq*) infrastructure is enabled. This
-	feature use can be controlled by using the kernel boot
-	argument *scsi_mod.use_blk_mq*. The default has been
-	*scsi-mq* since kernel version 5.0 and the legacy single-queue
-	SCSI command path is no longer supported.
+:::note
+The *mq-deadline* block I/O scheduler is enabled only if the SCSI multi-queue
+(*scsi-mq*) infrastructure is enabled. This feature use can be controlled by
+using the kernel boot argument *scsi_mod.use_blk_mq*. The default has been
+*scsi-mq* since kernel version 5.0 and the legacy single-queue SCSI command path
+is no longer supported.
+:::
 
 To see which block I/O scheduler a zoned disk uses, run the following command:
 
@@ -159,9 +167,7 @@ change the scheduler:
 [mq-deadline] kyber bfq none
 ```          
 
-<a name="prerequisites_user_utilities">
 ## User Utilities
-</a>
 
 Various user level tools should also be installed in order to verify the
 correct operation of zoned block devices and to troubleshoot problems.
@@ -172,7 +178,7 @@ The `lsblk` command in Linux lists block devices. This includes zoned block
 devices.  This utility is usually included in the *util-linux*
 package, which is installed by default on most Linux distributions.
 
-*lsblk* usage examples are provided [here](../linux/utilities/#lsblk).
+*lsblk* usage examples are provided [here](../tools/util-linux#lsblk).
 
 ### blkzone
 
@@ -181,7 +187,7 @@ makes it possible to reset the write pointer position of a range of zones in
 the device. This utility is usually included in the *util-linux* package, which
 is installed by default on most Linux distributions.
 
-*blkzone* usage examples are provided [here](../tools/util-linux.md#blkzone).
+*blkzone* usage examples are provided [here](../tools/util-linux#blkzone).
 
 ### lsscsi
 
@@ -221,26 +227,13 @@ translates SCSI commands into ATA commands.
 [This section](../tools/sg3utils.md#sg3_utils) shows some examples of these
 utilities execution.
 
-### nvme-cli
-
-The
-<a href="https://github.com/linux-nvme/nvme-cli" target="_blank">*nvme-cli*</a>
-open-source project implements a command line utility to manage NVMe devices.
-NVMe Zoned Namespace support is provided implemented since version 1.12.
-
-The ZNS specific commands provided allow accessing the controller and namespace
-information, as well as managing zones of a zoned namespace.
-
-[This section](../tools/zns.md#nvme-cli) provides more details about the *nvme*
-utility and shows some examples of commands execution.
-
 ### libzbc
 
 *libzbc* is a user-space library that provides functions that are 
 used to manipulate ZBC and ZAC disks.  The *libzbc* project is hosted
 on <a href="https://github.com/westerndigitalcorporation/libzbc"
-target="_blank"> GitHub</a>. Documentation is provided in the project
-<a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/README.md"
+target="_blank"> GitHub</a>. Documentation is provided in the
+project <a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/README.md"
 target="_blank"> README</a> file. The API documentation can be generated using
 *doxygen*.
 
@@ -250,23 +243,6 @@ command-line tools.
 
 For more information on how to compile and install *libzbc*, as well as usage
 examples of the command line utilities provided by *libzbc*, see [libzbc User
-Library](../tools/libzbc.md) in the
-[Tools and Libraries](../tools/index.md) documentation.
-
-### libzbd
-
-*libzbd* is a another user-space library that provides functions that are 
-used to manipulate all types of zoned block devices. The *libzbd* project is
-hosted on <a href="https://github.com/westerndigitalcorporation/libzbd"
-target="_blank"> GitHub</a>. Documentation is provided in the project
-<a href="https://github.com/westerndigitalcorporation/libzbd/blob/master/README.md"
-target="_blank"> README</a> file.
-
-Like *libzbc*, *libzbd* also provides a set of command-line tools to check and
-manage zones of zoned block devices.
-
-For more information on how to compile and install *libzbd*, as well as usage
-examples of the command line utilities provided by *libzbd*, see [libzbd User
-Library](../tools/libzbd.md) in the
-[Tools and Libraries](../tools/index.md) documentation.
+Library](../tools/libzbc.md) in the [Tools and Libraries](../tools/index.md)
+documentation.
 

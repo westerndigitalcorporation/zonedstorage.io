@@ -1,3 +1,10 @@
+---
+id: index
+title: Overview
+sidebar_label: Overview
+slug: /getting-started
+---
+
 # Getting Started
 
 Learn how to set up a Linux system to use zoned storage devices.

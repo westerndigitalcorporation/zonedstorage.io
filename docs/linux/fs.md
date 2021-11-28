@@ -1,6 +1,12 @@
-# File Systems and Zoned Block Devices
+---
+id: fs
+title: File Systems
+sidebar_label: File Systems
+---
 
-The [*dm-zoned*](dm.md#dm-zoned) device mapper target allows using any file
+# File Systems
+
+The [*dm-zoned*](./dm.md#dm-zoned) device mapper target allows using any file
 system with host managed zoned block devices by hiding the device sequential
 write constraints. This is a simple solution to enable a file system use but not
 necessarily the most efficient due to the potentially high overhead of a block
@@ -25,7 +31,7 @@ as a file. *zonefs* is included with the upstream Linux kernel since version
 ### Overview
 
 Unlike a regular POSIX-compliant file system with native zoned block device
-support (e.g. [*f2fs*](fs.md#f2fs)), *zonefs* does not hide the sequential write
+support (e.g. [*f2fs*](./fs.md#f2fs)), *zonefs* does not hide the sequential write
 constraint of zoned block devices to the user. Files representing sequential
 write zones of the device must be written sequentially starting from the end of
 the file (append only writes).
@@ -124,7 +130,7 @@ Since dirty page writeback by the page cache does not guarantee a sequential
 write pattern, *zonefs* prevents buffered writes and writeable shared mappings
 on sequential files. Only direct I/O writes are accepted for these files.
 *zonefs* relies on the sequential delivery of write I/O requests to the device
-implemented by the block layer elevator (See [Write Command Ordering](sched.md)).
+implemented by the block layer elevator (See [Write Command Ordering](./sched.md)).
 
 There are no restrictions on the type of I/O used for read operations in
 sequential zone files. Buffered I/Os, direct I/Os and shared read mappings are
@@ -234,20 +240,20 @@ conditions.
 
 <center>
 
-| "errors=xxx"</br>mount option | device zone</br>condition | file</br>size | file</br>read | file</br>write | device</br>read | device</br>write |
-|:-------------------------:|:---------------------:|:---------:|:---------:|:----------:|:-----------:|:------------:|
-| remount-ro   | good      | fixed |  <span style="color:green">yes</span>  |  <span style="color:red">no</span>    | <span style="color:green">yes</span> | <span style="color:green">yes</span> |
-| remount-ro   | read-only | as is |  <span style="color:green">yes</span>  |  <span style="color:red">no</span>    | <span style="color:green">yes</span> | <span style="color:red">no</span>    |
-| remount-ro   | offline   |   0   |  <span style="color:red">no</span>     |  <span style="color:red">no</span>    | <span style="color:red">no</span>    | <span style="color:red">no</span>    |
-| zone-ro      | good      | fixed |  <span style="color:green">yes</span>  |  <span style="color:red">no</span>    | <span style="color:green">yes</span> | <span style="color:green">yes</span> |
-| zone-ro      | read-only | as is |  <span style="color:green">yes</span>  |  <span style="color:red">no</span>    | <span style="color:green">yes</span> | <span style="color:red">no</span>    |
-| zone-ro      | offline   |   0   |  <span style="color:red">no</span>     |  <span style="color:red">no</span>    | <span style="color:red">no</span>    | <span style="color:red">no</span>    |
-| zone-offline | good      |   0   |  <span style="color:red">no</span>     |  <span style="color:red">no</span>    | <span style="color:green">yes</span> | <span style="color:green">yes</span> |
-| zone-offline | read-only |   0   |  <span style="color:red">no</span>     |  <span style="color:red">no</span>    | <span style="color:green">yes</span> | <span style="color:red">no</span>    |
-| zone-offline | offline   |   0   |  <span style="color:red">no</span>     |  <span style="color:red">no</span>    | <span style="color:red">no</span>    | <span style="color:red">no</span>    |
-| repair       | good      | fixed |  <span style="color:green">yes</span>  |  <span style="color:green">yes</span> | <span style="color:green">yes</span> | <span style="color:green">yes</span> |
-| repair       | read-only | as is |  <span style="color:green">yes</span>  |  <span style="color:red">no</span>    | <span style="color:green">yes</span> | <span style="color:red">no</span>    |
-| repair       | offline   |   0   |  <span style="color:red">no</span>     |  <span style="color:red">no</span>    | <span style="color:red">no</span>    | <span style="color:red">no</span>    |
+| "errors=xxx" mount option | Device zone condition | File size | File read | File write | Device read | Device write |
+| :-----------------------: | :-------------------: | :-------: | :-------: | :--------: | :---------: | :----------: |
+| remount-ro   | good      | fixed |  <Yes/>  |  <No/>  | <Yes/> | <Yes/> |
+| remount-ro   | read-only | as is |  <Yes/>  |  <No/>  | <Yes/> | <No/>  |
+| remount-ro   | offline   |   0   |  <No/>   |  <No/>  | <No/>  | <No/>  |
+| zone-ro      | good      | fixed |  <Yes/>  |  <No/>  | <Yes/> | <Yes/> |
+| zone-ro      | read-only | as is |  <Yes/>  |  <No/>  | <Yes/> | <No/>  |
+| zone-ro      | offline   |   0   |  <No/>   |  <No/>  | <No/>  | <No/>  |
+| zone-offline | good      |   0   |  <No/>   |  <No/>  | <Yes/> | <Yes/> |
+| zone-offline | read-only |   0   |  <No/>   |  <No/>  | <Yes/> | <No/>  |
+| zone-offline | offline   |   0   |  <No/>   |  <No/>  | <No/>  | <No/>  |
+| repair       | good      | fixed |  <Yes/>  |  <Yes/> | <Yes/> | <Yes/> |
+| repair       | read-only | as is |  <Yes/>  |  <No/>  | <Yes/> | <No/>  |
+| repair       | offline   |   0   |  <No/>   |  <No/>  | <No/>  | <No/>  |
 
 </center>
 
@@ -276,9 +282,9 @@ Further notes:
 
 ### Mount options
 
-zonefs define the "errors=<behavior>" mount option to allow the user to specify
+zonefs define the "errors=*behavior*" mount option to allow the user to specify
 zonefs behavior in response to I/O errors, inode size inconsistencies or zone
-condition changes. The defined behaviors are as follow:
+condition changes. The defined behaviors are as follow.
 
 * remount-ro (default)
 * zone-ro
@@ -299,12 +305,12 @@ the size of the zone file is left unchanged from its last updated value.
 ### Zonefs User Space Tools
 
 The `mkzonefs` tool is used to format zoned block devices for use with *zonefs*.
-This tool is available on
-<a href="https://github.com/damien-lemoal/zonefs-tools" target="_blank">GitHub</a>.
+This tool is available on <a href="https://github.com/westerndigitalcorporation/zonefs-tools"
+target="_blank">GitHub</a>.
 
 *zonefs-tools* also includes a test suite which can be run against any zoned
 block device, including
-[*nullblk* block device created with zoned mode](/getting-started/nullblk.md).
+[*nullblk* block device created with zoned mode](../getting-started/nullblk.md).
 
 ### Examples
 
@@ -422,7 +428,7 @@ entirely of sequential zones cannot be used with *f2fs* as a standalone device
 and require a multi-device setup to place metadata blocks on a randomly
 writable storage. *f2fs* supports multi-device setup where multiple block device
 address spaces are linearly concatenated to form a logically larger block
-device. The [*dm-linear*](dm.md#dm-linear) device mapper target can also be used
+device. The [*dm-linear*](./dm.md#dm-linear) device mapper target can also be used
 to create a logical device composed of conventional zones and sequential zones
 suitable for *f2fs*.
 
@@ -451,7 +457,7 @@ frequently deleting file or modifying files data.
 ### Zone Capacity Support
 
 NVMe ZNS SSDs can have a per
-[zone capacity that is smaller than the zone size](/introduction/zns#zone-capacity-and-zone-size).
+[zone capacity that is smaller than the zone size](../introduction/zns#zone-capacity-and-zone-size).
 To support ZNS devices, *f2fs* ensures that block allocation and accounting
 only considers the blocks in a zone that are within the zone capacity. This
 support for NVMe ZNS zone capacity is available since Linux kernel version 5.10.
@@ -472,7 +478,7 @@ maximum volume size of 16 TB. Any device or combination of devices (for a
 multi-device volume) with a total capacity larger than 16 TB cannot be used
 with *f2fs*.
 
-To overcome this limit, the [*dm-linear*](dm.md#dm-linear) device mapper target
+To overcome this limit, the [*dm-linear*](./dm.md#dm-linear) device mapper target
 can be used to partition a zoned block device into serviceable smaller logical
 devices.  This configuration must ensure that each logical device created is
 assigned a sufficient amount of conventional zones to store *f2fs* fixed
@@ -617,27 +623,51 @@ in stable releases after the usual upstream review process completes.
 
 ## XFS
 
-*XFS* currently does not support zoned block devices. The [*dm-zoned*](dm.md#dm-zoned)
-device mapper target must be used to enable zoned device use with *XFS*.
+*XFS* currently does not support zoned block devices. The
+[*dm-zoned*](./dm.md#dm-zoned) device mapper target must be used to enable zoned
+device use with *XFS*.
 
-An early <a href="http://xfs.org/images/f/f6/Xfs-smr-structure-0.2.pdf" target="_blank">
-design document</a> discussed the development work necessary to support host
-aware and host managed disks with *XFS*. Parts of this design have already been
-implemented and included into the kernel stable releases (e.g. Per inode
-reverse block mapping b-trees feature). However, more work is necessary to
+An early <a href="http://xfs.org/images/f/f6/Xfs-smr-structure-0.2.pdf"
+target="_blank"> design document</a> discussed the development work necessary to
+support host aware and host managed disks with *XFS*. Parts of this design have
+already been implemented and included into the kernel stable releases (e.g. Per
+inode reverse block mapping b-trees feature). However, more work is necessary to
 fully support zoned block devices.
 
 ## ext4
 
-<a href="https://lwn.net/Articles/720226/" target="_blank">This article</a>
-describes attempts at improving *ext4* performance with host aware zoned block
-devices using changes to the file system journal management. The changes are
-small and succeed in maintaining good performance. However, support for host
-managed zoned block devices is not provided as some fundamental *ext4* design
-aspects cannot be easily changed to match host managed device constraints.
+describes
+Attempts at improving *ext4* performance with host aware zoned block
+devices using changes to the file system journal management are described in 
+in <a href="https://lwn.net/Articles/720226/" target="_blank">this article</a>.
+The changes are small and succeed in maintaining good performance. However,
+support for host managed zoned block devices is not provided as some fundamental
+*ext4* design aspects cannot be easily changed to match host managed device
+constraints.
 
 These optimizations for host aware zoned block devices is a research work and is
 not included in *ext4* stable kernel releases. *ext4* also does not support host
 managed disks. Similarly to *XFS*, the *ext4* file system can however be used
-together with the [*dm-zoned*](dm.md#dm-zoned) device mapper target.
+together with the [*dm-zoned*](./dm.md#dm-zoned) device mapper target.
 
+export function Yes() {
+  return (
+    <span
+      style={{
+        color: '#00ff00'
+      }}>
+      yes
+    </span>
+  );
+}
+
+export function No() {
+  return (
+    <span
+      style={{
+        color: '#ff0000'
+      }}>
+      no
+    </span>
+  );
+}

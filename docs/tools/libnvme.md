@@ -1,3 +1,9 @@
+---
+id: libnvme
+title: libnvme User Library
+sidebar_label: libnvme User Library
+---
+
 # libnvme User Library
 
 *libnvme* is an open source user library providing defintions and functions for
@@ -25,7 +31,7 @@ specifcation.
 <center>
 
 | Function | Description |
-| -------- | ----------- |
+| :------- | :---------- |
 | nvme_zns_identify_ns() | Retrieves the nvme_zns_id_ns structure |
 | nvme_zns_identify_ctrl() | Retrieves the nvme_zns_id_ctrl structure |
 | nvme_zns_get_log_changed_zones() | Retrieves the nvme_zns_changed_zone_log structure |
@@ -38,7 +44,7 @@ provides the following APIs to send them:
 <center>
 
 | Function | Description |
-| -------- | ----------- |
+| :------- | :---------- |
 | nvme_zns_append() | Append data to a zone |
 | nvme_zns_mgmt_send() | Requests an action on one or all zones |
 | nvme_zns_mgmt_recv() | Returns data containing information about zones |
@@ -50,7 +56,7 @@ The types of actions that the nvme_zns_mgmt_send() can be done are defined as fo
 <center>
 
 | Action | Description |
-| ------ | ----------- |
+| :----- | :---------- |
 | NVME_ZNS_ZSA_CLOSE | Sets the zone state to Close |
 | NVME_ZNS_ZSA_FINISH | Sets the zone state to Full |
 | NVME_ZNS_ZSA_OPEN | Sets the zone state to Open |
@@ -68,7 +74,7 @@ provided by *libnvme* from the ZNS specification:
 <center>
 
 | Structure | Description |
-| --------- | ----------- |
+| :-------- | :---------- |
 | nvme_zns_id_ns | ZNS specific Namespace Identification, returned from nvme_zns_identify_ns() |
 | nvme_zns_id_ctrl | ZNS specific Controller Identification, returned from nvme_zns_identify_ctrl() |
 | nvme_zns_changed_zone_log | Log page that indicaties if a zone descriptor has changed for one or more zones, returned from nvme_zns_get_log_changed_zones() |

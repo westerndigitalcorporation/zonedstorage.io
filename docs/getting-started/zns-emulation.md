@@ -1,3 +1,9 @@
+---
+id: zns-emulation
+title: Getting Started with Emulated NVMe ZNS Devices
+sidebar_label: Getting Started with Emulated NVMe ZNS Devices
+---
+
 # Getting Started with Emulated NVMe ZNS Devices
 
 Emulated NVMe ZNS devices make it possible to do application development and
@@ -6,8 +12,9 @@ are two ways to emulate NVMe ZNS devices.
 
 * ***null_blk***: The null_blk kernel driver is equipped to emulate zoned block
   devices with a zone configuration that is compatible with real NVMe ZNS
-  devices. This method is discussed in more detail in the [Zoned Block Device
-  Emulation with null_blk](nullblk.md) chapter of the Getting Started Guide.
+  devices. This method is discussed in more detail in the
+  [Zoned Block Device Emulation with null_blk](./nullblk.md) chapter of the
+  Getting Started Guide.
 
 * ***QEMU***: This open source machine emulator and virtualizer is equipped to
   create emulated NVMe devices that use regular files on the host as a
@@ -16,7 +23,7 @@ are two ways to emulate NVMe ZNS devices.
 
 ## *QEMU*
 
-<a href="https://www.qemu.org/" target="_blank">*QEMU*</a> has supported the
+*<a href="https://www.qemu.org/" target="_blank">QEMU</a>* has supported the
 emulation of NVMe namespaces since version 1.6. But the emulation of zoned
 namespaces has been supported only since version 6.0 of *QEMU*. If the host
 Linux distribution does not provide *QEMU* version 6.0 or above, *QEMU* has
@@ -125,11 +132,11 @@ Using the *blkzone* utility, the namespace zone configuration can be inspected.
   start: 0x003fe0000, len 0x020000, cap 0x01f000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
 ```
 
-!!! NOTE
-
-    The total number of zones of the namespace directly depends on
-    the size of the backstore file used and on the zone size configured. In the
-    above example, the emulated namespace has 512 zones (32 GiB / 64 MiB).
+:::note
+The total number of zones of the namespace directly depends on the size of the
+backstore file used and on the zone size configured. In the above example, the
+emulated namespace has 512 zones (32 GiB / 64 MiB).
+:::
 
 ```
 # cat /sys/block/nvme0n1/queue/nr_zones 
@@ -164,14 +171,16 @@ state.
 
 The implementation of NVMe device emulation and ZNS namespace emulation in
 *QEMU* provides several configuration options to control the characteristics of
-the device. The full list of options and parameters is documented <a
-href="https://qemu-project.gitlab.io/qemu/system/devices/nvme.html#zoned-namespaces"
+the device. The full list of options and parameters is
+documented <a href="https://qemu-project.gitlab.io/qemu/system/nvme.html"
 target="_blank">here</a>.
 
 The options and parameters related to Zoned Namespaces are as follows.
 
+<center>
+
 | Option | Default Value | Description |
-| ------ | ------------- | ----------- |
+| :----- | :------------ | :---------- |
 | zoned.zasl=UINT32 | 0 | Zone Append Size Limit. If left at the default (0), the zone append size limit will be equal to the maximum data transfer size (MDTS). Otherwise, the zone append size limit is equal to 2 to the power of zasl multiplied by the minimum memory page size (4096 B), but cannot exceed the maximum data transfer size. |
 | zoned.zone_size=*SIZE* | 128MiB | Define the zone size (ZSZE) |
 | zoned.zone_capacity=*SIZE* | 0 | Define the zone capacity (ZCAP). If left at the default (0), the zone capacity will equal the zone size. |
@@ -179,6 +188,8 @@ The options and parameters related to Zoned Namespaces are as follows.
 | zoned.cross_read=*BOOL* | off | Set to "on" to allow reads to cross zone boundaries. |
 | zoned.max_active=*UINT32* | 0 | Set the maximum number of active resources (MAR). The default (0) allows all zones to be active. |
 | zoned.max_open=*UINT32* | 0 | Set the maximum number of open resources (MOR).  The default (0) allows all zones to be open. If ``zoned.max_active`` is specified, this value must be less than or equal to that. |
+
+</center>
 
 ## *QEMU* Execution Example
 

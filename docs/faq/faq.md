@@ -1,3 +1,9 @@
+---
+id: faq
+title: Frequently Asked Questions
+sidebar_label: Frequently Asked Questions
+---
+
 # Frequently Asked Questions
 
 ### **Can I change the size of the zones of a device?**
@@ -53,11 +59,12 @@ writing the primary and secondary GPT header and table entries will likely fail,
 resulting in an incorrect or corrupted partition table that will not be
 recognized by the kernel block layer.
 
-!!! Note
-	Linux&reg; kernel mandates that partitions of a zoned block device be
-	zone aligned. That is, the start sector of all device partitions must
-	be the start sector of a zone and the end sector of the partitions must
-	be the last sector of a zone.
+:::note
+Linux&reg; kernel mandates that partitions of a zoned block device be zone
+aligned. That is, the start sector of all device partitions must be the start
+sector of a zone and the end sector of the partitions must be the last sector of
+a zone.
+:::
 
 Support for partition tables on host managed zoned block devices has been
 removed from the kernel with version 5.5.0. Using the
