@@ -119,7 +119,7 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
-      googleAnalytics: {
+      gtag: {
         trackingID: 'G-0DX1KGD5E4',
       },
     }),
