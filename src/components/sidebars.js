@@ -64,6 +64,7 @@ const sidebars = {
       collapsed: true,
       items: [
         'applications/index',
+        'applications/percona-server',
         'applications/zenfs'
       ],
     },
