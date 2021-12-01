@@ -9,30 +9,32 @@ import styles from '../css/index.module.css';
 function HeaderHero() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.HeaderBanner)}>
+    <div className={clsx('hero hero--dark', styles.HeaderBanner)}>
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
+        <p className="hero__subtitle">
+	  {siteConfig.tagline}
+	</p>
+        <div className={clsx(styles.buttons)}>
           <div className="row">
-	    <div className={clsx('col col--6')}>
+	    <div className="col col--6 margin-top--md">
               <Link
-                className="button button--secondary button--lg margin-bottom--md"
+                className="button button--secondary button--lg"
                 to="/docs/introduction">
-                Learn more about Zoned Storage devices
+                Learn more about Zoned Storage devices &raquo;
               </Link>
             </div>
-	    <div className={clsx('col col--6')}>
+	    <div className="col col--6 margin-top--md">
 	      <Link
-                className="button button--secondary button--lg margin-bottom--md"
+                className="button button--secondary button--lg"
                 to="/docs/linux">
-                Learn more about Linux&reg; software support
+                Learn more about Linux&reg; software support &raquo;
               </Link>
             </div>
           </div>
         </div>
       </div>
-    </header>
+    </div>
   );
 }
 
@@ -47,7 +49,7 @@ function QuickStart() {
 	  so that you can start experimenting with physical and emulated zoned
 	  storage devices.
 	</p>
-        <div className={styles.buttons}>
+        <div className={clsx(styles.buttons)}>
           <Link
             className="button button--primary button--lg"
             to="/docs/getting-started">
@@ -137,16 +139,25 @@ const FeatureList2 = [
 
 function FeatureEntry({title, description, link, bcolor}) {
   return (
-    <div className={clsx('col col--4')}>
-        <div className="text--center padding-horiz--md">
-          <div className={styles.buttons}>
+    <div className="col col--4">
+        <div className="text--center padding-horiz--md"
+	    style={{
+              justifyContent: 'space-between',
+              flexDirection: 'column',
+              height: '17em',
+              display: 'flex'}}>
+	  <h2>{title}</h2>
+          <p align="justify">{description}</p>
+          <div className={styles.buttons}
+	    style={{
+              justifyContent: 'flex-end',
+              display: 'flex'}}>
             <Link
               className={clsx('button button--lg button--block margin-bottom--lg', `${bcolor}`)}
               to={link}>
-              <b>{title}</b>
+              <b>View Details &raquo;</b>
             </Link>
           </div>
-          <p align="justify">{description}</p>
         </div>
     </div>
   );
@@ -154,7 +165,7 @@ function FeatureEntry({title, description, link, bcolor}) {
 
 function Features1() {
   return (
-    <section className={styles.Features1}>
+    <section className={clsx(styles.Features1)}>
       <div className="container">
         <div className="row">
           {FeatureList1.map((props, idx) => (
