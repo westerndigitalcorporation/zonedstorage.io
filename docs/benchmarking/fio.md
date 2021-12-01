@@ -1,7 +1,7 @@
 ---
 id: benchmark
 title: Benchmarking Zoned Block Devices
-sidebar_lbel: Benchmarking Zoned Block Devices
+sidebar_label: Benchmarking Zoned Block Devices
 ---
 
 # Benchmarking Zoned Block Devices

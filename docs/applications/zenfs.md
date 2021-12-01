@@ -1,7 +1,7 @@
 ---
 id: zenfs
 title: RocksDB with ZenFS
-sidebar_lbel: RocksDB with ZenFS
+sidebar_label: RocksDB with ZenFS
 ---
 
 # RocksDB with ZenFS

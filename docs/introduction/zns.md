@@ -41,7 +41,7 @@ of media reliability continues to be the sole responsibility of the ZNS SSD and
 should be managed the same way as conventional SSDs.
 
 <Image src="intro-zns.png"
-title="Conventioal SSDs and ZNS SSDs internal data placement"/>
+title="Conventional SSDs and ZNS SSDs internal data placement"/>
 
 ## The ZNS Zoned Storage Model
 
