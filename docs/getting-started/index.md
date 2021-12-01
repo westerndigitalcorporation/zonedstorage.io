@@ -9,6 +9,10 @@ slug: /getting-started
 
 Learn how to set up a Linux system to use zoned storage devices.
 
+* [Linux Distributions](../distributions/linux.md): Learn about the support
+  provided by the pre-compiled binary kernels shipped with various Linux
+  distributions.
+
 * [System Prerequisites](prerequisite.md): Learn how to set up a Linux system
   to enable zoned-block-device support.
 
