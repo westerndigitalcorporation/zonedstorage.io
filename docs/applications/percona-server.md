@@ -12,7 +12,7 @@ import Image from '/src/components/Image';
 alt="Percona Server for MySQL Logo" />
 
 [Percona Server for
-MySQL &trade;](https://www.percona.com/software/mysql-database/percona-server)
+MySQL&trade;](https://www.percona.com/software/mysql-database/percona-server)
 uses the *[MyRocks](https://myrocks.io/)* storage engine, which in turn uses
 *[RocksDB with Zenfs](zenfs.md)* as a backend storage.
 
