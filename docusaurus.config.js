@@ -169,7 +169,7 @@ const config = {
         darkTheme: darkCodeTheme,
       },
       gtag: {
-        trackingID: 'GTM-55FRFMW',
+        trackingID: 'G-0DX1KGD5E4',
       },
     }),
 };
