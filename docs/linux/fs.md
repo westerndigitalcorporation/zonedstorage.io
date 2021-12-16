@@ -578,24 +578,38 @@ must be specified.
 
 ## Btrfs
 
-*Btrfs* is a file system based on the copy-on-write (CoW) principle resulting in
-any block update to never be written in-place. Work is ongoing to add native ZBD
-support by changing the block allocation algorithm and block IO issuing code.
+*Btrfs* is a file system based on the copy-on-write (CoW) principle resulting
+in any block update to never be written in-place. *Btrfs* currently supports
+zoned block devices, but that support is experimental.
+
+### Zoned Block Device Support
+
+Zoned block device support was added to *btrfs* with kernel 5.12. Since
+super-blocks are the only on-disk data structure with a fixed location in
+*btrfs*, zoned block device support introduces the concept of log-structured
+super-blocks. For each of the super-blocks (primary and backup super-blocks)
+in *btrfs*, zoned mode reserves two consecutive zones to hold these
+super-blocks. When a new super-block is being written, it is appended to the
+respective super-block zone. Once the first super-block zone is filled, the
+next super block is being written to the second super-block zone and the first
+is being reset. The currently valid and active super-block can be determined
+by looking at the position of the zone write pointer of the respective
+super-block zones.
 
 ### Block Allocation Changes
 
 *Btrfs* block management relies on grouping of blocks into *block groups*, with
 each group composed of one or more *device extent*. The device extents of a
-block group may belong to different devices (e.g. In the case of a RAID volume).
+block group may belong to different devices (e.g. in the case of a RAID volume).
 ZBD support changes the default device extent size to the size of the device
 zones so that all device extents are always aligned to a zone.
 
 Allocation of blocks within a block group is changed so that the allocation is
-always sequential from the beginning of the block group. To do so, an allocation
-pointer is added to block groups and used as the allocation hint. The changes
-also ensure that block freed below the allocation pointer are ignored, resulting
-in sequential block allocation within each group regardless of the block group
-usage.
+always sequential from the beginning of the block group. To do so, an
+allocation pointer is added to block groups and used as the allocation hint.
+The changes also ensure that blocks freed below the allocation pointer are
+ignored, resulting in sequential block allocation within each group regardless
+of the block group usage.
 
 ### I/O Management
 
@@ -610,16 +624,93 @@ The zones of a block group are reset to allow rewriting only when the block
 group is being freed, that is, when all the blocks within the block group are
 unused.
 
-For *Btrfs* volumes composed of multiple disks, restrictions are added to ensure
+For *btrfs* volumes composed of multiple disks, restrictions are added to ensure
 that all disks have the same zone model and in the case of zoned block devices,
-the same zone size. This matches the existing *Btrfs* constraint that all device
+the same zone size. This matches the existing *btrfs* constraint that all device
 extents in a block group must have the same size.
 
-### Upstream Contribution
+All writes to data block groups use [Zone Append
+writing](../introduction/zns#zone-append), so that a high queue depth can be
+maintained without violating the device zone's sequential write constraints.
+All writes to dedicated meta-data block groups are serialized with a
+file-system global zoned meta-data I/O lock.
 
-*Btrfs* zoned block device support is still in development and will be available
-in stable releases after the usual upstream review process completes.
+### Zone Capacity Support
 
+NVMe ZNS SSDs can have a per
+[zone capacity that is smaller than the zone size](../introduction/zns#zone-capacity-and-zone-size).
+To support ZNS devices, *btrfs* ensures that block allocation and accounting
+only considers the blocks in a zone that are within the zone capacity. This
+support for NVMe ZNS zone capacity is available since Linux kernel version 5.16.
+Also starting with kernel 5.16 *btrfs* keeps track of the number of active
+zones on a device and issues Zone Finish commands as needed.
+
+### Limitations
+
+Not all features currently available in *btrfs* are supported in the current
+zoned mode of the file-system.
+
+These features include:
+- RAID Support
+- NOCOW Support
+- Support for fallocate(2)
+- Mixed data and meta-data block groups
+
+### System Requirements
+In order to use *btrfs* on zoned block devices, the following minimum system
+requirements must be met:
+- Linux kernel 5.12 (for SMR) or 5.16 (for NVMe ZNS)
+- btrfs-progs 5.12 (for SMR) or 5.15 (for NVMe ZNS)
+- util-linux 2.38
+
+### Usage example with a Host Managed SMR HDD
+
+To format a zoned block device with *mkfs.btrfs*, the `-m single` and `-d
+single` options must be specified, as currently no block group profile other 
+than single is supported.
+
+```plaintext
+# mkfs.btrfs -m single -d single /dev/sda
+btrfs-progs v5.15.1
+See http://btrfs.wiki.kernel.org for more information.
+
+Zoned: /dev/sda: host-managed device detected, setting zoned feature
+Resetting device zones /dev/sda (74508 zones) ...
+NOTE: several default settings have changed in version 5.15, please make sure
+      this does not affect your deployments:
+      - DUP for metadata (-m dup)
+      - enabled no-holes (-O no-holes)
+      - enabled free-space-tree (-R free-space-tree)
+
+Label:              (null)
+UUID:               7ffa00fe-c6a3-4c6c-890f-858e17118c66
+Node size:          16384
+Sector size:        4096
+Filesystem size:    18.19TiB
+Block group profiles:
+  Data:             single          256.00MiB
+  Metadata:         single          256.00MiB
+  System:           single          256.00MiB
+SSD detected:       no
+Zoned device:       yes
+  Zone size:        256.00MiB
+Incompat features:  extref, skinny-metadata, no-holes, zoned
+Runtime features:   free-space-tree
+Checksum:           crc32c
+Number of devices:  1
+Devices:
+   ID        SIZE  PATH
+    1    18.19TiB  /dev/sda
+
+
+```
+
+The formatted block device can now be directly mounted without any other setup
+necessary.
+
+```plaintext
+# mount /dev/sda /mnt
+```
 
 ## XFS
 
