@@ -130,7 +130,7 @@ const config = {
               },
               {
                 label: 'Getting Started with Zoned Storage',
-                to: '/docs/getting-started/index',
+                to: '/docs/getting-started/',
               },
             ],
           },
