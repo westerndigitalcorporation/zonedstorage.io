@@ -657,11 +657,27 @@ These features include:
 - Mixed data and meta-data block groups
 
 ### System Requirements
+
 In order to use *btrfs* on zoned block devices, the following minimum system
 requirements must be met:
 - Linux kernel 5.12 (for SMR) or 5.16 (for NVMe ZNS)
 - btrfs-progs 5.12 (for SMR) or 5.15 (for NVMe ZNS)
 - util-linux 2.38
+
+For all kernels supporting *btrfs* on a zoned block device, to ensure [write
+ordering correctness](sched.md), the kernel will automatically select by default
+the *mq-deadline* block IO scheduler for any SMR hard-disk used in a zoned
+*btrfs* volume.
+
+Similarly to [*f2fs* use with an NVMe ZNS
+SSD](fs#usage-example-with-a-nvme-zns-ssd), the *mq-deadline* scheduler must be
+manually set to ensure that the regular write operations used by *btrfs* are
+delivered to the device in sequential order. For a NVMe zoned namespace device
+*/dev/nvmeXnY*, this is done with the following command.
+
+```plaintext
+# echo mq-deadline > /sys/block/nvmeXnY/queue/scheduler
+```
 
 ### Usage example with a Host Managed SMR HDD
 
