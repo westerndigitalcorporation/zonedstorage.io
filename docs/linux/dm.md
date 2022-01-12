@@ -8,23 +8,23 @@ import Image from '/src/components/Image';
 
 # Device Mapper
 
-Zoned block device support was added to the device mapper subsystem with kernel
+Zoned block device support was added to the device mapper subsystem in kernel
 version 4.13. Two existing targets gained support: the *dm-linear* target and
 the *dm-flakey* target. ZBD support also added a new target driver, *dm-zoned*.
 
 ## dm-linear
 
 The *dm-linear* target maps a linear range of blocks of the device-mapper device
-onto a linear range of a backend device. *dm-linear* is the basic building
-block of logical volume managers such
-as <a href="http://www.sourceware.org/lvm2/" target="_blank">*LVM*</a>.
+onto a linear range on a backend device. *dm-linear* is the basic building
+block of logical volume managers like
+<a href="http://www.sourceware.org/lvm2/" target="_blank">*LVM*</a>.
 
 ### Zoned Block Device Restrictions
 
-When used with zoned block devices, the *dm-linear* device created will also be
-a zoned block device with the same zone size as the underlying device. Several
-conditions are enforced by the device mapper core management code for the
-creation of a *dm-linear* target device.
+When used with zoned block devices, the *dm-linear* device that is created will
+also be a zoned block device with the same zone size as the underlying device.
+Several conditions are enforced by the device-mapper core-management code
+during the creation of a *dm-linear* target device.
 
 * All backend devices used to map different ranges of the target device must
   have the same zone model.
@@ -35,8 +35,8 @@ creation of a *dm-linear* target device.
 
 ### Example: Creating a Small Host Managed Disk
 
-This example illustrates how to create a small host managed disk using zone
-ranges from a large high capacity host managed disk. The zone information of
+This example illustrates how to create a small host-managed disk that uses zone
+ranges from a large high capacity host-managed disk. The zone information of
 the backend device used is shown below.
 
 ```plaintext
@@ -59,16 +59,16 @@ host-managed
   start: 0x6d2380000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
 ```
 
-To create a *dm-linear* device named "small-sdb" joining the first 5
-conventional zones of the backend device with the first 10 sequential zones, the
-following command can be used.
+To create a *dm-linear* device named "small-sdb" that joins the first 5
+conventional zones of the backend device with the first 10 sequential zones,
+use the following command.
 
 ```plaintext
 # echo "0 2621440 linear /dev/sdb 0
 2621440 5242880 linear /dev/sdb 274726912" | dmsetup create small-sdb
 ```
 
-The resulting device zone model is also host managed and has 15 zones as shown
+The resulting device zone model is host-managed and has 15 zones, as shown
 below.
 
 ```plaintext
@@ -94,9 +94,10 @@ host-managed
   start: 0x000700000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
 ```
 
-The following shows a script facilitating the creation of *dm-linear* devices
-using zone ranges from a single zoned block device. Such small zoned block
-devices are useful for testing application limits (e.g. Disk full conditions).
+The following shows a script that facilitates the creation of *dm-linear*
+devices using zone ranges from a single zoned block device. Such small zoned
+block devices can be used to test application limits (e.g. Disk full
+conditions).
 
 ```bash
 #!/bin/bash
@@ -146,7 +147,7 @@ fi
 
 ### Example: Conventional Zones as a Regular Disk
 
-*dm-linear* can also be used to aggregate a zoned block device conventional
+*dm-linear* can also be used to aggregate a zoned block device's conventional
 zones together into a target device that will be usable as a regular disk
 (conventional zones can be randomly written). Reusing the previous example
 backend disk, 524 conventional zones of 524288 sectors (512 B unit) are
@@ -157,7 +158,7 @@ conventional zones together.
 # echo "0 274726912 linear /dev/sdb 0" | dmsetup create small-sdb
 ```
 
-The target device is again a host managed disk but contains only conventional
+The target device is again a host-managed disk but contains only conventional
 zones.
 
 ```plaintext
@@ -175,8 +176,9 @@ host-managed
   start: 0x010580000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 0(nw) [type: 1(CONVENTIONAL)]
 ```
 
-This zoned block device being composed of only conventional zones, all sectors
-are randomly writable and can thus be used directly with any file system.
+Because this zoned block device is composed entirely of conventional zones, all
+sectors are randomly writable and can therefore be used directly with any file
+system.
 
 ```plaintext
 # mkfs.ext4 /dev/dm-0
@@ -198,26 +200,26 @@ total 16
 drwx------ 2 root root 16384 May 21 17:03 lost+found
 ```
 
-Applications needing frequent random updates to their metadata can use such
-setup to facilitate implementation of a complex metadata structure. The
+Applications that need frequent random updates to their metadata can use such
+setups to facilitate the implementation of a complex metadata structure. The
 remaining sequential zones of the disk can be used directly by the application
 to store data.
 
 ## dm-flakey
 
-The *dm-flakey* target is similar to the *dm-linear* target except that it
-exhibits unreliable behavior periodically. This target is useful in simulating
-failing devices for testing purposes. In the case of zoned block devices,
-simulating write errors to sequential zones can help in debugging application
-write pointer management.
+The *dm-flakey* target is similar to the *dm-linear* target, except that it
+periodically exhibits unreliable behavior. This target is useful for simulating
+failing devices during testing. In the case of zoned block devices,
+simulating write errors to sequential zones can help to debug application
+write-pointer management.
 
-Starting from the time the table is loaded, the device does not generate errors
-for some seconds (*up* time), then exhibits unreliable behavior for *down*
-seconds. This cycle then repeats.
+*dm-flakey* works like this: at the time the table is loaded, the device does
+not generate errors for some seconds (*up* time), but then exhibits unreliable
+behavior for *down* seconds. This cycle then repeats.
 
 ### Error modes
 
-Several error simulation behavior can be configured.
+Several error-simulation behaviors can be configured.
 
 * **drop_writes** All write I/Os are silently ignored and dropped. Read I/Os
   are handled correctly.
@@ -231,7 +233,7 @@ simulation cycle.
 
 ### Zoned Block Device Restrictions
 
-The same restrictions as for the *dm-linear* target apply.
+The same restrictions apply that applied for the *dm-linear* target.
 
 ### Examples
 
@@ -242,11 +244,7 @@ target="_blank">Documentation/device-mapper/dm-flakey.txt</a>.
 ## dm-zoned
 
 The *dm-zoned* device mapper target provides random write access to zoned
-block devices (ZBC and ZAC compliant devices). It hides to the device user
-(a file system or an application doing raw block device accesses) the
-sequential write constraint of host-managed zoned block devices, allowing the
-use of applications and file systems that do not have native zoned block
-device support.
+block devices (ZBC and ZAC compliant devices). It hides the sequential write constraint of host-managed zoned block devices from the device user (the "device user", in this context, is a file system or an application accessing a raw block device). This allows the use of applications and file systems that do not have native zoned block device support.
 
 File systems or applications that can natively support host-managed zoned
 block devices (e.g. the f2fs file system since kernel 4.10) do not need to use
@@ -259,13 +257,13 @@ write accesses to sequential write required zones of a zoned block device.
 Conventional zones of the backend device are used for buffering random
 accesses, as well as for storing internal metadata.
 
-The figure below illustrates *dm-zoned* zone usage principle.
+The figure below illustrates the *dm-zoned* zone-usage principle.
 
 <Image src="linux-dm-zoned.png"
 title="Zone mapping overview of the dm-zoned device mapper target"/>
 
 Optionally, since Linux kernel version 5.8.0, an additional regular block
-device can also be used to provide randomly writable storage used in place of
+device can be used to provide randomly writable storage, replacing  
 the conventional zones of the backend zoned block device for write buffering.
 With this new version of *dm-zoned*, multiple zoned block devices can also be
 used to increase performance.
@@ -273,15 +271,16 @@ used to increase performance.
 All zones of the device(s) used to back a *dm-zoned* target are separated into
 2 types:
 
-1. **Metadata zones** These are randomly writable zones used to store metadata.
-   Randomly writable zones may be conventional zones or sequential write
-   preferred zones (host-aware devices only). Metadata zones are not reported
-   as usable capacity to the user. If an additional regular block device is used
-   for write buffering, metadata zones are stored on this cache device.
+1. **Metadata zones** These are randomly-writable zones that are used to store 
+   metadata.  Randomly writable zones may be conventional zones or sequential
+   write preferred zones (host-aware devices only). Metadata zones are not
+   reported as usable capacity to the user. If an additional regular block 
+   device is used for write buffering, metadata zones are stored on this 
+   cache device.
 
 2. **Data zones** All remaining zones of the device. The majority of these zones
-   will be sequential zones which are used used exclusively for storing user
-   data. The conventional zones (or part of the sequential write preferred zones
+   are sequential zones, which are used exclusively for storing user data. 
+   The conventional zones (or part of the sequential-write-preferred zones
    on a host-aware device) may be used also for buffering user random writes.
    User data may thus be stored either in conventional zone or in a sequential
    zone.
@@ -291,30 +290,31 @@ have the same size as the zones of the backing zoned devices. A logical chunk
 can be mapped to zones of the backing device in different ways.
 
 1. **Conventional or cache zone mapping** This is the case for chunk *A* in the
-   figure which is mapped to the conventional zone *C<sub>A</sub>*. This is the
-   default mapping initialized when the first write command is issued to an
-   empty (unwritten) chunk. As long as a chunk is mapped to a conventional zone,
-   any incoming write request can be directly executed using the mapped
-   conventional zone.
-2. **Sequential zone mapping** A chunk initially can also be mapped to a
-   sequential zone as shown for the chunk *C* mapped to the sequential zone
-   *S<sub>C</sub>* in the figure. With such mapping, a already written block of
-   the chunk cannot be modified directly. To handle this case, the next mapping
-   type is used.
-3. **Dual conventional-sequential zone mapping** To process data updates to
-   written blocks of a chunk mapped to a sequential zone, a conventional zone
-   may be temporarily added to the chunk mapping. Any write targeting a written
-   block will be processed using the conventional zone rather than the
-   sequential zone.
+   figure, which is mapped to the conventional zone *C<sub>A</sub>*. This is the
+   default mapping that is initialized when the first write command is issued 
+   to an empty (unwritten) chunk. As long as a chunk is mapped to a 
+   conventional zone, any incoming write request can be directly executed 
+   using the mapped conventional zone.
+2. **Sequential zone mapping** A chunk can be mapped initially to a
+   sequential zone, as shown for the chunk *C* (mapped to the sequential zone
+   *S<sub>C</sub>* in the figure). With such a mapping, an already-written 
+   block of the chunk cannot be modified directly. To handle this case, the 
+   next mapping type is used.
+3. **Dual conventional-sequential zone mapping** Temporarily add a conventional
+   zone to the chunk mapping when you need to update data in an already-written
+   block of a chunk that has been mapped to a sequential zone. Any write 
+   that targets a written block will be processed using the conventional 
+   zone instead of the sequential zone.
 
 *dm-zoned* metadata include a set of bitmaps to track the validity state of
-blocks in the backing device zones. Any write operation execution is always
-followed by an update to the bitmaps to mark the written blocks as valid. In the
-case of the dual conventional-sequential chunk mapping, the bitmap for the
-blocks of the sequential zone is also updated to clear the bits representing the
-blocks updated but written to the conventional zone. Doing so, incoming reads
-always gain access to the latest version of the block data by simply inspecting
-the block validity bitmaps.
+blocks in the zones of the backing device. Any write-operation execution is
+always followed by an update to the bitmaps, to mark the written blocks as
+valid. In the case of the dual conventional-sequential chunk mapping, the
+bitmap for the blocks of the sequential zone is updated to clear the bits
+that represent the blocks that have been updated with a write in the
+conventional zone. By doing this, incoming reads always have access to the
+latest version of the block data simply by inspecting the block validity
+bitmaps.
 
 ### On-Disk Format
 
