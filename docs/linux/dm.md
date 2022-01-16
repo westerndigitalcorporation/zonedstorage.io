@@ -16,8 +16,8 @@ the *dm-flakey* target. ZBD support also added a new target driver, *dm-zoned*.
 
 The *dm-linear* target maps a linear range of blocks of the device-mapper device
 onto a linear range on a backend device. *dm-linear* is the basic building
-block of logical volume managers like
-<a href="http://www.sourceware.org/lvm2/" target="_blank">*LVM*</a>.
+block of logical volume managers like <a href="http://www.sourceware.org/lvm2/"
+target="_blank">*LVM*</a>.
 
 ### Zoned Block Device Restrictions
 
