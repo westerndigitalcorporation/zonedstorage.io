@@ -244,11 +244,15 @@ target="_blank">Documentation/device-mapper/dm-flakey.txt</a>.
 ## dm-zoned
 
 The *dm-zoned* device mapper target provides random write access to zoned
-block devices (ZBC and ZAC compliant devices). It hides the sequential write constraint of host-managed zoned block devices from the device user (the "device user", in this context, is a file system or an application accessing a raw block device). This allows the use of applications and file systems that do not have native zoned block device support.
+block devices (ZBC and ZAC compliant devices). It hides the sequential
+write constraint of host-managed zoned block devices from the device user
+(the "device user", in this context, is a file system or an application
+accessing a raw block device). This allows the use of applications and file
+systems that do not have native zoned block device support.
 
 File systems or applications that can natively support host-managed zoned
-block devices (e.g. the f2fs file system since kernel 4.10) do not need to use
-the *dm-zoned* device mapper target.
+block devices (e.g. the f2fs file system since kernel 4.10) do not need to
+use the *dm-zoned* device mapper target.
 
 ### Design Overview
 
@@ -263,10 +267,10 @@ The figure below illustrates the *dm-zoned* zone-usage principle.
 title="Zone mapping overview of the dm-zoned device mapper target"/>
 
 Optionally, since Linux kernel version 5.8.0, an additional regular block
-device can be used to provide randomly writable storage, replacing  
-the conventional zones of the backend zoned block device for write buffering.
-With this new version of *dm-zoned*, multiple zoned block devices can also be
-used to increase performance.
+device can be used to provide randomly writable storage, replacing the
+conventional zones of the backend zoned block device for write buffering. With
+this new version of *dm-zoned*, multiple zoned block devices can also be used
+to increase performance.
 
 All zones of the device(s) used to back a *dm-zoned* target are separated into
 2 types:
@@ -319,82 +323,74 @@ bitmaps.
 ### On-Disk Format
 
 *dm-zoned* exposes a logical device with a sector size of 4096 bytes,
-irrespectively of the physical sector size of the backend zoned block device
-being used. This allows reducing the amount of metadata needed to manage valid
+regardless of the physical-sector size of the zoned block device that is 
+used as a backend . This reduces the amount of metadata needed to manage valid
 blocks (blocks written). The on-disk metadata format is as follows:
 
-1. The first block of the first randomly writable zone found contains the
-super block which describes the amount and position on disk of metadata blocks. 
+1. **Super Block**: The first block of the first randomly-writable zone that is
+found contains the super block, which describes the amount and position (on
+the disk) of metadata blocks. 
 
-2. Following the super block, a set of blocks is used to describe the mapping
-of the logical chunks of the target logical device to data zones. The mapping
-is indexed by logical chunk number and each mapping entry indicates the data
-zone storing the chunk data and optionally the zone number of a random zone
-used to buffer random modification to the chunk data.
+2. **Mapping-table blocks**: After the super block, there is a set of blocks 
+that describes the mapping of (1) the logical chunks of the target logical 
+device to (2) data zones. The mapping is indexed by logical chunk number, and 
+each mapping entry indicates the data zone that stores the chunk data. 
+It can also indicate the zone number of a random zone that is used to 
+buffer random modifications to the chunk data.
 
-3. A set of blocks used to store bitmaps indicating the validity of blocks in
-the data zones follows the mapping table blocks. A valid block is a block that
-was writen and not discarded. For a buffered data zone, a block can be valid
-only in the data zone or in the buffer zone.
+3. **Bitmap-storage blocks**: After the mapping-table blocks, there is a set of 
+blocks used to store bitmaps that indicate the validity of blocks in 
+the data zones. A valid block is any block that was written and not discarded. 
+In a buffered data zone, a block can be valid only (1) in the data zone or (2)
+in the buffer zone.
 
-To protect internal metadata against corruption in case of sudden power loss or
-system crash, two sets of metadata zones are used. One set, the primary set, is
-used as the main metadata set, while the secondary set is used as a log.
-Modified metadata are first written to the secondary set and the log so created
-validated by writing an updated super block in the secondary set. Once this log
-operation completes, updates in place of metadata blocks can be done in the
-primary metadata set, ensuring that one of the set is always correct.
-Flush operations are used as a commit point: upon reception of a flush
-operation, metadata activity is temporarily stopped, all dirty metadata logged
-and updated and normal operation resumed. This only temporarily delays write and
-discard requests. Read requests can be processed while metadata logging is
-executed.
+The device-mapper subsystem uses two sets of metadata zones, to protect
+internal metadata against corruption in cases of sudden power loss or system
+crashes. One set (the primary set) is used as the main metadata set. The other
+set (the secondary set) is used as a log. Modified metadata are first written
+to the secondary set. The log that is created by writing to the secondary set 
+is validated by writing an updated super block in the secondary set. After 
+this log operation completes, the primary metadata set is updtaed.  This 
+ensures that one of the sets is always correct.
+
+Flush operations are used as a commit point: when a flush operation is
+received, metadata activity is temporarily stopped, all dirty metadata 
+is logged and updated, and then normal operation resumes. Flush operations 
+temporarily delay write requests and discard requests. Read requests can be 
+processed while metadata logging is executed.
 
 ### Read-Write Processing
 
-For a logical chunk mapped to a random data zone, all write operations are
-processed by directly writing to the data zone. If the mapping zone is to a
-sequential zone, the write operation is processed directly only and only if
+In logical chunks that are mapped to random data zones, all write operations
+are processed by writing directly to the data zones. If the mapping zone is
+mapped to a sequential zone, the write operation is processed directly only if
 the write offset within the logical chunk is equal to the write pointer offset
-within of the sequential data zone (i.e. the write operation is aligned on the
-zone write pointer). Otherwise, write operations are processed indirectly using 
-a buffer zone: a randomly writable free data zone is allocated and assigned
-to the chunk being accessed in addition to the already mapped sequential data
-zone. Writing block to the buffer zone will invalidate the same blocks in the
-sequential data zone.
+within the sequential data zone (i.e. the write operation is aligned on the
+zone write pointer). Otherwise, write operations are processed indirectly,
+using a buffer zone: a randomly writable free data zone is allocated and
+assigned to the chunk that is being accessed in addition to the already-mapped
+sequential data zone. Writing blocks to the buffer zone will invalidate the
+same blocks in the sequential data zone.
 
 Read operations are processed according to the block validity information
 provided by the bitmaps: valid blocks are read either from the data zone or,
-if the data zone is buffered, from the buffer zone assigned to the data zone.
+if the data zone is buffered, from the buffer zone that is assigned to the data zone.
 
 ### Random Zone Reclaim
 
-After some time, the limited number of random zones available may be exhausted
-and unaligned writes to unbuffered zones become impossible. To avoid such
-situation, a reclaim process regularly scans used random zones and try to
-"reclaim" them by copying (sequentially) the valid blocks of the buffer zone
-to a free sequential zone. Once the copy completes, the chunk mapping is
-updated to point to the sequential zone and the buffer zone freed for reuse.
-
-To protect internal metadata against corruption in case of sudden power loss or
-system crash, 2 sets of metadata zones are used. One set, the primary set, is
-used as the main metadata repository, while the secondary set is used as a log.
-Modified metadata are first written to the secondary set and the log so created
-validated by writing an updated super block in the secondary set. Once this log
-operation completes, updates in place of metadata blocks can be done in the
-primary metadata set, ensuring that one of the set is always correct.
-Flush operations are used as a commit point: upon reception of a flush
-operation, metadata activity is temporarily stopped, all dirty metadata logged
-and updated and normal operation resumed. This only temporarily delays write
-and discard requests. Read requests can be processed while metadata logging is
-executed.
+After some time, the limited number of available random zones may be exhausted,
+making unaligned writes to unbuffered zones impossible. To avoid this
+situation, a reclaim process regularly scans used random zones and tries to
+"reclaim" them by (sequentially) copying the valid blocks of the buffer zone to
+a free sequential zone. Once the copy completes, the chunk mapping is updated
+to point to the sequential zone and the buffer zone is freed for reuse.
 
 ### Userspace Tool
 
-The *dmzadm* command line utility is used to format backend zoned devices for
-use with the *dm-zoned* device mapper target. This utility will verify the
-device zone model and will prepare and write on-disk *dm-zoned* metadata
-according to the device capacity, zone size, etc.
+The *dmzadm* command-line utility is used to format backend zoned devices for
+use with the *dm-zoned* device mapper target. This utility verifies the
+device zone model and prepares and writes on-disk *dm-zoned* metadata
+according to the device's capacity and zone size.
 
 The source code for the *dmzadm* utility is available as part of
 the <a href="https://github.com/westerndigitalcorporation/dm-zoned-tools"
@@ -431,7 +427,7 @@ Devices
   must be specified. For a multi-device target, a
   a list of block devices must be specified, with
   a regular block device as the first device specified,
-  followed by one or more zoned block devices
+  followed by one or more zoned block devices.
 General options
   --verbose     : Verbose output
   --vverbose    : Very verbose output
@@ -445,14 +441,14 @@ Format operation options
 
 ### Formatting a Target Device
 
-Formatting a single device target is done using the command.
+Formatting a single device target is done using the following command:
 
 ```plaintext
 # dmzadm --format /dev/<disk name>
 ```
 
 where `/dev/<disk name>` identifies the backend zoned block device to use. An
-example execution using a SMR hard-disk is shown below.
+example execution using a SMR hard-disk is shown below:
 
 ```plaintext
 # dmzadm --format /dev/sdi
@@ -473,18 +469,17 @@ Writing secondary metadata set
 Syncing disk
 Done.
 ```
+As of Linux kernel v5.8.0, *dm-zoned* can use regular block devices (such as
+SSDs) together with zoned block devices. In this case, conventional zones are
+emulated (so that the regular block device can hold *dm-zoned* metadata and
+buffering data). When a regular block device is used, the zone-reclaim process
+operates by copying data from emulated conventional zones on the regular block
+device to zones of the zoned block device. This dual-drive configuration can
+significantly increase the performance of the target device under
+write-intensive workloads.
 
-Starting with Linux kernel v5.8.0, regular block devices such as SSDs can also
-be used together with zoned block devices with *dm-zoned*. In this case,
-conventional zones are emulated for the regular block device to hold *dm-zoned*
-metadata and for buffering data. When a regular block device is used, the zone
-reclaim process operates by copying data from emulated conventional zones on
-the regular block device to zones of the zoned block device. This dual-drive
-configuration can significantly increase performance of the target device
-under write-intensive workloads.
-
-To format a *dm-zoned* target device using an additional regular block device
-and optionally several zoned block devices, the following commands can be used.
+Use the following command to format a *dm-zoned* target device that uses an
+additional regular block device (and, optionally, several zoned-block devices):
 
 ```plaintext
 # dmzadm --format /dev/nvme2n1 /dev/sdi
@@ -513,13 +508,12 @@ Syncing disk
 Done.
 ```
 
-Where `/dev/nvme2n1` is in this example a NVMe SSD and `/dev/sdi` is a
-host managed SMR hard-disk.
+(In this example `/dev/nvme2n1` is a NVMe SSD and `/dev/sdi` is a host-managed SMR hard-disk.)
 
 ### Activating a Target Device
 
-The *dm-zoned* target device using a formatted zoned device or set of devices
-can be started by executing *dmzadm* with the `--start` command.
+Start the *dm-zoned* target device (that is using a formatted zoned device or
+set of devices) by running *dmzadm* with the `--start` command:
 
 ```plaintext
 # dmzadm --start /dev/sdi
@@ -531,7 +525,7 @@ can be started by executing *dmzadm* with the `--start` command.
 sdi: starting dmz-sdi uuid 8c505b4b-d1e9-47a7-8e3a-8b1c00317eaf
 ```
 
-The target start can be confirmed by looking at the kernel messages.
+Confirm the target's activation by looking at the kernel messages:
 
 ```plaintext
 # dmesg
@@ -544,8 +538,8 @@ device-mapper: zoned metadata: (dmz-sdi):   55880 zones of 524288 512-byte logic
 device-mapper: zoned: (dmz-sdi): Target device: 29286727680 512-byte logical sectors (3660840960 blocks)
 ```
 
-The target device created is a regular disk that can be used with any file
-system.
+The target device that was created is a regular disk that can be used with any
+file system.
 
 ```plaintext
 # cat /sys/block/dm-0/queue/zoned
@@ -572,8 +566,8 @@ total 16
 drwx------ 2 root root 16384 Aug 27 15:14 lost+found
 ```
 
-For a multi-device target, the same list of devices as used for format must be
-specified.
+For a multi-device target, you must specify the same list of devices that you
+specified when you formatted them:
 
 ```plaintext
 # dmzadm --start /dev/nvmen2p1 /dev/sdi
@@ -589,8 +583,8 @@ specified.
 nvme2n1: starting dmz-nvme2n1 uuid ffbd1a3a-d79b-4d7f-bc13-e475a157bc39
 ```                                                          
 
-Similarly to the single device case, kernel messages notify the target device
-activation.
+Check the kernel messages to confirm the activation of the target device. This
+is similar to confirming target-device activiation in the single-device case.
 
 ```plaintext
 device-mapper: zoned metadata: (dmz-nvme2n1): DM-Zoned metadata version 2
@@ -606,11 +600,11 @@ device-mapper: zoned: (dmz-nvme2n1): Target device: 30264000512 512-byte logical
 
 ### Stopping a Target Device
 
-A *dm-zoned* target device can be disabled using the `--stop` operation.
+Use the `--stop` operation to disable a *dm-zoned* target device: 
 
 ```plaintext
 # dmzadm --stop /dev/sdX
 ```
 
-For a multi-device target, the same list of devices as used for format must be
-specified.
+For a multi-device target, you must specify the same list of devices that you
+specified when you formatted them.
