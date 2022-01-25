@@ -6,53 +6,57 @@ sidebar_label: File Systems
 
 # File Systems
 
-The [*dm-zoned*](./dm.md#dm-zoned) device mapper target allows using any file
-system with host managed zoned block devices by hiding the device sequential
-write constraints. This is a simple solution to enable a file system use but not
-necessarily the most efficient due to the potentially high overhead of a block
-based zone reclaim process.
+The [*dm-zoned*](./dm.md#dm-zoned) device-mapper target makes it possible to
+use any file system with host-managed zoned block devices. It does this by
+hiding the device's sequential write constraints. This solution is simple and
+makes it possible to use file systems, but its potentially high overhead
+during the block-based zone-reclamation process means that is not the
+maximally efficient solution. 
 
-Supporting zoned block devices directly in a file system implementation can
-lead to a more efficient zone reclaim processing as the file system metadata
-and file abstraction provide more information on the usage and validity status
-of storage blocks compared to the raw block device based approach.
+File systems whose implementations directly support zoned block devices have
+more efficient zone-reclamation processing. This is because file systems that
+directly support zoned block devices have metadata and file abstractions that
+provide more information about the usage and validity of storage blocks than
+do file systems that take the *dm-zoned*-block-based approach.
 
-Furthermore, a file system design may lend itself well to the sequential write
-constraint of host managed zoned block devices. This is the case for
-log-structured file systems such as *f2fs* and copy-on-write (CoW) file systems
-such as *Btrfs*.
+Some file systems are designed in such a way that they work well with the
+sequential write constraint of host-managed zoned block devices. This is the
+case for log-structured file systems such as *f2fs* and copy-on-write (CoW)
+file systems such as *Btrfs*.
 
 ## zonefs
 
-zonefs is a very simple file system exposing each zone of a zoned block device
-as a file. *zonefs* is included with the upstream Linux kernel since version
-5.6.0.
+*zonefs* is a very simple file system that exposes each of the zones of a zoned
+block device as a file. *zonefs* has been included with the upstream Linux
+kernel since version 5.6.0.
 
 ### Overview
 
-Unlike a regular POSIX-compliant file system with native zoned block device
-support (e.g. [*f2fs*](./fs.md#f2fs)), *zonefs* does not hide the sequential write
-constraint of zoned block devices to the user. Files representing sequential
-write zones of the device must be written sequentially starting from the end of
-the file (append only writes).
+*zonefs* does not hide from the user the sequential write constraints of zoned
+block devices. In this, it is unlike a regular POSIX-compliant file system
+with native zoned-block device support (e.g. [*f2fs*](fs.md#f2fs)). Files
+that represent sequential write zones on the device must be written
+sequentially, starting from the end of the file (these are "append only"
+writes).
 
-As such, *zonefs* is in essence closer to a raw block device access interface
-than to a full-featured POSIX file system. The goal of *zonefs* is to simplify
-the implementation of zoned block device support in applications by replacing
-raw block device file accesses with the richer regular file API, avoiding
-relying on direct block device file ioctls which may be more obscure to
-developers. One example of this approach is the implementation of LSM
-(log-structured merge) tree structures (such as used in RocksDB and LevelDB) on
-zoned block devices by allowing SSTables to be stored in a zone file similarly
-to a regular file system rather than as a range of sectors of the entire disk.
-The introduction of the higher level construct "one file is one zone" can help
-reducing the amount of changes needed in the application as well as introducing
-support for different application programming languages.
+*zonefs* is therefore more similar to a raw-block-device-access interface than
+it is to a full-featured POSIX file system. The goal of *zonefs* is to
+simplify the implementation of zoned block device support in applications, and
+it aims to do this by replacing raw block device file accesses with the richer
+regular-file API (which avoids relying on the possibly more obscure and
+developer-unfriendly direct block device file ioctls). One example of this
+approach is the implementation of LSM (log-structured merge) tree structures
+(such as used in RocksDB and LevelDB) on zoned block devices: SSTables are
+stored in a zone file in a way that is similar to the way a regular file
+system works rather than as a range of sectors of the entire disk. The
+introduction of the higher-level construct "one file is one zone" can reduce
+the number of changes needed in the application, and also introduces support
+for different application programming languages.
 
-The files representing zones are grouped by zone type, which are themselves
-represented by sub-directories. This file structure is built entirely using
-zone information provided by the device and so does not require any complex
-on-disk metadata structure.
+The files that represent zones are grouped by zone type, and those zone types
+themselves are represented by sub-directories. This file structure is built
+entirely using zone information that is provided by the device and therefore
+does not require any complex on-disk metadata structure.
 
 ### On-Disk Metadata
 
@@ -60,73 +64,77 @@ on-disk metadata structure.
 persistently stores a magic number and optional feature flags and values. On
 mount, *zonefs* uses the block layer API function `blkdev_report_zones()` to
 obtain the device zone configuration and populates the mount point with a
-static file tree solely based on this information. File sizes come from the
-device zone type and write pointer position managed by the device itself.
+static file tree that is based solely on this information. File sizes come
+from the device zone type and the write-pointer position, both of which are
+managed by the device itself. *zonefs* operates only based on information
+from the device. *zonefs* does not have any metadata of its own.
 
 The super block is always written on disk at sector 0. The first zone of the
-device storing the super block is never exposed as a zone file by *zonefs*. If
-the zone containing the super block is a sequential zone, the `mkzonefs` format
-tool always "finishes" the zone, that is, it transitions the zone to a full
-state to make it read-only, preventing any data write.
+device that stores the super block is never exposed as a zone file by
+*zonefs*. If the zone that contains the super block is a sequential zone, the
+`mkzonefs` format tool always "finishes" the zone (that is, it transitions the
+zone to a full state to make it read-only, preventing any data write).
 
 ### Zone Type Sub-Directories
 
-Files representing zones of the same type are grouped together under the same
-sub-directory automatically created on mount.
+Files that represent zones of the same type are grouped together under the same
+sub-directory, which is automatically created on mount.
 
 For conventional zones, the sub-directory "cnv" is used. This directory is
-however created if and only if the device has usable conventional zones. If
-the device only has a single conventional zone at sector 0, the zone will not
-be exposed as a file as it will be used to store the *zonefs* super block. For
-such devices, the "cnv" sub-directory will not be created.
+created only if the device has usable conventional zones. If the device has
+only a single conventional zone at sector 0, the zone will not be exposed as a
+file (because it will be used to store the *zonefs* super block). For such
+devices, the "cnv" sub-directory will not be created.
 
 For sequential write zones, the sub-directory "seq" is used.
 
 These two directories are the only directories that exist in *zonefs*. Users
-cannot create other directories and cannot rename nor delete the "cnv" and
-"seq" sub-directories.
+cannot create other directories and can neither rename nor delete the "cnv"
+and "seq" sub-directories.
 
-The size of the directories indicated by the `st_size` field of `struct stat`,
-obtained with the `stat()` or `fstat()` system calls, indicates the number of
-files existing under the directory.
+The size of the directories indicates the number of files that exist under
+the directory. This size is indicated by the `st_size` field of `struct
+stat`, which is obtained with the `stat()` or `fstat()` system calls.
 
 ### Zone files
 
-Zone files are named using the number of the zone they represent within the set
-of zones of a particular type. That is, both the "cnv" and "seq" directories
+Zone files are named using the number of the zone they represent within the
+set of zones of a particular type. Both the "cnv" and "seq" directories
 contain files named "0", "1", "2", ... The file numbers also represent
 increasing zone start sector on the device.
 
-All read and write operations to zone files are not allowed beyond the file
-maximum size, that is, beyond the zone size. Any access exceeding the zone
-size is failed with the `-EFBIG` error.
+No read- and write-operations to zone files are allowed beyond the file
+maximum size (that is, beyond the zone size). Any access that exceeds the zone
+size fails with the `-EFBIG` error.
 
-Creating, deleting, renaming or modifying any attribute of files is not allowed.
+Creating, deleting, renaming and modifying any attribute of files is not
+allowed.
 
 The number of blocks of a file as reported by `stat()` and `fstat()` indicates
-the size of the file zone, or in other words, the maximum file size.
+the size of the file zone (in other words, the maximum file size).
 
 #### Conventional Zone Files
 
-The size of conventional zone files is fixed to the size of the zone they
+The size of conventional zone files is fixed to the size of the zone that they
 represent. Conventional zone files cannot be truncated.
 
 These files can be randomly read and written using any type of I/O operation:
 buffered I/Os, direct I/Os, memory mapped I/Os (mmap), etc. There are no I/O
-constraint for these files beyond the file size limit mentioned above.
+constraints for these files beyond the file size limit mentioned above.
 
 #### Sequential zone files
 
-The size of sequential zone files grouped in the "seq" sub-directory represents
-the file's zone write pointer position relative to the zone start sector.
+The size of sequential zone files that are grouped in the "seq" sub-directory
+represents the file's zone-write-pointer position relative to the zone start
+sector.
 
-Sequential zone files can only be written sequentially, starting from the file
-end, that is, write operations can only be append writes. Zonefs makes no
-attempt at accepting random writes and will fail any write request that has a
-start offset not corresponding to the end of the file, or to the end of the last
-write issued and still in-flight (for asynchronous I/O operations).
+Sequential zone files can be written only sequentially, starting from the file
+end (that is, write operations can be only "append writes"). `zonefs` makes no
+attempt to accept random writes and will fail any write request that has a
+start offset that does not correspond to the end of the file, or to the end of
+the last write issued and still in-flight (for asynchronous I/O operations).
 
-Since dirty page writeback by the page cache does not guarantee a sequential
+Because dirty page writeback by the page cache does not guarantee a sequential
 write pattern, *zonefs* prevents buffered writes and writeable shared mappings
 on sequential files. Only direct I/O writes are accepted for these files.
 *zonefs* relies on the sequential delivery of write I/O requests to the device
@@ -143,99 +151,102 @@ to the FULL state (finish zone operation).
 
 ### Format options
 
-Several optional features of zonefs can be enabled at format time.
+Several optional features of *zonefs* can be enabled at format time.
 
-* Conventional zone aggregation: ranges of contiguous conventional zones can be
-  aggregated into a single larger file instead of the default one file per zone.
-* File ownership: The owner UID and GID of zone files is by default 0 (root)
+* Conventional zone aggregation: ranges of contiguous conventional zones can
+  be aggregated into a single larger file instead of the default "one file per
+  zone".
+* File ownership: By default, the owner UID and GID of zone files is 0 (root)
   but can be changed to any valid UID/GID.
-* File access permissions: the default 640 access permissions can be changed.
+* File access permissions: the default access permissions (640) can be changed.
 
 ### IO error handling
 
-Zoned block devices may fail I/O requests for reasons similar to regular block
-devices, e.g. due to bad sectors. However, in addition to such known I/O
-failure pattern, the standards governing zoned block devices behavior define
-additional conditions that can result in I/O errors.
+Zoned block devices can fail I/O requests for reasons similar to the reasons
+that regular block devices fail I/O requests, e.g. if there are bad sectors.
+But the standards that govern the behavior of zoned block devices also define
+additional conditions (in addition to these known I/O failure patterns) that
+can result in I/O errors.
 
 * A zone may transition to the read-only condition:
-  While the data already written in the zone is still readable, the zone can
-  no longer be written. No user action on the zone (zone management command or
-  read/write access) can change the zone condition back to a normal read/write
-  state. While the reasons for the device to transition a zone to read-only
-  state are not defined by the standards, a typical cause for such transition
-  would be a defective write head on an HDD (all zones under this head are
-  changed to read-only).
+  Although the data that is already written in the zone is still readable, the 
+  zone can no longer be written. No user action on the zone (zone management 
+  command or read/write access) can change the zone condition back to a
+  normal read/write state. While the reasons for the device to transition a 
+  zone to read-only state are not defined by the standards, a typical cause 
+  for such transition would be a defective write head on an HDD (all zones 
+  under this head are changed to read-only).
 
 * A zone may transition to the offline condition:
-  An offline zone cannot be read nor written. No user action can transition an
-  offline zone back to an operational good state. Similarly to zone read-only
-  transitions, the reasons for a drive to transition a zone to the offline
-  condition are undefined. A typical cause would be a defective read-write head
-  on an HDD causing all zones on the platter under the broken head to be
-  inaccessible.
+  An offline zone can be neither read nor written. No user action can 
+  transition an offline zone back to an operational "good state". Similar to 
+  zone read-only transitions, the reasons that a drive transitions a zone 
+  to the offline condition are undefined. A typical cause is (for example) a 
+  defective read-write head on an HDD that causes all zones on the platter 
+  under the broken head to be inaccessible.
 
 * Unaligned write errors:
-  These errors result from the host issuing write requests with a start sector
-  that does not correspond to a zone write pointer position when the write
-  request is executed by the device. Even though *zonefs* enforces sequential
-  file write for sequential zones, unaligned write errors may still happen in
-  the case of a partial failure of a very large direct I/O operation split into
-  multiple BIOs/requests or asynchronous I/O operations.  If one of the write
-  request within the set of sequential write requests issued to the device
-  fails, all write requests queued after it will become unaligned and fail.
+  These errors result from the device receiving a write request that has a
+  start sector that does not correspond to the write-pointer position of the
+  target zone. Although *zonefs* enforces sequential file write for 
+  sequential zones, unaligned write errors can still happen in the case of a 
+  partial failure of a very large direct I/O operation that is split into
+  multiple BIOs/requests or asynchronous I/O operations. If one of the write
+  requests within the set of sequential write requests that is issued to the 
+  device fails, all write requests that are queued after it will become 
+  unaligned and fail.
 
 * Delayed write errors:
-  Similarly to regular block devices, if the device side write cache is enabled,
-  write errors may occur in ranges of previously completed writes when the
-  device write cache is flushed, e.g. on `fsync()`.  Similarly to the previous
-  immediate unaligned write error case, delayed write errors can propagate
-  through a stream of cached sequential data for a zone causing all data to be
-  dropped after the sector that caused the error.
+  As with regular block devices, if the device-side write cache is enabled,
+  write errors can occur in ranges of previously-completed writes when the
+  device write cache is flushed, e.g. on `fsync()`.  As in cases of immediate 
+  unaligned write errors, delayed write errors can propagate through a stream 
+  of cached sequential data for a zone, which can cause all data after the 
+  sector that caused the error to be dropped. 
 
-All I/O errors detected by *zonefs* are notified to the user with an error code
-return for the system call that triggered or detected the error. The recovery
+All I/O errors detected by *zonefs* are reported to the user with an error code
+returned for the system call that triggered or detected the error. The recovery
 actions taken by *zonefs* in response to I/O errors depend on the I/O type
 (read vs write) and on the reason for the error (bad sector, unaligned writes or
 zone condition change).
 
-* For read I/O errors, *zonefs* does not execute any particular recovery action,
-  but only if the file zone is still in a good condition and there is no
-  inconsistency between the file inode size and its zone write pointer position.
-  If a problem is detected, I/O error recovery is executed (see below table).
+* For read I/O errors, *zonefs* takes recovery action action only if the file 
+  zone is still in good condition and there is no inconsistency between the 
+  file inode size and its zone write pointer position. If a problem is 
+  detected, I/O error recovery is executed (see below table).
 
 * For write I/O errors, *zonefs* I/O error recovery is always executed.
 
-* A zone condition change to read-only or offline also always triggers *zonefs*
-  I/O error recovery.
+* A zone condition change to "read-only" or "offline" also always triggers 
+  *zonefs* I/O error recovery.
 
-*zonefs* minimal I/O error recovery may change a file size and file access
-permissions.
+*zonefs* minimal I/O error recovery can change a file's size and its file 
+access permissions.
 
 * File size changes:
-  Immediate or delayed write errors in a sequential zone file may cause the file
-  inode size to be inconsistent with the amount of data successfully written in
-  the file zone. For instance, the partial failure of a multi-BIO large write
-  operation will cause the zone write pointer to advance partially, even though
-  the entire write operation will be reported as failed to the user. In such
-  case, the file inode size must be advanced to reflect the zone write pointer
-  change and eventually allow the user to restart writing at the end of the
-  file.
+  Immediate or delayed write errors in a sequential zone file can cause the 
+  file inode size to be inconsistent with the amount of data successfully 
+  written in the file zone. For example, the partial failure of a multi-BIO 
+  large write operation will cause the zone write pointer to advance partially,
+  even though the entire write operation is reported as failed to the user. 
+  In such cases, the file inode size must be advanced to reflect the zone write
+  pointer change and eventually allow the user to restart writing at the end of
+  the file.
   A file size may also be reduced to reflect a delayed write error detected on
   fsync(): in this case, the amount of data effectively written in the zone may
-  be less than originally indicated by the file inode size. After such I/O
-  error, *zonefs* always fixes the file inode size to reflect the amount of data
-  persistently stored in the file zone.
+  be less than originally indicated by the file inode size. After any such I/O
+  error, *zonefs* always fixes the file inode size to reflect the amount of 
+  data persistently stored in the file zone.
 
 * Access permission changes:
   A zone condition change to read-only is indicated with a change in the file
-  access permissions to render the file read-only. This disables changes to the
-  file attributes and data modification. For offline zones, all permissions
-  (read and write) to the file are disabled.
+  access permissions, rendering the file read-only. This disables changes to 
+  the file attributes and data modification. For offline zones, all permissions
+  (read and write) of the file are disabled.
 
 Further action taken by *zonefs* I/O error recovery can be controlled by the
 user with the "errors=xxx" mount option. The table below summarizes the result
-of *zonefs* I/O error processing depending on the mount option and on the zone
+of *zonefs* I/O error processing, depending on the mount option and on the zone
 conditions.
 
 <center>
@@ -261,45 +272,48 @@ Further notes:
 
 * The "errors=remount-ro" mount option is the default behavior of zonefs I/O
   error processing if no errors mount option is specified.
-* With the "errors=remount-ro" mount option, the change of the file access
-  permissions to read-only applies to all files. The file system is remounted
+* With the "errors=remount-ro" mount option, the change of file access
+  permissions to "read-only" applies to all files. The file system is remounted
   read-only.
-* Access permission and file size changes due to the device transitioning zones
-  to the offline condition are permanent. Remounting or reformatting the device
-  with mkfs.zonefs (mkzonefs) will not change back offline zone files to a good
-  state.
-* File access permission changes to read-only due to the device transitioning
-  zones to the read-only condition are permanent. Remounting or reformatting
-  the device will not re-enable file write access.
-* File access permission changes implied by the remount-ro, zone-ro and
-  zone-offline mount options are temporary for zones in a good condition.
-  Unmounting and remounting the file system will restore the previous default
+* Access permission and file-size changes caused by the device transitioning 
+  zones to the offline condition are permanent. Remounting or reformatting the 
+  device with mkfs.zonefs (mkzonefs) will not change offline zone files back
+  to a good state.
+* All file access permission changes to read-only that are due to the device 
+  transitioning zones to the read-only condition are permanent. Remounting or 
+  reformatting the device will not re-enable file write access.
+* File access permission changes implied by the "remount-ro", "zone-ro" and
+  "zone-offline" mount options are temporary for zones in a good condition.
+  Unmounting and remounting the file system restores the previous default
   (format time values) access rights to the files affected.
 * The repair mount option triggers only the minimal set of I/O error recovery
-  actions, that is, file size fixes for zones in a good condition. Zones
-  indicated as being read-only or offline by the device still imply changes to
-  the zone file access permissions as noted in the table above.
+  actions (that is, file size fixes for zones in a good condition). Zones
+  that are indicated as "read-only" or "offline" by the device still imply 
+  changes to the zone file access permissions as noted in the table above.
 
 ### Mount options
 
-zonefs define the "errors=*behavior*" mount option to allow the user to specify
-zonefs behavior in response to I/O errors, inode size inconsistencies or zone
-condition changes. The defined behaviors are as follow.
+*zonefs* defines the "errors=*behavior*" mount option to allow the user to 
+specify zonefs behavior in response to I/O errors, inode size inconsistencies 
+or zone condition changes. The defined behaviors are as follows.
 
 * remount-ro (default)
 * zone-ro
 * zone-offline
 * repair
 
-The run-time I/O error actions defined for each behavior are detailed in the
-previous section. Mount time I/O errors will cause the mount operation to fail.
-The handling of read-only zones also differs between mount-time and run-time.
-If a read-only zone is found at mount time, the zone is always treated in the
-same manner as offline zones, that is, all accesses are disabled and the zone
-file size set to 0. This is necessary as the write pointer of read-only zones
-is defined as invalib by the ZBC and ZAC standards, making it impossible to
-discover the amount of data that has been written to the zone. In the case of a
-read-only zone discovered at run-time, as indicated in the previous section.
+The run-time I/O error actions defined for each behavior are detailed in 
+[*IO error handling*](fs.md#io-error-handling). Mount-time I/O errors cause 
+the mount operation to fail.
+
+Read-only zones are handled differently at mount time than they are at 
+run time. If a read-only zone is found at mount time, the zone is always 
+treated in the same manner as offline zones (that is, all accesses are 
+disabled and the zone file size set to 0). This is necessary, because the write 
+pointer of read-only zones is defined as invalid by the ZBC and ZAC standards 
+(which makes it impossible to discover the amount of data that has been 
+written to the zone). In the case of a read-only zone that is discovered at 
+run-time, as indicated in [*IO error handling*](fs.md#io-error-handling),
 the size of the zone file is left unchanged from its last updated value.
 
 ### Zonefs User Space Tools
@@ -308,7 +322,7 @@ The `mkzonefs` tool is used to format zoned block devices for use with *zonefs*.
 This tool is available on <a href="https://github.com/westerndigitalcorporation/zonefs-tools"
 target="_blank">GitHub</a>.
 
-*zonefs-tools* also includes a test suite which can be run against any zoned
+*zonefs-tools* also includes a test suite that can be run against any zoned
 block device, including
 [*nullblk* block device created with zoned mode](../getting-started/nullblk.md).
 
