@@ -679,6 +679,19 @@ delivered to the device in sequential order. For a NVMe zoned namespace device
 # echo mq-deadline > /sys/block/nvmeXnY/queue/scheduler
 ```
 
+Alternatively the following udev rule can be used to automatically set the
+*mq-deadline* scheduler for all zoned block devices formatted with btrfs.
+
+```plain text
+SUBSYSTEM!="block", GOTO="btrfs_end"
+ACTION!="add|change", GOTO="btrfs_end"
+ENV{ID_FS_TYPE}!="btrfs", GOTO="btrfs_end"
+
+ATTR{queue/zoned}=="host-managed", ATTR{queue/scheduler}="mq-deadline"
+
+LABEL="btrfs_end"
+```
+
 ### Usage example with a Host Managed SMR HDD
 
 To format a zoned block device with *mkfs.btrfs*, the `-m single` and `-d
