@@ -328,8 +328,8 @@ block device, including
 
 ### Examples
 
-The following formats a 15TB host-managed SMR HDD with 256 MB zones
-with the conventional zones aggregation feature enabled::
+The following list of commands formats a 15TB host-managed SMR HDD with 256 MB
+zones (with the conventional zones aggregation feature enabled):
 
 ```plaintext
 # mkzonefs -o aggr_cnv /dev/sdX
@@ -340,10 +340,10 @@ dr-xr-xr-x 2 root root     1 Nov 25 13:23 cnv
 dr-xr-xr-x 2 root root 55356 Nov 25 13:23 seq
 ```
 
-The size of the zone files sub-directories indicate the number of files
-existing for each type of zones. In this example, there is only one
+The size of the zone files' sub-directories indicates the number of files
+that exist for each type of zone. In this example, there is only one
 conventional zone file (all conventional zones are aggregated under a single
-file).
+file):
 
 ```plaintext
 # ls -l /mnt/cnv
@@ -351,15 +351,14 @@ total 137101312
 -rw-r----- 1 root root 140391743488 Nov 25 13:23 0
 ```
 
-This aggregated conventional zone file can be used as a regular file::
+This aggregated conventional zone file can be used as a regular file:
 
 ```plaintext
 # mkfs.ext4 /mnt/cnv/0
 # mount -o loop /mnt/cnv/0 /data
 ```
 
-The "seq" sub-directory grouping files for sequential write zones has in this
-example 55356 zones::
+The "seq" sub-directory, which groups files for sequential write zones, has 55356 zones in this example:
 
 ```plaintext
 # ls -lv /mnt/seq
@@ -373,7 +372,8 @@ total 14511243264
 ```
 
 For sequential write zone files, the file size changes as data is appended at
-the end of the file, similarly to any regular file system::
+the end of the file. This is similar to the behavior of any regular file
+system:
 
 ```plaintext
 # dd if=/dev/zero of=/mnt/seq/0 bs=4096 count=1 conv=notrunc oflag=direct
@@ -385,8 +385,8 @@ the end of the file, similarly to any regular file system::
 -rw-r----- 1 root root 4096 Nov 25 13:23 /mnt/seq/0
 ```
 
-The written file can be truncated to the zone size, preventing any further
-write operation::
+The written file can be truncated to the zone size, which prevents any further
+write operations:
 
 ```plaintext
 # truncate -s 268435456 /mnt/seq/0
@@ -394,8 +394,8 @@ write operation::
 -rw-r----- 1 root root 268435456 Nov 25 13:49 /mnt/seq/0
 ```
 
-Truncation to 0 size allows freeing the file zone storage space and restart
-append-writes to the file::
+Truncation to 0 size allows freeing the file zone storage space and restarts
+append-writes to the file:
 
 ```plaintext
 # truncate -s 0 /mnt/seq/0
@@ -404,7 +404,7 @@ append-writes to the file::
 ```
 
 Since files are statically mapped to zones on the disk, the number of blocks of
-a file as reported by stat() and fstat() indicates the size of the file zone::
+a file as reported by stat() and fstat() indicates the size of the file zone:
 
 ```plaintext
 # stat /mnt/seq/0
@@ -419,89 +419,92 @@ Birth: -
 ```
 
 The number of blocks of the file ("Blocks") in units of 512B blocks gives the
-maximum file size of 524288 * 512 B = 256 MB, corresponding to the device zone
-size in this example. Of note is that the "IO block" field always indicates the
-minimum I/O size for writes and corresponds to the device physical sector size.
+maximum file size of 524288 * 512 B = 256 MB, which corresponds to the device
+zone size in this example. Note that the "IO block" field always indicates the
+minimum I/O size for writes and that it corresponds to the device's physical
+sector size.
 
 ## f2fs
 
-The *Flash-Friendly File System* (*f2fs*) was designed on a basis of a
-log-structured file system approach but modified to avoid the classical problems
-of the traditional log-structured approach (e.g. The snowball effect of
-wandering trees and the high cleaning overhead).
+The *Flash-Friendly File System* (*f2fs*) was designed on the basis of a
+log-structured file system approach, but was modified to avoid the classical
+problems of the traditional log-structured approach (e.g. the snowball effect
+of "wandering trees" and the high "cleaning overhead").
 
 *f2fs* supports various parameters not only for configuring on-disk layout but
 also for selecting allocation and cleaning algorithms.
 
 ### Zoned Block Device Support
 
-Zoned block device support was added to *f2fs* with kernel 4.10. Since *f2fs*
-uses a metadata block on-disk format with fixed block location, only zoned block
-devices which include conventional zones can be supported. Zoned devices composed
-entirely of sequential zones cannot be used with *f2fs* as a standalone device
-and require a multi-device setup to place metadata blocks on a randomly
-writable storage. *f2fs* supports multi-device setup where multiple block device
-address spaces are linearly concatenated to form a logically larger block
-device. The [*dm-linear*](./dm.md#dm-linear) device mapper target can also be used
-to create a logical device composed of conventional zones and sequential zones
-suitable for *f2fs*.
+Zoned block device support was added to *f2fs* with kernel 4.10. Because *f2fs*
+uses a metadata-block on-disk format with fixed-block location, only zoned
+block devices that include conventional zones are supported. Zoned devices
+composed entirely of sequential zones cannot be used with *f2fs* as a
+standalone device and they require a multi-device setup in order to place
+metadata blocks on randomly writable storage. *f2fs* supports multi-device
+setup where multiple block device address spaces are linearly concatenated to
+form a logically larger block device. The [*dm-linear*](./dm.md#dm-linear)
+device mapper target can also be used to create a logical device that is
+composed of both conventional zones and sequential zones suitable for *f2fs*.
 
 *f2fs* zoned block device support was achieved using the following principles.
 
-1. **Section Alignment** In *f2fs*, a section is a group of fixed size
+1. **Section Alignment** In *f2fs*, a section is a group of fixed-size
    segments (2 MB). The number of segments in a section is determined to match
-   the zoned device zone size. For instance, with a 256 MB zone size, a section
+   the zoned device zone size. For example: with a 256 MB zone size, a section
    contains 128 segments of 2MB.
-2. **Forced LFS mode** By default, *f2fs* tries to optimize block allocation to
-   avoid excessive append write by allowing some random writes within segments.
-   The LFS mode forces sequential writes to segments and the sequential use of
-   segments within sections, resulting in full compliance with zoned block
-   devices write constraint.
-3. **Zone reset as discard operation** Block *discard* (or *trim*) used to
-   indicate to a device that a block or range of blocks are no longer in use is
-   replaced with execution of a zone write pointer reset command when all blocks
-   of all segments of a section are free, allowing the section to be reused.
+2. **Forced LFS mode** By default, *f2fs* tries to optimize block allocation
+   (in order to avoid excessive append write) by allowing some random writes
+   within segments. The LFS mode forces sequential writes to segments and 
+   forces the sequential use of segments within sections, which results in 
+   full compliance with the zoned block device's write constraint.
+3. **Zone reset as discard operation** In the past, block *discard* (or *trim*) 
+   indicated to a device that a block or range of blocks are no longer in use. 
+   This has been replaced with the execution of a "zone write pointer reset" 
+   command when all blocks of all segments of a section are free. This allows 
+   the section to be reused.
 
-Compared to a solution using the *dm-zoned* device mapper target, performance
-of *f2fs* on zoned devices does not suffer from zone reclaim overhead as writes
-are always sequential and do not require on-disk temporary buffering. *f2fs*
-garbage collection (segment cleanup) will generate overhead only for workloads
-frequently deleting file or modifying files data.
+Compared to a solution that uses the *dm-zoned* device mapper target, 
+the performance of *f2fs* on zoned devices does not suffer from "zone reclaim 
+overhead", because writes are always sequential and do not require on-disk 
+temporary buffering. *f2fs* garbage collection (segment cleanup) generates 
+overhead only for workloads that frequently delete files or modify files' data.
 
 ### Zone Capacity Support
 
 NVMe ZNS SSDs can have a per
 [zone capacity that is smaller than the zone size](../introduction/zns#zone-capacity-and-zone-size).
 To support ZNS devices, *f2fs* ensures that block allocation and accounting
-only considers the blocks in a zone that are within the zone capacity. This
-support for NVMe ZNS zone capacity is available since Linux kernel version 5.10.
+considers only the blocks in a zone that are within the zone's capacity. This
+support for NVMe ZNS zone capacity has been available since it was introduced 
+in Linux kernel version 5.10.
 
-Additionally, *f2fs* volumes need some storage space that is randomly writable
+*f2fs* volumes need some storage space that is randomly writable in order 
 to store and update in-place metadata blocks for the volume. Since NVMe zoned
 namespaces do not have conventional zones, a *f2fs* volume cannot be
-self-contained within a single NVMe zoned namespace. To format a *f2fs* volume
-using a NVMe zoned namespace, a multi-device volume format must be used to
-provide an additional regular block device to store the volume metadata blocks.
-This additional regular block device can be either a regular namespace on
-the same NVMe device or a regular namespace on another NVMe device.
+self-contained within a single NVMe zoned namespace. To format an *f2fs* volume
+using a NVMe zoned namespace, a multi-device volume format must be used in order
+to provide an additional regular block device to store the volume metadata 
+blocks. This additional regular block device can be either a regular namespace 
+on the same NVMe device or a regular namespace on another NVMe device.
 
 ### Limitations
 
-*f2fs* uses 32-bits block numbers with a block size of 4 KB. This results in a
+*f2fs* uses 32-bit block numbers with a block size of 4 KB. This results in a
 maximum volume size of 16 TB. Any device or combination of devices (for a
-multi-device volume) with a total capacity larger than 16 TB cannot be used
-with *f2fs*.
+multi-device volume) with a total capacity that is larger than 16 TB cannot 
+be used with *f2fs*.
 
-To overcome this limit, the [*dm-linear*](./dm.md#dm-linear) device mapper target
-can be used to partition a zoned block device into serviceable smaller logical
-devices.  This configuration must ensure that each logical device created is
-assigned a sufficient amount of conventional zones to store *f2fs* fixed
-location metadata blocks.
+To overcome this limit, the [*dm-linear*](./dm.md#dm-linear) device mapper 
+target can be used to partition a zoned block device into serviceable, 
+smaller logical devices. This configuration must ensure that each logical 
+device that is created is assigned a sufficient amount of conventional zones 
+to store *f2fs* fixed location metadata blocks.
 
 ### Usage Example with a Host Managed SMR HDD
 
 To format a zoned block device with *mkfs.f2fs*, the option `-m` must be
-specified.
+specified:
 
 ```plaintext
 # mkfs.f2fs -m /dev/sdb
@@ -529,8 +532,8 @@ Info: Overprovision segments = 86254 (GC reserved = 43690)
 Info: format successful
 ```
 
-The formatted zoned block device can now be directly mounted without any other
-setup necessary.
+The formatted zoned block device can now be directly mounted. No further 
+setup is necessary:
 
 ```plaintext
 # mount /dev/sdb /mnt
@@ -538,21 +541,21 @@ setup necessary.
 
 ### Usage Example with a NVMe ZNS SSD
 
-Unlike SMR hard-disks, the kernel does not select by default the *mq-deadline*
-block IO scheduler for block devices representing NVMe zoned namespaces. To
+Unlike SMR hard-disks, the kernel by default does not select the *mq-deadline*
+block-IO scheduler for block devices that represent NVMe zoned namespaces. To
 ensure that the regular write operations used by *f2fs* are delivered to the
 device in sequential order, the IO scheduler for the NVMe zoned namespace block
-device must be set to *mq-deadline*. This is done with the following command.
+device must be set to *mq-deadline*. This is done with the following command:
 
 ```plaintext
 # echo mq-deadline > /sys/block/nvme1n1/queue/scheduler
 ```
 
-Where /dev/nvme1n1 is the block device file of the zoned namespace that will be
-used for the *f2fs* volume. Using this namespace, a multi-device *f2fs* volume
-using an additional regular block device (`/dev/nvme0n1` in the following
-example) can be formatted using the *-c* option of *mkfs.f2fs*, as shown in the
-following example.
+In the above command, `/dev/nvme1n1` is the block device file of the zoned 
+namespace that will be used for the *f2fs* volume. Using this namespace, a 
+multi-device *f2fs* volume that uses an additional regular block device 
+(`/dev/nvme0n1` in the following example) can be formatted using the *-c* 
+option of *mkfs.f2fs*, as shown in the following example:
 
 ```plaintext
 # mkfs.f2fs -f -m -c /dev/nvme1n1 /dev/nvme0n1
@@ -583,7 +586,7 @@ Info: format successful
 ```
 
 To mount the volume formatted with the above command, the regular block device
-must be specified.
+must be specified:
 
 ```plaintext
 # mount -t f2fs /dev/nvme0n1 /mnt/f2fs/
@@ -592,38 +595,42 @@ must be specified.
 
 ## Btrfs
 
-*Btrfs* is a file system based on the copy-on-write (CoW) principle resulting
-in any block update to never be written in-place. *Btrfs* currently supports
-zoned block devices, but that support is experimental.
+*Btrfs* is a file system based on the copy-on-write (CoW) principle. This
+principle has the result that no block update can be written in-place. 
+*Btrfs* currently supports zoned block devices, but that support is 
+experimental.
 
 ### Zoned Block Device Support
 
-Zoned block device support was added to *btrfs* with kernel 5.12. Since
+Zoned block device support was added to *btrfs* with kernel 5.12. Because
 super-blocks are the only on-disk data structure with a fixed location in
 *btrfs*, zoned block device support introduces the concept of log-structured
-super-blocks. For each of the super-blocks (primary and backup super-blocks)
-in *btrfs*, zoned mode reserves two consecutive zones to hold these
-super-blocks. When a new super-block is being written, it is appended to the
-respective super-block zone. Once the first super-block zone is filled, the
-next super block is being written to the second super-block zone and the first
-is being reset. The currently valid and active super-block can be determined
-by looking at the position of the zone write pointer of the respective
-super-block zones.
+super-blocks to eliminate in-place updates (overwrites) of fixed super block
+locations. Zoned mode reserves two consecutive zones to hold each of the
+super-blocks (primary and backup super-blocks) in *btrfs*. When a new
+super-block is written, it is appended to its respective super-block zone.
+After the first super-block zone is filled, the next super block is written to
+the second super-block zone and the first is reset. At mount time, *btrfs*
+can find the latest version of the super-block by looking at the position of
+the zone write pointer of the super-block zones. The most recent and valid
+super-block is always the last  block stored before the write pointer
+position.
 
 ### Block Allocation Changes
 
-*Btrfs* block management relies on grouping of blocks into *block groups*, with
-each group composed of one or more *device extent*. The device extents of a
-block group may belong to different devices (e.g. in the case of a RAID volume).
-ZBD support changes the default device extent size to the size of the device
-zones so that all device extents are always aligned to a zone.
+*Btrfs* block management relies on grouping blocks into *block groups*. 
+Each *block group* is composed of one or more *device extents*. The device 
+extents of a block group may belong to different devices (e.g. in the case 
+of a RAID volume). ZBD support changes the size of a device extent from its
+default size to the size of the device zones. This ensures that all device 
+extents are always aligned to a zone.
 
 Allocation of blocks within a block group is changed so that the allocation is
-always sequential from the beginning of the block group. To do so, an
+always sequential from the beginning of the block group. To do this, an
 allocation pointer is added to block groups and used as the allocation hint.
-The changes also ensure that blocks freed below the allocation pointer are
-ignored, resulting in sequential block allocation within each group regardless
-of the block group usage.
+These changes ensure that blocks freed below the allocation pointer are
+ignored, which results in sequential block allocation within each group 
+regardless of the block group usage.
 
 ### I/O Management
 
