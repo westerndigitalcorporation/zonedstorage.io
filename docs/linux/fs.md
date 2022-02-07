@@ -138,7 +138,8 @@ Because dirty page writeback by the page cache does not guarantee a sequential
 write pattern, *zonefs* prevents buffered writes and writeable shared mappings
 on sequential files. Only direct I/O writes are accepted for these files.
 *zonefs* relies on the sequential delivery of write I/O requests to the device
-implemented by the block layer elevator (See [Write Command Ordering](./sched.md)).
+implemented by the block layer elevator (See
+[Write Command Ordering](./sched.md)).
 
 There are no restrictions on the type of I/O used for read operations in
 sequential zone files. Buffered I/Os, direct I/Os and shared read mappings are
@@ -252,7 +253,7 @@ conditions.
 <center>
 
 | "errors=xxx" mount option | Device zone condition | File size | File read | File write | Device read | Device write |
-| :-----------------------: | :-------------------: | :-------: | :-------: | :--------: | :---------: | :----------: |
+| :----------: | :-------: | :---: | :------: | :-----: | :----: | :----: |
 | remount-ro   | good      | fixed |  <Yes/>  |  <No/>  | <Yes/> | <Yes/> |
 | remount-ro   | read-only | as is |  <Yes/>  |  <No/>  | <Yes/> | <No/>  |
 | remount-ro   | offline   |   0   |  <No/>   |  <No/>  | <No/>  | <No/>  |
@@ -358,7 +359,8 @@ This aggregated conventional zone file can be used as a regular file:
 # mount -o loop /mnt/cnv/0 /data
 ```
 
-The "seq" sub-directory, which groups files for sequential write zones, has 55356 zones in this example:
+The "seq" sub-directory, which groups files for sequential write zones, has
+55356 zones in this example:
 
 ```plaintext
 # ls -lv /mnt/seq
@@ -472,12 +474,12 @@ overhead only for workloads that frequently delete files or modify files' data.
 
 ### Zone Capacity Support
 
-NVMe ZNS SSDs can have a per
-[zone capacity that is smaller than the zone size](../introduction/zns#zone-capacity-and-zone-size).
-To support ZNS devices, *f2fs* ensures that block allocation and accounting
-considers only the blocks in a zone that are within the zone's capacity. This
-support for NVMe ZNS zone capacity has been available since it was introduced 
-in Linux kernel version 5.10.
+NVMe ZNS SSDs can have a per [zone capacity that is smaller than the zone
+size](../introduction/zns#zone-capacity-and-zone-size). To support ZNS devices,
+*f2fs* ensures that block allocation and accounting considers only the blocks
+in a zone that are within the zone's capacity. This support for NVMe ZNS zone
+capacity has been available since it was introduced in Linux kernel version
+5.10.
 
 *f2fs* volumes need some storage space that is randomly writable in order 
 to store and update in-place metadata blocks for the volume. Since NVMe zoned
@@ -658,8 +660,8 @@ file-system global zoned meta-data I/O lock.
 
 ### Zone Capacity Support
 
-NVMe ZNS SSDs can have a per
-[zone capacity that is smaller than the zone size](../introduction/zns#zone-capacity-and-zone-size).
+NVMe ZNS SSDs can have a per [zone capacity that is smaller than the zone
+size](../introduction/zns#zone-capacity-and-zone-size).
 To support ZNS devices, *btrfs* ensures that block allocation and accounting
 only considers the blocks in a zone that are within the zone capacity. This
 support for NVMe ZNS zone capacity is available since Linux kernel version 5.16.
@@ -751,8 +753,6 @@ Number of devices:  1
 Devices:
    ID        SIZE  PATH
     1    18.19TiB  /dev/sda
-
-
 ```
 
 The formatted block device can now be directly mounted without any other setup
