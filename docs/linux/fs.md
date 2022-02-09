@@ -636,44 +636,46 @@ regardless of the block group usage.
 
 ### I/O Management
 
-While the introduction of the allocation pointer ensures that blocks are
-allocated sequentially within groups, so sequentially within zones, I/Os to
-write out newly allocated blocks may be issued out of order causing errors when
-writing to sequential zones. This problem is solved by introducing a write I/O
-request staging list to each block group. This list is used to delay the
-execution of unaligned write requests within a block group.
+Although the introduction of the allocation pointer ensures that blocks are
+allocated sequentially within groups (and therefore sequentially within zones),
+I/O operations that write out newly allocated blocks can be issued out of
+order, and this can cause errors when writing to sequential zones. This problem
+is solved by introducing a "write I/O request staging list" to each block group.
+This list is used to delay the execution of unaligned write requests within a
+given block group.
 
 The zones of a block group are reset to allow rewriting only when the block
-group is being freed, that is, when all the blocks within the block group are
-unused.
+group is free (that is, when all the blocks within the block group are
+unused).
 
-For *btrfs* volumes composed of multiple disks, restrictions are added to ensure
-that all disks have the same zone model and in the case of zoned block devices,
-the same zone size. This matches the existing *btrfs* constraint that all device
-extents in a block group must have the same size.
+When dealing with *btrfs* volumes that are composed of multiple disks,
+restrictions are added to ensure that all the disks have the same zone model
+(and in the case of zoned block devices, the same zone size). This matches the
+existing *btrfs* constraint that dictates that all device extents in a block
+group must have the same size.
 
 All writes to data block groups use [Zone Append
-writing](../introduction/zns#zone-append), so that a high queue depth can be
-maintained without violating the device zone's sequential write constraints.
-All writes to dedicated meta-data block groups are serialized with a
-file-system global zoned meta-data I/O lock.
+writing](../introduction/zns#zone-append), which makes it possible to maintain
+a high queue depth without violating the device zone's sequential write
+constraints. Every write to dedicated meta-data block groups is serialized
+with a file-system-global zoned metadata I/O lock.
 
 ### Zone Capacity Support
 
 NVMe ZNS SSDs can have a per [zone capacity that is smaller than the zone
-size](../introduction/zns#zone-capacity-and-zone-size).
-To support ZNS devices, *btrfs* ensures that block allocation and accounting
-only considers the blocks in a zone that are within the zone capacity. This
-support for NVMe ZNS zone capacity is available since Linux kernel version 5.16.
-Also starting with kernel 5.16 *btrfs* keeps track of the number of active
-zones on a device and issues Zone Finish commands as needed.
+size](../introduction/zns#zone-capacity-and-zone-size).  To support ZNS
+devices, *btrfs* ensures that block allocation and accounting considers only
+the blocks in a zone that are within the zone capacity. This support for NVMe
+ZNS zone capacity has been available since Linux kernel version 5.16. Also,
+since kernel 5.16, *btrfs* keeps track of the number of active zones on
+a device and issues "Zone Finish" commands as needed.
 
 ### Limitations
 
 Not all features currently available in *btrfs* are supported in the current
 zoned mode of the file-system.
 
-These features include:
+These unavailable features include:
 - RAID Support
 - NOCOW Support
 - Support for fallocate(2)
@@ -687,23 +689,24 @@ requirements must be met:
 - btrfs-progs 5.12 (for SMR) or 5.15 (for NVMe ZNS)
 - util-linux 2.38
 
-For all kernels supporting *btrfs* on a zoned block device, to ensure [write
-ordering correctness](sched.md), the kernel will automatically select by default
-the *mq-deadline* block IO scheduler for any SMR hard-disk used in a zoned
+If a kernel supports *btrfs* on a zoned block device, it will automatically
+select the *mq_deadline* block IO scheduler by default. This ensures [write
+ordering correctness](sched.md) for any SMR hard-disk that is used in a zoned
 *btrfs* volume.
 
-Similarly to [*f2fs* use with an NVMe ZNS
+As in the case of [*f2fs* use with an NVMe ZNS
 SSD](fs#usage-example-with-a-nvme-zns-ssd), the *mq-deadline* scheduler must be
-manually set to ensure that the regular write operations used by *btrfs* are
+set manually to ensure that the regular write operations used by *btrfs* are
 delivered to the device in sequential order. For a NVMe zoned namespace device
-*/dev/nvmeXnY*, this is done with the following command.
+*/dev/nvmeXnY*, this is done with the following command:
 
 ```plaintext
 # echo mq-deadline > /sys/block/nvmeXnY/queue/scheduler
 ```
 
-Alternatively the following udev rule can be used to automatically set the
-*mq-deadline* scheduler for all zoned block devices formatted with btrfs.
+Alternatively, the following udev rule can be used to automatically set the
+*mq-deadline* scheduler for all zoned block devices that have been formatted
+with btrfs.
 
 ```plain text
 SUBSYSTEM!="block", GOTO="btrfs_end"
@@ -718,8 +721,8 @@ LABEL="btrfs_end"
 ### Usage example with a Host Managed SMR HDD
 
 To format a zoned block device with *mkfs.btrfs*, the `-m single` and `-d
-single` options must be specified, as currently no block group profile other 
-than single is supported.
+single` options must be specified, because no block group profile other 
+than "single" is currently supported.
 
 ```plaintext
 # mkfs.btrfs -m single -d single /dev/sda
@@ -755,7 +758,7 @@ Devices:
     1    18.19TiB  /dev/sda
 ```
 
-The formatted block device can now be directly mounted without any other setup
+The formatted block device can now be directly mounted. No other setup is
 necessary.
 
 ```plaintext
@@ -765,31 +768,31 @@ necessary.
 ## XFS
 
 *XFS* currently does not support zoned block devices. The
-[*dm-zoned*](./dm.md#dm-zoned) device mapper target must be used to enable zoned
-device use with *XFS*.
+[*dm-zoned*](./dm.md#dm-zoned) device mapper target must be used to enable
+zoned device use with *XFS*.
 
 An early <a href="http://xfs.org/images/f/f6/Xfs-smr-structure-0.2.pdf"
-target="_blank"> design document</a> discussed the development work necessary to
-support host aware and host managed disks with *XFS*. Parts of this design have
-already been implemented and included into the kernel stable releases (e.g. Per
-inode reverse block mapping b-trees feature). However, more work is necessary to
-fully support zoned block devices.
+target="_blank"> design document</a> discussed the development work necessary
+to support host aware and host managed disks with *XFS*. Parts of this design
+have already been implemented and included into the kernel stable releases
+(e.g. the "per inode reverse block mapping b-trees" feature). However, more
+work is necessary to fully support zoned block devices.
 
 ## ext4
 
-describes
-Attempts at improving *ext4* performance with host aware zoned block
-devices using changes to the file system journal management are described in 
-in <a href="https://lwn.net/Articles/720226/" target="_blank">this article</a>.
-The changes are small and succeed in maintaining good performance. However,
-support for host managed zoned block devices is not provided as some fundamental
-*ext4* design aspects cannot be easily changed to match host managed device
-constraints.
+Attempts at improving *ext4* performance with host aware zoned block devices by
+making changes to the file system journal management are described in in <a
+href="https://lwn.net/Articles/720226/" target="_blank">this article</a>. These
+changes are small and succeed in maintaining good performance. However, support
+for host managed zoned block devices is not provided, because some of the
+fundamental aspects of *ext4* design cannot easily be changed to match host
+managed device constraints.
 
-These optimizations for host aware zoned block devices is a research work and is
-not included in *ext4* stable kernel releases. *ext4* also does not support host
-managed disks. Similarly to *XFS*, the *ext4* file system can however be used
-together with the [*dm-zoned*](./dm.md#dm-zoned) device mapper target.
+The field of host optimizations for host aware zoned block devices remains in
+the research phase and is not included in *ext4* stable kernel releases. It
+should also be noted that *ext4* does not support host managed disks. As with
+*XFS*, however, the *ext4* file system can be used together with the
+[*dm-zoned*](./dm.md#dm-zoned) device mapper target.
 
 export function Yes() {
   return (
