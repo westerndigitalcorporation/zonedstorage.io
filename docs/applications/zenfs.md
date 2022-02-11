@@ -7,41 +7,43 @@ sidebar_label: RocksDB with ZenFS
 # RocksDB with ZenFS
 
 *<a href="https://rocksdb.org/" target="_blank">RocksDB</a>* is a persistent
-key-value store for fast storage devices. It is implemented using
-a <a href="https://en.wikipedia.org/wiki/Log-structured_merge-tree"
-target="_blank"> Log-Structured Merge-Tree (LSM-tree)</a> data structure.
-Similarly to all LSM-tree based key-value engine implementations, values are
-stored in tables sorted in increasing key order. Tables are always sequentially
-written and never modified.  This basic principle of the LSM-tree data structure
-facilitates the implementation of support for zoned block devices.
+key-value store for fast storage devices. It is implemented using a <a
+href="https://en.wikipedia.org/wiki/Log-structured_merge-tree" target="_blank">
+Log-Structured Merge-Tree (LSM-tree)</a> data structure.  It is simlilar to
+LSM-tree based key-value engine implementations: values are stored in tables
+that are sorted in increasing key order. Tables are sequentially written and
+never modified.  This basic principle of the LSM-tree data structure makes it
+possible to support zoned block devices.
 
-Fortunately, RocksDB provides a storage plugin architecture that allows
-different storage backends to be used. Specifically, ZenFS implements support
-for zoned block devices and is integrated into RocksDB.
+The storage plugin architecture of RocksDB makes it possible to accommodate
+different storage backends. More to the point, ZenFS implements support for
+zoned block devices and is integrated into RocksDB.
 
 *<a href="https://github.com/westerndigitalcorporation/zenfs" target="_blank">
-ZenFS</a>* is a file system plugin for *RocksDB* that utilizes *RockDB*
-FileSystem interface to place files into zones on a raw zoned block device. By
-separating files into zones and utilizing write life time hints to co-locate
-data of similar life times, *ZenFS* can greatly reduce the system write
-amplification compared to regular file systems on conventional block devices.
-*ZenFS* ensures that there is no background garbage collection in the file
-system or on the device, improving performance in terms of throughput, tail
-latencies and endurance.
+ZenFS</a>* is a file system plugin for *RocksDB* that uses the *RocksDB*
+FileSystem [sic] interface to place files into zones on a raw zoned block
+device. By separating files into zones and utilizing "write lifetime hints"
+(WLTH) to co-locate data of similar lifetimes, *ZenFS* can reduce system write
+amplification as compared to regular file systems on conventional block
+devices. *ZenFS* ensures that there is no background garbage collection in the
+file system or on the device, which improves performance in terms of
+throughput, tail latencies and endurance.
 
-*ZenFS* can store multiple files in a single zone, using an extent allocation
-scheme. A file may be composed of one or more extents and all extents of a file
-can be stored in the same zone or in different zones of the device. An extent
-never spans multiple zones. When all file extents in a zone are invalidated, the
-zone can be reset and reused to store new file extents.
+*ZenFS* can store multiple files in a single zone by using an extent allocation
+scheme. A file can be composed of one or more extents and all the extents that
+compose that file can be stored in the same zone (or in different zones) of the
+device. An extent never spans multiple zones. When all file extents in a zone
+are invalidated, the zone can be reset and then reused to store new file
+extents.
 
 ZenFS places file extents into zones based on write lifetime hints (WLTH)
-provided by RocksDB library. ZenFS always attempts to place file extents with
-similar WLTH together in the same zones.
+provided by RocksDB library. ZenFS always attempts to place file extents
+together in the same zones when they have similar WLTH.
 
-Using *ZenFS*, data garbage collection is performed only by RocksDB with the
-LSM-tree table compaction process. There is no garbage collection executed
-by ZenFS, nor by the ZNS device controller.
+In *ZenFS*, data garbage collection is performed only by RocksDB when it
+initiates the LSM-tree table compaction process. No garbage collection is
+executed by ZenFS and no garbage collection is executed by the ZNS device
+controller.
 
 :::note
 Further information is available in
@@ -54,34 +56,35 @@ USENIX ATC 2021 article.
 
 ### Prerequisites
 
-*ZenFS* requires Linux kernel version 5.9 or newer and the kernel used must
-also be configured with
+*ZenFS* requires Linux kernel version 5.9 or newer. The kernel used must
+be configured with
 [zoned block device support enabled](../linux/config).
 
-*ZenFS* utilizes the [*libzbd*](../tools/libzbd) library. The latest version
+*ZenFS* uses the [*libzbd*](../tools/libzbd) library. The latest version
 of this library must be compiled and installed prior to building and
-installing.
+installing *ZenFS*.
 
 ### Building and Installing ZenFS
 
-*ZenFS* is embedded into RocksDB, and is available as a submodule in RocksDB,
-which must be explicitly enabled when compiling RocksDB.
+*ZenFS* is embedded into RocksDB. It is available as a submodule in RocksDB
+and must be explicitly enabled when compiling RocksDB.
 
-Instructions on how to compile and install RocksDB with *ZenFS* are maintained
-in the *ZenFS* project <a href="https://github.com/westerndigitalcorporation/zenfs/blob/master/README.md" target="_blank">
-README file</a>.
+Instructions that explain how to compile and install RocksDB with *ZenFS* are
+maintained in the *ZenFS* project <a
+href="https://github.com/westerndigitalcorporation/zenfs/blob/master/README.md"
+target="_blank"> README file</a>.
 
 :::note
-Remember to set the block device IO scheduler to deadline to prevent write
-operations from being reordered. This can be automatically done on system
+Remember to set the block device IO scheduler to "deadline" to prevent write
+operations from being reordered. This can be done automatically on system
 boot using a [*udev* rule](../linux/sched).
 :::
 
 ### ZenFS Command Line
 
 *ZenFS* provides a command line utility called *zenfs*. This utility is used to
-format the zoned device to create a new filesystem, list the files, and back-up
-or restore the filesystem.
+format the zoned device to create a new filesystem, to list the files, and to
+back up and restore the filesystem.
 
 #### Create a ZenFS file system
 
@@ -97,8 +100,9 @@ ZenFS file system created. Free space: 220246 MB
 
 #### List files within a ZenFS file system
 
-Once formatted, *RocksDB* manages it files through *ZenFS*. To list the files
-present, use the following command:
+After the zoned block device has been formatted, *RocksDB* manages its files
+through *ZenFS*. To list the files present on the zoned block device, use the
+following command:
 
 ```plaintext
 zenfs list --zbd=nvme0n1 --path=rocksdbtest/dbbench
@@ -126,7 +130,7 @@ zenfs list --zbd=nvme0n1 --path=rocksdbtest/dbbench
         6178    Jul 20 2021 18:13:52            OPTIONS-000007
 ```
 
-#### Backup files within a ZenFS file system
+#### Back up files within a ZenFS file system
 
 To back up all table and metadata files within a *ZenFS* file system to a local
 filesystem, use the following command:
@@ -190,9 +194,9 @@ zenfs restore --zbd=nvme0n1 --path=/tmp/backup/rocksdbtest/dbbench/ \
 
 ### Benchmarking
 
-*RocksDB* provides the *db_bench* utility to test and benchmark performance of a
-device. The following command provides an example of *db_bench* execution using
-a zoned block device formatted with *ZenFS*.
+*RocksDB* provides the *db_bench* utility to test and benchmark the performance
+of a device. The following command provides an example of *db_bench* execution,
+using a zoned block device that has been formatted with *ZenFS*.
 
 ```plaintext
 db_bench --fs_uri=zenfs://dev:nvme0n1 --benchmarks=fillrandom \
