@@ -6,24 +6,24 @@ sidebar_label: Linux System Utilities
 
 # Linux System Utilities
 
-As defined by the project itself, *util-linux* is a random collection of
-Linux&reg; utilities. This project is hosted
-on <a href="https://github.com/karelzak/util-linux" target="_blank">GitHub</a>.
-This project generally packaged in most distributions under the name
-*util-linux* and installed by default.
+*util-linux* is, as the documentation of the *util-linux* project itself says, 
+a random collection of Linux&reg; utilities. The *util-linux* project is hosted
+<a href="https://github.com/karelzak/util-linux" target="_blank">here on GitHub</a> or <a href="https://github.com/util-linux/util-linux" target=_blank">here on Github</a>. This project is packaged in most distributions under the name
+*util-linux* and is installed by default.
 
-Among many utilities, *util-linux* provides the *lsblk* and *blkzone* command
-line tools to list zoned block devices and to obtain zone configuration. The
-*blkzone* tool also allows resetting write pointer of sequential zones.
+*util-linux* provides (among other utilities) the *lsblk* and *blkzone*
+command-line tools, which are used to list zoned block devices and to obtain
+zone configurations. The *blkzone* tool also allows the write pointer of
+sequential zones to be reset.
 
 These utilities are especially useful for shell scripting and for
-troubleshooting of zone management problems in user applications.
+troubleshooting zone management problems in user applications.
 
 ## lsblk
 
-The lsblk command lists all block devices of a system, regardless of the block
-device type, that is, also including zoned block devices. The output of *lsblk*
-is as follows.
+The lsblk command lists all the block devices of a system, regardless of the
+block device type (this means that yes, it also includes zoned block devices).
+The output of *lsblk* is as follows:
 
 ```plaintext
 # lsblk
@@ -37,8 +37,8 @@ sdc        8:32   0  12.8T  0 disk
 sdd        8:48   0  13.7T  0 disk
 ```
 
-By default, there is no indication of the zone model of the listed block
-devices. To discover this information, the option `-z` can be used.
+By default, *lsblk* provides no indication of the zone model of the listed
+block devices. To discover this information, use the option `-z`:
 
 ```plaintext
 # lsblk -z
@@ -52,9 +52,8 @@ sdc      host-managed
 sdd      host-managed
 ```
 
-The output of *lsblk* can also be formatted as needed using the `-o` option. For
-instance, the following command will display block device names, size and zone
-model.
+The output of *lsblk* can be formatted by using the `-o` option. For example,
+the following command will display block device names, size, and zone model.
 
 ```plaintext
 # lsblk -o NAME,SIZE,ZONED
@@ -70,14 +69,15 @@ sdd       13.7T host-managed
 
 ## blkzone
 
-The *blkzone* command line utility allows listing (reporting) the zones of a
-zoned block device and resetting the write pointer of sequential zones. Unlike
-the *sg_rep_zone* and *sg_reset_wp* utilities of the
-[*sg3utils*](../tools/sg3utils.md) project, *blkzone* relies on the kernel
-provided ZBD `ioctl()` interface to perform zone report and zone reset
-operations. SCSI commands are not issued directly to the device by *blkzone*.
+The *blkzone* command line utility lists (reports) the zones of a zoned block
+device and resets the write pointer of sequential zones. Unlike the
+*sg_rep_zone* and *sg_reset_wp* utilities of the
+[*sg3utils*](../tools/sg3utils.md) project, *blkzone* relies on the kernel-
+provided ZBD `ioctl()` interface to perform "zone report" and "zone reset"
+operations. *blkzone* does not issue SCSI, ATA, or NVMe commands directly to
+the device.
 
-*blkzone* command usage is as shown below.
+*blkzone* command usage is as shown below:
 
 ```plaintext
 # blkzone --help
@@ -113,13 +113,14 @@ For more details see blkzone(8).
 ```
 
 :::note
-The open, close and finish commands of *blkzone* are available with *util-linux*
-version 2.36 onward. The capacity command is available on the master branch.
+The "open", "close" and "finish" commands of *blkzone* are available in
+*util-linux* version 2.37 and later. The `capacity` command is available on the
+master branch.
 :::
 
 ### Zone Report
 
-For listing the zones of device, the following command can be used.
+Use the following command to list the zones of a device:
 
 ```plaintext
 # blkzone report /dev/sdd
@@ -144,9 +145,9 @@ For listing the zones of device, the following command can be used.
   ...
 ```
 
-To restrict the range of zones reported, the options `--offset` and `--count`
-can be used. For instance, to report only the first sequential zone of a disk
-starting at sector 274726912, the following command can be used.
+To restrict the report to a range of zones, use the options `--offset` and
+`--count`. For example, to report only the first sequential zone
+of a disk starting at sector 274726912, use the following command:
 
 ```plaintext
 # blkzone report --offset 274726912 --count 1 /dev/sdd
@@ -155,12 +156,13 @@ start: 0x010600000, len 0x080000, cap 0x080000, wptr 0x000000 reset:0 non-seq:0,
 
 ### Device capacity
 
-If zone capacity is smaller than zone size, the size listed in blockdev and
-lsblk is not indicating how much data that can be stored on on the zoned block
+If a zone's capacity is smaller than its size, the size listed in *blockdev* and
+*lsblk* does not indicate how much data can be stored on on the zoned block
 device. The storage capacity of the device is the sum of the capacity of all
 zones.
 
-For determining the storage capcity of a device in sectors, the following command can be used:
+Use the following command to determine the storage capcity of a device in
+sectors: 
 ```plaintext
 # blkzone capacity /dev/nullb1
 0x00c350000
@@ -168,35 +170,34 @@ For determining the storage capcity of a device in sectors, the following comman
 
 ### Zone Reset
 
-Sequential write zones can be reset with *blkzone* using the `reset` operation.
-For instance, to reset the first sequential zone of a disk starting at sector
-274726912, the following command can be used.
+Sequential write zones can be reset with *blkzone* by using the `reset`
+operation. For example, to reset the first sequential zone of a disk starting
+at sector 274726912, use the following command:
 
 ```plaintext
 # blkzone reset --offset 274726912 --count 1 /dev/sdd
 ```
 
-If the range of zones specified with the `reset` operation includes conventional
-zones, the command will fail.
+If the range of zones that is specified with the `reset` operation includes
+conventional zones, the command will fail:
 
 ```plaintext
 # blkzone reset /dev/sdd
 blkzone: /dev/sdh: BLKRESETZONE ioctl failed: Remote I/O error
 ```
 
-The user must exclude all conventional zones. With the disk used for the above
-example, all conventional zones are located between sector 0 and 274726912. The
-remaining of the disk is composed of sequential write zones. Therefore, the
-following command will reset write pointer in all zones.
+The user MUST exclude all conventional zones. In the example above, all
+conventional zones are located on the disk between sector 0 and 274726912.  The
+remainder of the disk is composed of sequential write zones. This means that
+the following command will reset the write pointer in all zones:
 
 ```plaintext
 # blkzone reset --offset 274726912 /dev/sdd
 ```
-
 :::note
-This command results in the kernel looping over all sequential zone of the disk
-and executing a zone reset command on each zone. This can be time consuming and
-takes a significantly longer time compared to using the
+This command results in the kernel (1) looping over all of the disk's
+sequential zones and (2) executing a "zone reset" command on each zone. This
+can be time-consuming and takes much longer than does using the
 [*sg_reset_wp*](../tools/sg3utils.md#sg_reset_wp) command with the `--all`
 option specified.
 :::
