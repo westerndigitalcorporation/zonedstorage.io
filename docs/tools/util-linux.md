@@ -7,9 +7,11 @@ sidebar_label: Linux System Utilities
 # Linux System Utilities
 
 *util-linux* is, as the documentation of the *util-linux* project itself says, 
-a random collection of Linux&reg; utilities. The *util-linux* project is hosted
-<a href="https://github.com/karelzak/util-linux" target="_blank">here on GitHub</a> or <a href="https://github.com/util-linux/util-linux" target=_blank">here on Github</a>. This project is packaged in most distributions under the name
-*util-linux* and is installed by default.
+a random collection of Linux&reg; utilities. The *util-linux* project is
+hosted <a href="https://github.com/karelzak/util-linux" target="_blank">here on GitHub</a>
+and <a href="https://github.com/util-linux/util-linux" target="_blank">here</a>.
+This project is packaged in most distributions under the name *util-linux* and
+is installed by default.
 
 *util-linux* provides (among other utilities) the *lsblk* and *blkzone*
 command-line tools, which are used to list zoned block devices and to obtain
