@@ -6,19 +6,19 @@ sidebar_label: ZNS Tools
 
 # ZNS Tools
 
-Zoned namespace support was added to the Linux kernel with version 5.9. The
-initial driver release requires the namespace implement the Zone Append command
-in order to use with the kernel's block stack.
+Zoned namespace support was added to the Linux kernel in version 5.9. The
+initial driver release requires the namespace to implement the "Zone Append"
+command in order to work with the kernel's block stack.
 
 ## nvme-cli
 
-Open source tooling for zns is provided
-by <a href="https://github.com/linux-nvme/nvme-cli" target="_blank">nvme-cli</a>
-in the current master branch starting from version 1.12 and onward. It is
-recommended to use the latest version, which is currently at version 1.13.
+Open source tooling for zns is provided by <a
+href="https://github.com/linux-nvme/nvme-cli" target="_blank">nvme-cli</a> in
+the current master branch (version 1.12 and later).  We recommend that you use
+the latest version. 
 
-The ZNS specific commands all use the *zns* command line prefix. You can view
-further available commands by checking its help:
+The ZNS-specific commands all use the *zns* command line prefix. See more *zns* 
+commands by running the *zns help* command:
 
 ```plaintext
 # nvme zns help
@@ -49,9 +49,10 @@ The following are all implemented sub-commands:
 ### Identify ZNS Controller
 
 The Zoned Namespace Command Set specification currently defines only one field
-in the command set's Identify Controller: the Zone Append Size Limit (ZASL),
-encoding the maximum command size for a Zone Append command. The example below
-returns '5', which corresponds to 128k bytes for maximum append:
+in the command set's Identify Controller: the Zone Append Size Limit (ZASL).
+The Zone Append Size Limit (ZASL) encodes the maximum command size for a Zone
+Append command. The example below returns '5', which corresponds to 128k bytes
+(the maximum size that can be appended in this example):
 
 ```plaintext
 # nvme zns id-ctrl /dev/nvme1n1
@@ -76,7 +77,7 @@ frl     : 0
 lbafe  0: zsze:0x100000 zdes:0 (in use)
 ```
 
-More detailed information can be found with the '-H' (human readable) option:
+Find more detailed information with the '-H' (human readable) option:
 
 ```plaintext
 # nvme zns id-ns /dev/nvme1n1  -H
@@ -95,8 +96,8 @@ frl     : Not Reported
 LBA Format Extension  0 : Zone Size: 0x100000 LBAs - Zone Descriptor Extension Size: 0 bytes (in use)
 ```
 
-If the output is intended to be processed by another script, a more computer
-friendly json format can be requested with the '-o json' option:
+If you want to process the output with another script, you can request a more
+computer-friendly json format by using the '-o json' option:
 
 ```plaintext
 # nvme zns id-ns /dev/nvme1n1  -o json
@@ -118,9 +119,9 @@ friendly json format can be requested with the '-o json' option:
 
 ### Reporting Zones
 
-The 'report-zones' command can get information on individual zones, including
+The 'report-zones' command provides information on individual zones, including
 their current zone state and write pointer. The following example retreives the
-first 10 zone descriptors.
+first 10 zone descriptors:
 
 ```plaintext
 # nvme zns report-zones /dev/nvme1n1 -d 10
@@ -139,16 +140,16 @@ SLBA: 0x900000   WP: 0x900000   Cap: 0x100000   State: EMPTY        Type: SEQWRI
 
 ### Resetting a Zone
 
-To reset the write pointer and return a zone to the EMPTY state, the
-'zone-reset' command can be used. The following example resets all zones with
-the '-a' option (WARNING: this effectively deletes the zone's data).
+To reset the write pointer and return a zone to the EMPTY state, use the
+'zone-reset' command. The following example resets all zones (the '-a'
+option means "all zones") (WARNING: this effectively deletes the zone's data).
 
 ```plaintext
 # nvme zns reset-zone /dev/nvme1n1 -a
 zns-reset-zone: Success, action:4 zone:0 nsid:1
 ```
 
-The 'report-zones' will now show all the zones are reset to the empty state:
+'report-zones' now shows that all the zones have been reset to the empty state:
 
 ```plaintext
 # nvme zns report-zones /dev/nvme1n1 -d 10
@@ -167,15 +168,15 @@ SLBA: 0x900000   WP: 0x900000   Cap: 0x100000   State: EMPTY        Type: SEQWRI
 
 ### Opening a Zone
 
-Explicitly opening a zone will make it ready for immediate write access and
-consumes an Open Resource. Opening the first zone:
+Explicitly opening a zone makes it ready for immediate write access and
+consumes an Open Resource. Run this command to open the first zone:
 
 ```plaintext
 # nvme zns open-zone /dev/nvme1n1
 zns-open-zone: Success, action:3 zone:0 nsid:1
 ```
 
-Verifying its current state:
+Verify its current state:
 
 ```plaintext
 # nvme zns report-zones /dev/nvme1n1 -d 2
@@ -186,15 +187,15 @@ SLBA: 0x100000   WP: 0x100000   Cap: 0x100000   State: EMPTY        Type: SEQWRI
 
 ### Closing a Zone
 
-Closing the zone releases the open resource and can be done on either
-explicitly or implicitly open zones. Closing the first zone:
+Closing the zone releases the open resource and can be done on both explicitly
+open zones and implicitly open zones. Run this command to close the first zone:
 
 ```plaintext
 # nvme zns close-zone /dev/nvme1n1
 zns-close-zone: Success, action:1 zone:0 nsid:1
 ```
 
-Verifying its current state:
+Verify its current state:
 
 ```plaintext
 # nvme zns report-zones /dev/nvme1n1 -d 2
@@ -205,14 +206,15 @@ SLBA: 0x100000   WP: 0x100000   Cap: 0x100000   State: EMPTY        Type: SEQWRI
 
 ### Finishing a Zone
 
-Finishing a zone sets its state to 'full'. Finishing the first zone:
+Finishing a zone sets its state to 'full'. Run this command to finish the first
+zone:
 
 ```plaintext
 # nvme zns finish-zone /dev/nvme1n1
 zns-finish-zone: Success, action:2 zone:0 nsid:1
 ```
 
-Verifying its current state:
+Verify its current state:
 
 ```plaintext
 # nvme zns report-zones /dev/nvme1n1 -d 2
@@ -223,16 +225,16 @@ SLBA: 0x100000   WP: 0x100000   Cap: 0x100000   State: EMPTY        Type: SEQWRI
 
 ### Offlining a Zone
 
-Offlining a zone makes the zone inaccessible. The data on the zone will no
-longer be accessible, and writes to the zone will not be possible until the
-zone is reset. Offlining the first zone:
+Offlining a zone makes the zone inaccessible. The data on the offlined zone
+will no longer be accessible, and writes to the zone will not be possible until
+the zone is reset. Run this command to offline the first zone:
 
 ```plaintext
 # nvme zns offline-zone /dev/nvme1n1
 zns-offline-zone: Success, action:5 zone:0 nsid:1
 ```
 
-Verifying its current state:
+Verify its current state:
 
 ```plaintext
 # nvme zns report-zones /dev/nvme1n1 -d 2
@@ -243,7 +245,7 @@ SLBA: 0x100000   WP: 0x100000   Cap: 0x100000   State: EMPTY        Type: SEQWRI
 
 ### Zone Append
 
-You can append data to specific zones. In this method, you only specify which zone to append data to, and the device will return the LBA where it stored the data. Here are a few examples below.
+You can append data to specific zones. In this method, you specify only which zone to append data to. The device returns the LBA where it stored the data. Below are some examples:
 
 Append "hello world" to the first zone block (512 bytes in this example):
 
@@ -252,7 +254,7 @@ Append "hello world" to the first zone block (512 bytes in this example):
 Success appended data to LBA 0
 ```
 
-Read the data back from LBA 0 to verify it saved our data:
+Read the data back from LBA 0 to verify that it saved our data:
 
 ```plaintext
 # nvme read /dev/nvme1n1 -z 512
@@ -260,7 +262,7 @@ hello world
 read: Success
 ```
 
-Now append more data and verify its contents:
+Append more data and verify its contents:
 
 ```plaintext
 # echo "goodbye world" | nvme zns zone-append /dev/nvme1n1 -z 512
@@ -271,8 +273,8 @@ goodbye world
 read: Success
 ```
 
-Since we've appended two blocks to zone 0, we can check the current report
-zones to verify the current write pointer:
+Because two blocks have been appended to zone 0, we can check the current
+"report-zones" output to verify the current write pointer: 
 
 ```plaintext
 # nvme zns report-zones /dev/nvme1n1 -d 2
