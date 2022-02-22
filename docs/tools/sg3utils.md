@@ -6,35 +6,35 @@ sidebar_label: SCSI Generic Utilities
 
 # SCSI Generic Utilities
 
-Various open source projects provide support for directly manipulating SCSI
-devices. The *lsscsi* command line tool and the *sg3_utils* library and
-utilities collection are among the most widely used and they are available as
-pre-compiled packages with most Linux&reg; distributions.
+Various open source projects provide tools that support the direct manipulation
+of SCSI devices. The *lsscsi* command line tool and the *sg3_utils* library and
+utilities collection are among the tools most widely used for SCSI device
+manipulation. They are available as pre-compiled packages with most Linux&reg;
+distributions.
 
 *lsscsi* has the capability to indicate if a device is a ZBC host managed zoned
-block device, and the *sg3_utils* collection gained ZBC support with version
-1.42.
+block device. *sg3_utils* added support for ZBC in version 1.42.
 
 ## lsscsi
 
 The <a href="http://sg.danny.cz/scsi/lsscsi.html" target="_blank">*lsscsi*</a>
-command lists information about the SCSI devices connected to a Linux system.
-*lsscsi* is generally available as a package with most Linux distributions. For
-instance, on [Fedora&reg;](../distributions/linux.md#fedora-linux) Linux,
-*lssci* can be installed using the following command.
+command lists information about the SCSI devices that are connected to a Linux
+system. *lsscsi* is available as a package in most Linux distributions. For
+example, in [Fedora&reg;](../distributions/linux.md#fedora-linux) Linux,
+*lssci* can be installed using the following command:
 
 ```plaintext
 # dnf install lsscsi
 ```
-
-The name of the package may differ between distributions. Please refer to the
-distribution documentation to find out the correct package name.
+The name of the package may differ from distribution to distribution. Refer to
+the documentation of the given distribution to discover the name of the package
+that provides *lssci*.
 
 ### Identifying Host Managed Disks
 
-Executing *lsscsi* will list the disks that are managed using the kernel SCSI
-subsystem. This always includes SATA disks directly connected to a SATA port on
-the system mainboard or to a SATA PCIe adapter.
+*lsscsi* lists the disks that are managed using the kernel SCSI subsystem. This
+always includes SATA disks that are directly connected (1) to a SATA port on
+the system mainboard or (2) to a SATA PCIe adapter.
 
 ```plaintext
 # lsscsi
@@ -44,14 +44,14 @@ the system mainboard or to a SATA PCIe adapter.
 [10:0:3:0]   zbc     ATA      HGST HSH721415AL T220  /dev/sdd
 ```
 
-The second column of the default output indicates the device type. For
-host managed disks, the type name is `zbc`. For regular disks, it is `disk`.
-Older versions of lsscsi may directly list the numerical value of the device
-type. In the case of host managed disks, the value displayed is `0x14`.
+The second column of the default output indicates the device type. For host
+managed disks, the type name is `zbc`. For regular disks, the type name is
+`disk`. Older versions of *lsscsi* may directly list the numerical value of the
+device type. In the case of host managed disks, `0x14` is displayed.
 
-Adding the option `-g` will output the SCSI Generic node file path associated
-with a device. This is useful when using [libzbc](libzbc.md) or any of the
-*sg3_utils* command line tools.
+Adding the option `-g` to the *lssci* command returns the SCSI Generic node
+file path associated with a device. This can be useful in combination with 
+[libzbc](libzbc.md) or any of the *sg3_utils* command line tools.
 
 ```plaintext
 # lsscsi -g
@@ -66,8 +66,8 @@ with a device. This is useful when using [libzbc](libzbc.md) or any of the
 
 The third column of the output is the disk vendor ID. For ATA disks, this is
 always `ATA` even for ATA disks connected to a SAS host-bus-adapter (HBA). The
-*transport* used to communicate with the disk can be more precisely discovered
-using the `-t` option.
+*transport* that is used to communicate with the disk can be more precisely
+discovered using the `-t` option.
 
 ```plaintext
 # lsscsi -t
@@ -79,27 +79,28 @@ using the `-t` option.
 
 ## sg3_utils
 
-The <a href="http://sg.danny.cz/sg/sg3_utils.html" target="_blank">*sg3_utils*</a>
-project provides a library and a collection of command line tools that directly
-send SCSI commands to a SCSI device using the kernel SCSI generic driver.
+The <a href="http://sg.danny.cz/sg/sg3_utils.html"
+target="_blank">*sg3_utils*</a> project provides a library and a collection of
+command line tools that directly send SCSI commands to SCSI devices using the
+kernel SCSI generic driver.
 
-The SCSI generic driver (*sg* driver) is generally enabled by default on most
-distributions. The following command allows checking if the *sg* driver module
-is already loaded.
+The SCSI generic driver (*sg* driver) is enabled by default on most
+distributions. Use the following command to check whether the *sg* driver
+module is loaded:
 
 ```plaintext
 # cat /proc/modules | grep sg
 ```
 
-If this command output is empty, the *sg* driver should be loaded.
+If the output of this command is empty, the *sg* driver is loaded:
 
 ```plaintext
 # modprobe sg
 ```
-
-These commands will work only if the *sg* driver was compiled as a loadable
-kernel module. In case of error, to verify if the *sg* driver was instead
-compiled as part of the kernel, the following command can be used.
+These commands work only if the *sg* driver was compiled as a loadable kernel
+module. If you experience errors (as shown below), use the command (the `cat`
+command after the error message) to verify that the *sg* driver was compiled as
+part of the kernel: 
 
 ```plaintext
 # modprobe sg
@@ -108,13 +109,13 @@ modinfo: ERROR: Module sg not found.
 # cat /lib/modules/`uname -r`/modules.builtin | grep sg
 kernel/drivers/scsi/sg.ko
 ```
+Because all disks in Linux are exposed as SCSI devices (including all ATA
+drives), these utilities can be used to manage both (1) SCSI ZBC disks and (2)
+SATA ZAC disks. For cases in which SATA disks are connected to SATA ports (e.g.
+an AHCI adapter), the kernel SCSI subsystem translates SCSI commands to ATA
+commands.
 
-Since all disks in Linux are exposed as SCSI devices, including all ATA
-drives, these utilities can be used to manage both SCSI ZBC disks and SATA ZAC
-disks. For SATA disks connected to SATA ports (e.g. an AHCI adapter), the
-kernel SCSI subsystem translates SCSI commands to ATA commands.
-
-*sg3_utils* includes three command line tools that are specific to ZBC disks.
+*sg3_utils* includes three command line tools that are specific to ZBC disks:
 
 <center>
 
@@ -127,14 +128,15 @@ kernel SCSI subsystem translates SCSI commands to ATA commands.
 </center>
 
 :::caution
-The help output of the commands below uses the term LBA. In this
-context, the term LBA refers to a 512 bytes sector size regardless of
-the logical and physical block size of the disk.
+The help output of the commands below uses the term "LBA". In this context,
+"LBA" refers to a 512-byte sector size regardless of the logical and physical
+block size of the disk.
 :::
 
 ### sg_rep_zone
 
-Executing the command with the `--help` option gives a simple usage explanation.
+Running the command `sg_rep_zone` with the `--help` option returns a simple
+usage explanation.
 
 ```plaintext
 # sg_rep_zones --help
@@ -159,7 +161,7 @@ Usage: sg_rep_zones  [--help] [--hex] [--maxlen=LEN] [--partial]
 Performs a SCSI REPORT ZONES command.
 ```
 
-Below is an example of the `sg_rep_zone` utility output.
+Below is an example of the `sg_rep_zone` utility output:
 
 ```plaintext
 # sg_rep_zone /dev/sdd
@@ -195,14 +197,13 @@ Report zones response:
 ```
 
 :::note
-The block device file path or the device SCSI Generic node file path can
-both be used to specify a disk.
+Either (1) the block device file path or (2) the device SCSI Generic node file
+path can be used to specify a disk.
 :::
 
 It is possible to start a zone report at a specific zone by using the
-`--start` option. For instance, to obtain the zone information starting at the
-first sequential zone of the disk (LBA 34340864), the following command
-can be used.
+`--start` option. For example, to obtain the zone information starting at the
+first sequential zone of the disk (LBA 34340864), use the following command:
 
 ```plaintext
 # sg_rep_zones --start=34340864 /dev/sdd
@@ -231,7 +232,8 @@ Report zones response:
 
 ### sg_reset_wp
 
-The command usage is as follows.
+Running the command `sg_reset_wp` with the `--help` option returns a simple
+usage explanation:
 
 ```plaintext
 # sg_reset_wp --help
@@ -250,21 +252,20 @@ for hex use a leading '0x' or a trailing 'h'. Either the --zone=ID
 or --all option needs to be given.
 ```
 
-Resetting all sequential write zones of the disk can be done using the `--all`
-option.
+Reset all sequential write zones on the disk by using the `--all` option:
 
 ```plaintext
 # sg_reset_wp --all /dev/sdd
 ```
 
-A single sequential zone write pointer can be reset using the `--zone` option.
+Reset a single sequential zone write pointer by using the `--zone` option:
 
 ```plaintext
 # sg_reset_wp --zone=34340864 /dev/sdd
 ```
 
 Specifying the zone ID (zone start LBA) of a conventional zone results in
-an error.
+an error:
 
 ```plaintext
 # sg_reset_wp --zone=0 /dev/sdd
@@ -276,7 +277,8 @@ and does not result in an error.
 
 ### sg_zone
 
-The command usage is as follows.
+Running the command `sg_zone` with the `--help` option returns a simple usage
+explanation:
 
 ```plaintext
 # sg_zone --help
@@ -293,17 +295,20 @@ Usage: sg_zone  [--all] [--close] [--finish] [--help] [--open]
     --zone=ID|-z ID    ID is the starting LBA of the zone
 
 *sg_zone* can perform OPEN ZONE, CLOSE ZONE or FINISH ZONE SCSI commands. ID is
-decimal by default. To enter a hexadecimal value, use a leading '0x' or
-a trailing 'h'. Either --close, --finish, or --open option needs to be given.
-There is no --reset option as it would duplicate the functionality provided
-by *sg_reset_wp* utility.
+decimal by default. To enter a hexadecimal value, use a leading '0x' or a
+trailing 'h'. One of the following options must be provided: (1) `--close`, (2)
+`--finish`, or (3) `--open`.
+
+There is no `--reset` option. Such an option would duplicate the function of
+the *sg_reset_wp* utility.
 ```
 
-The following example command sequence illustrates *sg_zone* and *sg_reset_wp*
-effects on condition of a zone as reported with *sg_rep_zone*. At first, the
-beginning sequential zone on the disk is explicitly open from empty condition.
-Then, the zone is transitioned to full condition using the zone finish command
-and, finally, reset again to return to empty condition.
+The following example shows a sequence of commands that illustrate the effects
+that the *sg_zone* and *sg_reset_wp* commands have on the condition of a zone,
+as reported with *sg_rep_zone*. At the beginning of this sequence of commands,
+the sequential zone on the disk is explicitly opened from an empty condition.
+Then the zone is transitioned to a full condition by using the "zone finish"
+command. Finally, the zone is again reset to an empty condition.
 
 ```plaintext
 # sg_rep_zones --start=34340864 /dev/sdd
