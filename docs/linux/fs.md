@@ -686,8 +686,12 @@ These unavailable features include:
 In order to use *btrfs* on zoned block devices, the following minimum system
 requirements must be met:
 - Linux kernel 5.12 (for SMR) or 5.16 (for NVMe ZNS)
-- btrfs-progs 5.12 (for SMR) or 5.15 (for NVMe ZNS)
-- util-linux 2.38
+- *btrfs-progs* 5.12 (for SMR) or 5.15 (for NVMe ZNS)
+- *util-linux* 2.38
+
+The source code for *btrfs-progs* <a href="https://github.com/kdave/btrfs-progs"
+target="_blank">is hosted on GitHub</a>. More information on *util-linux* can be
+found [here](../tools/util-linux).
 
 If a kernel supports *btrfs* on a zoned block device, it will automatically
 select the *mq_deadline* block IO scheduler by default. This ensures [write
