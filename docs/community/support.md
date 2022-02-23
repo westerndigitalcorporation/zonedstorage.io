@@ -1,10 +1,10 @@
 ---
 id: support
 title: Support
+sidebar_label: Hello from the Zoned Storage Community
 hide_title: true
 ---
 
-# Hello from the Zoned Storage Community
 
 For real-time discussions, join us on one of the below platforms:
 

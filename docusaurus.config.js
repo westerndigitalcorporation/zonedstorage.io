@@ -21,11 +21,17 @@ const config = {
      * Google analytics plugin is already included with preset-classic
      * so we do not need to add it explicitly.
      * ['@docusaurus/plugin-google-analytics'],
-     */
+    */
+
+    ['@docusaurus/plugin-google-gtag',
+      {
+        trackingID: 'G-0DX1KGD5E4',
+      }
+    ],
+
     [require.resolve('@cmfcmf/docusaurus-search-local'), {
       /** whether to index docs pages */
       indexDocs: true,
-      docsRouteBasePath: '/docs',
 
       /**
        * Whether to also index the titles of the parent categories in the
@@ -167,9 +173,6 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-      },
-      gtag: {
-        trackingID: 'G-0DX1KGD5E4',
       },
     }),
 };
