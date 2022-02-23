@@ -8,20 +8,20 @@ import Image from '/src/components/Image';
 
 # libzbc User Library
 
-*libzbc* is a user library providing functions for manipulating ZBC and ZAC 
-disks. *libzbc* command  implementation is compliant with the latest published
-versions of the ZBC and ZAC standards defined by INCITS technical committees
-T10 and T13 (respectively).
+*libzbc* is a user library that provides functions for manipulating ZBC and ZAC
+disks. The command implementation of *libzbc* is compliant with the latest
+published versions of the ZBC and ZAC standards as defined by INCITS technical
+committees T10 (for ZBC) and T13 (for ZAC).
 
-In addition to supporting ZBC and ZAC disks, *libzbc* also implements an
-emulation mode allowing the library to imitate the behavior of a host managed
-zoned disk using a regular file or a standard block device as the backing store.
+In addition to supporting ZBC and ZAC disks, *libzbc* implements an emulation
+mode that allows the library to imitate the behavior of a host managed zoned
+disk, using a regular file or a standard block device as the backing store.
 
 The *libzbc* project is hosted on <a href="https://github.com/westerndigitalcorporation/libzbc"
 target="_blank">GitHub</a>.
-The project <a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/README.md" target="_blank">
-*README* file</a> provides information on how to compile and install *libzbc*
-library and its tools.
+The project's <a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/README.md" target="_blank">
+*README* file</a> provides information on how to compile and install the
+*libzbc* library and its tools.
 
 :::note
 The *libzbc* project was formerly hosted on GitHub as part of
@@ -31,35 +31,35 @@ the <a href="https://github.com/westerndigitalcorporation/"
 target="_blank">Western Digital Corporation organization on GitHub</a>.
 :::
 
-*libzbc* also provides a test suite allowing to test the conformance of disks
-and HBAs to the ZBC and ZAC standards. In order to make the test suite available,
-*libzbc* needs to be configured using *--with-test* option prior to building and
-installing the library. The usage of this test suite is described in more
-details [here](../tests/zbc-tests.md).
+*libzbc* provides a test suite that makes it possible to test disks and HBAs
+for conformity to the ZBC and ZAC standards.  In order to make the test suite
+available, *libzbc* must be configured using the *--with-test* option prior to
+building and installing the library. The usage of this test suite is described
+in more detail [here](../tests/zbc-tests.md).
 
 ## Overview
 
 *libzbc* provides a unified application programming interface (API) that is
-independent of the zone model and interface of the disk being used. Internally,
-four different types of device drivers are used to handle device interface
-dependent commands.
+independent of the zone model and the interface of the disk being used.
+Internally, four different types of device drivers are used to handle commands
+that are dependent on the device interface:
 
-* **ZAC ATA Driver** This driver is used to handle direct delivery of ATA
+* **ZAC ATA Driver** This driver is used to handle the direct delivery of ATA
   commands to ZAC disks through the SCSI generic driver (direct device
   access interface).
 * **ZBC SCSI Driver** This driver primarily handles SCSI commands directed at
   ZBC SCSI disks, but can also be used to control ZAC ATA disks if a functional
-  SCSI to ATA (SAT) command translation layer is functional in the command path.
+  SCSI to ATA (SAT) command translation layer exists in the command path.
   SAT may be provided either by the kernel *libata* subsystem for ATA disks
-  connected to SATA adapters or by a SAS host bus adapter (HBA) for SATA disks
-  connected to such adapter.
+  connected to SATA adapters or by an SAS host bus adapter (HBA) for SATA disks
+  connected to such an adapter.
 * **Zoned Block Device Driver** This driver uses the kernel ZBD interface to
-  control both ZBC and ZAC disks. This driver is only available if the kernel
+  control both ZBC and ZAC disks. This driver is only available if kernel
   zoned block device support is present and enabled.
-* **File Emulation Driver** This driver implements emulation of a host managed
-  ZBC disk using a regular file or regular block device as backend storage. This
-  driver is intended for development only. A more advanced ZBC disk emulation
-  solution is provided by the [*tcmu-runner*](tcmu-runner.md) project.
+* **File Emulation Driver** This driver emulates a host managed ZBC disk using 
+  a regular file or regular block device as backend storage. This driver is 
+  intended for development only. A more advanced ZBC disk emulation solution 
+  is provided by the [*tcmu-runner*](tcmu-runner.md) project.
 
 The figure below shows this structure.
 
@@ -68,29 +68,30 @@ title="libzbc internal backend drivers organization"/>
 
 *libzbc* provides functions for discovering the zone configuration of a zoned
 device and for accessing the device. Accesses to the device may result in
-changes to the condition, attributes or state of device zones (such as write
-pointer location in sequential zones). These changes are not internally tracked
-by *libzbc*.  That is, *libzbc* is stateless.
+changes to the condition of the device zone, the attributes of the device zone,
+and the state of device zone (such as the write pointer's location in
+sequential zones). These changes are not tracked internally by *libzbc*. That
+is, *libzbc* is stateless.
 
-The functions provided to obtain the device zone information only make a
-"snapshot" of the zone condition and state when executed. It is the
+The functions that are provided to obtain the device zone information make a
+"snapshot" of the zone condition and state only when executed. It is the
 responsibility of applications to implement tracking of the device zone changes
-such as the increasing write pointer position of a sequential zone after the
-completion of write requests to the zone.
+(such as the increasing write pointer position of a sequential zone after the
+completion of write requests to the zone).
 
 ## Library Functions
 
-All *libzbc* functions, since version  5.0.0, use a 512 bytes sector unit for
-reporting zone information and as the sector addressing unit for device
-accesses regardless of the actual device logical block size. This unification
-in the unit used by all functions can simplify application development by hiding
-potential differences in logical block sizes between devices. However,
-application programmers must be careful to always implement accesses (read or
-write) to the device aligned to the device logical block size.  Furthermore, on
-host managed zoned devices, write operations to sequential zones must be aligned
-to the device physical block size.
+All *libzbc* functions since version 5.0.0 use a 512-byte sector unit for (1)
+reporting zone information and (2) as the sector addressing unit for device
+accesses, regardless of the actual device logical block size. This unification
+in the unit used by all functions can simplify application development by
+hiding potential differences in logical block sizes between devices. However,
+application programmers must be careful always to implement accesses (read or
+write) to the device that are aligned to the device's logical block size.
+Furthermore, on host managed zoned devices, write operations to sequential
+zones must be aligned to the device's physical block size.
 
-The main functions provided by *libzbc* are as follows.
+The main functions provided by *libzbc* are as follows:
 
 <center>
 
@@ -113,20 +114,21 @@ The main functions provided by *libzbc* are as follows.
 
 </center>
 
-More detailed information about these functions usage and behavior can be found
-in the comments of <a href="https://github.com/westerndigitalcorporation/libzbc/blob/master/include/libzbc/zbc.h"
-target="_blank">*libzbc* header file</a>. This header file is by default
-installed as `/usr/include/libzbc/zbc.h`.
+More detailed information about the  usage and behavior of these functions can
+be found in the comments of <a
+href="https://github.com/westerndigitalcorporation/libzbc/blob/master/include/libzbc/zbc.h"
+target="_blank">*libzbc* header file</a>. This header file is installed by
+default as `/usr/include/libzbc/zbc.h`.
 
 *libzbc* does not implement any mutual exclusion mechanism for multi-thread or
-multi-process applications. This implies that it is the responsibility of
-application to synchronize the execution of conflicting operations targeting
-the same zone. A typical example of such case is concurrent write operations to
-the same zone by multiple threads which may result in write errors without
-write ordering control by the application.
+multi-process applications. This means that it is the responsibility of
+applications to synchronize the execution of conflicting operations that target
+the same zone. A typical example of such a case is "concurrent write operations
+to the same zone by multiple threads", which can result in write errors if the 
+application does not have write ordering control. 
 
 The following functions are also provided by *libzbc* to facilitate application
-development and tests.
+development and tests:
 
 <center>
 
@@ -145,18 +147,18 @@ development and tests.
 
 </center>
 
-All functions will behave in the same manner regardless of the type of disk
-being used. The only exception to this principle is the `zbc_errno()` function
-inability to report detailed error information when the zoned block device
-driver is used. The reason for this is that the kernel I/O stack does not have
-the ability to propagate up to the application the detailed information provided
-in command sense data with failed commands.
+All functions behave in the same manner regardless of the type of disk that is
+used. The only exception to this is the `zbc_errno()` function's inability to
+report detailed error information when the zoned block device driver is used.
+The reason for this is that the kernel I/O stack does not have the ability to
+propagate up to the application the detailed information that is provided in
+SCSI/ATI sense data for failed commands.
 
 ## Utilities
 
-*libzbc* also provides several command line applications to manipulate zoned disks
-by calling the library functions. The list of applications provided is shown in the
-table below.
+*libzbc* provides several command line applications for manipulating zoned
+disks by calling the library functions. The list of applications provided is
+shown in the table below:
 
 <center>
 
@@ -174,7 +176,7 @@ table below.
 
 </center>
 
-The following tools are also provided to create and modify the regular file or
+The following tools are provided to create and modify the regular file or
 regular block device used as backend storage with *libzbc* emulation mode.
 
 <center>
@@ -186,7 +188,7 @@ regular block device used as backend storage with *libzbc* emulation mode.
 
 </center>
 
-All utilities output a help message when executed without any argument.
+All utilities output a help message when executed without any argument:
 
 ```plaintext
 # zbc_report_zones
@@ -206,9 +208,9 @@ Options:
                     Default is "all"
 ```
 
-### Getting a Disk Information
+### Getting Disk Information
 
-*zbc_info* displays information about a disk, including regular block devices.
+*zbc_info* displays information about a disk, including regular block devices:
 
 ```plaintext
 # zbc_info /dev/sg3
@@ -227,8 +229,8 @@ Device /dev/sg3:
 
 ### Zone Information
 
-*zbc_report_zones* illustrates the use of *libzbc* zone reporting functions
-zbc_report_zones(),  zbc_report_nr_zones() and zbc_list_zones().
+*zbc_report_zones* illustrates the use of the *libzbc* zone reporting functions
+`zbc_report_zones()`, `zbc_report_nr_zones()` and `zbc_list_zones()`.
 
 ```plaintext
 # zbc_report_zones /dev/sg3
@@ -258,9 +260,10 @@ Zone 55878: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 Zone 55879: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 29296689152, 524288 sectors, wp 29296689152
 ```
 
-The output of *zbc_report_zones* can also be limited using the option `-ro`
-(reporting options) for filtering the zones reported, or the option `-n` to
-limit the output to the number of zones that would be reported.
+The output of *zbc_report_zones* can be limited by using the option `-ro`
+(reporting options) to filter which zones are reported, or by using the option
+`-n` to limit the output to the number of zones specified as an argument of
+this option.
 
 ```plaintext
 # zbc_report_zones -ro not_wp -n /dev/sg3
@@ -278,11 +281,11 @@ Device /dev/sg3:
 
 ### Writing and Resetting Zones
 
-*zbc_write_zone* sequentially writes data to a zone. If the zone is a sequential
-zone, the write pointer position advances until the zone is full. By default,
-*zbc_write_zone* will write the entire zone. For instance, using the disk used
-in the previous example, the first sequential write zone (zone number 524) can
-be written with 512 KB writes until full with the following command.
+*zbc_write_zone* sequentially writes data to a zone. If the zone is a
+sequential zone, the write pointer position advances until the zone is full. By
+default, *zbc_write_zone* writes the entire zone. For example, using the disk
+used in the previous example, the first sequential write zone (zone number 524)
+can be written with 512 kb writes with the following command, until it is full:
 
 ```plaintext
 # zbc_write_zone /dev/sg3 524 524288
@@ -316,7 +319,7 @@ Device /dev/sg3:
 Zone 00000: type 0x2 (Sequential-write-required), {==cond 0xe (Full)==}, reset recommended 0, non_seq 0, sector 274726912, 524288 sectors, wp 2251799813685240
 ```
 
-The written zone can then be reset using *zbc_reset_zone*.
+The written zone can then be reset by using the command *zbc_reset_zone*:
 
 ```plaintext
 # zbc_reset_zone /dev/sg3 524
@@ -346,7 +349,8 @@ Device /dev/sg7:
 Zone 00000: type 0x2 (Sequential-write-required), {==cond 0x1 (Empty)==}, reset recommended 0, non_seq 0, sector 274726912, 524288 sectors, wp 274726912
 ```
 
-All sequential write zones of a device can be reset using the option `-all`.
+All the sequential write zones of a device can be reset using the option
+`-all`:
 
 ```plaintext
 # zbc_reset_zone -all /dev/sg7
@@ -364,23 +368,22 @@ Operating on all zones...
 
 ### Graphical Interface
 
-*gzbc* provides a graphical user interface showing the zone configuration and
-state of a zoned  device. *gzbc* also  displays  the  write status (write
-pointer position) of zones graphically using color coding (red for written
-sectors and green for unwritten sectors). Some operations on zones can also be
-executed directly from the interface (reset zone write pointer, open zone,
-close zone, etc).
+*gzbc* provides a graphical user interface that shows the zone configuration
+and state of a zoned  device. *gzbc* displays the write status (write pointer
+position) of zones by using color coding (red for written sectors and green for
+unwritten sectors). Some operations on zones can be executed directly from the
+interface ("reset zone write pointer", "open zone", "close zone", etc).
 
 <Image src="tools-libzbc-gzbc.png" title="gzbc screeshot"/>
 
 ## Emulation Mode
 
 *libzbc* emulation mode requires a regular file or a regular block device as
-backend storage. The size of the file or the capacity of the block device used
-will be used as the emulated device capacity.
+backend storage. The size of the file or the capacity of the block device is
+used as the emulated device's capacity.
 
 For example, the following commands will create a 10GB file name `zbc-disk`
-that can be used for an emulated disk.
+that can be used as an emulated disk:
 
 ```plaintext
 # touch zbc-disk
@@ -388,8 +391,7 @@ that can be used for an emulated disk.
 # ls -l zbc-disk
 -rw-r--r-- 1 root root 10737418240 May 22 16:48 zbc-disk
 ```
-
-This file can now be initialized to be used with *libzbc* emulation mode.
+This file can now be initialized for use with *libzbc* emulation mode:
 
 ```plaintext
 # zbc_set_zones zbc-disk set_ps 10 256
@@ -408,9 +410,8 @@ Setting zones:
     Conventional zones: 1024 MiB (2097152 sectors), 10.00 % of total capacity), 4 zones
     Sequential zones: 36 zones
 ```
-
-The file can now be used with *libzbc* library functions and tools similarly to
-any physical zoned block device.
+The file can now be used with *libzbc* library functions and tools as though it
+is a physical zoned block device:
 
 ```plaintext
 # zbc_report_zones zbc-disk
