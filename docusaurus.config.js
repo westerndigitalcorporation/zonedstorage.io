@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Zoned Storage',
-  tagline: 'Zoned Storage is a class of storage devices that enables host and storage devices to cooperate to achieve higher storage capacities, increased throughput, and lower latencies. The zoned storage interface is available through the SCSI Zoned Block Commands (ZBC) and Zoned Device ATA Command Set (ZAC) standards for Shingled Magnetic Recording (SMR) hard disks and with the NVMe Zoned Namespaces (ZNS) standard for NVMe Solid State Disks.',
+  tagline: 'Zoned Storage is an open source, standards-based initiative to enable data centers to scale efficiently for the zettabyte storage capacity era. There are two technologies behind Zoned Storage, Shingled Magnetic Recording (SMR) in ATA/SCSI HDDs and Zoned Namespaces (ZNS) in NVMe SSDs.'
   organizationName: 'westerndigitalcorporation',
   projectName: 'zonedstorage.io',
   url: 'https://zonedstorage.io',
