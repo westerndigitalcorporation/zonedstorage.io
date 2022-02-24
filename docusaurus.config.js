@@ -12,6 +12,7 @@ const config = {
   projectName: 'zonedstorage.io',
   url: 'https://zonedstorage.io',
   baseUrl: '/',
+  trailingSlash: false,
   favicon: 'img/zs-logo.ico',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
