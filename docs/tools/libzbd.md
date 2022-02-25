@@ -9,52 +9,57 @@ import Video from '/src/components/Video';
 
 # libzbd User Library
 
-*libzbd* is a user library providing functions for manipulating zoned block
+*libzbd* is a user library that provides functions for manipulating zoned block
 devices.
 
 Unlike the [*libzbc*](./libzbc) library, *libzbd* does not implement direct
-command access to zoned block devices. Rather, *libzbd* uses the kernel provided
-zoned block device interface based on the *ioctl()* system call. A direct
-consequence of this is that *libzbd* will only allow access to zoned block
-devices supported by the kernel running. This includes both physical devices
-such as hard-disks supporting the ZBC and ZAC standards, as well as all logical
-block devices implemented by various device drivers such as
-[*null_blk*](../getting-started/nullblk) and [device mapper](../linux/dm)
-drivers.
+command access to zoned block devices. *libzbd* instead uses the
+kernel-provided zoned block device interface that is based on the *ioctl()*
+system call. A direct consequence of this is that *libzbd* allows access only
+to zoned block devices that are supported by the running kernel. This includes
+both physical devices (such as hard-disks that support the ZBC and ZAC
+standards) and all logical block devices that are implemented by various device
+drivers (such as [*null_blk*](../getting-started/nullblk) and [device
+mapper](../linux/dm) drivers).
 
 The *libzbd* project is hosted on <a href="https://github.com/westerndigitalcorporation/libzbd"
 target="_blank">GitHub</a>.
 The project <a href="https://github.com/westerndigitalcorporation/libzbd/blob/master/README.md"
 target="_blank">*README* file</a> provides information on how to compile and 
-install *libzbd* library and its tools.
+install the *libzbd* library and its tools.
 
 ## Overview
 
-*libzbd* provides functions for discovering and managing the state of zones of
-zoned block devices. Read and write accesses to the devices can be done using
-standard standard I/O system calls.
+*libzbd* provides functions for discovering and managing the state of the zones
+in zoned block devices. Read and write accesses to the devices can be made
+using standard I/O system calls.
 
-The execution of *libzbd* functions as well as of write operations to zones of a
-device may result in changes to the condition or attributes of the device zones
-(such as write pointer location in sequential zones). These changes are not
-internally tracked by *libzbd*. In other words, *libzbd* is stateless. It is the
-responsibility of applications to implement tracking of the changes to zones
-conditions such as the increasing write pointer position of a sequential zone
-after the completion of a write request to the zone.
+When *libzbd* functions (and write operations) are performed on the zones of a
+zoned block device, the execution of those functions and operations can result
+in changes to the condition of the device zones and changes to the attributes
+of the device zones. An example of this is the location of the write pointer in
+sequential zones. These changes are not tracked internally by *libzbd*.
+
+In other words, *libzbd* is stateless.
+
+It is the responsibility of applications to track changes to the condition of
+zones. Such changes include the increased write pointer position within a
+sequential zone after a write request to the zone has completed. 
 
 ## Library Functions
 
-All *libzbd* functions use bytes unit for zones information such as the zone
-start position on the device, a zone size or the zone write pointer location.
-Zoned block devices are identified using regular file descriptor numbers that
-can be used as is with standard I/O system calls.
+All *libzbd* functions use byte units to measure zone-related information. This
+zone-related information includes the zone's start position on the device, the 
+zone's size, and the zone write pointer location. Zoned block devices are
+identified using regular file descriptor numbers, which can be used "as is"
+with standard I/O system calls.
 
-However, application programmers must be careful to always implement read
-accesses aligned to the device logical block size. Furthermore, on host managed
-zoned block devices, write operations to sequential zones must be aligned
-to the device physical block size.
+However, application programmers must be careful always to implement read
+accesses so that they are aligned to the device logical block size.
+Furthermore, on host managed zoned block devices, write operations to
+sequential zones must be aligned to the device's physical block size.
 
-The main functions provided by *libzbd* are as follows.
+The main functions provided by *libzbd* are as follows:
 
 <center>
 
@@ -74,20 +79,21 @@ The main functions provided by *libzbd* are as follows.
 
 </center>
 
-More detailed information about these functions usage and behavior can be found
-in the comments of <a href="https://github.com/westerndigitalcorporation/libzbd/blob/master/include/libzbd/zbd.h"
-target="_blank">*libzbd* header file</a>. This header file is by default
-installed as `/usr/include/libzbd/zbd.h`.
+More detailed information about these functions' usage and behavior can be
+found in the comments of <a
+href="https://github.com/westerndigitalcorporation/libzbd/blob/master/include/libzbd/zbd.h"
+target="_blank">*libzbd* header file</a>. This header file is installed by
+default as `/usr/include/libzbd/zbd.h`.
 
 *libzbd* does not implement any mutual exclusion mechanism for multi-thread or
-multi-process applications. This implies that it is the responsibility of
-applications to synchronize the execution of conflicting operations targeting
-the same zone. A typical example of such case is concurrent write operations to
-the same zone by multiple threads which may result in write errors without
-write ordering control by the application.
+multi-process applications. This means that it is the responsibility of
+applications to synchronize the execution of conflicting operations that target
+the same zone. A typical example of such a case is when multiple threads
+execute concurrent write operations to the same zone, which can result in write
+errors when the application does not have write ordering control.
 
-The following functions are also provided by *libzbd* to facilitate application
-development and tests.
+The following functions are provided by *libzbd* to facilitate application
+development and tests:
 
 <center>
 
@@ -101,14 +107,14 @@ development and tests.
 
 </center>
 
-All functions will behave in the same manner regardless of the type of disk
+All functions behave in the same manner regardless of the type of disk
 being used.
 
 ## Utilities
 
-*libzbd* also provides several command line applications to manipulate zoned
+*libzbd* provides several command-line applications for manipulating zoned
 block devices by calling the library functions. The list of applications
-provided is shown in the table below.
+provided by *libzbd* is shown in the table below:
 
 <center>
 
@@ -120,7 +126,8 @@ provided is shown in the table below.
 
 </center>
 
-All utilities output a help message when executed without any argument.
+Each of these utilities outputs a help message when executed without any
+argument:
 
 ```plaintext
 # zbd
@@ -157,7 +164,7 @@ Report command options:
 		  * "rw": reset-wp recommended zones
 ```
 
-Manual pages are also provided for each tool.
+Manual pages are also provided for each tool:
 
 ```plaintext
 # man zbd
@@ -195,18 +202,18 @@ COMMANDS
 ### *zbd* Tool Examples 
 
 The following examples use a null zoned block device with 4 conventional zones
-and 12 sequential zones of 32 MB created using the
+and 12 sequential zones of 32 MB that have been created using the
 [*nullblk-zoned.sh*](../getting-started/nullblk#creating-a-zoned-null-block-device)
-script.
+script:
 
 ```plaintext
 # nullblk-zoned.sh 4096 32 4 12
 ### Created /dev/nullb0
 ```
 
-The following command can be used to list the zone information for all zones of
-a device, including the device information such as logical block size and
-capacity.
+The following command can be used to list the zone information for all the
+zones of a device. This includes the device information such as logical block size
+and capacity.
 
 ```plaintext
 # zbd report -i /dev/nullb0
@@ -237,8 +244,8 @@ Zone 00014: swr, ofst 00000469762048, len 00000033554432, cap 00000033554432, wp
 Zone 00015: swr, ofst 00000503316480, len 00000033554432, cap 00000033554432, wp 00000503316480, em, non_seq 0, reset 0
 ```
 
-The same zone information can also be obtained in csv format to facilitate
-parsing using scripting languages, including shell scripts.
+The same zone information can also be obtained in csv format so that it can
+more easily be parsed by scripting languages (including shell scripts).
 
 ```plaintext
 # zbd report -csv /dev/nullb0
@@ -263,9 +270,9 @@ zone num, type, ofst, len, cap, wp, cond, non_seq, reset
 
 ### Zone Operations
 
-The *zbd* tool also allow executing zone management operations over a range of
-zones. The following example explicitely opens the first 2 sequential zones of
-the *null_blk* device.
+The *zbd* tool makes it possible to execute zone management operations over a
+range of zones. The following example explicitly opens the first 2 sequential
+zones of the *null_blk* device:
 
 ```plaintext
 # zbd open -ofst 134217728 -len 67108864 /dev/nullb0 
@@ -288,7 +295,7 @@ Zone 00014: swr, ofst 00000469762048, len 00000033554432, cap 00000033554432, wp
 Zone 00015: swr, ofst 00000503316480, len 00000033554432, cap 00000033554432, wp 00000503316480, em, non_seq 0, reset 0
 ```
 
-Writing 32MB to the first zone using dd will transition the zone to full state.
+Writing 32MB to the first zone by using `dd` transitions the zone to the "full" state:
 
 ```plaintext
 # dd if=/dev/zero of=/dev/nullb0 oflag=direct bs=1M count=32 seek=128
@@ -314,29 +321,29 @@ Zone 00014: swr, ofst 00000469762048, len 00000033554432, cap 00000033554432, wp
 Zone 00015: swr, ofst 00000503316480, len 00000033554432, cap 00000033554432, wp 00000503316480, em, non_seq 0, reset 0
 ```
 
-Other possible zone operations are *close*, *reset* and *finish*.
+Other possible zone operations are *close*, *reset*, and *finish*.
 
 ### Graphical Interface
 
-*gzbd* provides a graphical user interface showing the zone configuration and
-state of a zoned block device. *gzbd* also  displays  the  write status (write
-pointer position) of zones graphically using color coding (red for written
-sectors and green for unwritten sectors). Operations on zones can also be
-executed directly from the interface (reset zone write pointer, open zone,
-close zone, etc).
+*gzbd* provides a graphical user interface that shows the zone configuration
+and the state of a zoned block device. *gzbd* also displays the write status
+(the write pointer position) of zones graphically by using color coding: red
+for written sectors and green for unwritten sectors. Operations on zones can be
+executed directly from the interface (examples of such operations include
+"reset zone write pointer", "open zone", and "close zone").
 
 <Image src="tools-libzbd-gzbd.png" title="gzbd screenshot"/>
 
-The *gzbd-viewer* graphical interface is a simpler tool than *gzbd* that only
-allows displaying the current zone condition and state of a zoned block device.
-The zone state is refreshed by defaul twice per second. This period can be
-adjusted using a command line option.
+The *gzbd-viewer* graphical interface is a tool that is simpler than *gzbd*.
+It displays only the current zone condition and the state of a zoned block
+device. The zone state is refreshed by default twice per second. This period
+can be adjusted by using a command line option.
 
 <Image src="tools-libzbd-gzbd-viewer.png" title="gzbd-viewer screenshot"/>
 
-Using *gzbd* enables simple visual cues as to how an application is performaing
-and using the zones of a zoned block device. The following example illustrates
-this.
+*gzbd* provides simple visual cues to show a given application's performance
+and usage of the zones of a zoned block device. The following example
+illustrates this:
 
 <Video src="tools-libzbd-gzbd-viewer-example.mp4"
 title="Application execution observed with gzbd-viewer"/>
