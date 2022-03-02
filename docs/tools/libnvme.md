@@ -6,27 +6,27 @@ sidebar_label: libnvme User Library
 
 # libnvme User Library
 
-*libnvme* is an open source user library providing defintions and functions for
-interacting with nvme devices. While nvme-cli provides convenient ways for a
-user to interact with nvme devices from the shell, libnvme provides similiar
-access for other programs.
+*libnvme* is an open source user library that provides definitions and functions
+for interacting with nvme devices. `nvme-cli` provides convenient ways for a
+user to interact with nvme devices from the shell, and libnvme provides
+similiar access for other programs.
 
 ## Overview
 
-*libnvme* provides functions for discoverying and managing all nvme devices in
-a linux environment. When the NVMe ZNS specification was ratified, libnvme
-incorporated defintions for all the types and commands that specification
-provides.
+*libnvme* provides functions for discovering and managing all nvme devices in a
+Linux environment. When the NVMe ZNS specification was ratified, libnvme
+incorporated definitions for all the types and commands that the NVMe ZNS
+specification provides.
 
-The library can be used to construct nvme passthrough commands and dispatch
+The library can be used to construct nvme passthrough commands and to dispatch
 these through the Linux nvme driver. For commands that return data, the library
 provides structures and enumerations to help decode the payloads.
 
 ## Library Functions
 
 All of the ZNS functions provided by *libnvme* are prefixed with the
-"nvme_zns_" name.  The following are the admin commands defined from the ZNS
-specifcation.
+`nvme_zns_` name.  The following are the admin commands defined from the ZNS
+specifcation:
 
 <center>
 
@@ -51,7 +51,8 @@ provides the following APIs to send them:
 
 </center>
 
-The types of actions that the nvme_zns_mgmt_send() can be done are defined as follows:
+Here is a list of the types of actions that the `nvme_zns_mgmt_send()` function
+can perform: 
 
 <center>
 
@@ -84,5 +85,5 @@ provided by *libnvme* from the ZNS specification:
 
 ## Additional Documentation
 
-*libnvme* provides more detailed documentation in html and man pages for all
-functions and types.
+*libnvme* provides more detailed documentation for all functions and types in
+html and man pages.
