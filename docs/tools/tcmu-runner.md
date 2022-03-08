@@ -9,8 +9,9 @@ import Image from '/src/components/Image';
 # tcmu-runner ZBC Disk Emulation
 
 *tcmu-runner* is an application daemon that can handle the execution of SCSI
-commands sent by the kernel SCSI target sub component, allowing exporting SCSI
-Logical Units (LUNs) to be backed by regular files or block devices.
+commands that are sent by the kernel SCSI target sub component. It makes it
+possible for exported SCSI Logical Units (LUNs) to be backed by regular files
+or block devices.
 
 ## Overview
 
@@ -19,29 +20,28 @@ Linux&reg; kernel. LIO supports all prevalent storage fabrics, including Fibre
 Channel, FCoE, iEEE 1394, iSCSI, NVMe-OF, iSER, SRP, etc.
 
 The Target Core Module Userspace (TCMU) implements a fabric that creates a link
-between the kernel SCSI target infrastructure and a user space application.
-The kernel level module involved is `target_core_user` and can be viewed as a
-virtual HBA.
+between the kernel SCSI target infrastructure and a userspace application.
+The kernel-level module that is involved is called `target_core_user` and can
+be viewed as a virtual HBA.
 
-*tcmu-runner* implements the userspace level side of the ank processing,
-handling the details of the TCMU interface (UIO, netlink, pthreads, and DBus).
-*tcmu-runner* exports a more simple C plugin API allowing the creation of
-*file handlers* to emulate various device types. This organization is shown
-in the figure below.
+*tcmu-runner* implements the userspace-level side of SCSI processing and
+handles the details of the TCMU interface (UIO, netlink, pthreads, and DBus).
+*tcmu-runner* exports a simpler C-plugin API that allows *file handlers* to be
+created to emulate various device types. This is shown in the figure below.
 
 <Image src="tools-tcmu.png" title="tcmu-runner overview"/>
 
-The *ZBC file handler* implements a SCSI ZBC host aware or host managed disk
-emulation using TCMU C plugin API. This handler uses a regular file as the
-backend storage for the emulated device.
+The *ZBC file handler* implements the emulation of a SCSI ZBC host-aware or
+host-managed disk by using the TCMU C plugin API. This handler uses a regular
+file as the backend storage for the emulated device.
 
-With this infrastructure setup, any command issued by an application or by a
-kernel component (e.g. a file system) will be sent to the *tcmu-runner* daemon
-through the TCMU kernel driver. The file handler can process the command in user
-space using regular POSIX system calls and a reply sent back on completion of
-the command processing. From the point of view of the application or kernel
-component using the emulated disk, all accesses appear as executing on actual
-hardware.
+This infrastructure setup ensures that any command that is issued by an
+application or by a kernel component (e.g. a file system) is sent to the
+*tcmu-runner* daemon through the TCMU kernel driver. The file handler processes
+the command in user space by using regular POSIX system calls and a reply is
+sent back upon completion of processing of the command. From the point of view
+of the application or kernel component that uses the emulated disk, all
+accesses appear as though they have been executed on actual hardware.
 
 ## Compilation and Installation
 
@@ -50,10 +50,10 @@ target="_blank">GitHub</a>.  The project <a href="https://github.com/open-iscsi/
 target="_blank">*README*</a> file provides detailed information on how to
 compile, install and execute *tcmu-runner* daemon.
 
-The control of *tcmu-runner* emulated devices is achieved using the *targetcli*
-utility available as a package with most distributions. For instance, on
+The *targetcli* utility, which is available as a package in most distributions,
+controls devices that are emulated with *tcmu-runner*. For example, on
 [Fedora&reg;](../distributions/linux.md#fedora-linux) Linux, *tcmu-runner* and
-*targetcli* can be installed using the following commands.
+*targetcli* can be installed using the following commands:
 
 ```plaintext
 # dnf install tcmu-runner
@@ -62,17 +62,17 @@ utility available as a package with most distributions. For instance, on
 
 ## Kernel Components
 
-*tcmu-runner* relies on the loopback virtual SAS adapter kernel module to expose
-the emulated device as a regular disk to the kernel SCSI stack. Enabling this
-kernel module first requires that support for the *Generic Target Core Mod (TCM)
-and ConfigFS Infrastructure* be enabled from the top-level *Device Drivers*
-menu.
+*tcmu-runner* relies on the "loopback virtual SAS adapter kernel module" to
+expose the emulated device to the kernel SCSI stack as a regular disk. To
+enable this kernel module, you must first enable support for the *Generic
+Target Core Mod (TCM) and ConfigFS Infrastructure* from the top-level *Device
+Drivers* menu.
 
 <Image src="linux-config-tcm1.png"
 title="Target Core Module support option with make menuconfig"/>
 
-With  this infrastructure enabled, the configuration option *CONFIG_TCM_USER2*
-and *CONFIG_LOOPBACK_TARGET* can be enabled.
+Only after this infrastructure is enabled can the configuration options
+*CONFIG_TCM_USER2* and *CONFIG_LOOPBACK_TARGET* be enabled.
 
 <Image src="linux-config-tcm2.png"
 title="TCM user and loopback adapter support option with make menuconfig"/>
@@ -80,12 +80,12 @@ title="TCM user and loopback adapter support option with make menuconfig"/>
 ## ZBC File Handler
 
 *tcmu-runner* ZBC file handler is compiled and installed by default. This
-handler allows the creation of emulated ZBC disks with a regular file used as
-backing storage.
+handler makes it possible to create emulated ZBC disks that use a regular file
+as backing storage.
 
-The ZBC file handler supports the emulation of both host aware and host managed
-SCSI disks. Furthermore, the characteristics of the emulated device can all be
-configured. The following table shows the configuration parameters available.
+The ZBC file handler supports the emulation of both host-aware and host-managed
+SCSI disks. All the characteristics of the emulated device can be configured.
+The following table shows the available configuration parameters:
 
 | Option | Description | Default value |
 | --- | --- | --- |
@@ -96,10 +96,9 @@ configured. The following table shows the configuration parameters available.
 | open-**_num_** | Optimal (for host aware) or maximum (for host managed) number of open zones | 128
 
 These parameters are always grouped together into a configuration string with
-the format `/[opt1[/opt2][...]@]path_to_backing_file`. For instance, to specify
+the format `/[opt1[/opt2][...]@]path_to_backing_file`. For example, to specify
 a host managed disk with 128MB zone size, 100 conventional zones and the file
-`/var/local/zbc0.raw` as backing storage, the following configuration string can
-be used.
+`/var/local/zbc0.raw` as backing storage, use the following configuration string:
 
 ```plaintext
 cfgstring=model-HM/zsize-128/conv-100@/var/local/zbc.raw
@@ -107,11 +106,11 @@ cfgstring=model-HM/zsize-128/conv-100@/var/local/zbc.raw
 
 ## Creating an Emulated disk
 
-The following example shows how to create a small 20 GB host managed ZBC disk
-with 10 conventional zones and a 256 MiB zone size, with the file
-`/var/local/zbc0.raw` used as backing storage. The emulated disk will be locally
-emulated using the loopback interface. This require that *tcmu-runner* be
-executed on the system.
+The following example shows the creation of a small 20 GB host-managed ZBC disk
+with 10 conventional zones and a zone size of 256 MiB, with the file
+`/var/local/zbc0.raw` used as backing storage. The emulated disk is emulated
+locally using the loopback interface. This requires that *tcmu-runner* is 
+running on the system.
 
 With *tcmu-runner* running, the *targetcli* command is used to create the
 emulated disk.
@@ -154,13 +153,14 @@ o- / ..................................................................... [...]
 /> exit
 ```
 
-The backstore create command specifies the emulated disk capacity with the
-argument `size=20G`. The backing file `/var/local/zbc0.raw` will be created if
-necessary and resized to match the requested capacity.
+The `backstore create` command specifies the capacity of the emulated disk with
+the argument `size=20G`. The backing file `/var/local/zbc0.raw` is created if
+necessary and is resized to match the specified capacity.
 
-When the backstore is linked to `lun0` of the loopback link, the emulated device
-becomes visible by the kernel and its management initialized in the same manner
-as with physical devices. This can be seen in the kernel messages log.
+When the backstore is linked to `lun0` of the loopback link, the emulated
+device becomes visible to the kernel and its management initialized the same
+way physical devices are initialized. This is reported in the kernel messages
+log:
 
 ```plaintext
 # dmesg
@@ -178,7 +178,7 @@ sd 11:0:1:0: [sde] Optimal transfer size 65536 bytes
 sd 11:0:1:0: [sde] Attached SCSI disk
 ```
 
-The disk can now be listed with tools such as *lsblk* and *lsscsi*.
+The disk can now be listed with tools such as *lsblk* and *lsscsi*:
 
 ```plaintext
 # lsscsi -g
@@ -191,17 +191,18 @@ The disk can now be listed with tools such as *lsblk* and *lsscsi*.
 
 ## Using an Emulated disk
 
-All ZBD compliant tools and applications will be able to access and control the
-emulated disk in exactly the same manner as a physical device. For instance,
-[*libzbc* graphical interface (gzbc)](libzbc.md#graphical-interface) can be used
-to display the emulated disk zones.
+All ZBD-compliant tools and applications are able to access and control the
+emulated disk in exactly the same manner as they would control a physical
+device. For example, the [*libzbc* graphical interface
+(gzbc)](libzbc.md#graphical-interface) can be used to display the emulated disk
+zones.
 
 <Image src="tools-tcmu-gzbc.png"
 title="tcmu-runner ZBC emulated disk view in gzbc"/>
 
 ## Scripts
 
-The following script is useful to create an emulated disk with a single command.
+The following script creates an emulated disk with a single command:
 
 ```bash
 #!/bin/bash
