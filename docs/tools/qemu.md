@@ -9,29 +9,34 @@ import Image from '/src/components/Image';
 # QEMU and KVM
 
 *<a href="https://www.qemu.org/" target="_blank">QEMU</a>* is a generic machine
-emulator and virtualizer. *QEMU* also provides the userspace components
-of the widely used <a href="https://www.linux-kvm.org/" target="_blank">*KVM*
+emulator and virtualizer. *QEMU* provides the userspace components of the
+widely used <a href="https://www.linux-kvm.org/" target="_blank">*KVM*
 (Kernel-based Virtual Machine)</a>.
 
 ## QEMU and zoned block devices
 
-Host managed SMR disks can be directly attached to a *QEMU* guest for running
-applications in a virtual machine environment. This is especially useful in the
-case of software and kernel development and tests.
+Host-managed SMR disks can be attached directly to a *QEMU* guest and used for
+running applications in a virtual machine environment. This is useful for
+software and kernel development and tests.
 
-There are two supported methods to attach Host managed SMR zoned disks to a QEMU
-guest: *virtio-scsi* and *vhost-scsi*.
+There are two supported methods for attaching host-managed SMR zoned disks to a
+QEMU guest: (1) [virtio-scsi](/docs/tools/qemu#qemu-virtio-scsi) and (2)
+[vhost-scsi](/docs/tools/qemu#qemu-vhost-scsi).  *virtio-scsi* is the simpler
+of the two methods. *vhost-scsi* is the faster of the two methods, but cannot
+be used without QEMU KVM acceleration.
 
-Furthermore, *QEMU* also allows emulating NVMe devices implementing zoned
+*QEMU* also makes it possible to emulate NVMe devices that implement zoned
 namespaces.
 
 ## *QEMU virtio-scsi*
 
-This is the simplest method to attach a zoned block device for access from a
-QEMU guest. To do so, the QEMU option *virtio-scsi-pci* is used after defining a
-virtual PCI bus and SCSI host.
+This is the simplest method for attaching a zoned block device so that it can
+be accessed by a QEMU guest. Define a virtual PCI bus and SCSI host and then
+use the QEMU option *virtio-scsi-pci*.
 
-For instance, the following command will run QEMU with 
+### QEMU Command Example
+
+For example, the following command runs QEMU:
 
 ```plaintext
 # qemu-kvm (your options) \
@@ -41,29 +46,37 @@ For instance, the following command will run QEMU with
 	-device scsi-block,bus=scsi0.0,drive=zbc0
 ```
 
-The first line `-device pcie-root-port,bus=pcie.0,id=rp1` creates a PCIe root
-complex. The second line `-device virtio-scsi-pci,bus=pcie.0,id=scsi0` defines
-a virtio adapter connected to the PCIe bus previously defined. Finally, the last
-2 lines `-drive file=/dev/sdf,format=raw,if=none,id=zbc0` and
-`-device scsi-block,bus=scsi0.0,drive=zbc0` define the device connected to the
-virtio SCSI adapter. In this example, since `-device scsi-block` is used, the
-host device to attach is specified using the device block device file
-(`/dev/sdf`) in this example.
+#### Analysis of QEMU Command
+
+The first line, `-device pcie-root-port,bus=pcie.0,id=rp1`, creates a PCIe root
+complex. 
+
+The second line, `-device virtio-scsi-pci,bus=pcie.0,id=scsi0`,
+defines a virtio adapter that connects to the previously-defined PCIe bus.
+
+The last 2 lines, `-drive file=/dev/sdf,format=raw,if=none,id=zbc0`
+and `-device scsi-block,bus=scsi0.0,drive=zbc0`, define the device that is
+connected to the virtio SCSI adapter. In this example, `-device scsi-block` is
+used, which means that the host device that will be attached is specified with 
+the device block device file (`/dev/sdf`).
 
 See <a href="https://github.com/qemu/qemu/blob/master/docs/pcie_pci_bridge.txt"
 target="_blank">here</a> for a detailed description of these options.
 
-Though this method allows attaching a zoned block disk to a QEMU guest, SCSI
-command sense data is not processed correctly in QEMU versions prior to version
-4.1. This causes the guest operating system to hang if the guest attempts to
-access a command sense data (for instance upon command failures). This
-attachment method should thus be avoided with versions of QEMU older than
-version 4.1.
+### Sense data in QEMU prior to Version 4.1
 
-To avoid the sense data problem with QEMU versions preceding version 4.1, a
-zoned disk can be attached to a guest using the device SG node file as a
-specifier. In this case, the option `-device scsi-generic` must be used. The
-command line is changed as follows.
+Although this method makes it possible to attach a zoned block disk to a QEMU
+guest, SCSI command sense data is not processed correctly in older QEMU
+versions (this includes all QEMU versions prior to version 4.1). This causes
+the guest operating system to hang if the guest attempts to access command
+sense data (for example, after command failures). Because of older QEMU
+versions' inability to properly process SCSI command sense data, you should
+avoid this attachment method with versions of QEMU older than version 4.1. 
+
+The "sense data problem" can be avoided with QEMU versions prior to version
+4.1 by attaching a zoned disk to a guest using the "device SG node file" as
+a specifier. If you do this, you must use the option `-device scsi-generic`.
+To do this, change the command on the command line in the following way:
 
 ```plaintext
 # qemu-kvm (your options) \
@@ -83,10 +96,10 @@ can be discovered using the `lsscsi` command.
 ...
 ```
 
-Once the guest operating system is started, attachment of the host device can be
-checked with any of the methods shown [here](../getting-started/smr-disk.md).
-For instance, the output of the `lsscsi` command will be as follows with the
-above example setup.
+After the guest operating system has been started, attachment of the host
+device can be checked with any of the methods shown in [the SMR disk section of
+the Getting Started Guide](../getting-started/smr-disk.md).  For example, the
+output of the `lsscsi` command will be as follows with the above example setup.
 
 ```plaintext
 # lsscsi -g
@@ -109,151 +122,173 @@ configuration.
 <Image src="linux-config-vhost.png"
 title="vhost-scsi support option with make menuconfig"/>
 
-To allow attaching physical disks as well as
-[*tcmu-runner*](../tools/tcmu-runner.md) emulated ZBC disks, the kernel
-configuration option *COFNGI_TCM_PSCSI* should also be enbaled. This option can
-be found in the menu *Device Drivers* -> *Generic Target Core Mod (TCM) and
-ConfigFS Infrastructure*.
+To make it possible to attach physical disks as well as
+[*tcmu-runner*](../tools/tcmu-runner.md)-emulated ZBC disks, you must enable
+the kernel configuration option *COFNGI_TCM_PSCSI*. This option can be found in
+the menu *Device Drivers* -> *Generic Target Core Mod (TCM) and ConfigFS
+Infrastructure*.
 
 <Image src="linux-config-pscsi.png"
 title="pSCSI TCM support option with make menuconfig"/>
 
 ### Attaching a host physical disk
 
-To attach to a virtual machine guest a zoned device, a virtual TCM SAS adapter
-must first be prepared using the *targetcli* tool. The device to attach must be
-specified using a block device file. The example below illustrates this
-operation for the disk `/dev/sdf`.
+To attach a zoned device to a virtual machine guest, you must first prepare a
+virtual TCM SAS adapter, using the *targetcli* tool. Specify the device to
+attach by using a block device file. The example below illustrates this
+operation for the disk `/dev/sdf`:
 
-```plaintext
-# targetcli
-targetcli shell version 2.1.fb49
-Copyright 2011-2013 by Datera, Inc and others.
-For help on commands, type 'help'.
+1. **Use the targetcli Tool to Create a Device**
+   
+   Use *targetcli* to create the device that you will attach.
 
-/> cd backstores/pscsi
-/backstores/pscsi> create name=disk1 dev=/dev/sdf
-Note: block backstore recommended for SCSI block devices
-Created pscsi storage object disk1 using /dev/sdf
-/backstores/pscsi> cd /vhost
-/vhost> create
-Created target {==naa.5001405a160fe2e1==}.
-Created TPG 1.
-/vhost/naa.5001405a160fe2e1> cd /vhost/naa.5001405a160fe2e1/tpg1/luns
-/vhost/naa.50...2e1/tpg1/luns> create /backstores/pscsi/disk1
-Created LUN 0.
-/vhost/naa.50...2e1/tpg1/luns> cd /
-/> ls
-o- / ..................................................................... [...]
-  o- backstores .......................................................... [...]
-  | o- block .............................................. [Storage Objects: 0]
-  | o- fileio ............................................. [Storage Objects: 0]
-  | o- pscsi .............................................. [Storage Objects: 1]
-  | | o- disk1 ............................................ [/dev/sdf activated]
-  | |   o- alua ............................................... [ALUA Groups: 0]
-  | o- ramdisk ............................................ [Storage Objects: 0]
-  | o- user:fbo ........................................... [Storage Objects: 0]
-  | o- user:rbd ........................................... [Storage Objects: 0]
-  | o- user:zbc ........................................... [Storage Objects: 0]
-  o- iscsi ........................................................ [Targets: 0]
-  o- loopback ..................................................... [Targets: 0]
-  o- vhost ........................................................ [Targets: 1]
-    o- {==naa.5001405a160fe2e1==} .......................................... [TPGs: 1]
-      o- tpg1 .............................. [naa.500140565cd16730, no-gen-acls]
-        o- acls ...................................................... [ACLs: 0]
-        o- luns ...................................................... [LUNs: 1]
-          o- lun0 .............................. [pscsi/disk1 (/dev/sdf) (None)]
-/> exit
-```
+    ```plaintext
+    # targetcli
+    targetcli shell version 2.1.fb49
+    Copyright 2011-2013 by Datera, Inc and others.
+    For help on commands, type 'help'.
+    
+    /> cd backstores/pscsi
+    /backstores/pscsi> create name=disk1 dev=/dev/sdf
+    Note: block backstore recommended for SCSI block devices
+    Created pscsi storage object disk1 using /dev/sdf
+    /backstores/pscsi> cd /vhost
+    /vhost> create
+    Created target {==naa.5001405a160fe2e1==}.
+    Created TPG 1.
+    /vhost/naa.5001405a160fe2e1> cd /vhost/naa.5001405a160fe2e1/tpg1/luns
+    /vhost/naa.50...2e1/tpg1/luns> create /backstores/pscsi/disk1
+    Created LUN 0.
+    /vhost/naa.50...2e1/tpg1/luns> cd /
+    /> ls
+    o- / ..................................................................... [...]
+      o- backstores .......................................................... [...]
+      | o- block .............................................. [Storage Objects: 0]
+      | o- fileio ............................................. [Storage Objects: 0]
+      | o- pscsi .............................................. [Storage Objects: 1]
+      | | o- disk1 ............................................ [/dev/sdf activated]
+      | |   o- alua ............................................... [ALUA Groups: 0]
+      | o- ramdisk ............................................ [Storage Objects: 0]
+      | o- user:fbo ........................................... [Storage Objects: 0]
+      | o- user:rbd ........................................... [Storage Objects: 0]
+      | o- user:zbc ........................................... [Storage Objects: 0]
+      o- iscsi ........................................................ [Targets: 0]
+      o- loopback ..................................................... [Targets: 0]
+      o- vhost ........................................................ [Targets: 1]
+      o- {==naa.5001405a160fe2e1==} ...................................... [TPGs: 1]
+          o- tpg1 .............................. [naa.500140565cd16730, no-gen-acls]
+            o- acls ...................................................... [ACLs: 0]
+            o- luns ...................................................... [LUNs: 1]
+              o- lun0 .............................. [pscsi/disk1 (/dev/sdf) (None)]
+    /> exit
+    ```
 
-The World-Wide port name assigned by *targetcli* can then be used to specify the
-device to attach on QEMU command line.
+2. **Use qemu-kvm to Attach the Device**
 
-```plaintext
-# qemu-kvm (your options) \
-	-device pcie-root-port,bus=pcie.0,id=rp1 \
-	-device vhost-scsi-pci,wwpn={==naa.5001405a160fe2e1==},bus=pcie.0
-```
+   The World-Wide port name assigned by *targetcli* can then be used to specify
+the device to attach, using a qemu-kvm command on the command line:
 
-The attached disk can then be seen from the guest OS using (for instance) the
-*lsscsi* command.
+   ```plaintext
+   # qemu-kvm (your options) \
+          -device pcie-root-port,bus=pcie.0,id=rp1 \
+          -device vhost-scsi-pci,wwpn={==naa.5001405a160fe2e1==},bus=pcie.0
+   ```
 
-```plaintext
-# lsscsi -g
-[0:0:0:0]    disk    ATA      QEMU HARDDISK    2.5+  /dev/sda   /dev/sg0
-[6:0:1:0]    zbc     HGST     HSH721415AL42M0  a250  /dev/sdb   /dev/sg1
-```
+3. **Confirm that the disk is visible to the Virtual Machine Guest OS**
+
+   List the attached disk from the guest OS by using the *lsscsi* command:
+
+    ```plaintext
+    # lsscsi -g
+    [0:0:0:0]    disk    ATA      QEMU HARDDISK    2.5+  /dev/sda   /dev/sg0
+    [6:0:1:0]    zbc     HGST     HSH721415AL42M0  a250  /dev/sdb   /dev/sg1
+    ```
 
 ### Attaching an emulated ZBC disk
 
-*tcmu-runner* can be used to create emulated ZBC host managed SCSI disks. The
-emulated disk created can be used either locally on the host using the loopback
-fabric adapter, as explained [here](./tcmu-runner.md#creating-an-emulated-disk).
+*tcmu-runner* can be used to create emulated ZBC host-managed SCSI disks. The
+emulated disk that is created can be used locally on the host using the
+loopback fabric adapter, as explained in the ["Creating an Emulated Disk"
+section of the tcmu-runner page](./tcmu-runner.md#creating-an-emulated-disk).
 
-Similarly to a physical device (previous section), the emulated ZBC disk can
-also be attached to a vhost virtual adapter for use within a KVM guest operating
-system. The following example illustrates this procedure, creating a small 20GB
-host managed SCSI disk with 256 MB zones including 10 conventional zones.
+The emulated ZBC disk can be attached to a vhost virtual adapter for use within
+a KVM guest operating system. This is done in a manner similar to the manner in
+which a physical device is attached. (See ["Attaching a Host Physical
+Disk"](/docs/tools/qemu#attaching-a-host-physical-disk) for the particulars of
+attaching a physical device). 
 
-```plaintext
-# targetcli
-targetcli shell version 2.1.fb49
-Copyright 2011-2013 by Datera, Inc and others.
-For help on commands, type 'help'.
+The following example illustrates this procedure, creating a small 20GB
+host-managed SCSI disk with 256 MB zones including 10 conventional zones:
 
-/> cd /backstores/user:zbc
-/backstores/user:zbc> create name=zbc0 size=20G cfgstring=model-HM/zsize-256/conv-10@/var/local/zbc0.raw
-Created user-backed storage object zbc0 size 21474836480.
-/backstores/user:zbc> cd /vhost
-/vhost> create
-Created target {==naa.5001405a0776dce3==}.
-Created TPG 1.
-/vhost> /vhost/naa.5001405a0776dce3/tpg1/luns create /backstores/user:zbc/zbc0
-Created LUN 0.
-/vhost> cd /
-/> ls
-o- / ..................................................................... [...]
-  o- backstores .......................................................... [...]
-  | o- block .............................................. [Storage Objects: 0]
-  | o- fileio ............................................. [Storage Objects: 0]
-  | o- pscsi .............................................. [Storage Objects: 0]
-  | o- ramdisk ............................................ [Storage Objects: 0]
-  | o- user:fbo ........................................... [Storage Objects: 0]
-  | o- user:rbd ........................................... [Storage Objects: 0]
-  | o- user:zbc ........................................... [Storage Objects: 1]
-  |   o- zbc0  [model-HM/zsize-256/conv-10@/var/local/zbc0.raw (20.0GiB) activated]
-  |     o- alua ............................................... [ALUA Groups: 1]
-  |       o- default_tg_pt_gp ................... [ALUA state: Active/optimized]
-  o- iscsi ........................................................ [Targets: 0]
-  o- loopback ..................................................... [Targets: 0]
-  o- vhost ........................................................ [Targets: 1]
-    o- {==naa.5001405a0776dce3==} .......................................... [TPGs: 1]
-      o- tpg1 .............................. [naa.500140533e375d94, no-gen-acls]
-        o- acls ...................................................... [ACLs: 0]
-        o- luns ...................................................... [LUNs: 1]
-          o- lun0 ............................... [user/zbc0 (default_tg_pt_gp)]
-/> exit
-```
+1. **Use targetcli to Create a 20GB Host-managed SCSI Disk**
 
-The virtual machine can then be started with the emulated ZBC disk attached
-using the World-Wide port name assigned by *targetcli*.
+   Run the following command to create a 20GB host-managed SCSI disk with 
+   256 MB zones (including 10 conventional zones):
 
-```plaintext
-# qemu-kvm (your options) \
-	-device pcie-root-port,bus=pcie.0,id=rp1 \
-	-device vhost-scsi-pci,wwpn={==naa.5001405a0776dce3==},bus=pcie.0
-```
+    ```plaintext
+    # targetcli
+    targetcli shell version 2.1.fb49
+    Copyright 2011-2013 by Datera, Inc and others.
+    For help on commands, type 'help'.
 
-The disk is listed on the guest with tools such as *lsscsi*.
+    /> cd /backstores/user:zbc
+    /backstores/user:zbc> create name=zbc0 size=20G cfgstring=model-HM/zsize-256/conv-10@/var/local/zbc0.raw
+    Created user-backed storage object zbc0 size 21474836480.
+    /backstores/user:zbc> cd /vhost
+    /vhost> create
+    Created target {==naa.5001405a0776dce3==}.
+    Created TPG 1.
+    /vhost> /vhost/naa.5001405a0776dce3/tpg1/luns create /backstores/user:zbc/zbc0
+    Created LUN 0.
+    /vhost> cd /
+    /> ls
+    o- / ..................................................................... [...]
+      o- backstores .......................................................... [...]
+      | o- block .............................................. [Storage Objects: 0]
+      | o- fileio ............................................. [Storage Objects: 0]
+      | o- pscsi .............................................. [Storage Objects: 0]
+      | o- ramdisk ............................................ [Storage Objects: 0]
+      | o- user:fbo ........................................... [Storage Objects: 0]
+      | o- user:rbd ........................................... [Storage Objects: 0]
+      | o- user:zbc ........................................... [Storage Objects: 1]
+      | o- zbc0 [model-HM/zsize-256/conv-10@/var/local/zbc0.raw (20.0GiB) activated]
+      |     o- alua ............................................... [ALUA Groups: 1]
+      |       o- default_tg_pt_gp ................... [ALUA state: Active/optimized]
+      o- iscsi ........................................................ [Targets: 0]
+      o- loopback ..................................................... [Targets: 0]
+      o- v  host ...................................................... [Targets: 1]
+      o- {==naa.5001405a0776dce3==} ...................................... [TPGs: 1]
+         o- tpg1 ............................... [naa.500140533e375d94, no-gen-acls]
+            o- acls ...................................................... [ACLs: 0]
+            o- luns ...................................................... [LUNs: 1]
+              o- lun0 ............................... [user/zbc0 (default_tg_pt_gp)]
+    /> exit
+    ```
 
-```plaintext
-# lsscsi -g
-[0:0:0:0]    disk    ATA      QEMU HARDDISK    2.5+  /dev/sda   /dev/sg0
-[6:0:1:0]    zbc     LIO-ORG  TCMU ZBC device  0002  /dev/sdb   /dev/sg1
-```
+2. **Start the Virtual Machine with qemu-kvm**
+
+   Start the virtual machine with the emulated ZBC disk attached by using the
+World-Wide port name that was assigned by *targetcli*:
+
+    ```plaintext
+    # qemu-kvm (your options) \
+           -device pcie-root-port,bus=pcie.0,id=rp1 \
+           -device vhost-scsi-pci,wwpn={==naa.5001405a0776dce3==},bus=pcie.0
+    ```
+
+3. **Confirm That the Disk is Visible to the Virtual Machine Guest OS**
+
+   List the disk on the command line of the guest by using *lsscsi*:
+
+    ```plaintext
+    # lsscsi -g
+    [0:0:0:0]    disk    ATA      QEMU HARDDISK    2.5+  /dev/sda   /dev/sg0
+    [6:0:1:0]    zbc     LIO-ORG  TCMU ZBC device  0002  /dev/sdb   /dev/sg1
+    ```
 
 ## *QEMU* NVMe ZNS Device emulation
 
-[This article](../getting-started/zns-emulation.md) describes in details, with
-examples, how *QEMU* can be configured to create an emulated NVMe ZNS namespace
-visible by the guest operating system.
+[This article](../getting-started/zns-emulation.md) describes in detail how
+*QEMU* can be configured to create an emulated NVMe ZNS namespace that is
+visible to the guest operating system. Example commands and an example shell
+script are provided as references.
