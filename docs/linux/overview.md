@@ -170,9 +170,9 @@ All kernel versions since 4.10 include zoned block device support. However, as
 shown in the figure [Kernel versions and features](#kernel-versions), some
 versions are recommended over others.
 
-* **Long Term Stable (LTS) Versions** Kernel versions 4.14, 4.19 and 5.4 are
-  long term stable kernel versions that include bug fixes backported from fixes
-  in the mainline (development) kernel. These versions benefit from
+* **Long Term Stable (LTS) Versions** Kernel versions 4.14, 4.19, 5.4, 5.10 and
+  5.15 are long term stable kernel versions that include bug fixes backported
+  from fixes in the mainline (development) kernel. These versions benefit from
   stability improvements that were developed for higher versions. Fixes to the
   zoned-block-device support infrastructure are also backported to these
   versions.
