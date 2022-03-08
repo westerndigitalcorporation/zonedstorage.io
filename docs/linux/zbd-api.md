@@ -62,7 +62,7 @@ The possible values of the *zoned* attribute file are shown in the table below.
 
 </center>
 
-### Device Zone Size
+### Zone Size
 
 The device zone size can be read from the *sysfs* queue attribute file that is
 named `chunk_sectors`. For a device named *sdb* (the same device as in the
@@ -88,6 +88,51 @@ The sysfs queue attribute file *nr_zones* was introduced in Linux kernel version
 ```
 
 This attribute value is always 0 for a regular block device.
+
+### Zone Resources
+
+The device zone resources can be read from the *sysfs* queue attribute files
+that are named `max_open_zones` and `max_active_zones`.
+
+For a SAS or SATA host-managed SMR disk named *sdb* (the same device as in the
+previous example), the following command gives the maximum number of zones that
+can be in the implicit or explicit open state.
+
+```plaintext
+# cat /sys/block/sdb/queue/max_open_zones
+128
+```
+
+The value is displayed as a number of zones, with 0 indicating that the device
+does not have any limit on the maximum number of zones that can be open.
+
+For the same device, the following command gives the maximum number of zones
+that can be active (open or closed state).
+
+```plaintext
+# cat /sys/block/sdb/queue/max_active_zones
+0
+```
+
+The value is displayed as a number of zones, with 0 indicating that the device
+does not have any limit on the maximum number of active zones. For SMR
+hard-disks, this limit is always 0.
+
+The values advertized by these attributes vary depending on the device. Thei
+following shows an example with an NVMe ZNS device.
+
+```plaintext
+# cat /sys/block/nvme0n1/queue/max_open_zones
+14
+# cat /sys/block/nvme0n1/queue/max_active_zones
+14
+```
+
+When emulating a zoned device using [*null_blk*](../getting-started/nullblk.md),
+[*QEMU*](../getting-started/zns-emulation.md) or
+[*tcmu-runner*](../getting-started/smr-emulation.md), the values of these
+attributes can be manually configured to emulate different physical device
+characteristics.
 
 ## *ioctl()* Application Programming Interface
 
