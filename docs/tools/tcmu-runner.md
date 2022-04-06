@@ -122,7 +122,7 @@ Copyright 2011-2013 by Datera, Inc and others.
 For help on commands, type 'help'.
 
 /> cd /backstores/user:zbc
-/backstores/user:zbc> {==create name=zbc0 size=20G cfgstring=model-HM/zsize-256/conv-10@/var/local/zbc0.raw==}
+/backstores/user:zbc> create name=zbc0 size=20G cfgstring=model-HM/zsize-256/conv-10@/var/local/zbc0.raw
 Created user-backed storage object zbc0 size 21474836480.
 /backstores/user:zbc> cd /loopback
 /loopback> create
