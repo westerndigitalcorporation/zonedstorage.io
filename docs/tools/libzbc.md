@@ -316,7 +316,7 @@ Device /dev/sg3:
     Maximum number of open sequential write required zones: 128
     55356 zones from 274726912, reporting option 0x00
 1 / 55356 zone:
-Zone 00000: type 0x2 (Sequential-write-required), {==cond 0xe (Full)==}, reset recommended 0, non_seq 0, sector 274726912, 524288 sectors, wp 2251799813685240
+Zone 00000: type 0x2 (Sequential-write-required), cond 0xe (Full), reset recommended 0, non_seq 0, sector 274726912, 524288 sectors, wp 2251799813685240
 ```
 
 The written zone can then be reset by using the command *zbc_reset_zone*:
@@ -346,7 +346,7 @@ Device /dev/sg7:
     Maximum number of open sequential write required zones: 128
     55356 zones from 274726912, reporting option 0x00
 1 / 55356 zone:
-Zone 00000: type 0x2 (Sequential-write-required), {==cond 0x1 (Empty)==}, reset recommended 0, non_seq 0, sector 274726912, 524288 sectors, wp 274726912
+Zone 00000: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 274726912, 524288 sectors, wp 274726912
 ```
 
 All the sequential write zones of a device can be reset using the option

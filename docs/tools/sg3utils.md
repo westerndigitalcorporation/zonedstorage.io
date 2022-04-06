@@ -318,7 +318,7 @@ Report zones response:
   Maximum LBA: 0xda47ffff
  Zone descriptor: 0
    Zone type: Sequential write required
-   Zone condition: {==Empty==}
+   Zone condition: Empty
    Non_seq: 0
    Reset: 0
    Zone Length: 0x10000
@@ -333,7 +333,7 @@ Report zones response:
   Maximum LBA: 0xda47ffff
  Zone descriptor: 0
    Zone type: Sequential write required
-   Zone condition: {==Explicitly opened==}
+   Zone condition: Explicitly opened
    Non_seq: 0
    Reset: 0
    Zone Length: 0x10000
@@ -348,7 +348,7 @@ Report zones response:
   Maximum LBA: 0xda47ffff
  Zone descriptor: 0
    Zone type: Sequential write required
-   Zone condition: {==Full==}
+   Zone condition: Full
    Non_seq: 0
    Reset: 0
    Zone Length: 0x10000
@@ -363,7 +363,7 @@ Report zones response:
   Maximum LBA: 0xda47ffff
  Zone descriptor: 0
    Zone type: Sequential write required
-   Zone condition: {==Empty==}
+   Zone condition: Empty
    Non_seq: 0
    Reset: 0
    Zone Length: 0x10000

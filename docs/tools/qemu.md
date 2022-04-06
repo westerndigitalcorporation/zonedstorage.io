@@ -42,7 +42,7 @@ For example, the following command runs QEMU:
 # qemu-kvm (your options) \
 	-device pcie-root-port,bus=pcie.0,id=rp1 \
 	-device virtio-scsi-pci,bus=pcie.0,id=scsi0 \
-	-drive file={==/dev/sdf==},format=raw,if=none,id=zbc0 \
+	-drive file=/dev/sdf,format=raw,if=none,id=zbc0 \
 	-device scsi-block,bus=scsi0.0,drive=zbc0
 ```
 
@@ -82,7 +82,7 @@ To do this, change the command on the command line in the following way:
 # qemu-kvm (your options) \
 	-device pcie-root-port,bus=pcie.0,id=rp1 \
 	-device virtio-scsi-pci,bus=pcie.0,id=scsi0 \
-	-drive file={==/dev/sg5==},format=raw,if=none,id=zbc0 \
+	-drive file=/dev/sg5,format=raw,if=none,id=zbc0 \
 	-device scsi-generic,bus=scsi0.0,drive=zbc0
 ```
 
@@ -92,7 +92,7 @@ can be discovered using the `lsscsi` command.
 ```plaintext
 # lsscsi -g
 ...
-[10:0:1:0]   zbc     HGST     HSH721415AL42M0  a250  {==/dev/sdf==}   {==/dev/sg5==}
+[10:0:1:0]   zbc     HGST     HSH721415AL42M0  a250  /dev/sdf   /dev/sg5
 ...
 ```
 
@@ -154,7 +154,7 @@ operation for the disk `/dev/sdf`:
     Created pscsi storage object disk1 using /dev/sdf
     /backstores/pscsi> cd /vhost
     /vhost> create
-    Created target {==naa.5001405a160fe2e1==}.
+    Created target naa.5001405a160fe2e1.
     Created TPG 1.
     /vhost/naa.5001405a160fe2e1> cd /vhost/naa.5001405a160fe2e1/tpg1/luns
     /vhost/naa.50...2e1/tpg1/luns> create /backstores/pscsi/disk1
@@ -175,7 +175,7 @@ operation for the disk `/dev/sdf`:
       o- iscsi ........................................................ [Targets: 0]
       o- loopback ..................................................... [Targets: 0]
       o- vhost ........................................................ [Targets: 1]
-      o- {==naa.5001405a160fe2e1==} ...................................... [TPGs: 1]
+      o- naa.5001405a160fe2e1 ............................................ [TPGs: 1]
           o- tpg1 .............................. [naa.500140565cd16730, no-gen-acls]
             o- acls ...................................................... [ACLs: 0]
             o- luns ...................................................... [LUNs: 1]
@@ -191,7 +191,7 @@ the device to attach, using a qemu-kvm command on the command line:
    ```plaintext
    # qemu-kvm (your options) \
           -device pcie-root-port,bus=pcie.0,id=rp1 \
-          -device vhost-scsi-pci,wwpn={==naa.5001405a160fe2e1==},bus=pcie.0
+          -device vhost-scsi-pci,wwpn=naa.5001405a160fe2e1,bus=pcie.0
    ```
 
 3. **Confirm that the disk is visible to the Virtual Machine Guest OS**
@@ -236,7 +236,7 @@ host-managed SCSI disk with 256 MB zones including 10 conventional zones:
     Created user-backed storage object zbc0 size 21474836480.
     /backstores/user:zbc> cd /vhost
     /vhost> create
-    Created target {==naa.5001405a0776dce3==}.
+    Created target naa.5001405a0776dce3.
     Created TPG 1.
     /vhost> /vhost/naa.5001405a0776dce3/tpg1/luns create /backstores/user:zbc/zbc0
     Created LUN 0.
@@ -257,7 +257,7 @@ host-managed SCSI disk with 256 MB zones including 10 conventional zones:
       o- iscsi ........................................................ [Targets: 0]
       o- loopback ..................................................... [Targets: 0]
       o- v  host ...................................................... [Targets: 1]
-      o- {==naa.5001405a0776dce3==} ...................................... [TPGs: 1]
+      o- naa.5001405a0776dce3 ............................................ [TPGs: 1]
          o- tpg1 ............................... [naa.500140533e375d94, no-gen-acls]
             o- acls ...................................................... [ACLs: 0]
             o- luns ...................................................... [LUNs: 1]
@@ -273,7 +273,7 @@ World-Wide port name that was assigned by *targetcli*:
     ```plaintext
     # qemu-kvm (your options) \
            -device pcie-root-port,bus=pcie.0,id=rp1 \
-           -device vhost-scsi-pci,wwpn={==naa.5001405a0776dce3==},bus=pcie.0
+           -device vhost-scsi-pci,wwpn=naa.5001405a0776dce3,bus=pcie.0
     ```
 
 3. **Confirm That the Disk is Visible to the Virtual Machine Guest OS**

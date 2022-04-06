@@ -146,10 +146,10 @@ Device /dev/sdd:
     55880 zones from 0, reporting option 0x00
 55880 / 55880 zones:
 ...
-one 00524: type 0x2 (Sequential-write-required), cond 0xe {==(Full)==}, reset recommended 0, non_seq 0, sector 274726912, 524288 sectors, wp 275251200
-Zone 00525: type 0x2 (Sequential-write-required), cond 0xe {==(Full)==}, reset recommended 0, non_seq 0, sector 275251200, 524288 sectors, wp 275775488
-Zone 00526: type 0x2 (Sequential-write-required), cond 0xe {==(Full)==}, reset recommended 0, non_seq 0, sector 275775488, 524288 sectors, wp 276299776
-Zone 00527: type 0x2 (Sequential-write-required), cond 0xe {==(Full)==}, reset recommended 0, non_seq 0, sector 276299776, 524288 sectors, wp 276824064
+one 00524: type 0x2 (Sequential-write-required), cond 0xe (Full), reset recommended 0, non_seq 0, sector 274726912, 524288 sectors, wp 275251200
+Zone 00525: type 0x2 (Sequential-write-required), cond 0xe (Full), reset recommended 0, non_seq 0, sector 275251200, 524288 sectors, wp 275775488
+Zone 00526: type 0x2 (Sequential-write-required), cond 0xe (Full), reset recommended 0, non_seq 0, sector 275775488, 524288 sectors, wp 276299776
+Zone 00527: type 0x2 (Sequential-write-required), cond 0xe (Full), reset recommended 0, non_seq 0, sector 276299776, 524288 sectors, wp 276824064
 Zone 00528: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 276824064, 524288 sectors, wp 276824064
 ...
 ```
@@ -165,7 +165,7 @@ errors.
 zbc: (g=0): rw=write, bs=(R) 256KiB-256KiB, (W) 256KiB-256KiB, (T) 256KiB-256KiB, ioengine=libaio, iodepth=8
 fio-3.13
 Starting 1 process
-fio: {==io_u error on file /dev/sdd: Remote I/O error==}: write offset=140660178944, buflen=262144
+fio: io_u error on file /dev/sdd: Remote I/O error: write offset=140660178944, buflen=262144
 fio: pid=4206, err=121/file:io_u.c:1791, func=io_u error, error=Remote I/O error
 
 zbc: (groupid=0, jobs=1): err=121 (file:io_u.c:1791, func=io_u error, error=Remote I/O error): pid=4206: Fri May 24 12:34:27 2019
@@ -194,7 +194,7 @@ fio-3.13
 Starting 1 process
 Jobs: 1 (f=1): [W(1)][100.0%][w=243MiB/s][w=973 IOPS][eta 00m:00s]
 zbc: (groupid=0, jobs=1): err= 0: pid=4220: Fri May 24 12:37:29 2019
-  write: IOPS=949, BW=237MiB/s (249MB/s)(1024MiB/4316msec); {==4 zone resets==}
+  write: IOPS=949, BW=237MiB/s (249MB/s)(1024MiB/4316msec); 4 zone resets
     slat (nsec): min=5937, max=40055, avg=9651.92, stdev=2104.34
     clat (usec): min=795, max=36562, avg=8243.26, stdev=2031.55
      lat (usec): min=818, max=36571, avg=8252.96, stdev=2031.50
@@ -292,7 +292,7 @@ Forcing the execution of read I/Os targeting empty zones can be done using the
 
 ```plaintext
 # fio --name=zbc --filename=/dev/sdd --direct=1 --zonemode=zbd \
-      --offset=140660178944 --size=1G {==--read_beyond_wp=1==} \
+      --offset=140660178944 --size=1G --read_beyond_wp=1 \
       --ioengine=libaio --iodepth=8 --rw=read --bs=256K
 zbc: (g=0): rw=read, bs=(R) 256KiB-256KiB, (W) 256KiB-256KiB, (T) 256KiB-256KiB, ioengine=libaio, iodepth=8
 fio-3.13
