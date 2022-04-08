@@ -115,7 +115,7 @@ const FeatureList2 = [
   {
     title: 'Benchmarking',
     bcolor: 'button--primary',
-    link: "/docs/benchmarking/benchmark",
+    link: "/docs/benchmarking/fio/overview",
     description: (
       <>
 	Learn how to measure performance with zoned storage compliant workloads
