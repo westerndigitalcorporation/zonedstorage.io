@@ -109,7 +109,8 @@ const sidebars = {
                   'benchmarking/fio/smr-fio',
                   'benchmarking/fio/zns-fio'
               ]
-          }
+          },
+          'benchmarking/rocksdb'
       ]
     },
     {
