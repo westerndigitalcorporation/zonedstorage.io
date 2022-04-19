@@ -106,7 +106,8 @@ const sidebars = {
               collapsed: true,
               items: [
                   'benchmarking/fio/overview',
-                  'benchmarking/fio/smr-fio'
+                  'benchmarking/fio/smr-fio',
+                  'benchmarking/fio/zns-fio'
               ]
           }
       ]

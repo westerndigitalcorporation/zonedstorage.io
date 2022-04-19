@@ -70,6 +70,9 @@ In addition to these options, the *zbd* zone mode automatically enables job
 synchronization to ensure that a workload spanning multiple threads or processes
 can concurrently execute write I/Os targeting the same zone.
 
+To indicate a zone unit for integer parameters, the `z` suffix can be used (e.g.
+`--offset_increment=8z`, `--size=8z`, ...).
+
 ### Restrictions
 
 As discussed in the [kernel support
@@ -81,6 +84,11 @@ when enabled, enforces this requirement by checking that the option
 The `--offset` and `--size` options must specify values that are aligned to the
 device zone size.
 
+The `--numjobs` parameter should not exceed the `--max_open_zones` option for
+write workloads, otherwise jobs that do not obtain their required resources
+(e.g. opening a zone) immediately quit silently. 
+
 ## Examples
 
 * [SMR fio Examples](smr-fio.md): fio benchmarking examples for SMR hard-disks.
+* [ZNS fio Examples](zns-fio.md): fio benchmarking examples for NVMe ZNS devices.
