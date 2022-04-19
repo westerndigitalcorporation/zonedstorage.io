@@ -125,7 +125,7 @@ By default, the Linux kernel does not guarantee the order in which
 commands are delivered to a block device. This means that an
 application that writes sequentially to a disk might have its write
 commands delivered to the disk in a different order than the order
-sent by the application. This might cause write errors if the  
+sent by the application. This might cause write errors if the
 application is writing to a zoned device over sequential zones.
 
 To avoid this problem, a "zone write lock mechanism" that serializes
@@ -161,7 +161,7 @@ If the disk block I/O scheduler that has been selected is not
 change the scheduler:
 
 ```plaintext
-# echo deadline > /sys/block/sdb/queue/scheduler
+# echo mq-deadline > /sys/block/sdb/queue/scheduler
 
 # cat sys/block/sdb/queue/scheduler
 [mq-deadline] kyber bfq none
@@ -169,16 +169,16 @@ change the scheduler:
 
 ## User Utilities
 
-Various user level tools should also be installed in order to verify the
+Various user level tools must also be installed in order to verify the
 correct operation of zoned block devices and to troubleshoot problems.
 
 ### lsblk
 
-The `lsblk` command in Linux lists block devices. This includes zoned block
-devices.  This utility is usually included in the *util-linux*
-package, which is installed by default on most Linux distributions.
+The `lsblk` command in Linux lists block devices, which includes zoned block
+devices. This utility is usually included in the *util-linux* package, which is
+installed by default on most Linux distributions.
 
-*lsblk* usage examples are provided [here](../tools/util-linux#lsblk).
+*lsblk* usage examples are provided in the [lsblk section of the tools documentation page](../tools/util-linux#lsblk).
 
 ### blkzone
 
@@ -187,7 +187,7 @@ makes it possible to reset the write pointer position of a range of zones in
 the device. This utility is usually included in the *util-linux* package, which
 is installed by default on most Linux distributions.
 
-*blkzone* usage examples are provided [here](../tools/util-linux#blkzone).
+*blkzone* usage examples are provided in the [blkzone section of the tools documentation page](../tools/util-linux#blkzone).
 
 ### lsscsi
 
