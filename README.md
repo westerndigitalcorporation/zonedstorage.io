@@ -23,6 +23,13 @@ $ sudo apt-get install nodejs npm
 $ npm install --global yarn
 ```
 
+On macOS systems install [Homebrew](https://brew.sh/) and run:
+
+```
+$ brew install node
+$ npm install --global yarn
+```
+
 ## Building the site
 
 To build the zonedstorage.io site, run:
