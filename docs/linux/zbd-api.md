@@ -25,7 +25,7 @@ the following sections.
 ## Sysfs Interface
 
 Programs that use scripting languages (e.g. bash scripts) can access zoned
-device information through *sysfs* attribute files. These attribute files 
+device information through *sysfs* attribute files. These attribute files
 are shown in the following table.
 
 <center>
@@ -187,9 +187,11 @@ write pointer position is "512B sector size". This holds true regardless of the
 actual logical block size of the device. Even for a device with a 4KB logical
 sector, the above zone descriptor fields use a 512-byte sector size unit.
 
-The *capacity* field was added to *struct blk_zone* in kernel version 5.9. In kernel versions 5.9 and later (which contain the *capacity* field), the data structure is as follows.
+The *capacity* field was added to *struct blk_zone* in kernel version 5.9. In
+kernel versions 5.9 and later (which contain the *capacity* field), the data
+structure is as follows.
 
-```
+```c
 /**
  * struct blk_zone - Zone descriptor for BLKREPORTZONE ioctl.
  *
@@ -403,6 +405,7 @@ zones of a device is as shown below.
 
 ```c
 #include <stdlib.h>
+#include <sys/ioctl.h>
 #include <linux/blkzoned.h>
 
 unsigned long long start_sector = 0;
@@ -482,7 +485,10 @@ The example code below, extracted from the code of the
 implement backward-compatible support for zone capacity information by using the
 autotools build environment.
 
-```
+First, support for the zone capacity information in a zone report can be
+detected as follows using the kernel user API header file *linux/blkzoned.h*.
+
+```plaintext
 # less configure.ac
 ...
 AC_CHECK_HEADER(linux/blkzoned.h, [],
@@ -492,10 +498,12 @@ AC_CHECK_HEADER(linux/blkzoned.h, [],
 AC_CHECK_MEMBER([struct blk_zone.capacity],
                 [AC_DEFINE(HAVE_BLK_ZONE_REP_V2, [1], [report zones includes zone capacity])],
                 [], [[#include <linux/blkzoned.h>]])
-...
+```
 
-# less lib/zbd.h
-...
+For kernels reporting the capacity of zones, the macro *HAVE_BLK_ZONE_REP_V2*
+will be defined. This macro can then be used as follows.
+
+```c
 /*
  * Handle kernel zone capacity support
  */
@@ -520,21 +528,57 @@ struct blk_zone_report_v2 {
         __u64   sector;
         __u32   nr_zones;
         __u32   flags;
-struct blk_zone zones[0];
+	struct blk_zone zones[0];
 };
 #define blk_zone_report blk_zone_report_v2
 #endif /* HAVE_BLK_ZONE_REP_V2 */
 ...
 ```
 
-If this method is used, the main code that is responsible for issuing and
-parsing zone reports always has access to the `capacity` field of `struct
-blk_zone` regardless of the kernel version the code is executed on. For kernels
-before kernel version 5.9, the zone capacity field is always equal to 0, which
-means that the zone capacity should be ignored and that the zone size should be
-used in its place. If your kernel lacks support for this field, you can still
+That is, for kernels that do not support reporting zone capacity, the zone
+descriptor data structure type `struct blk_zone` is redefined to include a
+capacity field.
+
+With this method, the code that is responsible for issuing and parsing zone
+reports always has access to the `capacity` field of `struct blk_zone`,
+regardless of the kernel version the code is executed on. For kernels before
+kernel version 5.9, the zone capacity field is always equal to 0, which means
+that the reported zone capacity should be ignored and that the zone size should
+be used in its place. If your kernel lacks support for this field, you can still
 use various coding techniques to return a zone capacity that is equal to the
 zone size.
+
+Again using the source code of the [*libzbd*](../tools/libzbd.md) library as an
+example, the zone descriptors of a zone report reply can be handled as follows.
+
+```c
+/*
+ * zbd_parse_zone - Fill a zone descriptor
+ */
+static inline void zbd_parse_zone(struct zbd_zone *zone, struct blk_zone *blkz,
+                                  struct blk_zone_report *rep)
+{
+        zone->start = blkz->start << SECTOR_SHIFT;
+        zone->len = blkz->len << SECTOR_SHIFT;
+        if (rep->flags & BLK_ZONE_REP_CAPACITY)
+                zone->capacity = blkz->capacity << SECTOR_SHIFT;
+        else
+                zone->capacity = zone->len;
+        zone->wp = blkz->wp << SECTOR_SHIFT;
+
+        zone->type = blkz->type;
+        zone->cond = blkz->cond;
+        zone->flags = 0;
+        if (blkz->reset)
+                zone->flags |= ZBD_ZONE_RWP_RECOMMENDED;
+        if (blkz->non_seq)
+                zone->flags |= ZBD_ZONE_NON_SEQ_RESOURCES;
+}
+```
+
+As shown in this example, the capacity of a zone is always initialized to the
+size of the zone when the kernel does not report any value. Doing so, the
+capacity of a zone is always a valid value, regardless of the kernel version.
 
 The command line utility [`blkzone`](../tools/util-linux.md#blkzone), which
 is part of the *util-linux* project, uses the *BLKREPORTZONE* command to
@@ -579,6 +623,7 @@ a single zone that starts at sector 274726912 and has a zone size of 256 MiB
 (524288 sectors of 512B).
 
 ```c
+#include <sys/ioctl.h>
 #include <linux/blkzoned.h>
 
 struct blk_zone_range zrange;
@@ -625,6 +670,7 @@ zone-size value or the number of zones. The following sample C code illustrates
 the use of these commands.
 
 ```c
+#include <sys/ioctl.h>
 #include <linux/blkzoned.h>
 #include <stdio.h>
 
