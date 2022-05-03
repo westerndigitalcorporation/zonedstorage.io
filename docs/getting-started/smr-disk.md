@@ -174,10 +174,10 @@ number of conventional zones available, the
   start: 0x6d2380000, len 0x080000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
 ```
 
-From the output, one can see that the 512B sector range from 0 up to
-0x010600000 is divided into 524 conventional zones. The sector space starting
-from 0x010600000 until the last sector of the disk is devided into 55356
-sequential write required zones.
+This output shows that that the 512B sector range (from 0 up to 0x010600000) is
+divided into 524 conventional zones. The sector space starting at 0x010600000
+and ending at the last sector of the disk is divided into 55356 sequential
+write required zones.
 
 The [*zbc_report_zones*](../tools/libzbc#zone-information) of
 [*libzbc*](../tools/libzbc) provides more detailed information in a more
