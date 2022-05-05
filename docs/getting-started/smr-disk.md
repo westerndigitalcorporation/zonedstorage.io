@@ -11,33 +11,36 @@ technology can have different interface implementations. This results in
 different usage models:
 
 * **Drive Managed Interface:** SMR disks that implement this interface are seen
-  by the host kernel and applications as identical to regular disks and do not
-  need special attention. Most Linux&reg; kernels recognize these disks. With
-  this implementation, no LBA space zoning information is available to the
-  host. Drive Managed disks are therefore not considered to be zoned block
-  devices.
+  by the host kernel and by applications as identical to regular disks. Most
+  Linux&reg; kernels recognize these disks. SMR disks that implement this
+  interface make no LBA-space zoning information available to the host. Drive
+  Managed disks are therefore not considered to be zoned block devices.
 
-* **Zoned Block Interface:** SMR hard-disk drives that implement ZBC and ZAC
-  feature sets provide commands to the host that allow the host to indentify and
-  control the device zones. This interface has two different variations, or
-  model implementations (See [SMR Interface Implementations](../introduction/smr#smr-implementations)):
+* **Zoned Block Interface:** SMR hard-disk drives that implement the ZBC and 
+  ZAC feature sets also provide commands to the host that allow the host to 
+  identify and control the device's zones. This interface has two different 
+  variations, or model implementations (See 
+  [SMR Interface Implementations](../introduction/smr#smr-interface-implementations)). 
+  Those two model implementations are:
 
-	* **Host Aware:** While this zone model offers the convenience and
-	  flexibility of Drive Managed disks (for example, random write
-	  capabilities), Host Aware disks support the full set of zone commands
-	  defined by ZBC and ZAC standards. Host Aware disks can support both
-	  the regular block device abstraction ("regular disk") and the
-	  zoned block device abstraction.
+	* **Host Aware:** This zone model offers the convenience and
+          flexibility of Drive Managed disks (for example, it provides 
+          random write capabilities) and also supports the full set of 
+          zone commands defined in the ZBC and the ZAC standards. Host 
+          Aware disks can support both the regular block device abstraction 
+          ("regular disk") and the zoned block device abstraction.
 
-	* **Host Managed** This zone model defines a device type that is
-	  different from the "regular disk" device type. Host Managed disks can
-	  be used only as zoned block devices in order to satisfy the strong
-	  sequential write constraints defined by the model.
+	* **Host Managed:** This zone model defines a device type that is 
+          different from the "regular disk" device type. Host Managed disks 
+          can be used only as zoned block devices. This is necessary in order 
+          to satisfy the strong sequential write constraints defined by this 
+          zone model.
 
-In the following sections, Host Aware disk models are considered similar to
-zoned block devices, with characteristics similar to the characteristics of
-Host Managed drives. This means that, for Host Aware disk models, sequential
-writes are assumed to be a constraint for the correct operation of the disk.
+In the following sections, Host Aware disk models are considered to be similar
+to zoned block devices, and are assumed to have characteristics similar to the
+characteristics of Host Managed drives. Sequential writes are therefore assumed
+to be a constraint for the correct operation of disks that use the Host Aware
+disk model.
 
 ## Serial ATA ZAC Disks and SATA Host Controllers
 
