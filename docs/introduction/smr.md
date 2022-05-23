@@ -128,7 +128,7 @@ All host-side software support and optimization discussed in this site apply
 to host aware SMR disks when these devices are used similarly to host managed
 disks.
 
-:::info "ZonedStorage.io focuses on host managed devices"
+:::info ZonedStorage.io focuses on host managed devices
 The documentation pages of this site focus on host managed SMR disks. Drive
 managed and host aware disks used as regular devices are not discussed.
 :::
