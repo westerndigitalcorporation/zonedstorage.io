@@ -23,24 +23,23 @@ different usage models:
   [SMR Interface Implementations](../introduction/smr#smr-interface-implementations)). 
   Those two model implementations are:
 
-	* **Host Aware:** This zone model offers the convenience and
-          flexibility of Drive Managed disks (for example, it provides 
-          random write capabilities) and also supports the full set of 
-          zone commands defined in the ZBC and the ZAC standards. Host 
-          Aware disks can support both the regular block device abstraction 
-          ("regular disk") and the zoned block device abstraction.
+	* **Host Aware:** This zone model offers the convenience and flexibility
+	  of Drive Managed disks (for example, it provides random write
+	  capabilities) and also supports the full set of zone commands defined
+	  in the ZBC and the ZAC standards. Host Aware disks can support both
+	  the regular block device abstraction ("regular disk") and the zoned
+	  block device abstraction.
 
-	* **Host Managed:** This zone model defines a device type that is 
-          different from the "regular disk" device type. Host Managed disks 
-          can be used only as zoned block devices. This is necessary in order 
-          to satisfy the strong sequential write constraints defined by this 
-          zone model.
+	* **Host Managed:** This zone model defines a device type that is
+	  different from the "regular disk" device type. Host Managed disks can
+	  be used only as zoned block devices. This is necessary in order to
+	  satisfy the strong sequential write constraints defined by this zone
+	  model.
 
-In the following sections, Host Aware disk models are considered to be similar
-to zoned block devices, and are assumed to have characteristics similar to the
-characteristics of Host Managed drives. Sequential writes are therefore assumed
-to be a constraint for the correct operation of disks that use the Host Aware
-disk model.
+In the following sections, Host Aware disk models are considered to have
+characteristics similar to Host Managed drives. Sequential writes are therefore
+assumed to be a constraint for the correct operation of drives that implement
+the Host Aware disk model.
 
 ## Serial ATA ZAC Disks and SATA Host Controllers
 
