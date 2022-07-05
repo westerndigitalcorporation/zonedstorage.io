@@ -14,11 +14,12 @@ regular storage devices.
 
 ## Principle
 
-Zones in zoned storage devices must be written sequentially. Each zone in the
-device address space has a write pointer that keeps track of the position of
-the next write. Data in a zone cannot be directly overwritten: before being
-overwritten, the zone must first be erased using a special command (zone
-reset). The figure below illustrates this principle.
+Zones in zoned storage devices must be written sequentially. This is called the
+**sequential write constraint**. Each zone in the device address space has a
+write pointer that keeps track of the position of the next write. Data in a
+zone cannot be directly overwritten: before being overwritten, the zone must
+first be erased using a special command (zone reset). The figure below
+illustrates this principle.
 
 <Image src="intro-zoned-storage.png"
 title="Zoned Storage Devices Principle"/>
