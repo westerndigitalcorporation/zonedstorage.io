@@ -33,45 +33,47 @@ possible to meet expanding data needs, and SMR technology requires the zoned
 block access model.
 
 Solid State Drive (SSD) storage devices can also implement a zoned interface in
-order to reduce write amplification, to reduce the device's DRAM needs,  and to
+order to reduce write amplification, to reduce the device's DRAM needs, and to
 improve the quality of service at scale. The [NVMe Zoned NameSpace
 (ZNS)](./zns) is a technical proposal of the NVMe standard committee that adds
 a zoned storage interface to the NVMe interface standard.
 
 ## Linux Ecosystem Support
 
-Zoned storage devices are not plug-and-play replacement of traditional storage
-devices due to the sequential write constraints of zones. Special software and
-drivers are required to ensure compliance of the application operation to the
-device constraints.
+Zoned storage devices are not a plug-and-play replacement of traditional
+storage devices.  This is due to the sequential write constraint imposed on
+zones: special software and drivers are required to ensure that applications
+comply with zoned-storage device constraints during operation. 
 
-Support for zoned storage device was added to the Linux&reg; kernel with the
-release of version 4.10.0 and enables support for zoned storage at different
-levels (disk driver, file system, device mapper drivers), offering a wide range
-of options for supporting applications. This support is based on the
-Zoned Block Device (ZBD) abstraction.
+Support for zoned storage devices was added to the Linux&reg; kernel with the
+release of version 4.10.0. This addition enabled support for zoned storage at
+different levels (the disk driver level, the file system level, and the device
+mapper driver level), and offered a range of options for supporting
+applications. This support is based on the Zoned Block Device (ZBD)
+abstraction.
 
-A zoned block device is a generic representation of a zoned storage device
-independent of the device access protocol and interface. This abstraction is
+A zoned block device is a generic representation of a zoned storage device, and
+is independent of the device access protocol and interface. This abstraction is
 the basis of Linux kernel support for zoned storage.
 
-The interface associated with the ZBD device abstraction is an extension to the
-traditional Linux block device interface. The ZBD interface, combined with
-device drivers, provide to kernel subsystems (e.g. File systems) and to user
-applications a generic zone management interface compatible across all zoned
-device types and access protocols.
+The interface associated with the ZBD device abstraction is an extension of the
+traditional Linux block device interface. The ZBD interface (with the help of
+device drivers) provides a generic zone-management interface to kernel
+subsystems (e.g. File systems) and to user applications that is compatible
+across all zoned device types and all access protocols.
 
-A simplified view of the kernel structure including the ZBD interface is shown
-in the figure below.
+A simplified view of the kernel structure, including the ZBD interface, is
+shown in the figure below.
 
 <Image src="intro-linux-zbd.png"
 title="Linux kernel Zoned Storage Device Support Overview"/>
 
-Linux ZBD interface implementation provides functions to discover the zone
-configuration of a zoned device and functions to manage zones (e.g. Zone reset).
-Furthermore, the Linux kernel ZBD support also modifies the kernel block I/O
-stack to ensure that the device access constraints (zone spanning commands,
-sequential write ordering, etc) are met.
+The implementation of the Linux-ZBD interface provides functions for
+discovering the zone configuration of a given zoned device as well as functions
+for managing zones (for example, "zone reset"). Linux-kernel ZBD support also
+modifies the kernel block I/O stack to ensure that all device access
+constraints are met. These device access constraints include "zone spanning
+commands" and "sequential write ordering". 
 
 ## Developing for Zoned Storage
 
