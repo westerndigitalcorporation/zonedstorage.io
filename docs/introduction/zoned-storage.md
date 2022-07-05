@@ -33,85 +33,88 @@ possible to meet expanding data needs, and SMR technology requires the zoned
 block access model.
 
 Solid State Drive (SSD) storage devices can also implement a zoned interface in
-order to reduce write amplification, to reduce the device's DRAM needs,  and to
+order to reduce write amplification, to reduce the device's DRAM needs, and to
 improve the quality of service at scale. The [NVMe Zoned NameSpace
 (ZNS)](./zns) is a technical proposal of the NVMe standard committee that adds
 a zoned storage interface to the NVMe interface standard.
 
 ## Linux Ecosystem Support
 
-Zoned storage devices are not plug-and-play replacement of traditional storage
-devices due to the sequential write constraints of zones. Special software and
-drivers are required to ensure compliance of the application operation to the
-device constraints.
+Zoned storage devices are not a plug-and-play replacement of traditional
+storage devices.  This is due to the sequential write constraint imposed on
+zones: special software and drivers are required to ensure that applications
+comply with zoned-storage device constraints during operation. 
 
-Support for zoned storage device was added to the Linux&reg; kernel with the
-release of version 4.10.0 and enables support for zoned storage at different
-levels (disk driver, file system, device mapper drivers), offering a wide range
-of options for supporting applications. This support is based on the
-Zoned Block Device (ZBD) abstraction.
+Support for zoned storage devices was added to the Linux&reg; kernel with the
+release of version 4.10.0. This addition enabled support for zoned storage at
+different levels (the disk driver level, the file system level, and the device
+mapper driver level), and offered a range of options for supporting
+applications. This support is based on the Zoned Block Device (ZBD)
+abstraction.
 
-A zoned block device is a generic representation of a zoned storage device
-independent of the device access protocol and interface. This abstraction is
+A zoned block device is a generic representation of a zoned storage device, and
+is independent of the device access protocol and interface. This abstraction is
 the basis of Linux kernel support for zoned storage.
 
-The interface associated with the ZBD device abstraction is an extension to the
-traditional Linux block device interface. The ZBD interface, combined with
-device drivers, provide to kernel subsystems (e.g. File systems) and to user
-applications a generic zone management interface compatible across all zoned
-device types and access protocols.
+The interface associated with the ZBD device abstraction is an extension of the
+traditional Linux block device interface. The ZBD interface (with the help of
+device drivers) provides a generic zone-management interface to kernel
+subsystems (e.g. File systems) and to user applications that is compatible
+across all zoned device types and all access protocols.
 
-A simplified view of the kernel structure including the ZBD interface is shown
-in the figure below.
+A simplified view of the kernel structure, including the ZBD interface, is
+shown in the figure below.
 
 <Image src="intro-linux-zbd.png"
 title="Linux kernel Zoned Storage Device Support Overview"/>
 
-Linux ZBD interface implementation provides functions to discover the zone
-configuration of a zoned device and functions to manage zones (e.g. Zone reset).
-Furthermore, the Linux kernel ZBD support also modifies the kernel block I/O
-stack to ensure that the device access constraints (zone spanning commands,
-sequential write ordering, etc) are met.
+The implementation of the Linux-ZBD interface provides functions for
+discovering the zone configuration of a given zoned device as well as functions
+for managing zones (for example, "zone reset"). Linux-kernel ZBD support also
+modifies the kernel block I/O stack to ensure that all device access
+constraints are met. These device access constraints include "zone spanning
+commands" and "sequential write ordering". 
 
 ## Developing for Zoned Storage
 
-There are several ways to design a system application for zoned storage
-depending on one's system structure and ability to modify the application layer
-and Linux kernel being used.
+There are several ways to design a system application for zoned storage.  The
+way that is right for you depends upon your system's structure and your ability
+to modify the application layer and your ability to choose a particular Linux
+kernel version.
 
-1. Users that own software applications and do not depend on the operating
-   system and file system to control the device can directly use the device
-   interface protocol to issue zone management commands using a passthrough
-   interface. In such case, the applications will need to be re-written with
-   the new command sets as well as ensuring that all data streams are
-   sequential. The [*libzbc* library](../tools/libzbc) provides functions
-   facilitating the implementation of applications using such approach.
+1. **Users that own software applications and do not depend on the operating
+   system and file system to control the device** can directly use the device
+   interface protocol to issue zone management commands by using a
+   **passthrough interface**. In these cases, the applications must be
+   rewritten with the new command sets and they must ensure that all data
+   streams are sequential. The [*libzbc* library](../tools/libzbc) provides
+   functions to help with this approach.
 
-2. Managing zoned storage directly from the application layer is a valid
-   approach but can be difficult to implement, particularly for use cases where
-   several device features must be combined (e.g. Using I/O priorities).
-   Application level support can be simplified by relying on the
-   kernel ZBD support which allows accessing and managing zoned devices using
-   regular POSIX system calls. While this does not remove the zoned device
-   access constraints from the application scope, implementation of sequential
-   write streams and zone management can be simplified.
+2. **Managing zoned storage directly from the application layer** is a valid
+   approach but **can be difficult to implement**. This is true particularly in
+   use cases where several device features must be combined (for example, when
+   I/O priorities are used). Application level support can be simplified by
+   relying on the kernel ZBD support which allows accessing and managing zoned
+   devices using regular POSIX system calls. While this does not remove the
+   zoned device access constraints from the application scope, implementation
+   of sequential write streams and zone management can be simplified.
 
-3. If a user lacks the software control at the application level while retaining
-   control over Linux kernel version choices, more advanced kernel support
-   features such as ZBD compliant file systems can be used to hide zoned storage
-   access constraints from the application. Users may also rely on
-   a device mapper driver exposing zoned storage devices as regular block
-   devices. With such solution, existing file systems can be used without any
-   modification.
+3. If **a user lacks software control at the application level but retains
+   control over the choice of the version of the Linux kernel, more advanced
+   kernel support features such as ZBD compliant file systems can be used to
+   hide zoned storage access constraints from the application**. Users may also
+   rely on a device mapper driver that exposes zoned storage devices as regular
+   block devices. **If this solution is used, existing file systems can be used
+   without any modification**.
 
 More information on the features provided by the Linux kernel for different
 versions can be found [here](../linux/overview).
 
-To get started with zoned storage, the
-[Getting Started with SMR](../getting-started/prerequisites) section details
-the first step necessary to setup and verify a system using SMR disks. The
-[Linux Distributions](../distributions/linux) section provides information
-regarding the availability of the ZBD interface on various Linux distributions.
-Various open source tools and libraries supporting zoned storage are documented
-in the [Tools and Libraries](../tools) section.
+To get started with zoned storage, see the [Getting Started with
+SMR](../getting-started/prerequisites) section, which details the first step
+necessary to set up and verify a system that uses SMR disks. The [Linux
+Distributions](../distributions/linux) section provides information regarding
+the availability of the ZBD interface on various Linux distributions. Open
+source tools and libraries that support zoned storage are documented in the
+[Tools and Libraries](../tools) section.
 
