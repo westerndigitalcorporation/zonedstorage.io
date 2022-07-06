@@ -96,7 +96,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Benchmarking Zoned Block Device',
+      label: 'Performance Benchmarking',
       collapsed: true,
       items: [
           'benchmarking/index',
