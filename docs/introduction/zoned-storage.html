@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><title data-rh="true">Zoned Storage Overview | Zoned Storage</title><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://zonedstorage.io/docs/introduction/zoned-storage"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Zoned Storage Overview | Zoned Storage"><meta data-rh="true" name="description" content="Zoned storage devices are a class of storage devices that have an address space"><meta data-rh="true" property="og:description" content="Zoned storage devices are a class of storage devices that have an address space"><link data-rh="true" rel="icon" href="/img/zs-logo.ico"><link data-rh="true" rel="canonical" href="https://zonedstorage.io/docs/introduction/zoned-storage"><link data-rh="true" rel="alternate" href="https://zonedstorage.io/docs/introduction/zoned-storage" hreflang="en"><link data-rh="true" rel="alternate" href="https://zonedstorage.io/docs/introduction/zoned-storage" hreflang="x-default"><link rel="stylesheet" href="/assets/css/styles.028cc568.css">
-<link rel="preload" href="/assets/js/runtime~main.acbffe4f.js" as="script">
-<link rel="preload" href="/assets/js/main.f78c3487.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.f964a852.js" as="script">
+<link rel="preload" href="/assets/js/main.d8e174d5.js" as="script">
 </head>
 <body class="navigation-with-keyboard" data-theme="light">
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -27,58 +27,65 @@ Magnetic Recording (SMR)</a> HDDs. ZBC and ZAC enable a zoned block storage
 model; SMR technology enables continued areal density growth that makes it
 possible to meet expanding data needs, and SMR technology requires the zoned
 block access model.</p><p>Solid State Drive (SSD) storage devices can also implement a zoned interface in
-order to reduce write amplification, to reduce the device&#x27;s DRAM needs,  and to
+order to reduce write amplification, to reduce the device&#x27;s DRAM needs, and to
 improve the quality of service at scale. The <a href="/docs/introduction/zns">NVMe Zoned NameSpace
 (ZNS)</a> is a technical proposal of the NVMe standard committee that adds
-a zoned storage interface to the NVMe interface standard.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="linux-ecosystem-support">Linux Ecosystem Support<a class="hash-link" href="#linux-ecosystem-support" title="Direct link to heading">​</a></h2><p>Zoned storage devices are not plug-and-play replacement of traditional storage
-devices due to the sequential write constraints of zones. Special software and
-drivers are required to ensure compliance of the application operation to the
-device constraints.</p><p>Support for zoned storage device was added to the Linux<!-- -->®<!-- --> kernel with the
-release of version 4.10.0 and enables support for zoned storage at different
-levels (disk driver, file system, device mapper drivers), offering a wide range
-of options for supporting applications. This support is based on the
-Zoned Block Device (ZBD) abstraction.</p><p>A zoned block device is a generic representation of a zoned storage device
-independent of the device access protocol and interface. This abstraction is
-the basis of Linux kernel support for zoned storage.</p><p>The interface associated with the ZBD device abstraction is an extension to the
-traditional Linux block device interface. The ZBD interface, combined with
-device drivers, provide to kernel subsystems (e.g. File systems) and to user
-applications a generic zone management interface compatible across all zoned
-device types and access protocols.</p><p>A simplified view of the kernel structure including the ZBD interface is shown
-in the figure below.</p><div class="container text--center"><figure><img src="/assets/images/intro-linux-zbd-f4ba5756b82ac441113bd7f9c9dd1dc6.png" width="640" max-width="100%"><figcaption><em>Linux kernel Zoned Storage Device Support Overview</em></figcaption></figure></div><p>Linux ZBD interface implementation provides functions to discover the zone
-configuration of a zoned device and functions to manage zones (e.g. Zone reset).
-Furthermore, the Linux kernel ZBD support also modifies the kernel block I/O
-stack to ensure that the device access constraints (zone spanning commands,
-sequential write ordering, etc) are met.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="developing-for-zoned-storage">Developing for Zoned Storage<a class="hash-link" href="#developing-for-zoned-storage" title="Direct link to heading">​</a></h2><p>There are several ways to design a system application for zoned storage
-depending on one&#x27;s system structure and ability to modify the application layer
-and Linux kernel being used.</p><ol><li><p>Users that own software applications and do not depend on the operating
+a zoned storage interface to the NVMe interface standard.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="linux-ecosystem-support">Linux Ecosystem Support<a class="hash-link" href="#linux-ecosystem-support" title="Direct link to heading">​</a></h2><p>Zoned storage devices are not a plug-and-play replacement of traditional
+storage devices.  This is due to the sequential write constraint imposed on
+zones: special software and drivers are required to ensure that applications
+comply with zoned-storage device constraints during operation.</p><p>Support for zoned storage devices was added to the Linux<!-- -->®<!-- --> kernel with the
+release of version 4.10.0. This addition enabled support for zoned storage at
+different levels (the disk driver level, the file system level, and the device
+mapper driver level), and offered a range of options for supporting
+applications. This support is based on the Zoned Block Device (ZBD)
+abstraction.</p><p>A zoned block device is a generic representation of a zoned storage device, and
+is independent of the device access protocol and interface. This abstraction is
+the basis of Linux kernel support for zoned storage.</p><p>The interface associated with the ZBD device abstraction is an extension of the
+traditional Linux block device interface. The ZBD interface (with the help of
+device drivers) provides a generic zone-management interface to kernel
+subsystems (e.g. File systems) and to user applications that is compatible
+across all zoned device types and all access protocols.</p><p>A simplified view of the kernel structure, including the ZBD interface, is
+shown in the figure below.</p><div class="container text--center"><figure><img src="/assets/images/intro-linux-zbd-f4ba5756b82ac441113bd7f9c9dd1dc6.png" width="640" max-width="100%"><figcaption><em>Linux kernel Zoned Storage Device Support Overview</em></figcaption></figure></div><p>The implementation of the Linux-ZBD interface provides functions for
+discovering the zone configuration of a given zoned device as well as functions
+for managing zones (for example, &quot;zone reset&quot;). Linux-kernel ZBD support also
+modifies the kernel block I/O stack to ensure that all device access
+constraints are met. These device access constraints include &quot;zone spanning
+commands&quot; and &quot;sequential write ordering&quot;. </p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="developing-for-zoned-storage">Developing for Zoned Storage<a class="hash-link" href="#developing-for-zoned-storage" title="Direct link to heading">​</a></h2><p>There are several ways to design a system application for zoned storage.  The
+way that is right for you depends upon your system&#x27;s structure and your ability
+to modify the application layer and your ability to choose a particular Linux
+kernel version.</p><ol><li><p><strong>Direct device management with passthrough commands</strong></p><p>Users that own software applications and do not depend on the operating
 system and file system to control the device can directly use the device
-interface protocol to issue zone management commands using a passthrough
-interface. In such case, the applications will need to be re-written with
-the new command sets as well as ensuring that all data streams are
-sequential. The <a href="/docs/tools/libzbc"><em>libzbc</em> library</a> provides functions
-facilitating the implementation of applications using such approach.</p></li><li><p>Managing zoned storage directly from the application layer is a valid
-approach but can be difficult to implement, particularly for use cases where
-several device features must be combined (e.g. Using I/O priorities).
-Application level support can be simplified by relying on the
-kernel ZBD support which allows accessing and managing zoned devices using
-regular POSIX system calls. While this does not remove the zoned device
-access constraints from the application scope, implementation of sequential
-write streams and zone management can be simplified.</p></li><li><p>If a user lacks the software control at the application level while retaining
-control over Linux kernel version choices, more advanced kernel support
-features such as ZBD compliant file systems can be used to hide zoned storage
-access constraints from the application. Users may also rely on
-a device mapper driver exposing zoned storage devices as regular block
-devices. With such solution, existing file systems can be used without any
-modification.</p></li></ol><p>More information on the features provided by the Linux kernel for different
-versions can be found <a href="/docs/linux/overview">here</a>.</p><p>To get started with zoned storage, the
-<a href="/docs/getting-started/prerequisites">Getting Started with SMR</a> section details
-the first step necessary to setup and verify a system using SMR disks. The
-<a href="/docs/distributions/linux">Linux Distributions</a> section provides information
-regarding the availability of the ZBD interface on various Linux distributions.
-Various open source tools and libraries supporting zoned storage are documented
-in the <a href="/docs/tools">Tools and Libraries</a> section.</p></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages navigation"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/introduction"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Overview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/introduction/smr"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Shingled Magnetic Recording</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#principle" class="table-of-contents__link toc-highlight">Principle</a></li><li><a href="#linux-ecosystem-support" class="table-of-contents__link toc-highlight">Linux Ecosystem Support</a></li><li><a href="#developing-for-zoned-storage" class="table-of-contents__link toc-highlight">Developing for Zoned Storage</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/introduction/zoned-storage">Introduction to Zoned Storage</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/getting-started">Getting Started with Zoned Storage</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://app.element.io/#/room/#zonedstorage-general:matrix.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">Matrix<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_lCJq"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/zonedstorage/shared_invite/zt-uyfut5xe-nKajp9YRnEWqiD4X6RkTFw" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_lCJq"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://webchat.oftc.net/?channels=zonedstorage" target="_blank" rel="noopener noreferrer" class="footer__link-item">IRC @ OFTC<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_lCJq"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/westerndigitalcorporation" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Organization<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_lCJq"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2022 Western Digital
+interface protocol to issue zone management commands by using a
+passthrough interface. In these cases, the applications must be
+rewritten with the new command sets and they must ensure that all data
+streams are sequential. The <a href="/docs/tools/libzbc"><em>libzbc</em> library</a> provides
+functions to help with this approach.</p></li><li><p><strong>Direct device management with block device file access</strong></p><p>Managing zoned storage directly from the application layer is a valid
+approach but can be difficult to implement. This is true particularly in
+use cases where several device features must be combined (for example, when
+I/O priorities are used). Application level support can be simplified by
+relying on the kernel zoned block device support which allows accessing and
+managing zoned devices using regular POSIX system calls. While this does not
+remove the zoned device access constraints from the application scope,
+implementation of sequential write streams and zone management can be
+simplified. The <a href="/docs/tools/libzbd"><em>libzbd</em> library</a> provides functions to
+help with this approach. Using the <a href="/docs/linux/fs#zonefs"><em>zonefs</em></a> file system
+can also simplify application implementation.</p></li><li><p><strong>Device mapper and POSIX file systems</strong></p><p>If a user lacks software control at the application level but retains
+control over the choice of the version of the Linux kernel, more advanced
+kernel support features such as zoned block device compliant file systems
+(e.g. <a href="/docs/linux/fs#btrfs"><em>btrfs</em></a>) can be used to hide zoned storage access
+constraints from the application. Users may also rely on a device mapper
+driver that exposes zoned storage devices as regular block devices (for
+instance, the <a href="/docs/linux/dm#dm-zoned"><em>dm-zoned</em> device mapper</a>). If this
+solution is used, existing file systems can be used without any modification.</p></li></ol><p>More information on the features provided by the Linux kernel for different
+versions can be found <a href="/docs/linux/overview">here</a>.</p><p>To get started with zoned storage, see the <a href="/docs/getting-started/prerequisites">Getting Started with
+SMR</a> section, which details the first step
+necessary to set up and verify a system that uses SMR disks. The <a href="/docs/distributions/linux">Linux
+Distributions</a> section provides information regarding
+the availability of the ZBD interface on various Linux distributions. Open
+source tools and libraries that support zoned storage are documented in the
+<a href="/docs/tools">Tools and Libraries</a> section.</p></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages navigation"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/introduction"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Overview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/introduction/smr"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Shingled Magnetic Recording</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#principle" class="table-of-contents__link toc-highlight">Principle</a></li><li><a href="#linux-ecosystem-support" class="table-of-contents__link toc-highlight">Linux Ecosystem Support</a></li><li><a href="#developing-for-zoned-storage" class="table-of-contents__link toc-highlight">Developing for Zoned Storage</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/introduction/zoned-storage">Introduction to Zoned Storage</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/getting-started">Getting Started with Zoned Storage</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://app.element.io/#/room/#zonedstorage-general:matrix.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">Matrix<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_lCJq"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/zonedstorage/shared_invite/zt-uyfut5xe-nKajp9YRnEWqiD4X6RkTFw" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_lCJq"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://webchat.oftc.net/?channels=zonedstorage" target="_blank" rel="noopener noreferrer" class="footer__link-item">IRC @ OFTC<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_lCJq"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/westerndigitalcorporation" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Organization<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_lCJq"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2022 Western Digital
 	Corporation or its affiliates. All rights reserved.<br> By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use" target="_blank">Terms of Use</a> and <a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank">Privacy Statement</a>.  All example scripts and program snippets on this site are licensed under the <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CCO 1.0 Universal</a> license.<br>This site is built with <a href="https://docusaurus.io/" target="_blank">Docusaurus</a>.</div></div></div></footer></div>
-<script src="/assets/js/runtime~main.acbffe4f.js"></script>
-<script src="/assets/js/main.f78c3487.js"></script>
+<script src="/assets/js/runtime~main.f964a852.js"></script>
+<script src="/assets/js/main.d8e174d5.js"></script>
 </body>
 </html>
