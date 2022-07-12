@@ -7,7 +7,28 @@ slug: /getting-started
 
 # Getting Started
 
+## Overview
+
 Learn how to set up a Linux system to use zoned storage devices.
+
+## Introduction
+
+If you have never used a zoned block device before, this is the chapter that
+you should read. 
+
+## null_blk Emulation Setup
+
+The following three-step procedure results in an environment that will allow
+you to evaluate ZonedStorage and to investigate its features. This is the
+fastest way to get started, and is recommended for first-time readers.
+
+This procedure creates a zoned null block device. It is okay if you do not yet
+know what that means. This is the simplest way to try out ZonedStorage.
+
+1. Install a Linux distribution that supports ZonedStorage. Fedora 36 is recommended.
+1. [Create a zoned null_blk device](./nullblk.md#creating-a-zoned-null-block-device--simplest-case). "null_blk" is pronounced "null block", and for our purposes in this tutorial, you need to know only that the "null block device" emulates a block device.
+
+# Reference Section
 
 * [Linux Distributions](../distributions/linux.md): Learn about the support
   provided by the pre-compiled binary kernels shipped with various Linux
