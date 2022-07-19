@@ -35,7 +35,11 @@ const sidebars = {
       label: 'Getting Started',
       collapsed: true,
       items: [
-        'getting-started/index',
+        {
+          type: 'link',
+          label: 'Overview',
+          href: '/docs/getting-started',
+        },
         'getting-started/prerequisites',
 	'getting-started/nullblk',
 	'getting-started/smr-disk',

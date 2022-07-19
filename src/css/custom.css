@@ -27,3 +27,151 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.homepage {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Heading */
+
+.Heading {
+  font-size: 25px;
+  color: var(--ifm-font-color-base);
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* HeaderEntry */
+
+.HeaderEntry {
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 960px) {
+  .HeaderEntry .column.last {
+    max-height: 300px;
+  }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 960px) {
+  .HeaderEntry .column.last {
+    width: 66.7%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 961px) {
+  .HeaderEntry {
+    max-height: 400px;
+  }
+
+  /* Correct for whitespace in the image of phones */
+  .HeaderEntry .column.left {
+    margin-top: -25px;
+  }
+}
+
+/* Section */
+
+.Section {
+  width: 100%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  overflow-x: hidden;
+}
+
+.Section + .Section {
+  border-top: 1px solid var(--ifm-table-border-color);
+}
+
+.Section.tint {
+  background-color: var(--ifm-menu-color-background-active);
+}
+
+.Section.dark {
+  background-color: var(--dark);
+}
+
+.Section p a {
+  @extend %link-style;
+}
+
+html[data-theme="dark"] .Section p a {
+  @extend %link-style-dark;
+}
+
+/* Two columns */
+
+.TwoColumns {
+  display: grid;
+}
+
+.TwoColumns .column {
+  width: 100%;
+}
+
+.TwoColumns .column.first {
+  padding-top: 25px;
+  grid-area: first;
+}
+
+.TwoColumns .column.last {
+  grid-area: last;
+}
+
+.TwoColumns a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.TwoColumns a:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (min-width: 961px) {
+  .TwoColumns {
+    max-width: 900px;
+    margin: 0 auto;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "first last";
+  }
+
+  .TwoColumns.reverse {
+    grid-template-areas: "last first";
+  }
+
+  .TwoColumns .column {
+    max-width: 450px;
+  }
+
+  .TwoColumns .column.left {
+    padding-right: 50px;
+  }
+
+  .TwoColumns .column.right {
+    padding-left: 50px;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .TwoColumns,
+  .TwoColumns.reverse {
+    grid-template-columns: 1fr;
+    grid-template-areas: "first" "last";
+  }
+
+  .TwoColumns .column {
+    padding: 0 4rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .TwoColumns .column {
+    padding: 0 1.25rem;
+  }
+}
+
+
+
