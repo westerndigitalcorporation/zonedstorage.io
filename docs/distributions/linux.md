@@ -37,8 +37,9 @@ target="_blank">here</a>.
 | Fedora 31 (EOL) | 5.3 | <Yes/> | <Yes/> | <No/> |
 | Fedora 32 (EOL) | 5.6 | <Yes/> | <Yes/> | <No/> |
 | Fedora 33 (EOL) | 5.8 | <Yes/> | <Yes/> | <Yes/> (after updates) |
-| Fedora 34 | 5.11 | <Yes/> | <Yes/> | <Yes/> |
+| Fedora 34 (EOL) | 5.11 | <Yes/> | <Yes/> | <Yes/> |
 | Fedora 35 | 5.14 | <Yes/> | <Yes/> | <Yes/> |
+| Fedora 36 | 5.17 | <Yes/> | <Yes/> | <Yes/> |
 
 </center>
 
@@ -96,6 +97,8 @@ readiness for the most recent releases.
 | 20.04	LTS (Focal Fossa) | 5.4 | <Yes/> | <Yes/> | <No/> |
 | 20.10	(Groovy Gorilla) | 5.8 | <Yes/> | <Yes/> | <No/> |
 | 21.04	(Hirsute Hippo) | 5.11 | <Yes/> | <Yes/> | <Yes/> |
+| 21.10	(Impish Indri) | 5.13 | <Yes/> | <Yes/> | <Yes/> |
+| 22.04	LTS (Jammy Jellyfish) | 5.17 | <Yes/> | <Yes/> | <Yes/> |
 
 </center>
 
@@ -111,12 +114,32 @@ The list of kernel versions shipped with all *RHEL* releases can be
 found <a href="https://access.redhat.com/articles/3078" target="_blank">
 here</a>.
 
+### RHEL 9
+
+The latest release 9 of *RHEL* is based on the kernel version 5.14.  The default
+binary kernel shipped with the distribution is configured with zoned block
+device support enabled, which enable using SMR and ZNS devices. However,
+advanced features suh as the dm-zoned device mapper and file systems with zoned
+block device support are not available.
+
+<center>
+
+| Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
+| :-----: | :----------: | :---------: | :----------------: | :---------: |
+| RHEL 9 | 5.14.0-70 | <Yes/> | <No/> | <Yes/> |
+
+</center>
+
+Users who require a more complete support for zoned block devices can
+[reconfigure and recompile the *RHEL* kernel](../linux/config.md). Using such
+recompiled kernel may however conflict with *Red Hat* support. Users should
+contact *Red Hat* support for more information.
+
 ### RHEL 8
 
-The latest release 8 of *RHEL* is based on the kernel version 4.18 which
-includes zoned block device support. However, as shown in the table below, this
-support is not enabled at compile time for the binary kernel shipped with the
-distribution.
+*RHEL 8* is based on the kernel version 4.18 which includes zoned block device
+support. However, as shown in the table below, this support is not enabled at
+compile time for the default binary kernel shipped with the distribution.
 
 <center>
 
@@ -202,9 +225,13 @@ provides kernels version 5.12 and 5.13 for *CentOS 7*, *CentOS 8* and
 
 | Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
 | :-----: | :----------: | :---------: | :----------------: | :---------: |
-| CentOS 7 + elrepo | 5.12, 5.13 | <Yes/> | <Yes/> | <Yes/> |
-| CentOS 8 + elrepo | 5.12, 5.13 | <Yes/> | <Yes/> | <Yes/> |
-| CentOS 8 Stream + elrepo | 5.12, 5.13 | <Yes/> | <Yes/> | <Yes/> |
+| CentOS 7 | 3.10 | <No/> | <No/> | <No/> |
+| CentOS 7 + elrepo | 5.18 | <Yes/> | <Yes/> | <Yes/> |
+| CentOS 8 | 4.18 | <No/> | <No/> | <No/> |
+| CentOS 8 + elrepo | 5.18 | <Yes/> | <Yes/> | <Yes/> |
+| CentOS Stream 8 | 5.13 | <No/> | <No/> | <No/> |
+| CentOS Stream 8 + elrepo | 5.18 | <Yes/> | <Yes/> | <Yes/> |
+| CentOS Stream 9 | 5.14 | <Yes/> | <No/> | <Yes/> |
 
 </center>
 
