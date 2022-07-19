@@ -36,7 +36,7 @@ endif
 	@echo "Stating local server"
 	@${YARN} serve --host 0.0.0.0 --port 3000
 
-deploy:
+deploy: build
 ifeq ($(GH_USER),)
 	$(error "No github user ID specified: use make GH_USER=<your GitHub user> deploy")
 else
