@@ -27,19 +27,19 @@ target="_blank">here</a>.
 
 <center>
 
-| Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
-| :-----: | :----------: | :---------: | :----------------: | :---------: |
-| Fedora 26 (EOL) | 4.11 | <Yes/> | <No/> | <No/> |
-| Fedora 27 (EOL) | 4.13 | <Yes/> | <Yes/> | <No/> |
-| Fedora 28 (EOL) | 4.16 | <Yes/> | <Yes/> | <No/> |
-| Fedora 29 (EOL) | 4.18 | <Yes/> | <Yes/> | <No/> |
-| Fedora 30 (EOL) | 5.0 | <Yes/> | <Yes/> | <No/> |
-| Fedora 31 (EOL) | 5.3 | <Yes/> | <Yes/> | <No/> |
-| Fedora 32 (EOL) | 5.6 | <Yes/> | <Yes/> | <No/> |
-| Fedora 33 (EOL) | 5.8 | <Yes/> | <Yes/> | <Yes/> (after updates) |
-| Fedora 34 (EOL) | 5.11 | <Yes/> | <Yes/> | <Yes/> |
-| Fedora 35 | 5.14 | <Yes/> | <Yes/> | <Yes/> |
-| Fedora 36 | 5.17 | <Yes/> | <Yes/> | <Yes/> |
+|     Version     | Kernel | ZBD API | ZBC, ZAC |  ZNS   | *dm-zoned* | *zonefs* | *btrfs* |
+| :-------------: | :----: | :-----: | :------: | :----: | :--------: | :------: | :-----: |
+| Fedora 26 (EOL) | 4.11   | <Yes/>  | <Yes/>   | <No/>  | <No/>      | <No/>    | <No/>   |
+| Fedora 27 (EOL) | 4.13   | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     | <No/>    | <No/>   |
+| Fedora 28 (EOL) | 4.16   | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     | <No/>    | <No/>   |
+| Fedora 29 (EOL) | 4.18   | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     | <No/>    | <No/>   |
+| Fedora 30 (EOL) | 5.0    | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     | <No/>    | <No/>   |
+| Fedora 31 (EOL) | 5.3    | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     | <No/>    | <No/>   |
+| Fedora 32 (EOL) | 5.6    | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     | <No/>    | <No/>   |
+| Fedora 33 (EOL) | 5.8    | <Yes/>  | <Yes/>   | <Yes/> <br/> (after updates) | <Yes/> | <No/> | <No/> |
+| Fedora 34 (EOL) | 5.11   | <Yes/>  | <Yes/>   | <Yes/> | <Yes/>     | <Yes/>   | <No/>    |
+| Fedora 35       | 5.14   | <Yes/>  | <Yes/>   | <Yes/> | <Yes/>     | <Yes/>   | <Yes/>   |
+| Fedora 36       | 5.17   | <Yes/>  | <Yes/>   | <Yes/> | <Yes/>     | <Yes/>   | <Yes/>   |
 
 </center>
 
@@ -62,11 +62,11 @@ storage readiness for the most recent distribution releases.
 
 <center>
 
-| Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
-| :-----: | :----------: | :---------: | :----------------: | :---------: |
-| 9 (Stretch) |	4.9 | <No/> | <No/> | <No/> |
-| 10 (Buster) |	4.19 |  <Yes/> | <Yes/> | <No/> |
-| 11 (Bullseye) | 5.10 | <Yes/> | <Yes/> | <Yes/> |
+|      Version      | Kernel | ZBD API | ZBC, ZAC |  ZNS   | *dm-zoned* |
+| :---------------: | :----: | :-----: | :------: | :----: | :--------: |
+| 9 <br/> Stretch   | 4.9    | <No/>   | <No/>    | <No/>  | <No/>      |
+| 10 <br/> Buster   | 4.19   | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     |
+| 11 <br/> Bullseye | 5.10   | <Yes/>  | <Yes/>   | <Yes/> | <Yes/>     |
 
 </center>
 
@@ -83,22 +83,22 @@ readiness for the most recent releases.
 
 <center>
 
-| Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
-| :-----: | :----------: | :---------: | :----------------: | :---------: |
-| 12.04 LTS (Precise Pangolin) | 3.2 | <No/> | <No/> | <No/> |
-| 14.04 LTS (Trusty Tahr) | 3.13 | <No/> | <No/> | <No/> |
-| 16.04 LTS (Xenial Xerus) | 4.4 | <No/> | <No/> | <No/> |
-| 17.04 (Zesty Zapus) | 4.10 | <Yes/> | <No/> | <No/> |
-| 17.10 (Artful Aardvark) | 4.13 | <Yes/> | <Yes/> | <No/> |
-| 18.04 LTS (Bionic Beaver) | 4.15 | <Yes/> | <Yes/> | <No/> |
-| 18.10	(Cosmic Cuttlefish) | 4.18 | <Yes/> | <Yes/> | <No/> |
-| 19.04	(Disco Dingo) | 5.0 | <Yes/> | <Yes/> | <No/> |
-| 19.10	(Eoan Ermine) | 5.3 | <Yes/> | <Yes/> | <No/> |
-| 20.04	LTS (Focal Fossa) | 5.4 | <Yes/> | <Yes/> | <No/> |
-| 20.10	(Groovy Gorilla) | 5.8 | <Yes/> | <Yes/> | <No/> |
-| 21.04	(Hirsute Hippo) | 5.11 | <Yes/> | <Yes/> | <Yes/> |
-| 21.10	(Impish Indri) | 5.13 | <Yes/> | <Yes/> | <Yes/> |
-| 22.04	LTS (Jammy Jellyfish) | 5.17 | <Yes/> | <Yes/> | <Yes/> |
+|     Version                      | Kernel | ZBD API | ZBC, ZAC |  ZNS   | *dm-zoned* |
+| :------------------------------: | :----: | :-----: | :------: | :----: | :--------: |
+| 12.04 LTS <br/> Precise Pangolin | 3.2    | <No/>   | <No/>    | <No/>  | <No/>      |
+| 14.04 LTS <br/> Trusty Tahr      | 3.13   | <No/>   | <No/>    | <No/>  | <No/>      |
+| 16.04 LTS <br/> Xenial Xerus     | 4.4    | <No/>   | <No/>    | <No/>  | <No/>      |
+| 17.04 <br/> Zesty Zapus          | 4.10   | <Yes/>  | <No/>    | <No/>  | <No/>      |
+| 17.10 <br/> Artful Aardvark      | 4.13   | <Yes/>  | <Yes/>   | <No/>  | <No/>      |
+| 18.04 LTS <br/> Bionic Beaver    | 4.15   | <Yes/>  | <Yes/>   | <No/>  | <No/>      |
+| 18.10	<br/> Cosmic Cuttlefish    | 4.18   | <Yes/>  | <Yes/>   | <No/>  | <No/>      |
+| 19.04	<br/> Disco Dingo          | 5.0    | <Yes/>  | <Yes/>   | <No/>  | <No/>      |
+| 19.10	<br/> Eoan Ermine          | 5.3    | <Yes/>  | <Yes/>   | <No/>  | <No/>      |
+| 20.04	LTS <br/> Focal Fossa      | 5.4    | <Yes/>  | <Yes/>   | <No/>  | <No/>      |
+| 20.10	<br/> Groovy Gorilla       | 5.8    | <Yes/>  | <Yes/>   | <No/>  | <No/>      |
+| 21.04	<br/> Hirsute Hippo        | 5.11   | <Yes/>  | <Yes/>   | <Yes/> | <No/>      |
+| 21.10	<br/> Impish Indri         | 5.13   | <Yes/>  | <Yes/>   | <Yes/> | <No/>      |
+| 22.04	LTS <br/> Jammy Jellyfish  | 5.17   | <Yes/>  | <Yes/>   | <Yes/> | <No/>      |
 
 </center>
 
@@ -124,9 +124,9 @@ block device support are not available.
 
 <center>
 
-| Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
-| :-----: | :----------: | :---------: | :----------------: | :---------: |
-| RHEL 9 | 5.14.0-70 | <Yes/> | <No/> | <Yes/> |
+| Version |  Kernel   | ZBD API | ZBC, ZAC |  ZNS   | *dm-zoned* |
+| :-----: | :-------: | :-----: | :------: | :----: | :--------: |
+| RHEL 9  | 5.14.0-70 | <Yes/>  | <Yes/>   | <Yes/> | <No/>      |
 
 </center>
 
@@ -143,12 +143,12 @@ compile time for the default binary kernel shipped with the distribution.
 
 <center>
 
-| Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
-| :-----: | :----------: | :---------: | :----------------: | :---------: |
-| RHEL 8 | 4.18.0-80 | <No/> | <No/> | <No/> |
-| RHEL 8.1 | 4.18.0-147 | <No/> | <No/> | <No/> |
-| RHEL 8.2 | 4.18.0-193 | <No/> | <No/> | <No/> |
-| RHEL 8.3 | 4.18.0-240 | <No/> | <No/> | <No/> |
+| Version  |   Kernel   | ZBD API | ZBC, ZAC |  ZNS   | *dm-zoned* |
+| :------: | :--------: | :-----: | :------: | :----: | :--------: |
+| RHEL 8   | 4.18.0-80  | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 8.1 | 4.18.0-147 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 8.2 | 4.18.0-193 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 8.3 | 4.18.0-240 | <No/>   | <No/>    | <No/>  | <No/>      |
 
 </center>
 
@@ -164,18 +164,18 @@ kernel version 3.10 which lacks zoned block device support.
 
 <center>
 
-| Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
-| :-----: | :----------: | :---------: | :----------------: | :---------: |
-| RHEL 7.0 | 3.10.0-123 | <No/> | <No/> | <No/> |
-| RHEL 7.1 | 3.10.0-229 | <No/> | <No/> | <No/> |
-| RHEL 7.2 | 3.10.0-327 | <No/> | <No/> | <No/> |
-| RHEL 7.3 | 3.10.0-514 | <No/> | <No/> | <No/> |
-| RHEL 7.4 | 3.10.0-693 | <No/> | <No/> | <No/> |
-| RHEL 7.5 | 3.10.0-862 | <No/> | <No/> | <No/> |
-| RHEL 7.6 | 3.10.0-957 | <No/> | <No/> | <No/> |
-| RHEL 7.7 | 3.10.0-1062 | <No/> | <No/> | <No/> |
-| RHEL 7.8 | 3.10.0-1127 | <No/> | <No/> | <No/> |
-| RHEL 7.9 | 3.10.0-1160 | <No/> | <No/> | <No/> |
+| Version  |   Kernel   | ZBD API | ZBC, ZAC |  ZNS   | *dm-zoned* |
+| :------: | :--------: | :-----: | :------: | :----: | :--------: |
+| RHEL 7.0 | 3.10.0-123 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 7.1 | 3.10.0-229 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 7.2 | 3.10.0-327 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 7.3 | 3.10.0-514 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 7.4 | 3.10.0-693 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 7.5 | 3.10.0-862 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 7.6 | 3.10.0-957 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 7.7 | 3.10.0-1062 | <No/>  | <No/>    | <No/>  | <No/>      |
+| RHEL 7.8 | 3.10.0-1127 | <No/>  | <No/>    | <No/>  | <No/>      |
+| RHEL 7.9 | 3.10.0-1160 | <No/>  | <No/>    | <No/>  | <No/>      |
 
 </center>
 
@@ -184,20 +184,20 @@ supported.
 
 <center>
 
-| Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
-| :-----: | :----------: | :---------: | :----------------: | :---------: |
-| RHEL 6.0 | 2.6.32-71 | <No/> | <No/> | <No/> |
-| RHEL 6.1 | 2.6.32-131 | <No/> | <No/> | <No/> |
-| RHEL 6.2 | 2.6.32-220 | <No/> | <No/> | <No/> |
-| RHEL 6.3 | 2.6.32-279 | <No/> | <No/> | <No/> |
-| RHEL 6.4 | 2.6.32-358 | <No/> | <No/> | <No/> |
-| RHEL 6.5 | 2.6.32-431 | <No/> | <No/> | <No/> |
-| RHEL 6.6 | 2.6.32-504 | <No/> | <No/> | <No/> |
-| RHEL 6.7 | 2.6.32-573 | <No/> | <No/> | <No/> |
-| RHEL 6.8 | 2.6.32-642 | <No/> | <No/> | <No/> |
-| RHEL 6.9 | 2.6.32-696 | <No/> | <No/> | <No/> |
-| RHEL 6.10 | 2.6.32-754 | <No/> | <No/> | <No/> |
-| RHEL 6 ELS+ | 2.6.32-754 | <No/> | <No/> | <No/> |
+| Version  |   Kernel   | ZBD API | ZBC, ZAC |  ZNS   | *dm-zoned* |
+| :------: | :--------: | :-----: | :------: | :----: | :--------: |
+| RHEL 6.0 | 2.6.32-71  | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 6.1 | 2.6.32-131 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 6.2 | 2.6.32-220 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 6.3 | 2.6.32-279 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 6.4 | 2.6.32-358 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 6.5 | 2.6.32-431 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 6.6 | 2.6.32-504 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 6.7 | 2.6.32-573 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 6.8 | 2.6.32-642 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 6.9 | 2.6.32-696 | <No/>   | <No/>    | <No/>  | <No/>      |
+| RHEL 6.10 | 2.6.32-754 | <No/>  | <No/>    | <No/>  | <No/>      |
+| RHEL 6 ELS+ | 2.6.32-754 | <No/> | <No/>   | <No/>  | <No/>      |
 
 </center>
 
@@ -223,15 +223,15 @@ provides kernels version 5.12 and 5.13 for *CentOS 7*, *CentOS 8* and
 
 <center>
 
-| Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
-| :-----: | :----------: | :---------: | :----------------: | :---------: |
-| CentOS 7 | 3.10 | <No/> | <No/> | <No/> |
-| CentOS 7 + elrepo | 5.18 | <Yes/> | <Yes/> | <Yes/> |
-| CentOS 8 | 4.18 | <No/> | <No/> | <No/> |
-| CentOS 8 + elrepo | 5.18 | <Yes/> | <Yes/> | <Yes/> |
-| CentOS Stream 8 | 5.13 | <No/> | <No/> | <No/> |
-| CentOS Stream 8 + elrepo | 5.18 | <Yes/> | <Yes/> | <Yes/> |
-| CentOS Stream 9 | 5.14 | <Yes/> | <No/> | <Yes/> |
+| Version                  | Kernel | ZBD API | ZBC, ZAC |  ZNS   | *dm-zoned* |
+| :----------------------: | :----: | :-----: | :------: | :----: | :--------: |
+| CentOS 7                 | 3.10   | <No/>   | <No/>    | <No/>  | <No/>      |
+| CentOS 7 + elrepo        | 5.18   | <Yes/>  | <Yes/>   | <Yes/> | <Yes/>     |
+| CentOS 8                 | 4.18   | <No/>   | <No/>    | <No/>  | <No/>      |
+| CentOS 8 + elrepo        | 5.18   | <Yes/>  | <Yes/>   | <Yes/> | <Yes/>     |
+| CentOS Stream 8          | 5.13   | <No/>   | <No/>    | <No/>  | <No/>      |
+| CentOS Stream 8 + elrepo | 5.18   | <Yes/>  | <Yes/>   | <Yes/> | <Yes/>     |
+| CentOS Stream 9          | 5.14   | <Yes/>  | <Yes/>   | <Yes/> | <No/>      |
 
 </center>
 
@@ -251,19 +251,19 @@ versions under long term service support.
 
 <center>
 
-| Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
-| :-----: | :----------: | :---------: | :----------------: | :---------: |
-| 11.3 | 3.0.76 | <No/> | <No/> | <No/> |
-| 11.4 | 3.0.101 | <No/> | <No/> | <No/> |
-| 12.0 | 3.12 | <No/> | <No/> | <No/> |
-| 12.1 | 3.12 | <No/> | <No/> | <No/> |
-| 12.2 | 4.4 | <No/> | <No/> | <No/> |
-| 12.3 | 4.4 | <No/> | <No/> | <No/> |
-| 12.4 | 4.12 | <Yes/> | <Yes/> | <No/> |
-| 15 | 4.12 | <Yes/> | <Yes/> | <No/> |
-| 15.1 | 4.12.14 | <Yes/> | <Yes/> | <No/> |
-| 15.2 | 5.3.18 | <Yes/> | <Yes/> | <No/> |
-| 15.3 | 5.3.18 | <Yes/> | <Yes/> | <Yes/> |
+| Version | Kernel  | ZBD API | ZBC, ZAC |  ZNS   | *dm-zoned* |
+| :-----: | :-----: | :-----: | :------: | :----: | :--------: |
+| 11.3    | 3.0.76  | <No/>   | <No/>    | <No/>  | <No/>      |
+| 11.4    | 3.0.101 | <No/>   | <No/>    | <No/>  | <No/>      |
+| 12.0    | 3.12    | <No/>   | <No/>    | <No/>  | <No/>      |
+| 12.1    | 3.12    | <No/>   | <No/>    | <No/>  | <No/>      |
+| 12.2    | 4.4     | <No/>   | <No/>    | <No/>  | <No/>      |
+| 12.3    | 4.4     | <No/>   | <No/>    | <No/>  | <No/>      |
+| 12.4    | 4.12    | <Yes/>  | <Yes/>   | <No/>  | <No/>      |
+| 15      | 4.12    | <Yes/>  | <Yes/>   | <No/>  | <No/>      |
+| 15.1    | 4.12.14 | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     |
+| 15.2    | 5.3.18  | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     |
+| 15.3    | 5.3.18  | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     |
 
 </center>
 
@@ -287,13 +287,13 @@ for the latest releases is shown in the table below.
 
 <center>
 
-| Version | Linux Kernel | ZBD support | *dm-zoned* support | ZNS support |
-| :-----: | :----------: | :---------: | :----------------: | :---------: |
-| Leap 15.0 | 4.12 | <Yes/> | <No/> | <No/> |
-| Leap 15.1 | 4.12 | <Yes/> | <No/> | <No/> |
-| Leap 15.2 | 5.3 | <Yes/> | <Yes/> | <No/> |
-| Leap 15.3 | 5.3 | <Yes/> | <Yes/> | <Yes/> |
-| Tumbleweed | latest stable (5.9+) | <Yes/> | <Yes/> | <Yes/> |
+| Version    | Kernel                     | ZBD API | ZBC, ZAC |  ZNS   | *dm-zoned* |
+| :--------: | :------------------------: | :-----: | :------: | :----: | :--------: |
+| Leap 15.0  | 4.12                       | <Yes/>  | <No/>    | <No/>  | <No/>      |
+| Leap 15.1  | 4.12                       | <Yes/>  | <No/>    | <No/>  | <No/>      |
+| Leap 15.2  | 5.3                        | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     |
+| Leap 15.3  | 5.3                        | <Yes/>  | <Yes/>   | <No/>  | <Yes/>     |
+| Tumbleweed | Latest Stable <br/> (5.9+) | <Yes/>  | <Yes/>   | <Yes/> | <Yes/>     |
 
 </center>
 
