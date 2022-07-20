@@ -51,9 +51,9 @@ react to the device signature of the connected disk).
 
 ### Verifying The Disk
 
-On systems that fulfill all [prerequisites](./prerequisites), SATA Host Aware
-Disks and Host Managed Disks can be connected directly to SATA ports on the
-host controller.
+On systems that have [zoned block device support enabled](./linux), SATA host
+aware disks and host managed disks can be connected directly to SATA ports on
+the host controller.
 
 After booting the system, use the *lsscsi* utility to list all SCSI devices
 attached to the system and verify the presence of the newly-connected disk:

@@ -120,11 +120,13 @@ kernel version.
 More information on the features provided by the Linux kernel for different
 versions can be found [here](../linux/overview).
 
-To get started with zoned storage, see the [Getting Started with
-SMR](../getting-started/prerequisites) section, which details the first step
-necessary to set up and verify a system that uses SMR disks. The [Linux
-Distributions](../distributions/linux) section provides information regarding
-the availability of the ZBD interface on various Linux distributions. Open
-source tools and libraries that support zoned storage are documented in the
+To get started with zoned storage, see the [Getting Started](../getting-started)
+section, which details the first steps necessary to set up and verify a system
+that uses SMR disks.
+
+The [Linux Distributions](../distributions/linux) section provides information
+regarding the availability of the ZBD interface on various Linux distributions.
+
+Open source tools and libraries that support zoned storage are documented in the
 [Tools and Libraries](../tools) section.
 

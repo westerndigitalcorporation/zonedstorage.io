@@ -57,7 +57,7 @@ function LinuxSystem() {
 	      Learn about the support provided by the pre-compiled binary
 	      kernels shipped with various Linux distributions.
 	    `}
-	    link="/docs/distributions/linux"
+	    link="/docs/getting-started/linux"
           />
         }
         columnTwo={<img alt="" src="/img/intro-linux-zbd.png" />}

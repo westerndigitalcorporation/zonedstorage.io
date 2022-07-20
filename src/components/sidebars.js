@@ -40,7 +40,7 @@ const sidebars = {
           label: 'Overview',
           href: '/docs/getting-started',
         },
-        'getting-started/prerequisites',
+        'getting-started/linux',
 	'getting-started/nullblk',
 	'getting-started/smr-disk',
 	'getting-started/smr-emulation',
