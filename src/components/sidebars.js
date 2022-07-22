@@ -41,10 +41,9 @@ const sidebars = {
           href: '/docs/getting-started',
         },
         'getting-started/linux',
-	'getting-started/nullblk',
+	'getting-started/zbd-emulation',
 	'getting-started/smr-disk',
-	'getting-started/smr-emulation',
-	'getting-started/zns-emulation'
+	'getting-started/zns-device'
       ],
     },
     {

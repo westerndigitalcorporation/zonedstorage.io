@@ -19,8 +19,8 @@ system call. A direct consequence of this is that *libzbd* allows access only
 to zoned block devices that are supported by the running kernel. This includes
 both physical devices (such as hard-disks that support the ZBC and ZAC
 standards) and all logical block devices that are implemented by various device
-drivers (such as [*null_blk*](../getting-started/nullblk) and [device
-mapper](../linux/dm) drivers).
+drivers (such as [*null_blk*](../getting-started/zbd-emulation.md) and [device
+mapper](../linux/dm.md) drivers).
 
 The *libzbd* project is hosted on <a href="https://github.com/westerndigitalcorporation/libzbd"
 target="_blank">GitHub</a>.
@@ -203,7 +203,7 @@ COMMANDS
 
 The following examples use a null zoned block device with 4 conventional zones
 and 12 sequential zones of 32 MB that have been created using the
-[*nullblk-zoned.sh*](../getting-started/nullblk#creating-a-zoned-null-block-device)
+[*nullblk-zoned.sh*](../getting-started/zbd-emulation#creating-a-zoned-null-block-device)
 script:
 
 ```plaintext

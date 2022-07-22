@@ -64,7 +64,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 
 @media only screen and (min-width: 961px) {
   .HeaderEntry {
-    max-height: 400px;
+    max-height: 450px;
   }
 
   /* Correct for whitespace in the image of phones */
@@ -77,8 +77,8 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 
 .Section {
   width: 100%;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   overflow-x: hidden;
 }
 
@@ -147,11 +147,11 @@ html[data-theme="dark"] .Section p a {
   }
 
   .TwoColumns .column.left {
-    padding-right: 50px;
+    padding-right: 30px;
   }
 
   .TwoColumns .column.right {
-    padding-left: 50px;
+    padding-left: 30px;
   }
 }
 

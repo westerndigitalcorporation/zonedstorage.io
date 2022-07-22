@@ -32,13 +32,13 @@ function Section({
   return <El className={`Section ${className} ${background}`}>{children}</El>;
 }
 
-function TwoColumns({columnOne, columnTwo, reverse}) {
+function TwoColumns({columnOne, columnTwo}) {
   return (
-    <div className={`TwoColumns ${reverse ? 'reverse' : ''}`}>
-      <div className={`column first ${reverse ? 'right' : 'left'}`}>
+    <div className={`TwoColumns`}>
+      <div className={`column first left`}>
         {columnOne}
       </div>
-      <div className={`column last ${reverse ? 'left' : 'right'}`}>
+      <div className={`column last right`}>
         {columnTwo}
       </div>
     </div>
@@ -49,13 +49,19 @@ function LinuxSystem() {
   return (
     <Section className="HeaderEntry" background="tint">
       <TwoColumns
-        reverse
         columnOne={
           <TextColumn
             title="Setting up a Zoned Storage Compatible Linux System"
 	    text={`
-	      Learn about the support provided by the pre-compiled binary
-	      kernels shipped with various Linux distributions.
+	      Linux distributions are built from a Linux kernel and a
+	      collection of system and user applications. The zoned block
+	      device features usable in any particular distribution depend not
+	      only on the version of the Linux kernel used but also on its
+	      configuration and on the various system utilities installed.
+	      <br/><br/>
+	      <strong>Learn more about the support provided by various Linux
+	      distributions</strong> and how to modify them to improve zoned
+	      block device support.
 	    `}
 	    link="/docs/getting-started/linux"
           />
@@ -66,7 +72,7 @@ function LinuxSystem() {
   );
 }
 
-function NullBlk() {
+function ZonedDevEmulation() {
   return (
     <Section className="HeaderEntry" background="light">
       <TwoColumns
@@ -74,54 +80,20 @@ function NullBlk() {
           <TextColumn
             title="Getting Started with an Emulated Zoned Block Device"
 	    text={`
-	      Learn how to use the <strong>null_blk</strong> device driver to
-	      emulate zoned block devices with different zone configurations.
+	      Several methods are available today to emulate zoned block
+	      devices in Linux. With such emulated device, application
+	      developers can get started designing software satisfying the
+	      requirements of zoned block devices without needing a complex
+	      hardware setup.
+	      <br/><br/>
+	      <strong>Learn how to create emulated zoned block devices</strong>
+	      with different zone configurations emulating different device
+	      types (SMR hard disks or NVMe ZNS SSDs).
 	    `}
-	    link="/docs/getting-started/nullblk"
+	    link="/docs/getting-started/zbd-emulation"
           />
         }
         columnTwo={<img alt="" src="/img/intro-zoned-storage.png" />}
-      />
-    </Section>
-  );
-}
-
-function SmrEmu() {
-  return (
-    <Section className="HeaderEntry" background="tint">
-      <TwoColumns
-        reverse
-        columnOne={
-          <TextColumn
-            title="Getting Started with an Emulated SMR Disk"
-	    text={`
-	      Learn how to set up and use an emulated SMR disk that is
-	      equivalent to a real physical device.
-	    `}
-	    link="/docs/getting-started/smr-emulation"
-          />
-        }
-        columnTwo={<img alt="" src="/img/tools-tcmu.png" />}
-      />
-    </Section>
-  );
-}
-
-function ZnsEmu() {
-  return (
-    <Section className="HeaderEntry" background="light">
-      <TwoColumns
-        columnOne={
-          <TextColumn
-            title="Getting Started with an Emulated NVMe ZNS Device"
-            text={`
-	      Learn how to set up and use an emulated NVMe device to provide
-	      Zoned Namespaces equivalent to those on a real physical device.
-            `}
-	    link="/docs/getting-started/zns-emulation"
-          />
-        }
-        columnTwo={<img alt="" src="/img/qemu.png" />}
       />
     </Section>
   );
@@ -131,13 +103,17 @@ function SmrDisk() {
   return (
     <Section className="HeaderEntry" background="tint">
       <TwoColumns
-        reverse
         columnOne={
           <TextColumn
-            title="Getting Started with an SMR Disk"
+            title="Getting Started with an SMR Hard Disk"
             text={`
-	      Learn how to identify SMR disks and verify that the host system
-	      is operating correctly.
+	      Host managed SMR hard-disk are identified using a device type
+	      code that is different from regular hard disks. This requires a
+	      compatible host-bus-adapter (HBA) to connect these devices to a
+	      host.
+	      <br/><br/>
+	      <strong>Learn how to identify SMR hard disks</strong> and verify
+	      that the host system is operating correctly.
             `}
 	    link="/docs/getting-started/smr-disk"
           />
@@ -156,10 +132,10 @@ function ZnsDevice() {
           <TextColumn
             title="Getting Started with a NVMe ZNS Device"
             text={`
-	      Learn how to identify NVMe ZNS devices and verify that the host
-	      system is operating correctly.
+	      <strong>Learn how to identify NVMe ZNS devices</strong> and
+	      verify that the host system is operating correctly.
             `}
-	    link="/docs/getting-started/zns-emulation"
+	    link="/docs/getting-started/zns-device"
           />
         }
         columnTwo={<img alt="" src="/img/intro-zns.png" />}
@@ -194,9 +170,7 @@ export default function GetStarted() {
       </Head>
       <GettingStartedHeader />
       <LinuxSystem />
-      <NullBlk />
-      <SmrEmu />
-      <ZnsEmu />
+      <ZonedDevEmulation />
       <SmrDisk />
       <ZnsDevice />
     </Layout>

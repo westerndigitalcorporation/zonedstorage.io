@@ -288,7 +288,7 @@ World-Wide port name that was assigned by *targetcli*:
 
 ## *QEMU* NVMe ZNS Device emulation
 
-[This article](../getting-started/zns-emulation.md) describes in detail how
-*QEMU* can be configured to create an emulated NVMe ZNS namespace that is
-visible to the guest operating system. Example commands and an example shell
-script are provided as references.
+[This article](../getting-started/zbd-emulation.md#nvme-zoned-namespace-device-emulation-with-qemu)
+describes in detail how *QEMU* can be configured to create an emulated NVMe ZNS
+namespace that is visible to the guest operating system. Example commands and an
+example shell script are provided as references.

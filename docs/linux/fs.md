@@ -325,7 +325,7 @@ target="_blank">GitHub</a>.
 
 *zonefs-tools* also includes a test suite that can be run against any zoned
 block device, including
-[*nullblk* block device created with zoned mode](../getting-started/nullblk.md).
+[*nullblk* block device created with zoned mode](../getting-started/zbd-emulation.md).
 
 ### Examples
 

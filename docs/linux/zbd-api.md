@@ -130,11 +130,9 @@ device. The following shows an example with an NVMe ZNS device.
 14
 ```
 
-When emulating a zoned device using [*null_blk*](../getting-started/nullblk.md),
-[*QEMU*](../getting-started/zns-emulation.md) or
-[*tcmu-runner*](../getting-started/smr-emulation.md), the values of these
-attributes can be manually configured to emulate different physical device
-characteristics.
+When [emulating a zoned device](../getting-started/zbd-emulation.md) using
+*null_blk*, *QEMU*, or *tcmu-runner*, the values of these attributes can be
+manually configured to emulate different physical device characteristics.
 
 ## *ioctl()* Application Programming Interface
 

@@ -1,10 +1,10 @@
 ---
-id: zns-emulation
-title: Getting Started with Emulated NVMe ZNS Devices
-sidebar_label: Getting Started with Emulated NVMe ZNS Devices
+id: zns-device
+title: Getting Started with NVMe ZNS Devices
+sidebar_label: Getting Started with NVMe ZNS Devices
 ---
 
-# Getting Started with Emulated NVMe ZNS Devices
+# Getting Started with NVMe ZNS Devices
 
 Emulated NVMe ZNS devices make it possible to do application development and
 kernel tests even if you do not have access to physical NVMe ZNS devices. There
@@ -13,7 +13,7 @@ are two ways to emulate NVMe ZNS devices.
 * ***null_blk***: The null_blk kernel driver is equipped to emulate zoned block
   devices with a zone configuration that is compatible with real NVMe ZNS
   devices. This method is discussed in more detail in the
-  [Zoned Block Device Emulation with null_blk](./nullblk.md) chapter of the
+  [Zoned Block Device Emulation with null_blk](./zbd-emulation.md) chapter of the
   Getting Started Guide.
 
 * ***QEMU***: This open source machine emulator and virtualizer is equipped to

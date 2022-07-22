@@ -1,10 +1,10 @@
 ---
 id: smr-disk
-title: Getting Started with SMR Hard-Disks
-sidebar_label: Getting Started with SMR Hard-Disks
+title: Getting Started with SMR Hard Disks
+sidebar_label: Getting Started with SMR Hard Disks
 ---
 
-# Getting Started with SMR Hard-Disks
+# Getting Started with SMR Hard Disks
 
 Hard disk drives that use [Shingled Magnetic Recording](../introduction/smr)
 technology can have different interface implementations. This results in
