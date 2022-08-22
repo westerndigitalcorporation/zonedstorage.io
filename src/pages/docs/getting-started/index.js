@@ -55,9 +55,9 @@ function LinuxSystem() {
 	    text={`
 	      Linux distributions are built from a Linux kernel and a
 	      collection of system and user applications. The zoned block
-	      device features usable in any particular distribution depend not
-	      only on the version of the Linux kernel used but also on its
-	      configuration and on the various system utilities installed.
+	      device features usable in any particular distribution depend
+	      not only on the version of the Linux kernel used but also on
+	      its configuration and on the various system utilities installed.
 	      <br/><br/>
 	      <strong>Learn more about the support provided by various Linux
 	      distributions</strong> and how to modify them to improve zoned
@@ -80,15 +80,13 @@ function ZonedDevEmulation() {
           <TextColumn
             title="Getting Started with an Emulated Zoned Block Device"
 	    text={`
-	      Several methods are available today to emulate zoned block
-	      devices in Linux. With such emulated device, application
-	      developers can get started designing software satisfying the
-	      requirements of zoned block devices without needing a complex
-	      hardware setup.
+	      Emulating a zoned block device makes it possible to develop
+	      and test applications for zoned block devices without the
+	      expense of a complex hardware setup.
 	      <br/><br/>
-	      <strong>Learn how to create emulated zoned block devices</strong>
-	      with different zone configurations emulating different device
-	      types (SMR hard disks or NVMe ZNS SSDs).
+	      <strong>Learn how to create emulated zoned block devices
+	      with the emulated zone configuration that matches a particular
+	      device type and model (SMR hard disks or NVMe ZNS SSDs).</strong>
 	    `}
 	    link="/docs/getting-started/zbd-emulation"
           />
@@ -107,13 +105,13 @@ function SmrDisk() {
           <TextColumn
             title="Getting Started with an SMR Hard Disk"
             text={`
-	      Host managed SMR hard-disk are identified using a device type
-	      code that is different from regular hard disks. This requires a
-	      compatible host-bus-adapter (HBA) to connect these devices to a
-	      host.
+	      Host-managed SMR hard disks have a device type that is different
+	      than the device type of regular hard disks. Host-managed SMR hard
+	      disks require compatible host-bus-adapters (HBA) to connect to
+	      hosts.
 	      <br/><br/>
-	      <strong>Learn how to identify SMR hard disks</strong> and verify
-	      that the host system is operating correctly.
+	      <strong>Learn how to identify SMR hard disks and verify
+	      that the host system is operating correctly.</strong>
             `}
 	    link="/docs/getting-started/smr-disk"
           />
@@ -132,8 +130,8 @@ function ZnsDevice() {
           <TextColumn
             title="Getting Started with a NVMe ZNS Device"
             text={`
-	      <strong>Learn how to identify NVMe ZNS devices</strong> and
-	      verify that the host system is operating correctly.
+	      <strong>Learn how to identify NVMe ZNS devices and
+	      verify that the host system is operating correctly.</strong>
             `}
 	    link="/docs/getting-started/zns-device"
           />
