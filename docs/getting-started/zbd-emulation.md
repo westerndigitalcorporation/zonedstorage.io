@@ -1,7 +1,7 @@
 ---
 id: zbd-emulation
-title: Getting started with EMulated Zoned Block Devices
-sidebar_label: Getting started with EMulated Zoned Block Devices
+title: Getting started with Emulated Zoned Block Devices
+sidebar_label: Getting started with Emulated Zoned Block Devices
 ---
 
 # Zoned Block Device Emulation
