@@ -53,15 +53,15 @@ function LinuxSystem() {
           <TextColumn
             title="Setting up a Zoned Storage Compatible Linux System"
 	    text={`
-	      Linux distributions are built from a Linux kernel and a
-	      collection of system and user applications. The zoned block
-	      device features usable in any particular distribution depend
-	      not only on the version of the Linux kernel used but also on
-	      its configuration and on the various system utilities installed.
+	      Linux distributions consist of a Linux kernel and a collection of
+	      system and user applications. The zoned-block-device features
+	      that are available in your distribution depend on several things:
+	      the version of the Linux kernel and its configuration, and the
+	      various system utilities that are installed.
 	      <br/><br/>
 	      <strong>Learn more about the support provided by various Linux
-	      distributions</strong> and how to modify them to improve zoned
-	      block device support.
+	      distributions and how to modify them to improve zoned
+	      block device support.</strong>
 	    `}
 	    link="/docs/getting-started/linux"
           />
