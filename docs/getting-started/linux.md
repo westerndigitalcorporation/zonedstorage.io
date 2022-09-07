@@ -6,11 +6,30 @@ sidebar_label: Setting-up a Zoned Storage Compatible Linux System
 
 # Setting-up a Zoned Storage Compatible Linux System
 
+## Overview
+
+The first step in getting zoned storage working is setting up a Linux system
+that is compatible with zoned storage. Such a system has the following
+components:
+
+1. [A compatible Linux distribution](linux#linux-distribution) with the right
+   kernel version
+2. [Support for zoned block devices](linux#checking-a-systems-configuration)
+3. [Necessary system utilities](linux#system-utilities)
+
+Follow the instructions on this page to set up a zoned-storage compatible
+system. Click on each of the links above in turn and follow the instructions
+to set up a Linux system for zoned storage.
+
+## Linux Distribution
+
+### Overview 
+
 The zoned block device (ZBD) interface that supports [SCSI ZBC and ATA ZAC
 disks](../introduction/smr.md) was added to the Linux&reg; kernel in version
 4.10. [NVMe zoned namespace (ZNS)](../introduction/zns.md) devices are
 supported from kernel version 5.9 (inclusive). All Linux kernel versions higher
-than 5.9 can support all zoned storage devices.
+than 5.9 support zoned storage devices.
 
 :::note
 Linux kernels prior to version 4.10 do not implement the zoned block device
@@ -21,31 +40,24 @@ in more detail in the [Linux Support](../linux/overview.md) document.
 
 To verify that a zoned block device has been discovered and correctly
 initalized, several user utilities must be installed on the test system. These
-utilities are discussed in more detail in the section called [User
-Utilities](./linux#user-utilities).
+utilities are discussed in more detail in the section called [System
+Utilities](linux#system-utilities).
 
-## Linux Distribution
+It is possible to configure, compile, and install your own kernel, but this is
+not recommended for people without prior experience of kernel configuration. If
+this is your first time setting up a zoned-storage-compatible Linux system, use
+one of the [recommended Linux
+distributions](linux#recommended-linux-distributions).
 
-We recommend only systems with Linux kernels that are version 4.10 or
-higher for use with SCSI ZBC and ATA ZAC hard disks, and version 5.9 or higher
-for NVMe ZNS devices.
-
-The easiest way to set up a zoned-storage-compatible Linux system is to use one
-of the recommended Linux distributions. It is possible to configure, compile,
-and install your own kernel, but this is not recommended for people without
-prior experience of kernel configuration. If this is your first time setting up
-a zoned-storage-compatible Linux system, use one of the recommended Linux
-distributions.
-
-More advanced users might prefer to modify their preferred system by compiling
-a zoned-storage-compatible kernel and installing it from source, and then
-installing all necessary user packages.
+More advanced users might prefer [to modify their preferred system](linux#modifying-a-linux-distribution-installation)
+by compiling a zoned-storage-compatible kernel and installing it from source,
+and then installing all necessary user packages.
 
 ## Recommended Linux Distributions
 
-The following Linux distributions provide zoned-storage support out of the box
+Some Linux distributions provide zoned-storage support out of the box
 (without any modification). A regular installation of any of these
-distributions will provide a system that is ready to use with SMR hard disks
+distributions provides a system that is ready to use with SMR hard disks
 and ZNS SSDs.
 
 * [Fedora 36 or above](../distributions/linux.md#fedora-linux)
@@ -58,26 +70,26 @@ and they have all the system user packages (e.g. [Linux system
 utilities](../tools/util-linux)) necessary to support zoned storage.
 
 Installation instructions are available on the website of each distribution.
-The installation of these distributions is beyond the scope of the Zoned
+The installation of these distributions is beyond the scope of this Zoned
 Storage documentation.
 
 ## Modifying a Linux Distribution Installation
 
-Default system kernels (and the default sets of user packages) in Linux
-distributions that are not on the "Recommended Distributions" list have
-different levels of support for zoned storage.  More information about the
-support level of various Linux distributions can be found
-[here](../distributions/linux.md).
+Linux systems that are not on the [Recommended
+Distributions](linux#recommended-distributions) list do not support zoned
+storage by default, but some of them can be modified to provide some level of
+support for zoned storage. More information about the level of support provided
+by these Linux distributions can be found on the [Linux Distributions page](../distributions/linux.md).
 
-Advanced users may want to modify their Linux distribution of choice to enable
-or improve their system's zoned storage support.
+If you know what you're doing, you can modify your preferred Linux distribution
+to enable or improve its support for zoned storage.
 
 Two conditions must be met to ensure that a system's Linux kernel supports the
 zoned block device interface.
 
-1. The kernel version must be 4.10.0 or higher,
+1. The kernel version [must be 4.10.0 or higher](linux#checking-the-kernel-version).
 
-2. The kernel configuration option *CONFIG_BLK_DEV_ZONED* must be enabled.
+2. The kernel configuration option [*CONFIG_BLK_DEV_ZONED* must be enabled](linux#checking-zoned-block-device-support).
 
 ### Checking the Kernel Version
 
@@ -127,7 +139,8 @@ the kernel must be recompiled in order to enable block device support.
 
 :::note
 For kernels older than kernel version 4.10, the output of these commands is
-always empty. Kernels older than kernel version 4.10 do not support zoned block devices.
+always empty. Kernels older than kernel version 4.10 do not support zoned block
+devices.
 :::
 
 If your kernel exports its configuration through the *proc* file system, use one
@@ -163,10 +176,12 @@ target="_blank">here</a>.
 
 ## Checking a System's Configuration
 
-A Linux system that has been properly configured for zoned block device support
-requires the following: a kernel that supports zoned block devices, proper zoned
-device configuration, and (in some cases) system utliities that provide zoned
-block device information.
+A Linux system properly configured for zoned block device support has the
+following:
+
+1. A kernel that supports zoned block devices
+2. Proper zoned device configuration 
+3. (in some cases) System utliities that provide zoned block device information.
 
 ### Write Ordering Control
 
@@ -217,11 +232,11 @@ change the scheduler:
 
 ### System Utilities
 
-Various system utilities should also be installed in order to verify the correct
-operation of zoned block devices and to troubleshoot problems.
+Certain system utilities should be installed on the system in order to verify
+the correct operation of zoned block devices and to troubleshoot problems.
 
-If one one of the [recommended Linux
-distribution](linux#recommended-linux-distribution) is being used, these
+If one of the [recommended Linux
+distributions](linux#recommended-linux-distribution) is being used, these
 utilities are installed by default.
 
 
