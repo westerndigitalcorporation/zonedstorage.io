@@ -30,13 +30,13 @@ There are several ways available to create an emulated zoned block device.
 
 ## Zoned Block Device Emulation with *null_blk*
 
-The [Linux&reg; *null_blk* driver](https://www.kernel.org/doc/Documentation/block/null_blk.txt)
-is a powerful tool that can emulate various types of block devices. Since
-kernel version 4.19, the *null_blk* driver has been able to emulate zoned block
+The [Linux&reg; *null_blk*
+driver](https://www.kernel.org/doc/Documentation/block/null_blk.txt) is a
+powerful tool that can emulate several types of block devices. Since kernel
+version 4.19, the *null_blk* driver has been able to emulate zoned block
 devices. Because memory backup has been added to the *null_blk* device for
-data-reading and data-writing operations, the *null_blk* driver has become a
-practical, powerful tool that can be used for application development and
-tests.
+data-reading and data-writing operations, the *null_blk* driver can be used for
+application development and tests.
 
 ### Creating a Zoned *null* Block Device &mdash; Simplest Case
 
@@ -49,8 +49,9 @@ on the command line, as in the following example:
 ```
 
 This creates a single, host-managed zoned block device that has a zone size of
-256M and a total capacity of 250 GB (1000 zones). No conventional zones are
-created with this simple command.
+256M and a total capacity of 250 GB (1000 zones). This simple command creates
+no conventional zones.
+
 
 ```plaintext
 # blkzone report /dev/nullb0
@@ -65,10 +66,10 @@ created with this simple command.
 
 ### Listing *null_blk* Zoned Block Device Parameters
 
-The *null_blk* kernel module accepts many arguments to adjust the zone
-configuration of the emulated device. The zone-related arguments can be listed
-using the *modinfo* command and those arguments can be modified by using
-*configfs* once the *null_blk* module is loaded.
+The *null_blk* kernel module accepts many arguments that can adjust the zone
+configuration of the emulated device. These arguments can be listed by using
+the *modinfo* command and can be modified by using the *configfs* command after
+the *null_blk* module is loaded.
 
 ```
 # modinfo null_blk
@@ -118,9 +119,9 @@ In this example, the arguments mean the following:
    4. ``zone_size=64`` sets the size of each zone to sixty-four (64) megabytes.
 
 
-The *configfs* interface of the *null_blk* driver provides a powerful method
-for creating emulated zoned block devices. The *configfs* parameters of the
-*null_blk* driver can be listed by running the following commands:
+The *configfs* interface of the *null_blk* driver provides a way to create
+emulated zoned block devices. The *configfs* parameters of the *null_blk*
+driver can be listed by running the following commands:
 
 ```plaintext
 # modprobe null_blk nr_devices=0
@@ -130,7 +131,8 @@ memory_backed,discard,bandwidth,cache,badblocks,zoned,zone_size,zone_capacity,zo
 ```
 
 The *configfs* interface can be used to script the creation of emulated zoned
-block devices with different zone configurations. An example is provided below.
+block devices with a range of possible zone configurations. An example is
+provided below.
 
 ```bash
 #!/bin/bash
@@ -194,13 +196,14 @@ This script (*nullblk-zoned.sh*) takes four arguments:
    3. the number of conventional zones (which can be 0)
    4. the number of sequential write required zones.
 
-Memory-backing for written sectors can be turned on with this script
-(memory_backed=1). This enables run-time persistence of the data written to
-the sectors of the emulated device. The writen data is lost when the emulated
-device is destroyed.
+Memory-backing for written sectors can be turned on with this script (the
+relevant part is ```memory_backed=1``` or, as it appears in this example,
+```echo 1 > "$dev"/memory_backed```). This enables runtime persistence of the
+data written to the sectors of the emulated device. The writen data is lost when
+the emulated device is destroyed.
 
 For example, a small zoned device with 4 conventional zones and 8 sequential
-write required zones of 64 MiB can be created with the following command:
+write-required zones of 64 MiB can be created with the following command:
 
 ```plaintext
 # nullblk-zoned.sh 4096 64 4 8
@@ -236,9 +239,10 @@ can be deleted by removing the *null_blk* kernel module:
 ```plaintext
 # rmmod null_blk
 ```
-
+:::note
 This command does not delete emulated devices that were created through the
 *configfs* interface.
+:::
 
 #### Deleting ZBD that were created with configfs
 
@@ -269,16 +273,15 @@ echo "Destroyed /dev/nullb$nid"
 
 ### Emulating SMR HDD
 
-The *nullblk-zoned.sh* script makes it possible to create zoned block
-devices that correspond to a possible configuration of an SMR hard
-disk, with no limit on the maximum number of open zones. This script
-can be modified to add a limit to the number of open zones on the
-emulated device (the *zone_max_open* parameter controls this), to more
-faithfully emulate an SMR HDD's characteristics.
+The *nullblk-zoned.sh* script makes it possible to create zoned block devices
+that correspond to a possible configuration of an SMR hard disk, with no limit
+on the maximum number of open zones. This script can be modified to add a limit
+to the number of open zones on the emulated device (the *zone_max_open*
+parameter controls this), to more faithfully emulate an SMR HDD's
+characteristics.
 
-The *zone_capacity* and *zone_max_active* parameters should not be
-used when the emulated device is meant to mimic the characteristics of
-an SMR hard disk.
+The *zone_capacity* and *zone_max_active* parameters should not be used when the
+emulated device is meant to mimic the characteristics of an SMR hard disk.
 
 ### Emulating NVMe ZNS SSD
 
@@ -354,12 +357,12 @@ sd 11:0:0:0: [sdj] Attached SCSI disk
 ### Verifying The Emulated Disk
 
 The zone configuration of the emulated disk can be inspected by using
-[*libzbc*](../tools/libzbc.md), [*sg3utils*](../tools/sg3utils.md) and 
-[*util-linux*](../tools/util-linux.md) tools.
+[*libzbc*](../tools/libzbc), [*sg3utils*](../tools/sg3utils) and 
+[*util-linux*](../tools/util-linux) tools.
 
 #### Using zbc_report_zones
 
-Use [*zbc_report_zones*](../tools/libzbc.md#zone-information) to verify the
+Use [*zbc_report_zones*](../tools/libzbc#zone-information) to verify the
 zone configuration of the newly-created emulated ZBC disk:
 
 ```plaintext
@@ -390,7 +393,7 @@ Zone 00255: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 
 #### Using blkzone
 
-Use [*blkzone*](../tools/util-linux.md#zone-report) to verify the zone
+Use [*blkzone*](../tools/util-linux#zone-report) to verify the zone
 configuration of the newly-created emulated ZBC disk. This displays the same
 information that is returned by "zbc_report_zones", but it is displayed in a
 different format:
@@ -412,8 +415,8 @@ different format:
 ## SMR Hard Disk Emulation with *tcmu-runner*
 
 Detailed information on how to install and operate *tcmu-runner* can be found
-in the [tcmu-runner ZBC Disk Emulation](../tools/tcmu-runner.md) chapter of
-the [Tools and Libraries](../tools/index.md) Guide.
+in the [tcmu-runner ZBC Disk Emulation](../tools/tcmu-runner) chapter of
+the [Tools and Libraries](../tools) Guide.
 
 ### tcmu-runner ZBC File Handler
 
@@ -425,8 +428,8 @@ emulated disk that is identical to the command path that would be available if a
 physical disk were in its place. Applications and kernel components will not
 perceive any difference.
 
-The [tcmu-runner ZBC Disk Emulation](../tools/tcmu-runner.md) chapter of the
-[Tools and Libraries](../tools/index.md) guide describes in more
+The [tcmu-runner ZBC Disk Emulation](../tools/tcmu-runner) chapter of the
+[Tools and Libraries](../tools) guide describes in more
 detail the options available for creating emulated disks. These include the disk
 zone model, the disk zone size, the disk capacity, and the number of
 conventional zones of the disk.
@@ -478,7 +481,7 @@ o- / ..................................................................... [...]
 You can verify that the emulated disk has been identified and initialized by
 the kernel in the same way that you verify the kernel identification and
 initialization of Serial ATA disks and SAS disks, as discussed in the [Getting
-started with an SMR disk](smr-disk.md) chapter.
+started with an SMR disk](smr-disk) chapter.
 
 Identify the emulated disk by looking at the disk vendor ID that is displayed
 by the *lsscsi* utility:
@@ -571,7 +574,8 @@ machine.
 
 For example: to create a 32GiB zoned namespace, you must first create a 32 GiB
 file on the host. This can be done by using the *truncate* command to
-create a sparse file or by using the *dd* command to create a fully allocated file.
+create a sparse file or by using the *dd* command to create a fully allocated
+file.
 
 #### Creating the Backstore
 
@@ -630,7 +634,7 @@ uuid=5e40ec5f-eeb6-4317-bc5e-c919796a5f79
 If your guest operating system is a Linux distribution and the Linux
 distribution's kernel version is higher than 5.9.0, the emulated NVMe ZNS
 device can be checked by using the *nvme* command (see [Linux Tools for
-ZNS](../tools/zns.md).
+ZNS](../tools/zns).
 
 ```
 # nvme list
