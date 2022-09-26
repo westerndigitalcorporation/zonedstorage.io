@@ -9,116 +9,123 @@ import Image from '/src/components/Image';
 # Shingled Magnetic Recording
 
 Shingled Magnetic Recording (SMR) is a magnetic storage data recording
-technology used in hard disk drives (HDDs) to provide increased areal density
-compared to same-generation drives using conventional magnetic recording (CMR)
-technology, resulting in a higher overall per-drive storage capacity.
+technology that is used in hard disk drives (HDDs). Compared to drives of the
+same generation that use conventional magnetic recording (CMR) technology,
+Shingled Magnetic Recording (SMR) provides increased areal density. This
+increased areal density results in a higher overall per-drive storage capacity
+when compared to CMR drives.
 
 ## SMR Overview
 
 Conventional magnetic recording places gaps between recording tracks on HDDs to
 account for Track mis-registration (TMR) budget. These separators impact areal
-density, as portions of the platter surface are not being fully utilized.
-Shingled magnetic recording removes the gaps between tracks by writing tracks
-in an overlapping manner, forming a pattern similar to shingles on a roof.
-Physically, this is done by writing the data sequentially, then overlapping
-(or “shingling”) it with another track of data. By repeating this process, more
-data tracks can be placed on each magnetic surface. The figure below
-illustrates this principle.
+density, because portions of the platter surface are not fully utilized.
+Shingled magnetic recording removes the gaps between tracks by writing the
+tracks in an overlapping manner, forming a pattern similar to the shingles on a
+roof. Physically, this is done by writing the data sequentially and then
+overlapping (or “shingling”) it with another track of data. By repeating this
+process, more data tracks can be placed on each magnetic surface than can be
+placed on an equal amount of magnetic surface in a drive that uses conventional
+magnetic recording technology. The figure below illustrates this principle.
 
 <Image src="intro-smr-tracks.png"
 title="SMR disks overlapping tracks"/>
 
-The write head designed for SMR drives is wider than required for a single track
-of data. It produces a stronger magnetic field suitable for magnetizing films of
-high coercivity. Once one track has been written, the recording head is advanced
-by only part of its width, so the next track will partially overwrite the
-previous one, leaving only a narrow band for reading.
+The write head that is designed for SMR drives is wider than is necessary for
+it to write a single track of data. This greater width produces a stronger
+magnetic field that is suitable for magnetizing films of high coercivity. After
+one track has been written, the recording head is advanced by only part of its
+width. This means that the next track partially overwrites the previous one,
+leaving only a narrow band of the previous track readable.
 
-Overlapping tracks are grouped into bands called zones of fixed capacity for
-more effective data organization and partial update capability. Recording gaps
-between zones are laid to prevent data overwrite by the wide write head from one
-zone to another.
+Overlapping tracks are grouped into bands called "zones". These zones are of
+fixed capacity, which promotes effective data organization and partial update
+capability. Recording gaps are placed between zones to prevent data from being
+overwritten by the wide write head. These gaps ensure that the wide write head
+does not overwrite the first track of a zone when it is writing the last track
+of the preceding zone on the same surface.
 
 <Image src="intro-smr-zones.png"
 title="SMR disks track organization"/>
 
 ## Fundamental Implications of SMR
 
-Because of the shingled format of SMR, all data streams must be organized and
-written sequentially to the media. While the methods of SMR implementation may
-differ (see SMR Implementations section below), the data nonetheless must be
-written to the media sequentially. Consequently, should a particular data sector
-need to be modified or re-written, the entire “band” of tracks (zone) must be
-re-written. Because the modified data sector is potentially under another
-“shingle” of data, direct modification is not permitted, unlike traditional CMR
-drives
+The shingled format of SMR dictates that all data streams must be organized and
+written sequentially to the media. There are different methods of implementing
+SMR (see SMR Implementations section below), but the data must be written to the
+media sequentially regardless of which method is used. If a particular data
+sector has to be modified or re-written, then the entire band of tracks (the
+"zone") must be re-written.  Because the modified data sector could be under
+another “shingle” of data, direct modification is not permitted. This is never
+the case in traditional CMR drives.
 
-In the case of SMR, the entire row of shingles above the modified track of the
-sector to modify needs to be rewritten in the process. SMR hard disks still
-provide true random-read capability, allowing rapid data access like any
-traditional CMR drive. This makes SMR an excellent technology candidate for both
-active archive and higher-performance sequential workloads.
+To modify a track in a sector (when using SMR), you must rewrite the row of
+shingles above the sector containing the target track. SMR hard disks provide
+true random-read capability, allowing rapid data access in the way that you've
+come to expect from traditional CMR drives. This makes SMR an excellent
+technology candidate for both active archive and higher-performance sequential
+workloads.
 
 ## SMR Interface Implementations
 
-The command interface of SMR disks can take different forms, referred to as
-models, with visible differences from the host and user point of view. It
-is important to understand these differences, as not all implementation options
-are appropriate for a particular storage application. The three models
-that are in use today are:
+The command interface of SMR disks can take different forms. These forms are
+referred to as "models", and their differences impacts hosts and users. It is
+important to understand these differences, as not all implementation options are
+appropriate for a particular storage application.  The three models that are in
+use today are:
 
 * **Host Managed** This model accommodates only sequential write workloads to
   deliver both predictable performance and control at the host level.
-  Host-software modifications are required to use host managed SMR drives.
+  Modifications to host software are required to use host managed SMR drives.
 
-* **Drive Managed** This model deals with the sequential write constraint
-  internally, providing a bacward compatible interface. Drive managed disks
+* **Drive Managed** This model respects the sequential write constraint
+  internally and provides a backwards-compatible interface. Drive managed disks
   accommodate both sequential and random writing.
 
-* **Host Aware** This model offers the convenience and flexibility of the drive
-  managed model, that is, backward compatibility with regular disks, while also
-  providing the same host control interface as host managed models.
+* **Host Aware** This model offers backwards compatibility with regular disks
+  in the same way that the drive-managed model does, but also provides the
+  same host control interface provided by host-managed models.
 
-### Host Managed Model
+### Host-Managed Model
 
-The host managed model does not provide backwards-compatibility with legacy
-host storage stacks, but rather, delegates management of the SMR sequential
-write constraint to the host. This is the key difference from drive managed
-disks: host managed devices do not allow any random write operations within
-(sequential write required) zones.
+The host-managed model does not provide backwards compatibility with legacy
+host storage stacks. Instead, it delegates management of the SMR "sequential
+write constraint" to the host. This is the key difference between host-managed
+disks and drive-managed disks: host-managed devices do not allow random
+write operations within (sequential write required) zones.
 
-With the host managed model, the device blocks are organized in a number of
-zones ranging from one to potentially many thousands. There are two types of
-zones: sequential write required zones and optional conventional zones.
-Conventional zones, which typically occupy a very small percentage of the
-overall drive capacity, can accept random writes and are typically used to
-store metadata. Sequential write required zones occupy the majority of the
-overall drive capacity where the device enforces sequentiality of all write
-commands within each zone. It should be noted that with the Host Managed model,
-random read commands are supported and perform comparably to that of standard
-drives.
+In the host-managed model, device blocks are organized into zones that can
+number anywhere from one to many thousands. There are two types of zones: (1)
+sequential write-required zones and (2) conventional zones (which are
+optional). Conventional zones, which typically occupy a very small percentage
+of a drive's overall capacity, can accept random writes and are usually used to
+store metadata. Sequential-write-required zones occupy the majority of the
+drive's overall capacity. In the Host Managed model, random read commands are
+supported and perform comparably to random read commands on standard drives.
 
-The host must manage all write operations to be in sequence within a particular
-sequential write required zone by following a write pointer. Once data is
-written to the zone, the write pointer increments to indicate the starting
-point of the next write operation in that zone. Any out-of-order writes, that
-is, a write operation not starting at the zone write pointer location, will
-force the drive to abort the operation and flag an error. Recovery from such an
-error is the responsibility of the controlling host software. This enforcement
-allows host managed devices to deliver predictable performance.
+The host must manage all write operations. This is done by using the write
+pointer to enforce sequential writing within sequential write required zones.
+After data has been written to a zone, the write pointer increments in order to
+indicate the starting point of the next write operation in that zone. Any
+out-of-order writes (write operations that do not start at the zone write
+pointer location) force the drive to abort the operation and flag an error.
+Recovery from such an error is the responsibility of the controlling host
+software. This enforcement allows host-managed devices to deliver predictable
+performance.
 
-### Drive Managed Model
+### Drive-Managed Model
 
-In the drive managed SMR disk model the drive deals with the sequential write
-constraint internally, providing a backwards compatible interface. The
-performance characteristics of drive managed SMR disks will however depend on
-the applications used and workloads executed.
+In the drive-managed SMR disk model, the drive respects the sequential write
+constraint internally without exposing this constraint to the host software.
+Thisprovides a backwards-compatible interface. The performance characteristics
+of drive-managed SMR disks depend on the internal disk firmware implementation,
+applications used and the workloads executed.
 
 ### Host Aware Model
 
 The host aware model is the superset of the host managed and drive managed
 models as it simultaneously preserves compatibility with legacy host storage
-stacks (backward compatibility with regular disks) and provides the same set of
+stacks (backwards compatibility with regular disks) and provides the same set of
 commands for a host to tightly control the disk write operation handling.
 
 Similarly to drive managed disks, the performance of host aware disks when used
