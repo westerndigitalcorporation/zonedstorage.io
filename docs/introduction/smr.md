@@ -142,20 +142,22 @@ managed and host aware disks used as regular devices are not discussed.
 
 ## Governing Standards
 
-A new specification of commands have been defined for SMR disks implementing the
-Host Managed and Host Aware models. These new command interfaces are all
-standards-based and developed by the INCITS T10 committee for SCSI drives and
-the INCITS T13 committee for ATA drives. There is no specific industry standard
-for the Drive Managed model because it is backward compatible and purely
+A specification for commands has been defined for SMR disks that implement the
+Host-Managed and Host-Aware models. These command interfaces are
+standards-based and have been developed by the INCITS T10 committee for SCSI
+drives and by the INCITS T13 committee for ATA drives. No industry standard
+exists for the Drive-Managed model, because it is backward-compatible and
 transparent to hosts.
 
 ### SCSI Standard: ZBC
 
-The Zoned Block Command (ZBC) revision 05 is the published approved standard
-defining the new zone management commands and read/write command behavior for
-Host Managed and Host Aware SCSI drives. Implemented in conjunction with the
-applicable clauses of the SPC-5 and SBC-4 specifications, the ZBC specifications
-define the model and command set extensions for zoned block devices.
+"Zoned Block Command (ZBC) revision 05" is the standard that defines zone
+management commands and read/write command behavior for Host-Managed and Host-
+Aware SCSI drives. ZBC specifications define the model- and command-set
+extensions for zoned block devices, and have been implemented in conjunction
+with the applicable clauses of the SPC-5 and SBC-4 specifications.
+
+#### Acquiring the SCSI ZBC Standard
 
 The Zoned Block Commands specifications document is published
 as <a href="https://standards.incits.org/apps/group_public/project/details.php?project_id=525"
@@ -166,16 +168,19 @@ INCITS T10 member companies. Contact INCITS for further information.
 
 ### ATA Standard: ZAC
 
-The INCITS Technical Committee T13 is responsible for all interface standards
-relating to the popular AT Attachment (ATA) storage interface used with many
-disk drive today. The Zoned Device ATA Command Set (ZAC) is the published
-approved standard specifying the command set that host systems use to access
-storage devices that implement the Host Aware Zones feature set or the Host
-Managed Zones feature set. This standard is an extension to the ATA
-implementation standards described in AT Attachment - 8 ATA/ATAPI Architecture
-Model (ATA8-AAM) and provides a common command set for systems manufacturers,
-system integrators, software suppliers, and suppliers of storage devices that
-provide one of the zones feature sets.
+The Zoned Device ATA Command Set (ZAC) is the standard that specifies the
+command set that host systems use to access storage devices that implement
+either the "Host-Aware Zones" feature set or the "Host-Managed Zones" feature
+set.  The INCITS Technical Committee T13 is responsible for all interface
+standards that relate to the popular AT Attachment (ATA) storage interface,
+which is used with many disk drives. The Zoned Device ATA Command Set standard
+is an extension to the ATA implementation standards that are described in "AT
+Attachment - 8 ATA/ATAPI Architecture Model (ATA8-AAM)", and it provides a
+common command set for systems manufacturers, system integrators, software
+suppliers, and suppliers of storage devices that provide one of the
+zone-feature sets.
+
+#### Acquiring the ATA ZAC Standard
 
 The Zoned Device ATA Command Set specifications document is published
 as <a href="https://standards.incits.org/apps/group_public/project/details.php?project_id=403"
