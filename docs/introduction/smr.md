@@ -191,45 +191,50 @@ INCITS T13 member companies. Contact INCITS for further information.
 
 ## Zone Block Commands
 
-The ZAC and ZBC standards describe the set of commands necessary for a host
-application to manage zones of a Host Managed or Host Aware drive. While these
-two standards describe commands for two separate protocols (SCSI and ATA), the
-zone management commands defined are semantically identical and the behavior of
-read and write commands defined are also compatible. In addition to the zone
-management commands, the ZBC and ZAC standards also both define the zone models
-discussed in the [SMR Interface Implementations](#smr-interface-implementations)
-section.
+The ZAC and ZBC standards describe the set of commands that are necessary for a
+host application to manage zones of Host-Managed and Host-Aware drives.
+Although these two standards describe commands for two separate protocols (SCSI
+and ATA), the zone management commands that they define are semantically
+identical, and the behavior of the read and write commands that they define are
+compatible. The ZBC and ZAC standards each define the zone models, and those
+zone models are discussed in the [SMR Interface
+Implementations](#smr-interface-implementations) section.
 
-Both standards define five zone management commands as extensions to the disk
-basic command set similar to that of a CMR drive.
+### Five Zone Management Commands
 
-* **REPORT ZONES** is the command that a host implementation can use to discover
-  the zone organization of a host managed or host aware drive. The *REPORT
-  ZONES* command returns a list of zone descriptors indicating the starting LBA,
-  size, type and condition of a zone. For sequential write required zones (Host
-  Managed drives) and sequential write preferred zones (Host Aware drives), a
-  zone descriptor also indicates the current position of the zone write pointer.
-  This information allows host software to implement sequential write streams to
-  zones.
+Both the ZAC and the ZBC standards define five zone management commands as
+extensions of the disk's basic command set (which is similar to the set
+of commands defined for CMR drives).
 
-* **RESET ZONE WRITE POINTER** is the command that a host software can use to
+* **REPORT ZONES** is the command that  host implementations use to discover
+  the zone organization of a host-managed or a host-aware drive. The *REPORT
+  ZONES* command returns a list of zone descriptors that indicate the starting
+  LBA, size, type, and condition of a zone. For sequential write required zones
+  (Host-Managed drives) and sequential write preferred zones (Host-Aware
+  drives), a zone descriptor also indicates the current position of the zone
+  write pointer. This information allows host software to implement sequential
+  write streams to zones.
+
+* **RESET ZONE WRITE POINTER** is the command that host software uses to
   reset the location of a zone write pointer to the beginning of the zone. After
-  execution of this command, all data that was written to the zone is lost and
+  this command is executed, all data that was written to the zone is lost and
   cannot be accessed.
 
-* **OPEN ZONE** A zoned block device requires internal resources (e.g.
+* **OPEN ZONE** A zoned block device requires internal resources (for example,
   Persistent zone resources) to maintain each zone. Insufficient resources may
-  result in degraded functionality (e.g. Reduced performance or increased power
-  consumption). The *OPEN ZONE* command allows an application to explicitly open
-  a zone indicating to the drive that resources necessary for writing a zone are
-  kept available until the zone is fully written or the zone is closed using the
-  *CLOSE ZONE* command. The performance benefits that can be achieved using
-  this command are dependent on the drive implementation of zone management.
+  result in degraded functionality (for example, Reduced performance or
+  increased power consumption). The *OPEN ZONE* command allows an application
+  explicitly to open a zone, and indicates to the drive that the resources
+  necessary for writing a zone will remain available until the zone is fully
+  written or until the zone is closed by using the *CLOSE ZONE* command. The
+  performance benefits achieved by using this command depend upon the drive
+  implementation of zone management.
 
-* **CLOSE ZONE** allows an application to explicitly close a zone that was open
-  using the *OPEN ZONE* command to indicate to the drive that the resources used
-  for writing to a zone are no longer necessary and can be released.
+* **CLOSE ZONE** allows an application to explicitly close a zone that was
+  opened using the *OPEN ZONE* command. *CLOSE ZONE* indicates to the drive
+  that the resources used for writing to the zone are no longer necessary and
+  can be released.
 
-* **FINISH ZONE** allows an application to move the write pointer of a zone to
-  the end of the zone to prevent any further write operations to the zone until
-  it is reset.
+* **FINISH ZONE** allows an application to move the zone's write pointer to the
+  end of the zone, preventing any further write operations to the zone until it
+  is reset.
