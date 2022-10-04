@@ -1,5 +1,3 @@
-Copyright (c) 2021 Western Digital Corporation or its affiliates.
-
 # zonedstorage.io
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern
@@ -74,7 +72,8 @@ $ make upgrade
 
 ## Contributing
 
-Read the [CONTRIBUTING](CONTRIBUTING) file and use GitHub pull request to
-contribute changes and improvements.
+Feel free to submit a pull request to contribute changes and improvements.
 
-For other inquiries, contact the zonedstorage.io team at zonedstorage@wdc.com.
+## License
+
+The site source code is released as open source software under the GPL v3 license, see the LICENSE file in the project root for the full license text.
