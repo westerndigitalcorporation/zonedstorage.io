@@ -72,8 +72,10 @@ $ make upgrade
 
 ## Contributing
 
-Feel free to submit a pull request to contribute changes and improvements.
+Feel free to submit a pull request to contribute changes and improvements. 
 
-## License
+We follow the Contributor Covenant Code of Conduct as outline [here](CODE_OF_CONDUCT.md).
 
-The site source code is released as open source software under the GPL v3 license, see the LICENSE file in the project root for the full license text.
+## Copying and License
+
+The site source code is released as open source software under the GPL v3 license, see [COPYING](COPYING) and the [LICENSE](LICENSE) files in the project root for the full copying and license texts.
