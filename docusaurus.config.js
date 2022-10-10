@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Zoned Storage',
-  tagline: 'Zoned Storage is an open source, standards-based initiative to enable data centers to scale efficiently for the zettabyte storage capacity era. There are two technologies behind Zoned Storage, Shingled Magnetic Recording (SMR) in ATA/SCSI HDDs and Zoned Namespaces (ZNS) in NVMe SSDs.'
+  tagline: 'Zoned Storage is an open source, standards-based initiative to enable data centers to scale efficiently for the zettabyte storage capacity era. There are two technologies behind Zoned Storage, Shingled Magnetic Recording (SMR) in ATA/SCSI HDDs and Zoned Namespaces (ZNS) in NVMe SSDs.',
   organizationName: 'westerndigitalcorporation',
   projectName: 'zonedstorage.io',
   url: 'https://zonedstorage.io',
