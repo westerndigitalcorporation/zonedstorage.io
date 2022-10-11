@@ -116,11 +116,21 @@ const sidebars = {
           'benchmarking/rocksdb',
           'benchmarking/myrocks'
       ]
-    },
+    },    
     {
-      type: 'doc',
+      type: 'category',
       label: 'Linux Distributions',
-      id: 'distributions/linux'
+      collapsed: true,
+      items: [
+           'distributions/linux',
+           'distributions/centos',
+           'distributions/debian',
+           'distributions/fedora',
+           'distributions/opensuse',
+           'distributions/rhel',
+           'distributions/sles',
+           'distributions/ubuntu'
+           ]
     },
     {
       type: 'doc',
