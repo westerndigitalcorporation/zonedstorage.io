@@ -1,7 +1,7 @@
 ---
 id: smr
-title: Shingled Magnetic Recording
-sidebar_label: Shingled Magnetic Recording
+title: Shingled Magnetic Recording (SMR) HDDs
+sidebar_label: Shingled Magnetic Recording (SMR) HDDs
 ---
 
 import Image from '/src/components/Image';

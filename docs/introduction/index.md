@@ -13,9 +13,9 @@ support.
 
 * [Zoned Storage Overview](./zoned-storage.md): Principle of operation of zoned storage devices.
 
-* [Shingled Magnetic Recording](./smr.md): Learn about Shingled Magnetic
+* [SMR HDDs](./smr.md): Learn about Shingled Magnetic
   Recording (SMR) technology and its use in zoned hard-disks.
 
-* [NVMe Zoned Namespaces](./zns.md): Learn about NVMe&trade; Zoned Namespace
-  (ZNS) technical proposal.
+* [NVMe ZNS SSDs](./zns.md): Learn about NVMe&trade; Zoned Namespace
+  (ZNS) technical proposal and NVMe ZNS SSDs.
 
