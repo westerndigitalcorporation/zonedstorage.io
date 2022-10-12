@@ -27,7 +27,8 @@ const sidebars = {
         'introduction/index',
 	'introduction/zoned-storage',
 	'introduction/smr',
-	'introduction/zns'
+	'introduction/zns',
+	'introduction/linux-ecosystem'
       ],
     },
     {
