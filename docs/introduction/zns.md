@@ -20,7 +20,7 @@ ZNS SSDs implement
 the <a href="https://nvmexpress.org/developers/nvme-command-set-specifications/"
 target="_blank_">NVMe ZNS Command Set specification</a> as defined by the NVM
 Express (NVMe) organization and released as part of the NVMe 2.0 specifications.
-The latest revision available is 1.1.
+The latest revision available is 1.1a.
 
 :::note
 See <a href="https://www.usenix.org/conference/atc21/presentation/bjorling"
@@ -31,13 +31,13 @@ at USENIX ATC 2021.
 
 ## Overview
 
-The ZNS SSD follows the Zoned Storage Model. This standards-based architecture,
-which takes a unified approach to storage that enables both Shingled Magnetic
-Recording (SMR) in HDDs and ZNS SSDs to share a unified software stack.
-Specifically for ZNS SSDs, the zone abstraction allows the host aligning its
-writes to the sequential write required properties of flash-based SSDs, and
-thereby optimizes data placement onto the SSD's media. Note that the management
-of media reliability continues to be the sole responsibility of the ZNS SSD and
+ZNS SSDs follow the Zoned Storage Model. This standards-based architecture takes
+a unified approach to storage that enables both Shingled Magnetic
+Recording (SMR) HDDs and ZNS SSDs to share a unified software stack.
+Specifically for ZNS SSDs, the zone abstraction allows the host to align its
+writes to the sequential write required properties of flash-based SSDs, thereby
+optimizing data placement onto the SSD's media. Note that the management of
+media reliability continues to be the sole responsibility of the ZNS SSD and
 should be managed the same way as conventional SSDs.
 
 <Image src="intro-zns.png"
@@ -47,91 +47,89 @@ title="Conventional SSDs and ZNS SSDs internal data placement"/>
 
 The ZNS Command Set specification builds upon the existing
 [Host Managed Zoned Storage Model](smr.md#host-managed-model) introduced for SMR
-hard-disks with the SCSI ZBC (Zoned Block Command) standard and the ATA ZAC
-(Zoned ATA Commands) standard. A compatible zone state machine was defined, and
-a similar set of [Zone Block Commands](smr.md#zone-block-commands) was defined.
+hard-disks with the SCSI ZBC (Zoned Block Command) and ATA ZAC (Zoned ATA Commands)
+standards. As a result, both the zone state machine and the
+[Zone Block Commands](smr.md#zone-block-commands) set for ZNS are compatible with
+the aforementioned standards.
 
 These similarities simplify the implementation of the host storage stack and
-applications for simultaneously supporting both host-managed SMR hard-disks and
- ZNS SSDs.
+applications for simultaneously supporting both host-managed SMR HDDs and ZNS SSDs.
 
-Given that ZNS SSDs typically is implemented using non-volatile memory, the ZNS
-specification introduces extra functionalities to enable this type of media and
-is described below.
+As ZNS SSDs are typically implemented using non-volatile memory, the ZNS
+specification introduces extra functionalities to enable such media.
+These additional functionalities are described below.
 
 ### Zone types
 
 ZBC and ZAC SMR hard-disks can optionally expose a number of conventional zones
 which accept random write operations. The ZNS specification does not define this
-optional set of random write zones, as NVMe supports multiple namespace, and
-therefore can expose a separate namespace that supports conventional I/O
-accesses.
+optional type of random write zone. As NVMe supports multiple namespaces and can
+expose separate conventional I/O namespaces, this feature is not required for NVMe
+ZNS SSDs.
 
-### Zone Capacity and Zone Size
+### Zone Capacity (ZCAP) and Zone Size (ZSZE)
 
-The ZNS specification introduces the concept of a Zone
-Capacity. This concept is not defined in the ZBC and ZAC standards.
+The ZNS specification additionally introduces the concept of Zone Capacity.
 
-Similar to ZBC and ZAC standards, ZNS defines the zone size as the total
-number of logical blocks within a zone. A zone capacity is an additional
-per-zone attribute that indicates the number of usable logical blocks within
-each zone, starting from the first logical block of each zone. A zone capacity
-is always smaller or equal to the zone size.
+Similar to ZBC and ZAC standards, ZNS defines zone size (ZSZE) as the total number
+of logical blocks within a zone. The zone capacity (ZCAP) is an additional per-zone
+attribute that indicates the number of usable logical blocks within each zone,
+starting from the first logical block of each zone. It is always less than or equal
+to the zone size.
 
-This new attribute was introduced to allow for the zone size to remain a power
-of two number of logical blocks (facilitating easy logical block to zone number
-conversions) while allowing optimized mapping of a zone storage capacity to the
-underlying media characteristics. For instance, in the case a flash based
-device, a zone capacity can be aligned to the size of flash erase blocks without
-requiring that the device implements a power-of-two sized erased block.
+This new attribute allows the zone size to remain a power-of-two (2^n) number of
+logical blocks (facilitating easy logical block to zone number conversions) while
+allowing optimized mapping of zone storage capacity to the underlying media
+characteristics. For instance, in the case a flash based device, zone capacity
+can be aligned to the size of flash erase blocks without requiring the device to
+implement a power-of-two sized erase block.
 
 The figure below illustrates the zone capacity concept.
 
 <Image src="intro-zonesize-vs-capacity.png"
 title="Zone Size and Zone Capacity"/>
 
-As the logical block addresses between the zone capacity and the end of the
-zone are not mapped to any physical storage blocks, write accesses to
-these blocks will result in an error. Therefore, reading in this area is handled
-in the same way as when reading unwritted blocks.
+The logical block addresses between the zone capacity(ZCAP) and the end of the zone
+(ZSZE) are not mapped to any physical storage blocks and writes to these blocks
+will result in an error. Therefore, reads within this area are handled
+in the same way as read commands to unwritted blocks.
 
-A zone with a zone capacity smaller than the zone size will be transitioned to a
-full condition when the number of written blocks equals the zone capacity.
+A zone with a zone capacity smaller than the zone size will be transitioned to
+the full state when the number of written blocks equals the zone capacity.
 
 :::note
 The total namespace capacity reported by a controller is always equal to the
-total number of logical blocks defined by the zones. In other words, this
-reported capacity includes unusable logical blocks of zones with a zone capacity
-lower than the zone size. The usable capacity of the namespace is equal to the
-sum of all zones capacities. This usable capacity is always smaller than the
-reported namespace capacity if the namespace contains zones with a zone capacity
-lower than the zone size.
+total number of logical blocks defined by the zones. In other words, if the
+namespace contains zones with a capacity that is less than their size, the
+reported namespace total capacity includes unusable logical blocks (falling
+between zone capacity and zone size) and the usable capacity of the namespace is
+equal to the sum of all zones' capacities. In this case, the usable capacity
+available is smaller than the reported namespace capacity.
 :::
 
 ### Active Zones
 
 A controller implementation typically requires the allocation of internal
-resources (e.g. a write buffer) to execute write operations into zones.
-Therefore, limitations on the total amount of resources available to the
-controller may imply a limit on the total number of zones that can be
-simultaneously in the implicit open or explicit open conditions. This potential
-limit on the maximum number of open zones is similarly defined in the ZNS, ZBC,
-and ZAC standards.
+resources (e.g. write buffers) to execute write operations into zones.
+Limitations on the total amount of resources available in the controller may
+imply a limit on the total number of zones that can simultaneously be in the
+implicit open or explicit open states. This potential limit on the maximum
+number of open zones is similarly defined in the ZNS, ZBC and ZAC standards.
 
-The ZNS specification however defines an additional limit on the number of zones
-that can be in the implicit open, explicit open or closed conditions. Any zone
-with such condition is defined as an active zone and correspond to any zone that
-is being written or that has been only partially written. A ZNS SSD may impose a
-limit on the maximum number of zones that can be active. This limit is always
-equal or larger than the limit on the maximum number of open zones.
+The ZNS specification defines an additional limit on the number of zones
+that can be in the implicit open, explicit open or closed states. Zones that are
+in one of these states are defined as active zones and correspond to zones that are
+being written or that have been only partially written. A ZNS SSD may impose a limit
+on the maximum number of active zones. This limit is always equal to or greater
+than the maximum allowed number of open zones.
 
 This new limit imposes new constraints on user applications. While the maximum
 number of open zones of a namespace only limits the number of zones that an
 application can simultaneously write, the maximum number of active zones imposes
-a limit on the number of zones that an application can choose for storing data.
+a limit on the number of zones that an application can choose from for writing.
 If the maximum number of active zones is reached, the application must either
-reset or finish some active zones before being able to chose other zones for
-storing data.
+Reset or Finish atleast one active zone to be able to choose any other zone for
+writing.
 
 Similar to the limit on the maximum number of open zones, a limit on the
 maximum number of active zones for a namespace does not affect read operations.
@@ -140,26 +138,26 @@ the current number of open and active zones.
 
 ### Zone Append
 
-The NVMe specifications allow a device controller to execute commands present
+The NVMe specification allows a device controller to execute commands present
 in the several submission queues available in any order. This has implications
-for the host IO stack, namely, even if the host submits write commands directed
-at a zone sequentially, the commands may be reordered before they are processed
-and violate the sequential write requirement, resulting in errors. Host software
-can avoid such error by limiting the number of write commands outstanding per
-zone to one. This can potentially result in poor performance, especially for
-workloads issuing mostly small write operations.
+for the host IO stack, namely, if the host submits multiple write commands to
+a zone sequentially, the commands may be reordered by the controller before
+processing. This violates the sequential write requirement resulting in an error.
+Host software can avoid such errors by limiting the number of write commands
+outstanding per zone to one. This can potentially result in poor performance,
+especially for workloads issuing mostly small write operations.
 
 To avoid this problem, the ZNS specification introduced the new *Zone
 Append* command.
 
-A zone append command is a write operation that specifies the first
+A zone append command is a write operation that always specifies the first
 logical block of a zone as the write position. When executing the command, the
-device controller write the data within the zone indicated, but do so at the
+device controller writes the data within the zone indicated, but does so at the
 current zone write pointer position. This change in the write position is
 automatic and the effective write position for the data is indicated to the host
 through the command completion information. This mechanism allows a host to
-simultaneously submit several zone append operations and let the device process
-these in any order.
+submit more than one zone append operation (writes) and lets the device process
+them in any order.
 
 The figure below illustrates the differences between regular write operations
 and zone append write operations.
@@ -169,11 +167,11 @@ title="Regular Writes and Zone Append Writes"/>
 
 In the example above, the host must issue to the same zone three different
 write operations for data A (4KB), B (8KB), and C (16KB). Using regular write
-commands, this can be done safely only at a write queue depth of 1 per zone,i
-that is, the host must wait for the completion of an outstanding write
-operation before issuing the next write request. For each write request,
-the write position must be equal to the zone write pointer position. This result
-in the data being stored in the zone in the same order as issued.
+commands, this can be done safely only at a write queue depth of 1 per zone,i.e,
+the host must wait for the completion of an outstanding write operation before
+issuing the next write request. For each write request, the write position must
+be equal to the zone write pointer position. This ensures data stored in the
+zone is in the same order as it was issued.
 
 Using zone append write operations, the write queue depth constraint is removed
 and the host can issue all three write requests simultaneously. Upon completion
