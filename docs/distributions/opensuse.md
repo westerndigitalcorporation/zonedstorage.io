@@ -4,13 +4,28 @@ title: openSuse
 sidebar_label: openSuse
 ---
 
+import {
+Yes,
+No
+} from '/src/components/Distro';
+
 # openSUSE
 
-*<a href="https://www.opensuse.org/" target="_blank">openSUSE</a>*, formerly called *SUSE Linux* and *SuSE Linux Professional*, is a widely used Linux distribution sponsored by SUSE Linux GmbH and other companies. *openSUSE* focus is creating usable open-source tools for software developers and system administrators while providing a user-friendly desktop and feature-rich server environment.
+*<a href="https://www.opensuse.org/" target="_blank">openSUSE</a>*, formerly
+called *SUSE Linux* and *SuSE Linux Professional*, is a widely used Linux
+distribution sponsored by SUSE Linux GmbH and other companies. *openSUSE* focus
+is creating usable open-source tools for software developers and system
+administrators while providing a user-friendly desktop and feature-rich server
+environment.
 
-openSUSE is available in a stable base with the openSUSE Leap version. The openSUSE Tumbleweed is a rolling release which offers more up-to-date free software.
+openSUSE is available in a stable base with the openSUSE Leap version. The
+openSUSE Tumbleweed is a rolling release which offers more up-to-date free
+software.
 
-The list of kernel versions shipped with openSUSE releases can be found *<a href="https://en.wikipedia.org/wiki/OpenSUSE_version_history" target="_blank">here</a>*. Zoned block device support with the shipped kernel for the latest releases is shown in the table below.
+The list of kernel versions shipped with openSUSE releases can be found *<a
+href="https://en.wikipedia.org/wiki/OpenSUSE_version_history"
+target="_blank">here</a>*. Zoned block device support with the shipped kernel
+for the latest releases is shown in the table below.
 
 <center>
 
@@ -23,7 +38,3 @@ The list of kernel versions shipped with openSUSE releases can be found *<a href
 |Tumbleweed|Tumbleweed|Lateste Stable 5.9 +|<Yes/>|<Yes/>|<Yes/>|<Yes/>|
 
 </center>
-
-export function Yes() { return (<span style={{ color:'#00ff00'}}> Yes </span> ); }
-
-export function No() { return (<span style={{ color:'#ff0000'}}> No </span>);}

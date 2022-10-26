@@ -4,11 +4,22 @@ title: Ubuntu
 sidebar_label: Ubuntu
 ---
 
+import {
+Yes,
+No
+} from '/src/components/Distro';
+
 # Ubuntu
 
-*<a href="https://www.ubuntu.com" target="_blank">Ubuntu</a>* is a popular free and open-source Linux distribution originally based on *Debian*. *Ubuntu* is released every six months with long-term support (LTS) releases every two years.
+*<a href="https://www.ubuntu.com" target="_blank">Ubuntu</a>* is a popular free
+and open-source Linux distribution originally based on *Debian*. *Ubuntu* is
+released every six months with long-term support (LTS) releases every two years.
 
-A complete list of the kernel versions shipped with *Ubuntu* releases can be found <a href="https://en.wikipedia.org/wiki/Ubuntu_version_history#Table_of_versions" target="_blank">here</a>. The table below summarizes zoned block device support readiness for the most recent releases.
+A complete list of the kernel versions shipped with *Ubuntu* releases can be
+found <a
+href="https://en.wikipedia.org/wiki/Ubuntu_version_history#Table_of_versions"
+target="_blank">here</a>. The table below summarizes zoned block device support
+readiness for the most recent releases.
 
 <center>
 
@@ -30,7 +41,3 @@ A complete list of the kernel versions shipped with *Ubuntu* releases can be fou
 |Jammy Jellyfish|22.04 LTS|5.17|<Yes/>|<Yes/>|<Yes/> |<No/>|
 
 </center>
-
-export function Yes() { return (<span style={{ color:'#00ff00'}}> Yes </span> ); }
-
-export function No() { return (<span style={{ color:'#ff0000'}}> No </span>);}

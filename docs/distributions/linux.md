@@ -12,8 +12,8 @@ devices and the features supported. This section gives an overview of the
 support provided by the pre-compiled binary kernels shipped with various Linux
 distributions.
 
-
-Use the links below to determine where the level of support is for each distribution:
+Use the links below to determine where the level of support is for each
+distribution:
 
  - [CentOS](../distributions/centos.md)
  - [Debian](../distributions/debian.md)

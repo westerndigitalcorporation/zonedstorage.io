@@ -4,9 +4,18 @@ title: Debian
 sidebar_label: Debian
 ---
 
+import {
+Yes,
+No
+} from '/src/components/Distro';
+
 # Debian
 
-*<a href="https://www.debian.org" target="_blank">Debian</a>* is one of the earliest Unix-like operating systems based on the Linux kernel. *Debian* can be shipped with different operating system kernels, such as Linux, *kFreeBSD* or *GNU Hurd*. The table below summarizes Debian Linux zoned storage readiness for the most recent distribution releases.
+*<a href="https://www.debian.org" target="_blank">Debian</a>* is one of the
+earliest Unix-like operating systems based on the Linux kernel. *Debian* can be
+shipped with different operating system kernels, such as Linux, *kFreeBSD* or
+*GNU Hurd*. The table below summarizes Debian Linux zoned storage readiness for
+the most recent distribution releases.
 
 <center>
 
@@ -17,7 +26,3 @@ sidebar_label: Debian
 |Bullseye|11|5.10|<Yes/>|<Yes/>|<Yes/> |<Yes/>|
 
 </center>
-
-export function Yes() { return (<span style={{ color:'#00ff00'}}> Yes </span> ); }
-
-export function No() { return (<span style={{ color:'#ff0000'}}> No </span>);}
