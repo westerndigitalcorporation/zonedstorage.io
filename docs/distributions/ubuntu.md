@@ -5,39 +5,71 @@ sidebar_label: Ubuntu
 ---
 
 import {
-Yes,
-No
+KernelTableHeader,
+FileSystemsDeviceMapperTableHeader,
+KernelTabledata,
+FileSystemDevicMapperTabledata
 } from '/src/components/Distro';
 
 # Ubuntu
 
-*<a href="https://www.ubuntu.com" target="_blank">Ubuntu</a>* is a popular free
-and open-source Linux distribution originally based on *Debian*. *Ubuntu* is
-released every six months with long-term support (LTS) releases every two years.
+*<a href="https://www.ubuntu.com" target="_blank">Ubuntu</a>* is a
+popular free and open-source Linux distribution, originally based on
+*Debian*. *Ubuntu* is released every six months, with long-term
+support (LTS) releases every two years.
 
-A complete list of the kernel versions shipped with *Ubuntu* releases can be
-found <a
-href="https://en.wikipedia.org/wiki/Ubuntu_version_history#Table_of_versions"
-target="_blank">here</a>. The table below summarizes zoned block device support
-readiness for the most recent releases.
+A complete list of the kernel versions shipped with *Ubuntu* releases
+can be found <a href="https://en.wikipedia.org/wiki/
+Ubuntu_version_history#Table_of_versions"
+target="_blank">here</a>.
 
-<center>
+## Supported Zoned Block Devices
 
-|Name|Version|Kernel|ZBD API|ZBC, ZAC|ZNS|*dm-zoned*|
-|:-----:|:-----:|:----:|:-----:|:------:|:----:|:--------:| 
-|Precise Pangolin|12.04 LTS|3.2|<No/>|<No/>|<No/>|<No/>|
-|Trusty Tahr|14.04 LTS|3.13|<No/>|<No/>|<No/>|<No/>|
-|Xenial Xerus|16.04 LTS|4.4|<No/>|<No/>|<No/> |<No/>|
-|Zesty Zapus|17.04 LTS|4.10|<Yes/>|<No/>|<No/> |<No/>|
-|Artful Aardvark|17.10|4.13|<Yes/>|<Yes/>|<No/> |<No/>|
-|Bionic Beaver|18.04 LTS|4.15|<Yes/>|<Yes/>|<No/> |<No/>|
-|Cosmic Cuttlefish|18.10|4.18|<Yes/>|<Yes/>|<No/> |<No/>|
-|Disco Dingo|19.04 LTS|5.0|<Yes/>|<Yes/>|<No/> |<No/>|
-|Eoan Ermine|19.10|5.3|<Yes/>|<Yes/>|<No/> |<No/>|
-|Focal Fossa|20.04 LTS|5.4|<Yes/>|<Yes/>|<No/> |<No/>|
-|Groovy Gorilla|20.10|5.8|<Yes/>|<Yes/>|<No/> |<No/>|
-|Hirsute Hippo|21.04 LTS|5.11|<Yes/>|<Yes/>|<Yes/> |<No/>|
-|Impish Indri|21.10|5.13|<Yes/>|<Yes/>|<Yes/> |<No/>|
-|Jammy Jellyfish|22.04 LTS|5.17|<Yes/>|<Yes/>|<Yes/> |<No/>|
+The table below summarizes zoned block device support readiness for Ubuntu LTS
+releases that are still supported by Canonical.
 
-</center>
+<div>
+    <table class="table-dist">
+        <KernelTableHeader></KernelTableHeader>
+        <KernelTabledata></KernelTabledata>
+    </table>
+</div>
+
+## Supported File Systems and Device Mapper Targets
+
+The table below shows that the pre-compiled kernel shipped with Ubuntu only
+offers partial support for file systems and device mapper targets that support
+zoned storage devices. In particular, no LTS release offers support for the
+dm-zoned device mapper.
+
+<div>
+    <table class="table-dist">
+        <FileSystemsDeviceMapperTableHeader>
+        </FileSystemsDeviceMapperTableHeader>
+        <FileSystemDevicMapperTabledata>
+        </FileSystemDevicMapperTabledata>
+    </table>
+</div>
+
+## Available Pre-Compiled Packages
+
+Ubuntu does not provide all pre-compiled application packages supporting zoned
+block devices. In particular, user utilities for the *zonefs* file system and
+the *dm-zoned* device mapper target are not available (these utilities need to
+be compiled from source).
+
+Available packages are:
+
+* System utilities packages:
+    - *util-linux* (*blkzone* utility)
+    - *nvme-cli*
+    - *sg3-utils*
+
+* Libraries related packages:
+    - *libblkid1* (and *libblkid-dev*)
+    - *libzbd2* (and *libzbd-dev*)
+    - *zbd-utils* (includes both command line and graphical tools)
+
+* File systems related packages:
+    - *btrfs-progs*
+    - *f2fs-tools*

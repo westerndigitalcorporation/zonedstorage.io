@@ -94,8 +94,9 @@ To get started with zoned storage, see the [Getting Started](../getting-started)
 section, which details the first steps necessary to set up and verify a system
 that uses SMR disks.
 
-The [Linux Distributions](../distributions/linux) section provides information
-regarding the availability of the ZBD interface on various Linux distributions.
+The [Linux Distributions](../distributions/overview) section provides
+information regarding the availability of the ZBD interface on various Linux
+distributions.
 
 Open source tools and libraries that support zoned storage are documented in the
 [Tools and Libraries](../tools) section.

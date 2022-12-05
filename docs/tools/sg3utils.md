@@ -20,8 +20,8 @@ block device. *sg3_utils* added support for ZBC in version 1.42.
 The <a href="http://sg.danny.cz/scsi/lsscsi.html" target="_blank">*lsscsi*</a>
 command lists information about the SCSI devices that are connected to a Linux
 system. *lsscsi* is available as a package in most Linux distributions. For
-example, in [Fedora&reg;](../distributions/linux.md#fedora-linux) Linux,
-*lssci* can be installed using the following command:
+example, in [Fedora&reg;](../distributions/fedora) Linux, *lssci* can be
+installed using the following command:
 
 ```plaintext
 # dnf install lsscsi

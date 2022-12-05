@@ -5,38 +5,71 @@ sidebar_label: SLES
 ---
 
 import {
-Yes,
-No
+KernelTableHeader,
+FileSystemsDeviceMapperTableHeader,
+KernelTabledata,
+FileSystemDevicMapperTabledata
 } from '/src/components/Distro';
 
 # SUSE Linux Enterprise Server
 
-*<a href="https://www.suse.com/products/server/" target="_blank"> SUSE Linux
-Enterprise Server (SLES)</a>* is a Linux-based operating system developed by
-*SUSE&reg;*. *SLES* is designed primarily for servers, mainframes and
-workstations. Major versions of *SLES* are released at an interval of 3 to 4
-years while minor versions called "Service Packs" are released about every 12
-months.
+*<a href="https://www.suse.com/products/server/" target="_blank">
+SUSE Linux Enterprise Server (SLES)</a>* is a Linux-based operating
+system developed by *SUSE&reg;*. *SLES* is designed primarily for
+servers, mainframes and workstations. Major versions of *SLES* are
+released at an interval of 3 to 4 years, while minor versions called
+"Service Packs" are released about every 12 months.
 
-A complete list of the kernel versions used with SLES versions can be found *<a
-href="https://wiki.microfocus.com/index.php/SUSE/SLES/Kernel_versions"
-target="_blank">here</a>*. The following table only lists the most recent
-versions under long term service support.
+A complete list of the kernel versions used with SLES versions can be
+found *<a href="https://www.suse.com/support/kb/doc/?id=000019587"
+target="_blank">here</a>*.
 
-<center>
+## Supported Zoned Block Devices
 
-|Version|Kernel|ZBD API|ZBC, ZAC|ZNS|*dm-zoned*|
-|:-----:|:----:|:-----:|:------:|:----:|:--------:| 
-|11.3|3.0.76|<No/>|<No/>|<No/>|<No/>|
-|11.4|3.0.101|<No/>|<No/>|<No/>|<No/>|
-|12.0|3.12|<No/>|<No/>|<No/> |<No/>|
-|12.1|3.12|<No/>|<No/>|<No/> |<No/>|
-|12.2|4.4|<No/>|<No/>|<No/> |<No/>|
-|12.3|4.4|<No/>|<No/>|<No/> |<No/>|
-|12.4|4.12|<Yes/>|<Yes/>|<No/> |<No/>|
-|15|4.12|<Yes/>|<Yes/>|<No/> |<No/>|
-|15.1|4.12.14|<Yes/>|<Yes/>|<No/> |<Yes/>|
-|15.2|5.3.18|<Yes/>|<Yes/>|<No/> |<Yes/>|
-|15.3|5.3.18|<Yes/>|<Yes/>|<No/> |<Yes/>|
+The table below shows the supported types of zoned block devices for the
+available distribution releases.
 
-</center>
+<div>
+    <table class="table-dist">
+        <KernelTableHeader></KernelTableHeader>
+        <KernelTabledata></KernelTabledata>
+    </table>
+</div>
+
+## Supported File Systems and Device Mapper Targets
+
+Similarly to openSUSE Leap 15.4, SLES version 15.4 pre-compiled kernel now
+includes loadable modules for all file systems and device mapper targets that
+have zoned storage support.
+
+<div>
+    <table class="table-dist">
+        <FileSystemsDeviceMapperTableHeader>
+        </FileSystemsDeviceMapperTableHeader>
+        <FileSystemDevicMapperTabledata>
+        </FileSystemDevicMapperTabledata>
+    </table>
+</div>
+
+## Available Pre-Compiled Packages
+
+SLES does not provide a complete set of pre-compiled application and library
+packages supporting zoned block devices. In particular, a pre-compiled package
+for the *zonefs* utilities is missing (*zonefs-tools* needs to be compiled from
+source).
+
+* System utilities packages:
+    - *util-linux* (*blkzone* utility)
+    - *nvme-cli*
+    - *sg3_utils*
+
+* Libraries related packages:
+    - *libblkid1* (and *libblkid-devel*)
+    - *libnvme1* (and *libnvme-devel*)
+
+* File systems related packages:
+    - *btrfsprogs*
+    - *f2fs-tools*
+
+* Device Mapper related packages:
+    - *dm-zoned-tools*

@@ -174,4 +174,22 @@ html[data-theme="dark"] .Section p a {
 }
 
 
+/* Section custom tables settings */
+.table-dist th {
+  background-color: #c4c3d0 !important;
+  color: #000;
+  }
 
+.table-dist td {text-align: center;
+}
+
+ /* Set the yes and no colors for the data */
+.background-green  {
+    background-color: #009000;
+    color: #ffffff;
+}
+
+.background-red  {
+    background-color: #dc143c ;
+    color: #ffffff;
+}

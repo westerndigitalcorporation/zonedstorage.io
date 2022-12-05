@@ -103,7 +103,7 @@ const FeatureList2 = [
   {
     title: 'Linux Distributions',
     bcolor: 'button--primary',
-    link: "/docs/distributions/linux",
+    link: "/docs/distributions/overview",
     description: (
       <>
 	Many Linux distributions today ship with a Linux kernel including zoned

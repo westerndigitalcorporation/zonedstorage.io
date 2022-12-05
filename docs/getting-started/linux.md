@@ -60,9 +60,9 @@ Some Linux distributions provide zoned-storage support out of the box
 distributions provides a system that is ready to use with SMR hard disks
 and ZNS SSDs.
 
-* [Fedora 36 or above](../distributions/linux.md#fedora-linux)
+* [Fedora 36 or above](../distributions/fedora)
 
-* [Latest openSUSE Tumbleweed](../distributions/linux.md#opensuse)
+* [Latest openSUSE Tumbleweed](../distributions/opensuse)
 
 These distributions are "rolling release" Linux distributions. They provide the
 most recent stable Linux kernel, they have zoned block device support enabled,
@@ -79,7 +79,8 @@ Linux systems that are not on the [Recommended
 Distributions](linux#recommended-distributions) list do not support zoned
 storage by default, but some of them can be modified to provide some level of
 support for zoned storage. More information about the level of support provided
-by these Linux distributions can be found on the [Linux Distributions page](../distributions/linux.md).
+by these Linux distributions can be found on
+the [Linux Distributions page](../distributions/overview.md).
 
 If you know what you're doing, you can modify your preferred Linux distribution
 to enable or improve its support for zoned storage.

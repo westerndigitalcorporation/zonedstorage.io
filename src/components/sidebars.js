@@ -123,14 +123,14 @@ const sidebars = {
       label: 'Linux Distributions',
       collapsed: true,
       items: [
-           'distributions/linux',
-           'distributions/centos',
-           'distributions/debian',
+           'distributions/overview',
            'distributions/fedora',
            'distributions/opensuse',
-           'distributions/rhel',
+           'distributions/ubuntu',
+           'distributions/debian',
            'distributions/sles',
-           'distributions/ubuntu'
+           'distributions/centos',
+           'distributions/rhel'
            ]
     },
     {

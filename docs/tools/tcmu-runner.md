@@ -52,8 +52,8 @@ compile, install and execute *tcmu-runner* daemon.
 
 The *targetcli* utility, which is available as a package in most distributions,
 controls devices that are emulated with *tcmu-runner*. For example, on
-[Fedora&reg;](../distributions/linux.md#fedora-linux) Linux, *tcmu-runner* and
-*targetcli* can be installed using the following commands:
+[Fedora&reg;](../distributions/fedora) Linux, *tcmu-runner* and *targetcli* can
+be installed using the following commands:
 
 ```plaintext
 # dnf install tcmu-runner
