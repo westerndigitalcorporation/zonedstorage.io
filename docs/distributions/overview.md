@@ -33,6 +33,7 @@ support. Use the following links to learn more.
  - [SLES](../distributions/sles.md)
  - [CentOS](../distributions/centos.md)
  - [RHEL](../distributions/rhel.md)
+ - [Arch Linux](../distributions/arch.md)
 
 ## Checking a Linux Distribution
 

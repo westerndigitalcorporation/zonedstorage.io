@@ -25,10 +25,10 @@ const sidebars = {
       collapsed: true,
       items: [
         'introduction/index',
-	'introduction/zoned-storage',
-	'introduction/smr',
-	'introduction/zns',
-	'introduction/linux-ecosystem'
+        'introduction/zoned-storage',
+        'introduction/smr',
+        'introduction/zns',
+        'introduction/linux-ecosystem'
       ],
     },
     {
@@ -42,9 +42,9 @@ const sidebars = {
           href: '/docs/getting-started',
         },
         'getting-started/linux',
-	'getting-started/zbd-emulation',
-	'getting-started/smr-disk',
-	'getting-started/zns-device'
+        'getting-started/zbd-emulation',
+        'getting-started/smr-disk',
+        'getting-started/zns-device'
       ],
     },
     {
@@ -54,12 +54,12 @@ const sidebars = {
       items: [
         'linux/index',
         'linux/overview',
-	'linux/config',
-	'linux/zbd-api',
-	'linux/sched',
-	'linux/part',
-	'linux/dm',
-	'linux/fs'
+        'linux/config',
+        'linux/zbd-api',
+        'linux/sched',
+        'linux/part',
+        'linux/dm',
+        'linux/fs'
       ],
     },
     {
@@ -79,13 +79,13 @@ const sidebars = {
       items: [
         'tools/index',
         'tools/util-linux',
-	'tools/zns',
-	'tools/sg3utils',
-	'tools/libzbc',
-	'tools/libzbd',
-	'tools/libnvme',
-	'tools/tcmu-runner',
-	'tools/qemu'
+        'tools/zns',
+        'tools/sg3utils',
+        'tools/libzbc',
+        'tools/libzbd',
+        'tools/libnvme',
+        'tools/tcmu-runner',
+        'tools/qemu'
       ],
     },
     {
@@ -95,7 +95,7 @@ const sidebars = {
       items: [
         'tests/index',
         'tests/zbc-tests',
-	'tests/blktests'
+        'tests/blktests'
       ],
     },
     {
@@ -130,7 +130,8 @@ const sidebars = {
            'distributions/debian',
            'distributions/sles',
            'distributions/centos',
-           'distributions/rhel'
+           'distributions/rhel',
+           'distributions/arch'
            ]
     },
     {

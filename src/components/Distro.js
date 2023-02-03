@@ -2,11 +2,11 @@ import React from "react";
 import {useLocation} from "@docusaurus/router";
 import {
         ZbdSupport, DeviceMapper, FedoraZbdSupport,
-        DebianZbdSupport, CentOSZbdSupport, RHELZbdSupport,
+        DebianZbdSupport, ArchZBDSupport, CentOSZbdSupport, RHELZbdSupport,
         SLESZbdSupport, OpensuseZbdSupport, UbuntuZbdSupport,
         FedoraDeviceMapper, DebianDeviceMapper, CentOSDeviceMapper,
         RHELDeviceMapper, SLESDeviceMapper, OpensuseDeviceMapper,
-        UbuntuDeviceMapper
+        UbuntuDeviceMapper, ArchDeviceMapper
        } from "./TableData.js";
 
 export function KernelTableHeader() {

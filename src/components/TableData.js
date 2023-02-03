@@ -75,6 +75,18 @@ export const DebianZbdSupport = [
         }
 ];
 
+export const ArchZBDSupport = [
+        {
+            distribution: "Arch",
+            kernel: "6.1 +",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/arch"
+        }
+];
+
 export const CentOSZbdSupport = [
         /* Data for the ZBD Support Table*/
         {
@@ -517,7 +529,8 @@ export const ZbdSupport = [
         ...RHELZbdSupport,
         ...SLESZbdSupport,
         ...OpensuseZbdSupport,
-        ...UbuntuZbdSupport
+        ...UbuntuZbdSupport,
+        ...ArchZBDSupport
 ];
 
 export const FedoraDeviceMapper = [
@@ -576,6 +589,23 @@ export const FedoraDeviceMapper = [
         }
 ];
 
+
+export const ArchDeviceMapper = [
+        {
+            distribution: "Arch",
+            kernel: "6.1 + ",
+            f2fs:"Yes",
+            zonefs: "Yes",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/arch"
+        }
+];
+
 export const DebianDeviceMapper = [
         /* Data for the File Systems and Device Mapper Table*/
         {
@@ -615,7 +645,7 @@ export const DebianDeviceMapper = [
             flakey: "Yes",
             zoned: "Yes",
             crypt: "Yes",
-             pathlocation:"/docs/distributions/debian"
+            pathlocation:"/docs/distributions/debian"
         }
 ];
 
@@ -1243,5 +1273,6 @@ export const DeviceMapper = [
         ...RHELDeviceMapper,
         ...SLESDeviceMapper,
         ...OpensuseDeviceMapper,
-        ...UbuntuDeviceMapper
+        ...UbuntuDeviceMapper,
+        ...ArchDeviceMapper
 ];
