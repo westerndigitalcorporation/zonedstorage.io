@@ -81,7 +81,7 @@ const FeatureList1 = [
     description: (
       <>
 	Learn about applications providing direct support for zoned block
-	devices and the benefits obtained from using zoned storage hadrware.
+	devices and the benefits obtained from using zoned storage hardware.
       </>
     ),
   },
@@ -130,7 +130,7 @@ const FeatureList2 = [
     description: (
       <>
 	Learn how to verify a system readiness for zoned storage devices and
-	test hadrware components compliance to standards with automated test
+	test hardware components compliance to standards with automated test
 	suites.
       </>
     ),
