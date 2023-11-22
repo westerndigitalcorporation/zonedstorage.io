@@ -1,101 +1,154 @@
 <!doctype html>
-<html lang="en" dir="ltr" class="docs-wrapper docs-doc-page docs-version-current plugin-docs plugin-id-default docs-doc-id-introduction/zoned-storage">
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-introduction/zoned-storage" data-has-hydrated="false">
 <head>
 <meta charset="UTF-8">
-<meta name="generator" content="Docusaurus v2.3.1">
-<title data-rh="true">Zoned Storage Devices Overview | Zoned Storage</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://zonedstorage.io/docs/introduction/zoned-storage"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Zoned Storage Devices Overview | Zoned Storage"><meta data-rh="true" name="description" content="Zoned storage is a class of storage devices that have an address space that is"><meta data-rh="true" property="og:description" content="Zoned storage is a class of storage devices that have an address space that is"><link data-rh="true" rel="icon" href="/img/zs-logo.ico"><link data-rh="true" rel="canonical" href="https://zonedstorage.io/docs/introduction/zoned-storage"><link data-rh="true" rel="alternate" href="https://zonedstorage.io/docs/introduction/zoned-storage" hreflang="en"><link data-rh="true" rel="alternate" href="https://zonedstorage.io/docs/introduction/zoned-storage" hreflang="x-default"><link rel="preconnect" href="https://www.google-analytics.com">
+<meta name="generator" content="Docusaurus v3.0.0">
+<title data-rh="true">Zoned Storage Devices Overview | Zoned Storage</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://zonedstorage.io/docs/introduction/zoned-storage"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Zoned Storage Devices Overview | Zoned Storage"><meta data-rh="true" name="description" content="Zoned storage is a class of storage devices that have an address space that is"><meta data-rh="true" property="og:description" content="Zoned storage is a class of storage devices that have an address space that is"><link data-rh="true" rel="icon" href="/img/zs-logo.ico"><link data-rh="true" rel="canonical" href="https://zonedstorage.io/docs/introduction/zoned-storage"><link data-rh="true" rel="alternate" href="https://zonedstorage.io/docs/introduction/zoned-storage" hreflang="en"><link data-rh="true" rel="alternate" href="https://zonedstorage.io/docs/introduction/zoned-storage" hreflang="x-default"><link rel="preconnect" href="https://www.google-analytics.com">
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
-<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.12a163e2.css">
-<link rel="preload" href="/assets/js/runtime~main.32b4d265.js" as="script">
-<link rel="preload" href="/assets/js/main.ae41ca94.js" as="script">
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.8ae24b2a.css">
+<script src="/assets/js/runtime~main.397fa6f4.js" defer="defer"></script>
+<script src="/assets/js/main.693824e1.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard" data-theme="light">
-<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
-<div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/zs-logo.png" alt="Zoned Storage Logo" class="themedImage_ToTc themedImage--light_HNdA"><img src="/img/zs-logo.png" alt="Zoned Storage Logo" class="themedImage_ToTc themedImage--dark_i4oU"></div><b class="navbar__title text--truncate">Zoned Storage</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/introduction">Documentation</a><a class="navbar__item navbar__link" href="/docs/community/support">Community</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/westerndigitalcorporation/zonedstorage.io" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link header-github-link" aria-label="GitHub repository">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="searchBox_ZlJk"><div class="dsla-search-wrapper"><div class="dsla-search-field" data-tags="default,docs-default-current"></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0 docsWrapper_BCFX"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docPage__5DB"><aside class="theme-doc-sidebar-container docSidebarContainer_b6E3"><div class="sidebarViewport_Xe31"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" aria-expanded="true" href="/docs/introduction">Introduction</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/introduction">Overview</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/introduction/zoned-storage">Zoned Storage Devices Overview</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/introduction/smr">Shingled Magnetic Recording Hard Disks</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/introduction/zns">NVMe Zoned Namespaces (ZNS) Devices</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/introduction/linux-ecosystem">Linux Zoned Storage Ecosystem</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/getting-started">Getting Started</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/linux">Linux Kernel Support</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/applications">Applications</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/tools">Tools and Libraries</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/tests">System Compliance Tests</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/benchmarking">Performance Benchmarking</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/distributions/overview">Linux Distributions</a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/faq">Frequently Asked Questions</a></li></ul></nav></div></div></aside><main class="docMainContainer_gTbr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Introduction</span><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">Zoned Storage Devices Overview</span><meta itemprop="position" content="2"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><h1>Zoned Storage Devices</h1><p>Zoned storage is a class of storage devices that have an address space that is
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/zs-logo.png" alt="Zoned Storage Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/zs-logo.png" alt="Zoned Storage Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Zoned Storage</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/introduction">Documentation</a><a class="navbar__item navbar__link" href="/docs/community/support">Community</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/westerndigitalcorporation/zonedstorage.io" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link header-github-link" aria-label="GitHub repository">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="dsla-search-wrapper"><div class="dsla-search-field" data-tags="default,docs-default-current"></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" aria-expanded="true" href="/docs/introduction">Introduction</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/introduction">Overview</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/introduction/zoned-storage">Zoned Storage Devices Overview</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/introduction/smr">Shingled Magnetic Recording Hard Disks</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/introduction/zns">NVMe Zoned Namespaces (ZNS) Devices</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/introduction/linux-ecosystem">Linux Zoned Storage Ecosystem</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/getting-started">Getting Started</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/linux">Linux Kernel Support</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/applications">Applications</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/tools">Tools and Libraries</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/tests">System Compliance Tests</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/benchmarking">Performance Benchmarking</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/distributions/overview">Linux Distributions</a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/faq">Frequently Asked Questions</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Introduction</span><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">Zoned Storage Devices Overview</span><meta itemprop="position" content="2"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><h1>Zoned Storage Devices</h1>
+<p>Zoned storage is a class of storage devices that have an address space that is
 divided into zones that have write constraints that are different from regular
-storage devices.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="principle-of-operation">Principle of Operation<a href="#principle-of-operation" class="hash-link" aria-label="Direct link to Principle of Operation" title="Direct link to Principle of Operation">​</a></h2><p>Zones in zoned storage devices must be written sequentially. This is called the
+storage devices.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="principle-of-operation">Principle of Operation<a href="#principle-of-operation" class="hash-link" aria-label="Direct link to Principle of Operation" title="Direct link to Principle of Operation">​</a></h2>
+<p>Zones in zoned storage devices must be written sequentially. This is called the
 <strong>sequential write constraint</strong>. Each zone in the device address space has a
 write pointer that keeps track of the position of the next write. Data in a
 zone cannot be directly overwritten: before being overwritten, the zone must
 first be erased using a special command (zone reset). The figure below
-illustrates this principle.</p><div class="container text--center"><figure><img src="/assets/images/intro-zoned-storage-82ce755eb4ac58c0b289d5bcb8b8c361.png" width="640" max-width="100%"><figcaption><em>Zoned Storage Devices Principle</em></figcaption></figure></div><p>Zoned storage devices can be implemented using different command protocols for
+illustrates this principle.</p>
+<div class="container text--center"><figure><img src="/assets/images/intro-zoned-storage-82ce755eb4ac58c0b289d5bcb8b8c361.png" width="640" max-width="100%"><figcaption><em>Zoned Storage Devices Principle</em></figcaption></figure></div>
+<p>Zoned storage devices can be implemented using different command protocols for
 various recording and media technologies. The most common form of zoned storage
 today uses the SCSI Zoned Block Commands (ZBC) and Zoned ATA Commands (ZAC)
-interfaces with <a href="/docs/introduction/smr">Shingled Magnetic Recording (SMR)</a> hard-disks. ZBC and
-ZAC enable a zoned block storage model; SMR technology enables continued areal
-density growth that makes it possible to meet expanding data needs, and SMR
-technology requires the zoned block access model.</p><p>Solid State Drive (SSD) storage devices can also implement a zoned interface in
+interfaces with <a href="/docs/introduction/smr">Shingled Magnetic Recording (SMR)</a>
+hard-disks. ZBC and ZAC enable a zoned block storage model; SMR technology
+enables continued areal density growth that makes it possible to meet expanding
+data needs, and SMR technology requires the zoned block access model.</p>
+<p>Solid State Drive (SSD) storage devices can also implement a zoned interface in
 order to reduce write amplification, to reduce the device&#x27;s DRAM needs, and to
-improve the quality of service at scale. The <a href="/docs/introduction/zns">NVMe Zoned NameSpace (ZNS)</a>
-is a specification of the NVMe standard committee that adds a zoned storage
-interface to the NVMe interface standard.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-size-and-zone-capacity">Zone Size and Zone Capacity<a href="#zone-size-and-zone-capacity" class="hash-link" aria-label="Direct link to Zone Size and Zone Capacity" title="Direct link to Zone Size and Zone Capacity">​</a></h2><p>The size of a zone of a zoned storage device is the total number of logical
+improve the quality of service at scale. The <a href="/docs/introduction/zns">NVMe Zoned NameSpace
+(ZNS)</a> is a specification of the NVMe standard committee
+that adds a zoned storage interface to the NVMe interface standard.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-size-and-zone-capacity">Zone Size and Zone Capacity<a href="#zone-size-and-zone-capacity" class="hash-link" aria-label="Direct link to Zone Size and Zone Capacity" title="Direct link to Zone Size and Zone Capacity">​</a></h2>
+<p>The size of a zone of a zoned storage device is the total number of logical
 blocks within the zone. The size of each zone is fixed at manufacturing time
-and cannot be changed by the user.</p><div class="theme-admonition theme-admonition-note alert alert--secondary admonition_LlT9"><div class="admonitionHeading_tbUL"><span class="admonitionIcon_kALy"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_S0QG"><p>There is one exception to this rule: The ZBC-2 standard extends the ZBC command
+and cannot be changed by the user.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>There is one exception to this rule: The ZBC-2 standard extends the ZBC command
 set with the FORMAT WITH PRESET command which allows a user to reformat a zoned
 SMR hard-disk with a different zone size. This operation is however destructive
-and thus cannot be used on a live system.</p></div></div><p>Some zoned storage devices also define a capacity attribute for each zone. A
+and thus cannot be used on a live system.</p></div></div>
+<p>Some zoned storage devices also define a capacity attribute for each zone. A
 zone capacity indicates the number of usable logical blocks within the zone,
 starting from the first logical block of the zone. A zone capacity is always
 smaller or equal to the zone size. This concept is illustrated in the figure
-below.</p><div class="container text--center"><figure><img src="/assets/images/intro-zonesize-vs-capacity-0f94861db037e13632def2968998b611.png" width="640" max-width="100%"><figcaption><em>Zone Size and Zone Capacity</em></figcaption></figure></div><p>The use of zone capacities different from the zone size allows for the zone size
+below.</p>
+<div class="container text--center"><figure><img src="/assets/images/intro-zonesize-vs-capacity-0f94861db037e13632def2968998b611.png" width="640" max-width="100%"><figcaption><em>Zone Size and Zone Capacity</em></figcaption></figure></div>
+<p>The use of zone capacities different from the zone size allows for the zone size
 to remain constant for all zones while allowing an optimized mapping of a zone
 storage capacity to the underlying media characteristics. For instance, in the
 case a flash based device, a zone capacity can be aligned to the size of flash
-erase blocks without imposing host requirements on the device erase block size.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-models">Zone Models<a href="#zone-models" class="hash-link" aria-label="Direct link to Zone Models" title="Direct link to Zone Models">​</a></h2><p>The zone interface of zoned storage devices can take different forms. These
+erase blocks without imposing host requirements on the device erase block size.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-models">Zone Models<a href="#zone-models" class="hash-link" aria-label="Direct link to Zone Models" title="Direct link to Zone Models">​</a></h2>
+<p>The zone interface of zoned storage devices can take different forms. These
 forms are referred to as &quot;models&quot;, and their differences impacts hosts and
 users. It is important to understand these differences, as not all
 implementation options are appropriate for a particular storage application.
-The two models that are in use today are:</p><ul><li><p><strong>Host-Managed</strong> This model accommodates only sequential write workloads to
+The two models that are in use today are:</p>
+<ul>
+<li>
+<p><strong>Host-Managed</strong> This model accommodates only sequential write workloads to
 deliver both predictable performance and full control over the device zones
 at the host level. Modifications to host software are required to use host
-managed devices.</p></li><li><p><strong>Host-Aware</strong> This model offers backwards compatibility with regular block
+managed devices.</p>
+</li>
+<li>
+<p><strong>Host-Aware</strong> This model offers backwards compatibility with regular block
 devices, that is, allows random write operations to be issued to any sector.
 But this model also provides the same host control interface provided by
-the host-managed model.</p></li></ul><h3 class="anchor anchorWithStickyNavbar_LWe7" id="host-managed-model">Host-Managed Model<a href="#host-managed-model" class="hash-link" aria-label="Direct link to Host-Managed Model" title="Direct link to Host-Managed Model">​</a></h3><p>The host-managed model does not provide backwards compatibility with legacy
+the host-managed model.</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="host-managed-model">Host-Managed Model<a href="#host-managed-model" class="hash-link" aria-label="Direct link to Host-Managed Model" title="Direct link to Host-Managed Model">​</a></h3>
+<p>The host-managed model does not provide backwards compatibility with legacy
 host storage stacks. Instead, it delegates management of the device sequential
 write constraint to the host software: the host must manage all write
 operations. This is done by using the write pointer to enforce sequential
-writing within zones.</p><p>After data has been written to a zone, the write pointer increments in order to
+writing within zones.</p>
+<p>After data has been written to a zone, the write pointer increments in order to
 indicate the starting point of the next write operation in that zone. Any
 out-of-order write (write operation that does not start at the zone write
 pointer location) forces the device to abort the operation and flag an error.
 Recovery from such an error is the responsibility of the controlling host
 software. This enforcement allows host-managed devices to deliver predictable
-performance.</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="host-aware-model">Host-Aware Model<a href="#host-aware-model" class="hash-link" aria-label="Direct link to Host-Aware Model" title="Direct link to Host-Aware Model">​</a></h3><p>The host-aware model simultaneously preserves compatibility with legacy host
+performance.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="host-aware-model">Host-Aware Model<a href="#host-aware-model" class="hash-link" aria-label="Direct link to Host-Aware Model" title="Direct link to Host-Aware Model">​</a></h3>
+<p>The host-aware model simultaneously preserves compatibility with legacy host
 storage stacks by being backwards compatible with regular block devices but
 also provides the same set of commands for a host to tightly control the device
-zones.</p><p>All matters of host-side software support and optimization that are discussed
+zones.</p>
+<p>All matters of host-side software support and optimization that are discussed
 on this site apply to host-aware devices when these devices are used similarly
-to host-managed devices.</p><div class="theme-admonition theme-admonition-info alert alert--info admonition_LlT9"><div class="admonitionHeading_tbUL"><span class="admonitionIcon_kALy"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>ZonedStorage.io focuses on host-managed devices</div><div class="admonitionContent_S0QG"><p>The documentation pages on this site focus on host-managed devices. Host-aware
-devices that are used as regular devices are not discussed.</p></div></div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-types">Zone Types<a href="#zone-types" class="hash-link" aria-label="Direct link to Zone Types" title="Direct link to Zone Types">​</a></h2><p>The standards governing the characteristics and operation of zoned storage
-devices define three different types of zones.</p><ul><li><p><strong>Conventional zones</strong> typically occupy a very small percentage of the overall
+to host-managed devices.</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>ZonedStorage.io focuses on host-managed devices</div><div class="admonitionContent_BuS1"><p>The documentation pages on this site focus on host-managed devices. Host-aware
+devices that are used as regular devices are not discussed.</p></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-types">Zone Types<a href="#zone-types" class="hash-link" aria-label="Direct link to Zone Types" title="Direct link to Zone Types">​</a></h2>
+<p>The standards governing the characteristics and operation of zoned storage
+devices define three different types of zones.</p>
+<ul>
+<li>
+<p><strong>Conventional zones</strong> typically occupy a very small percentage of the overall
 capacity of a device. Accesses to conventional zones are similar to those of
 regular block devices (that is: conventional zones accept random write
 operations and are usually used to store metadata). Conventional zones do not
-have a write pointer.</p></li><li><p><strong>Sequential-write-required zones</strong> accept random read commands and perform
+have a write pointer.</p>
+</li>
+<li>
+<p><strong>Sequential-write-required zones</strong> accept random read commands and perform
 comparably to random read commands on standard block devices. However, these
 zones are subject to the zoned storage sequential write constraint and thus
 can only be written sequentially. Any write command must indicate a start
-sector that is aligned with the zone write pointer.</p></li><li><p><strong>Sequential-write-preferred zones</strong> accept both random read and random write
+sector that is aligned with the zone write pointer.</p>
+</li>
+<li>
+<p><strong>Sequential-write-preferred zones</strong> accept both random read and random write
 commands. However, unlike conventional zones, sequential-write-preferred zones
 have a write pointer and can be used exactly like sequential-write-required
-zones.</p></li></ul><p>In general, sequential-write-required and sequential-write-preferred zones are
-collectively referred to as sequential zones.</p><p>The availability of each type of zone on a particular zoned device depends on
+zones.</p>
+</li>
+</ul>
+<p>In general, sequential-write-required and sequential-write-preferred zones are
+collectively referred to as sequential zones.</p>
+<p>The availability of each type of zone on a particular zoned device depends on
 the device governing standard and the device zone model. Conventional zones are
 optional and can be found on both host-managed and host-aware devices.
 Sequential write required zones are only defined for host-managed devices and
-sequential write preferred zones are only defined for host-aware devices.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-management-commands">Zone Management Commands<a href="#zone-management-commands" class="hash-link" aria-label="Direct link to Zone Management Commands" title="Direct link to Zone Management Commands">​</a></h2><p>Zoned storage devices also provide zone discovery and management commands as
+sequential write preferred zones are only defined for host-aware devices.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-management-commands">Zone Management Commands<a href="#zone-management-commands" class="hash-link" aria-label="Direct link to Zone Management Commands" title="Direct link to Zone Management Commands">​</a></h2>
+<p>Zoned storage devices also provide zone discovery and management commands as
 extensions of the device basic command set (which is similar to the set of
-commands defined for regular block devices).</p><p>Host software can discover the zone organization of a zoned storage device using
+commands defined for regular block devices).</p>
+<p>Host software can discover the zone organization of a zoned storage device using
 the <strong>REPORT ZONES</strong> command. This command returns a list of zone descriptors
 that indicate the starting block, size, type, and state of a zone. For
 sequential write required zones and sequential write preferred zones, a zone
 descriptor also indicates the current position of the zone write pointer. This
-information allows host software to implement sequential write streams to zones.</p><p>Zones can be managed using the following commands.</p><ul><li><p><strong>RESET ZONE WRITE POINTER</strong> is the command that host software use to
+information allows host software to implement sequential write streams to zones.</p>
+<p>Zones can be managed using the following commands.</p>
+<ul>
+<li>
+<p><strong>RESET ZONE WRITE POINTER</strong> is the command that host software use to
 reset the location of a zone write pointer to the beginning of the zone. After
 this command is executed, all data that was written to the zone is lost and
-cannot be accessed.</p></li><li><p><strong>OPEN ZONE</strong> A zoned block device may require internal resources (for
+cannot be accessed.</p>
+</li>
+<li>
+<p><strong>OPEN ZONE</strong> A zoned block device may require internal resources (for
 example, persistent zone resources) to maintain each zone. Insufficient
 resources may result in degraded functionality (for example, reduced
 performance or increased power consumption). The <em>OPEN ZONE</em> command allows an
@@ -103,64 +156,116 @@ application to explicitly open a zone, and indicates to the device that the
 resources necessary for writing the zone should remain available until the zone
 is fully written or until the zone is closed by using the <em>CLOSE ZONE</em>
 command. The performance benefits achieved by using this command depend upon
-the device media type and implementation of zone management.</p></li><li><p><strong>CLOSE ZONE</strong> allows an application to explicitly close a zone that was
+the device media type and implementation of zone management.</p>
+</li>
+<li>
+<p><strong>CLOSE ZONE</strong> allows an application to explicitly close a zone that was
 opened using the <em>OPEN ZONE</em> command. <em>CLOSE ZONE</em> indicates to the device
 that the resources used for writing to the zone are no longer necessary and
-can be released.</p></li><li><p><strong>FINISH ZONE</strong> allows an application to move a zone&#x27;s write pointer to the
+can be released.</p>
+</li>
+<li>
+<p><strong>FINISH ZONE</strong> allows an application to move a zone&#x27;s write pointer to the
 end of the zone, preventing any further write operations to the zone until it
-is reset.</p></li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-states-and-state-transitions">Zone States and State Transitions<a href="#zone-states-and-state-transitions" class="hash-link" aria-label="Direct link to Zone States and State Transitions" title="Direct link to Zone States and State Transitions">​</a></h2><p>Each sequential zone of a zoned storage device has a state attribute that
+is reset.</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-states-and-state-transitions">Zone States and State Transitions<a href="#zone-states-and-state-transitions" class="hash-link" aria-label="Direct link to Zone States and State Transitions" title="Direct link to Zone States and State Transitions">​</a></h2>
+<p>Each sequential zone of a zoned storage device has a state attribute that
 indicates the usage of the blocks within the zone and the device resources that
-zone uses. The following states are defined.</p><ul><li><p><strong>Empty</strong> None of the blocks within the zone contain valid data.</p></li><li><p><strong>Full</strong> All of the blocks within the zone have been written or the zone has
-been finished by the host using the <em>FINISH ZONE</em> command.</p></li><li><p><strong>Implicit Open</strong> Some blocks in the zone have recently been written by the
-host. The zone is using device internal resources.</p></li><li><p><strong>Explicit Open</strong> The zone was allocated device internal resources by the host
-software through the execution of an <em>OPEN ZONE</em> command.</p></li><li><p><strong>Closed</strong> The device internal resources used by a zone were freed explicitly
+zone uses. The following states are defined.</p>
+<ul>
+<li>
+<p><strong>Empty</strong> None of the blocks within the zone contain valid data.</p>
+</li>
+<li>
+<p><strong>Full</strong> All of the blocks within the zone have been written or the zone has
+been finished by the host using the <em>FINISH ZONE</em> command.</p>
+</li>
+<li>
+<p><strong>Implicit Open</strong> Some blocks in the zone have recently been written by the
+host. The zone is using device internal resources.</p>
+</li>
+<li>
+<p><strong>Explicit Open</strong> The zone was allocated device internal resources by the host
+software through the execution of an <em>OPEN ZONE</em> command.</p>
+</li>
+<li>
+<p><strong>Closed</strong> The device internal resources used by a zone were freed explicitly
 by the host through the execution of a <em>CLOSE ZONE</em> command, or the device
 implicitly freed the internal resources assigned to the zone to serve write
-operations targetting different zones.</p></li><li><p><strong>Read Only</strong> The zone can only be read. This state generally corresponds to a
+operations targetting different zones.</p>
+</li>
+<li>
+<p><strong>Read Only</strong> The zone can only be read. This state generally corresponds to a
 defective state of the device, e.g. for a hard-disk, the zone is stored on a
-platter with a broken write head .</p></li><li><p><strong>Offline</strong> The zone cannot be read nor written. This state generally
+platter with a broken write head .</p>
+</li>
+<li>
+<p><strong>Offline</strong> The zone cannot be read nor written. This state generally
 corresponds to a defective state of the device, e.g. the storage media for the
-zone is not operating anymore.</p></li></ul><p>The execution of zone management commands and of write operations may change the
+zone is not operating anymore.</p>
+</li>
+</ul>
+<p>The execution of zone management commands and of write operations may change the
 state of a zone. The most common transitions defined by all zoned storage device
-standards are shown in the figure below.</p><div class="container text--center"><figure><img src="/assets/images/zone-state-machine-de3050d6565c6840b72bd055dbe01f3b.svg" width="640" max-width="100%"><figcaption><em>Zone State Transitions Overview</em></figcaption></figure></div><p>Transition into the <em>read-only</em> or <em>offline</em> states happen generally after a
+standards are shown in the figure below.</p>
+<div class="container text--center"><figure><img src="/assets/images/zone-state-machine-de3050d6565c6840b72bd055dbe01f3b.svg" width="640" max-width="100%"><figcaption><em>Zone State Transitions Overview</em></figcaption></figure></div>
+<p>Transition into the <em>read-only</em> or <em>offline</em> states happen generally after a
 device internal event causing defects. Zones that are in either state cannot
-return to a fully functional state.</p><p>For all other states, the execution of a <em>RESET ZONE</em> command always changes the
+return to a fully functional state.</p>
+<p>For all other states, the execution of a <em>RESET ZONE</em> command always changes the
 zone state to <em>empty</em>, indicating that none of the blocks in the zone contain
-valid data.</p><p>A write operation into a zone with the <em>empty</em> state change the zone state to
+valid data.</p>
+<p>A write operation into a zone with the <em>empty</em> state change the zone state to
 <em>implicit open</em>. Writing all blocks of an implicitly opened zone changes its
-state to <em>full</em>. A <em>FINISH ZONE</em> command also changes a zone state to full.</p><p>An empty or implicitly open zone can be transitioned to the <em>explicitly open</em>
+state to <em>full</em>. A <em>FINISH ZONE</em> command also changes a zone state to full.</p>
+<p>An empty or implicitly open zone can be transitioned to the <em>explicitly open</em>
 state using the <em>EXPLICIT OPEN</em> command. Conversely, implicitly or explicitly
 opened zoned can be transitioned to the <em>closed</em> state using the <em>CLOSE ZONE</em>
-command.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-resources-limits">Zone Resources Limits<a href="#zone-resources-limits" class="hash-link" aria-label="Direct link to Zone Resources Limits" title="Direct link to Zone Resources Limits">​</a></h2><p>A zoned storage device implementation may require the allocation of internal
+command.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-resources-limits">Zone Resources Limits<a href="#zone-resources-limits" class="hash-link" aria-label="Direct link to Zone Resources Limits" title="Direct link to Zone Resources Limits">​</a></h2>
+<p>A zoned storage device implementation may require the allocation of internal
 resources (e.g. a write buffer) to execute write operations into zones.
 Furthermore, the storage media characteristics of the device may also limit the
-amount of zones that can be in a partially written state.</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="open-zones-limit">Open Zones Limit<a href="#open-zones-limit" class="hash-link" aria-label="Direct link to Open Zones Limit" title="Direct link to Open Zones Limit">​</a></h3><p>Limitations on the total amount of internal resources available to a zoned
+amount of zones that can be in a partially written state.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="open-zones-limit">Open Zones Limit<a href="#open-zones-limit" class="hash-link" aria-label="Direct link to Open Zones Limit" title="Direct link to Open Zones Limit">​</a></h3>
+<p>Limitations on the total amount of internal resources available to a zoned
 storage device for processing write operations may impose a limit on the total
 number of zones that can simultaneously be in the implicit open or explicit open
 state (open zones). If such limit exists, the zoned storage device may fail write
 and <em>OPEN ZONE</em> commands to avoid exceeding the maximum number of open zones
-allowed.</p><p>This limit does not affect read operations.</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="active-zones-limit">Active Zones Limit<a href="#active-zones-limit" class="hash-link" aria-label="Direct link to Active Zones Limit" title="Direct link to Active Zones Limit">​</a></h3><p>Any zone in the implicit open, explicit open or closed state is defined as an
+allowed.</p>
+<p>This limit does not affect read operations.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="active-zones-limit">Active Zones Limit<a href="#active-zones-limit" class="hash-link" aria-label="Direct link to Active Zones Limit" title="Direct link to Active Zones Limit">​</a></h3>
+<p>Any zone in the implicit open, explicit open or closed state is defined as an
 active zone and correspond to any zone that is being written or that has been
 only partially written. A zoned storage device may impose a limit on the maximum
 number of zones that can be active. This limit is always equal or larger than
-the limit on the maximum number of open zones.</p><p>While the maximum number of open zones of a zoned storage device only limits the
+the limit on the maximum number of open zones.</p>
+<p>While the maximum number of open zones of a zoned storage device only limits the
 number of zones that a host software can simultaneously write, the maximum
 number of active zones imposes a limit on the number of zones that it can choose
 for storing data. If the maximum number of active zones is reached, the host
 software must either reset or finish some active zones before being able to
-choose other zones for storing data.</p><p>Similar to the limit on the maximum number of open zones, a limit on the
+choose other zones for storing data.</p>
+<p>Similar to the limit on the maximum number of open zones, a limit on the
 maximum number of active zones does not affect read operations. Any zone that is
 not offline can always be accessed for reading regardless of the current number
-of open and active zones.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-append">Zone Append<a href="#zone-append" class="hash-link" aria-label="Direct link to Zone Append" title="Direct link to Zone Append">​</a></h2><p>The sequential write constraint imposed by the sequential write required zones
+of open and active zones.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="zone-append">Zone Append<a href="#zone-append" class="hash-link" aria-label="Direct link to Zone Append" title="Direct link to Zone Append">​</a></h2>
+<p>The sequential write constraint imposed by the sequential write required zones
 of host-managed devices has implications on the host IO stack. Namely, all
 write commands directed at a sequential zone must not be reordered before they
 are received by the device and executed. Otherwise, the sequential write
 requirement would not be met, resulting in write errors. However, the complexity
 of host IO stacks and the lack of ordering guarantees with some storage adapters
 and command transports may not allow an implementation to order write commands
-as required for sequential zones.</p><p>Host software can avoid write errors by limiting the number of write commands
+as required for sequential zones.</p>
+<p>Host software can avoid write errors by limiting the number of write commands
 outstanding per zone to one. But this can result in poor performance, especially
-for workloads issuing mostly small write operations.</p><p>To avoid this problem, some zoned storage devices define the <em>Zone Append</em>
+for workloads issuing mostly small write operations.</p>
+<p>To avoid this problem, some zoned storage devices define the <em>Zone Append</em>
 command. A zone append command is a write operation that specifies the first
 logical block of a zone as the write position. When executing the command, the
 device write the data within the zone indicated, but do so at the current zone
@@ -168,23 +273,25 @@ write pointer position. This change in the write position is automatic and the
 effective write position for the data is indicated to the host through the
 command completion information. This mechanism allows a host to simultaneously
 submit several zone append operations and let the device process these in any
-order.</p><p>The figure below illustrates the differences between regular write operations
-and zone append write operations.</p><div class="container text--center"><figure><img src="/assets/images/intro-zone-append-890c07f2624fe7dcf7c5ee61fe2a6f0b.png" width="640" max-width="100%"><figcaption><em>Regular Writes and Zone Append Writes</em></figcaption></figure></div><p>In the example above, the host must issue to the same zone three different
+order.</p>
+<p>The figure below illustrates the differences between regular write operations
+and zone append write operations.</p>
+<div class="container text--center"><figure><img src="/assets/images/intro-zone-append-890c07f2624fe7dcf7c5ee61fe2a6f0b.png" width="640" max-width="100%"><figcaption><em>Regular Writes and Zone Append Writes</em></figcaption></figure></div>
+<p>In the example above, the host must issue to the same zone three different
 write operations for data A (4KB), B (8KB), and C (16KB). Using regular write
 commands, this can be done safely only at a write queue depth of 1 per zone,
 that is, the host must wait for the completion of an outstanding write
 operation before issuing the next write request. For each write request,
 the write position must be equal to the zone write pointer position. This
-results in the data being stored in the zone in the same order as issued.</p><p>Using zone append write operations, the write queue depth constraint is removed
+results in the data being stored in the zone in the same order as issued.</p>
+<p>Using zone append write operations, the write queue depth constraint is removed
 and the host can issue all three write requests simultaneously. Upon completion
 of all write requests, the zone write pointer position is identical to the
 previous case as the total amount of data written is equal. However, the
 location of the written data within the zone may not correspond to the
 host command issuing order as commands may have been reordered on their way to
 the device. The host can discover the effective write position of each request
-through the zone append completion information.</p></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages navigation"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/introduction"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Overview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/introduction/smr"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Shingled Magnetic Recording Hard Disks</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#principle-of-operation" class="table-of-contents__link toc-highlight">Principle of Operation</a></li><li><a href="#zone-size-and-zone-capacity" class="table-of-contents__link toc-highlight">Zone Size and Zone Capacity</a></li><li><a href="#zone-models" class="table-of-contents__link toc-highlight">Zone Models</a><ul><li><a href="#host-managed-model" class="table-of-contents__link toc-highlight">Host-Managed Model</a></li><li><a href="#host-aware-model" class="table-of-contents__link toc-highlight">Host-Aware Model</a></li></ul></li><li><a href="#zone-types" class="table-of-contents__link toc-highlight">Zone Types</a></li><li><a href="#zone-management-commands" class="table-of-contents__link toc-highlight">Zone Management Commands</a></li><li><a href="#zone-states-and-state-transitions" class="table-of-contents__link toc-highlight">Zone States and State Transitions</a></li><li><a href="#zone-resources-limits" class="table-of-contents__link toc-highlight">Zone Resources Limits</a><ul><li><a href="#open-zones-limit" class="table-of-contents__link toc-highlight">Open Zones Limit</a></li><li><a href="#active-zones-limit" class="table-of-contents__link toc-highlight">Active Zones Limit</a></li></ul></li><li><a href="#zone-append" class="table-of-contents__link toc-highlight">Zone Append</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/introduction/zoned-storage">Introduction to Zoned Storage</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/getting-started">Getting Started with Zoned Storage</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://app.element.io/#/room/#zonedstorage-general:matrix.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">Matrix<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/zonedstorage/shared_invite/zt-uyfut5xe-nKajp9YRnEWqiD4X6RkTFw" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://webchat.oftc.net/?channels=zonedstorage" target="_blank" rel="noopener noreferrer" class="footer__link-item">IRC @ OFTC<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/westerndigitalcorporation" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Organization<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2023 Western Digital
+through the zone append completion information.</p></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/introduction"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Overview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/introduction/smr"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Shingled Magnetic Recording Hard Disks</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#principle-of-operation" class="table-of-contents__link toc-highlight">Principle of Operation</a></li><li><a href="#zone-size-and-zone-capacity" class="table-of-contents__link toc-highlight">Zone Size and Zone Capacity</a></li><li><a href="#zone-models" class="table-of-contents__link toc-highlight">Zone Models</a><ul><li><a href="#host-managed-model" class="table-of-contents__link toc-highlight">Host-Managed Model</a></li><li><a href="#host-aware-model" class="table-of-contents__link toc-highlight">Host-Aware Model</a></li></ul></li><li><a href="#zone-types" class="table-of-contents__link toc-highlight">Zone Types</a></li><li><a href="#zone-management-commands" class="table-of-contents__link toc-highlight">Zone Management Commands</a></li><li><a href="#zone-states-and-state-transitions" class="table-of-contents__link toc-highlight">Zone States and State Transitions</a></li><li><a href="#zone-resources-limits" class="table-of-contents__link toc-highlight">Zone Resources Limits</a><ul><li><a href="#open-zones-limit" class="table-of-contents__link toc-highlight">Open Zones Limit</a></li><li><a href="#active-zones-limit" class="table-of-contents__link toc-highlight">Active Zones Limit</a></li></ul></li><li><a href="#zone-append" class="table-of-contents__link toc-highlight">Zone Append</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/introduction/zoned-storage">Introduction to Zoned Storage</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/getting-started">Getting Started with Zoned Storage</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://app.element.io/#/room/#zonedstorage-general:matrix.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">Matrix<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/zonedstorage/shared_invite/zt-uyfut5xe-nKajp9YRnEWqiD4X6RkTFw" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://webchat.oftc.net/?channels=zonedstorage" target="_blank" rel="noopener noreferrer" class="footer__link-item">IRC @ OFTC<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/westerndigitalcorporation" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Organization<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2023 Western Digital
 	Corporation or its affiliates. All rights reserved.<br> By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use" target="_blank">Terms of Use</a> and <a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank">Privacy Statement</a>.  All example scripts and program snippets on this site are licensed under the <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CCO 1.0 Universal</a> license.<br>This site is built with <a href="https://docusaurus.io/" target="_blank">Docusaurus</a>.</div></div></div></footer></div>
-<script src="/assets/js/runtime~main.32b4d265.js"></script>
-<script src="/assets/js/main.ae41ca94.js"></script>
 </body>
 </html>
