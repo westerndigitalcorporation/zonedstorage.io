@@ -52,7 +52,7 @@ compile, install and execute *tcmu-runner* daemon.
 
 The *targetcli* utility, which is available as a package in most distributions,
 controls devices that are emulated with *tcmu-runner*. For example, on
-[Fedora&reg;](../distributions/fedora) Linux, *tcmu-runner* and *targetcli* can
+[Fedora&reg;](/docs/distributions/fedora) Linux, *tcmu-runner* and *targetcli* can
 be installed using the following commands:
 
 ```plaintext
@@ -194,8 +194,8 @@ The disk can now be listed with tools such as *lsblk* and *lsscsi*:
 All ZBD-compliant tools and applications are able to access and control the
 emulated disk in exactly the same manner as they would control a physical
 device. For example, the [*libzbc* graphical interface
-(gzbc)](libzbc.md#graphical-interface) can be used to display the emulated disk
-zones.
+(gzbc)](/docs/tools/libzbc#graphical-interface) can be used to display the
+emulated disk zones.
 
 <Image src="tools-tcmu-gzbc.png"
 title="tcmu-runner ZBC emulated disk view in gzbc"/>

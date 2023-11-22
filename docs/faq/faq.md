@@ -13,10 +13,10 @@ time by the device vendor. For a particular device model, it is not possible
 to change the zone size.
 
 Device emulation software such as
-[tcmu-runner](../tools/tcmu-runner.md) allow defining zoned block
-devices with different zone sizes. While this does not replace the ability to
-change an existing device zone size, such solution allows exploring the impact
-of the device zone size on the application being developed.
+[tcmu-runner](/docs/tools/tcmu-runner) allow defining zoned block devices with
+different zone sizes. While this does not replace the ability to change an
+existing device zone size, such solution allows exploring the impact of the
+device zone size on the application being developed.
 
 ### **With a host managed drive, how do I change the position of a zone write pointer?**
 
@@ -68,8 +68,8 @@ a zone.
 
 Support for partition tables on host managed zoned block devices has been
 removed from the kernel with version 5.5.0. Using the
-[*dm-linear*](../linux/dm.md#dm-linear) device mapper target to logically
+[*dm-linear*](/docs/linux/dm#dm-linear) device mapper target to logically
 isolate smaller portions of a host managed device is the replacement and
 preferred solution.
 
-More information on partition support can be found [here](../linux/part.md).
+More information on partition support can be found [here](/docs/linux/part).

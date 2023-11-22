@@ -22,7 +22,7 @@ of this specification available is 1.1. The NVMe ZNS specification define a
 command interface that applies to all NVMe defined command transport. This
 command set is independent of the storage media technology used by the device
 and applies equally to flash-based solid state drives (SSDs) or [SMR hard
-disks](smr.md).
+disks](/docs/introduction/smr).
 
 The most common type of ZNS devices found today are flash-based SSDs. For this
 type of device, the ZNS interface characteristics allow improving internal data
@@ -38,10 +38,10 @@ at USENIX ATC 2021.
 
 ## Overview
 
-The ZNS specifications follows the [Zoned Storage Model](zoned-storage.md). This
-standards-based architecture, which takes a unified approach to storage that
-enables both Shingled Magnetic Recording (SMR) in HDDs and ZNS SSDs to share a
-unified software stack.
+The ZNS specifications follows the [Zoned Storage
+Model](/docs/introduction/zoned-storage). This standards-based architecture,
+which takes a unified approach to storage that enables both Shingled Magnetic
+Recording (SMR) in HDDs and ZNS SSDs to share a unified software stack.
 
 Specifically for ZNS SSDs, the zone abstraction allows the host aligning its
 writes to the sequential write required properties of flash-based SSDs, and
@@ -55,12 +55,13 @@ title="Conventional SSDs and ZNS SSDs internal data placement"/>
 ## The ZNS Zoned Storage Model
 
 The ZNS Command Set specification builds upon the [host-managed zoned storage
-model](zoned-storage.md#zone-models) which was first introduced for SMR
-hard-disks with the SCSI ZBC (Zoned Block Command) standard and the ATA ZAC
-(Zoned ATA Commands) standard. A compatible [zone state
-machine](zoned-storage.md#zone-states-and-state-transitions) was defined, and
-a similar set of [zone management
-commands](zoned-storage.md#zone-management-commands) was defined.
+model](/docs/introduction/zoned-storage#zone-models) which was first introduced
+for SMR hard-disks with the SCSI ZBC (Zoned Block Command) standard and the ATA
+ZAC (Zoned ATA Commands) standard. A compatible [zone state
+machine](/docs/introduction/zoned-storage#zone-states-and-state-transitions) was
+defined, and a similar set of [zone management
+commands](/docs/introduction/zoned-storage#zone-management-commands) was
+defined.
 
 These similarities simplify the implementation of the host storage stack and
 applications for simultaneously supporting both host-managed SMR hard-disks and
@@ -73,10 +74,10 @@ type of media.
 ### Zone types
 
 ZBC and ZAC SMR hard-disks can optionally expose a number of [conventional
-zones](zoned-storage.md#zone-types) which accept random write operations. The
-ZNS specification does not define this optional set of random write zones, as
-NVMe supports multiple namespace, and therefore can expose a separate namespace
-that supports conventional I/O accesses.
+zones](/docs/introduction/zoned-storage#zone-types) which accept random write
+operations. The ZNS specification does not define this optional set of random
+write zones, as NVMe supports multiple namespace, and therefore can expose a
+separate namespace that supports conventional I/O accesses.
 
 The ZNS specification mandates that all zones of a zoned namespace must have the
 sequential-write-required type.
@@ -84,8 +85,8 @@ sequential-write-required type.
 ### Zone Capacity and Zone Size
 
 The ZNS specification introduced the concept of a [zone
-capacity](zoned-storage.md#zone-size-and-zone-capacity). This concept is not
-defined in the ZBC and ZAC standards.
+capacity](/docs/introduction/zoned-storage#zone-size-and-zone-capacity). This
+concept is not defined in the ZBC and ZAC standards.
 
 Similar to ZBC and ZAC standards, ZNS defines the zone size as the total
 number of logical blocks within a zone. A zone capacity is an additional
@@ -122,16 +123,16 @@ lower than the zone size.
 
 The ZNS specification allows a ZNS controller to report a limit on the total
 number of zones that can be simultaneously in the implicit open or explicit open
-state ([open zones limit](zoned-storage.md#open-zones-limit)). This potential
-limit on the maximum number of open zones is similarly defined in the ZBC, and
-ZAC standards.
+state ([open zones limit](/docs/introduction/zoned-storage#open-zones-limit)).
+This potential limit on the maximum number of open zones is similarly defined in
+the ZBC, and ZAC standards.
 
 However, unlike the ZBC and ZAC standards, the ZNS specification defines an
 additional [limit on the number of active
-zones](zoned-storage.md#active-zones-limit), that is, zones that have the
-implicit open, explicit open or closed state. A ZNS SSD may impose a limit on
-the maximum number of zones that can be active. This limit is always equal or
-larger than the limit on the maximum number of open zones.
+zones](/docs/introduction/zoned-storage#active-zones-limit), that is, zones that
+have the implicit open, explicit open or closed state. A ZNS SSD may impose a
+limit on the maximum number of zones that can be active. This limit is always
+equal or larger than the limit on the maximum number of open zones.
 
 ### Zone Append
 
@@ -145,9 +146,10 @@ zone to one. This can potentially result in poor performance, especially for
 workloads issuing mostly small write operations.
 
 To avoid this problem, the ZNS specification introduced the new [*Zone
-Append*](zoned-storage.md#zone-append) command. Support for this command is
-defined as optional in the ZNS specification. However, Linux support for zoned
-block devices requires that a ZNS device supports the zone append command.
+Append*](/docs/introduction/zoned-storage#zone-append) command. Support for this
+command is defined as optional in the ZNS specification. However, Linux support
+for zoned block devices requires that a ZNS device supports the zone append
+command.
 
 ## Presentations
 

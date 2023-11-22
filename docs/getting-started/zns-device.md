@@ -13,8 +13,9 @@ NVMe ZNS devices.
 * ***null_blk***: The null_blk kernel driver can emulate zoned block
   devices with a zone configuration that is compatible with real NVMe ZNS
   devices. This method is discussed in more detail in the
-  [Zoned Block Device Emulation with null_blk](./zbd-emulation.md) chapter of the
-  Getting Started Guide.
+  [Zoned Block Device Emulation with
+  null_blk](/docs/getting-started/zbd-emulation) chapter of the Getting Started
+  Guide.
 
 * ***QEMU***: This open-source machine emulator and virtualizer can
   create emulated NVMe devices that use regular files on the host as a
@@ -107,7 +108,7 @@ uuid=5e40ec5f-eeb6-4317-bc5e-c919796a5f79
 If your guest operating system is a Linux distribution and the Linux
 distribution's kernel version is higher than 5.9.0, the emulated NVMe ZNS
 device can be checked using the *nvme* command (see [Linux Tools for
-ZNS](../tools/zns.md).
+ZNS](/docs/tools/zns).
 
 ```
 # nvme list

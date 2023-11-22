@@ -27,16 +27,16 @@ title="Zoned Storage Devices Principle"/>
 Zoned storage devices can be implemented using different command protocols for
 various recording and media technologies. The most common form of zoned storage
 today uses the SCSI Zoned Block Commands (ZBC) and Zoned ATA Commands (ZAC)
-interfaces with [Shingled Magnetic Recording (SMR)](./smr) hard-disks. ZBC and
-ZAC enable a zoned block storage model; SMR technology enables continued areal
-density growth that makes it possible to meet expanding data needs, and SMR
-technology requires the zoned block access model.
+interfaces with [Shingled Magnetic Recording (SMR)](/docs/introduction/smr)
+hard-disks. ZBC and ZAC enable a zoned block storage model; SMR technology
+enables continued areal density growth that makes it possible to meet expanding
+data needs, and SMR technology requires the zoned block access model.
 
 Solid State Drive (SSD) storage devices can also implement a zoned interface in
 order to reduce write amplification, to reduce the device's DRAM needs, and to
-improve the quality of service at scale. The [NVMe Zoned NameSpace (ZNS)](./zns)
-is a specification of the NVMe standard committee that adds a zoned storage
-interface to the NVMe interface standard.
+improve the quality of service at scale. The [NVMe Zoned NameSpace
+(ZNS)](/docs/introduction/zns) is a specification of the NVMe standard committee
+that adds a zoned storage interface to the NVMe interface standard.
 
 ## Zone Size and Zone Capacity
 

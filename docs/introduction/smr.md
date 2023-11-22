@@ -54,7 +54,7 @@ title="SMR hard disks track organization"/>
 The shingled format of SMR dictates that all data streams must be organized and
 written sequentially to the media. There are different methods of implementing
 SMR (see the [SMR Interface
-Implementations](docs/introduction/smr#smr-interface-implementations) section
+Implementations](/docs/introduction/smr#smr-interface-implementations) section
 below), but the data must be written to the media sequentially regardless of
 which method is used. If a particular data sector has to be modified or
 re-written, then the entire band of tracks (the "zone") must be re-written.
@@ -124,7 +124,7 @@ An SMR disk implementation can have three possible interfaces, and their
 differences impact hosts and users.
 
 The first two interfaces are defined by the [host-managed and host-aware zone
-models](zoned-storage.md#zone-models).
+models](/docs/introduction/zoned-storage#zone-models).
 
 An SMR disk implementation may also choose to hide the SMR sequential write
 constraint to the host. This is the **Drive Managed Model** defined by the ZBC
@@ -153,8 +153,8 @@ Implementations](#smr-interface-implementations) section.
 ### Zone Types
 
 The ZAC and ZBC standards allow for two different [zone
-types](zoned-storage.md#zone-types) to be used with the host-managed and host-
-aware models.
+types](/docs/introduction/zoned-storage#zone-types) to be used with the
+host-managed and host-aware models.
 
 * **Conventional zones** are optional with the host-managed and host-aware
   SMR disks. If present, they typically occupy a very small percentage of the
@@ -170,22 +170,22 @@ aware models.
 ### Zone Management Commands
 
 Both the ZAC and the ZBC standards define [five zone management
-commands](zoned-storage.md#zone-management-commands) as extensions of the
-drive's basic command set (which is similar to the set of commands defined for
-CMR drives).
+commands](/docs/introduction/zoned-storage#zone-management-commands) as
+extensions of the drive's basic command set (which is similar to the set of
+commands defined for CMR drives).
 
 ### Zone Resources Limits
 
 The ZAC and ZBC standards define only one [zone resources
-limit](zoned-storage.md#zone-resources-limits). A drive can have a limit on the
-number of zones that can be in the implicit open or explicit open state (open
-zones).
+limit](/docs/introduction/zoned-storage#zone-resources-limits). A drive can have
+a limit on the number of zones that can be in the implicit open or explicit open
+state (open zones).
 
-An [active zone resource limit](zoned-storage.md#active-zones-limit) is not
-defined for SMR hard disks by the ZBC and ZAC standards.  The user can assume
-that SMR hard disks do not have a limit on the number of zones that can be
-active (that is, on the number of zones on the drive that can be partially
-written).
+An [active zone resource
+limit](/docs/introduction/zoned-storage#active-zones-limit) is not defined for
+SMR hard disks by the ZBC and ZAC standards.  The user can assume that SMR hard
+disks do not have a limit on the number of zones that can be active (that is, on
+the number of zones on the drive that can be partially written).
 
 Since host-aware drives are backwards compatible with regular CMR disks, the
 ZBC and ZAC standards do not define any limit on the number of open zones for
@@ -198,5 +198,5 @@ written on the device.
 ### Zone Append
 
 The ZAC and ZBC standards do not define a [zone append
-command](zoned-storage.md#zone-append) for SMR hard disks. However, this
-command semantic can be emulated by host software stacks.
+command](/docs/introduction/zoned-storage#zone-append) for SMR hard disks.
+However, this command semantic can be emulated by host software stacks.

@@ -14,7 +14,7 @@ alt="Percona Server for MySQL Logo" />
 [Percona Server for
 MySQL&trade;](https://www.percona.com/software/mysql-database/percona-server)
 uses the *[MyRocks](https://myrocks.io/)* storage engine, which in turn uses
-*[RocksDB with Zenfs](zenfs.md)* as a backend storage.
+*[RocksDB with Zenfs](docs/applications/zenfs)* as a backend storage.
 
 As of *[version 8.0.26-16
 ](https://www.percona.com/doc/percona-server/8.0/release-notes/Percona-Server-8.0.26-16.html)*,

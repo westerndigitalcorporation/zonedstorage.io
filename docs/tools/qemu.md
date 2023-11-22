@@ -98,7 +98,7 @@ can be discovered using the `lsscsi` command.
 
 After the guest operating system has been started, attachment of the host
 device can be checked with any of the methods shown in [the SMR disk section of
-the Getting Started Guide](../getting-started/smr-disk.md).  For example, the
+the Getting Started Guide](/docs/getting-started/smr-disk).  For example, the
 output of the `lsscsi` command will be as follows with the above example setup.
 
 ```plaintext
@@ -123,7 +123,7 @@ configuration.
 title="vhost-scsi support option with make menuconfig"/>
 
 To make it possible to attach physical disks as well as
-[*tcmu-runner*](../tools/tcmu-runner.md)-emulated ZBC disks, you must enable
+[*tcmu-runner*](/docs/tools/tcmu-runner)-emulated ZBC disks, you must enable
 the kernel configuration option *COFNGI_TCM_PSCSI*. This option can be found in
 the menu *Device Drivers* -> *Generic Target Core Mod (TCM) and ConfigFS
 Infrastructure*.
@@ -209,7 +209,7 @@ the device to attach, using a qemu-kvm command on the command line:
 *tcmu-runner* can be used to create emulated ZBC host-managed SCSI disks. The
 emulated disk that is created can be used locally on the host using the
 loopback fabric adapter, as explained in the ["Creating an Emulated Disk"
-section of the tcmu-runner page](./tcmu-runner.md#creating-an-emulated-disk).
+section of the tcmu-runner page](/docs/tools/tcmu-runner#creating-an-emulated-disk).
 
 The emulated ZBC disk can be attached to a vhost virtual adapter for use within
 a KVM guest operating system. This is done in a manner similar to the manner in
@@ -288,7 +288,7 @@ World-Wide port name that was assigned by *targetcli*:
 
 ## *QEMU* NVMe ZNS Device emulation
 
-[This article](../getting-started/zbd-emulation.md#nvme-zoned-namespace-device-emulation-with-qemu)
+[This article](/docs/getting-started/zbd-emulation#nvme-zoned-namespace-device-emulation-with-qemu)
 describes in detail how *QEMU* can be configured to create an emulated NVMe ZNS
 namespace that is visible to the guest operating system. Example commands and an
 example shell script are provided as references.

@@ -20,7 +20,7 @@ block device. *sg3_utils* added support for ZBC in version 1.42.
 The <a href="http://sg.danny.cz/scsi/lsscsi.html" target="_blank">*lsscsi*</a>
 command lists information about the SCSI devices that are connected to a Linux
 system. *lsscsi* is available as a package in most Linux distributions. For
-example, in [Fedora&reg;](../distributions/fedora) Linux, *lssci* can be
+example, in [Fedora&reg;](/docs/distributions/fedora) Linux, *lssci* can be
 installed using the following command:
 
 ```plaintext
@@ -51,7 +51,7 @@ device type. In the case of host managed disks, `0x14` is displayed.
 
 Adding the option `-g` to the *lssci* command returns the SCSI Generic node
 file path associated with a device. This can be useful in combination with 
-[libzbc](libzbc.md) or any of the *sg3_utils* command line tools.
+[libzbc](/docs/tools/libzbc) or any of the *sg3_utils* command line tools.
 
 ```plaintext
 # lsscsi -g

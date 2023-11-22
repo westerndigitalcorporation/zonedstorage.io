@@ -26,8 +26,8 @@ to set up a Linux system for zoned storage.
 ### Overview 
 
 The zoned block device (ZBD) interface that supports [SCSI ZBC and ATA ZAC
-disks](../introduction/smr.md) was added to the Linux&reg; kernel in version
-4.10. [NVMe zoned namespace (ZNS)](../introduction/zns.md) devices are
+disks](/docs/introduction/smr) was added to the Linux&reg; kernel in version
+4.10. [NVMe zoned namespace (ZNS)](/docs/introduction/zns) devices are
 supported from kernel version 5.9 (inclusive). All Linux kernel versions higher
 than 5.9 support zoned storage devices.
 
@@ -35,7 +35,7 @@ than 5.9 support zoned storage devices.
 Linux kernels prior to version 4.10 do not implement the zoned block device
 interface. If you use a kernel older than kernel 4.10, you can access and
 manage SCSI ZBC and ATA ZAC disks, but only in a limited way. This is discussed
-in more detail in the [Linux Support](../linux/overview.md) document.
+in more detail in the [Linux Support](/docs/linux/overview) document.
 :::
 
 To verify that a zoned block device has been discovered and correctly
@@ -60,14 +60,14 @@ Some Linux distributions provide zoned-storage support out of the box
 distributions provides a system that is ready to use with SMR hard disks
 and ZNS SSDs.
 
-* [Fedora 36 or above](../distributions/fedora)
+* [Fedora 36 or above](/docs/distributions/fedora)
 
-* [Latest openSUSE Tumbleweed](../distributions/opensuse)
+* [Latest openSUSE Tumbleweed](/docs/distributions/opensuse)
 
 These distributions are "rolling release" Linux distributions. They provide the
 most recent stable Linux kernel, they have zoned block device support enabled,
 and they have all the system user packages (e.g. [Linux system
-utilities](../tools/util-linux)) necessary to support zoned storage.
+utilities](/docs/tools/util-linux)) necessary to support zoned storage.
 
 Installation instructions are available on the website of each distribution.
 The installation of these distributions is beyond the scope of this Zoned
@@ -80,7 +80,7 @@ Distributions](linux#recommended-distributions) list do not support zoned
 storage by default, but some of them can be modified to provide some level of
 support for zoned storage. More information about the level of support provided
 by these Linux distributions can be found on
-the [Linux Distributions page](../distributions/overview.md).
+the [Linux Distributions page](/docs/distributions/overview).
 
 If you know what you're doing, you can modify your preferred Linux distribution
 to enable or improve its support for zoned storage.
@@ -169,7 +169,7 @@ zoned block device support, a new Linux kernel must be configured, compiled and
 installed to support zoned block devices.
 
 Learn how to enable zoned block device support in the kernel configuration
-[here](../linux/config.md). We recommend that you always use the
+[here](/docs/linux/config). We recommend that you always use the
 highest-available stable kernel version or a recent long-term-stable kernel
 version higher than 4.10. Information on available long term and stable kernel
 versions can be found <a href="https://www.kernel.org/"
@@ -245,7 +245,7 @@ utilities are installed by default.
 
 The *lsblk* command in Linux lists block devices, which includes zoned block
 devices. Some usage examples are provided in the [lsblk section of the tools
-documentation page](../tools/util-linux#lsblk).
+documentation page](/docs/tools/util-linux#lsblk).
 
 The *blkzone* utility lists (reports) the zones of a zoned block device and
 makes it possible to reset the write pointer position of a range of zones in
@@ -253,7 +253,7 @@ the device. *blkzone* also allows executing other zone management functions such
 as opening, closing and finishing a zone.
 
 *blkzone* usage examples are provided in the [blkzone section of the tools
-documentation page](../tools/util-linux#blkzone).
+documentation page](/docs/tools/util-linux#blkzone).
 
 Both *lsblk* and *blkzone* are part of the *util-linux* package, which is
 installed by default on most Linux distributions. However, the zone block device
@@ -263,7 +263,7 @@ devices. If the kernel was manually upgraded to enable zoned block device
 support, the *util-linux* package must also be compiled and installed manually
 to match the zoned block device support of the new kernel.
 
-Information on the *util-linux* package can be found [here](../tools/util-linux).
+Information on the *util-linux* package can be found [here](/docs/tools/util-linux).
 
 #### lsscsi
 
@@ -273,7 +273,7 @@ command lists information about the SCSI devices connected to a Linux system.
 Refer to your distribution documentation to find the name of the package that
 provides the *lsscsi* utility.
 
-The [SCSI Generic Utilities](../tools/sg3utils.md#lsscsi) document provides more
+The [SCSI Generic Utilities](/docs/tools/sg3utils#lsscsi) document provides more
 information and usage examples of *lssci*.
 
 #### sg3_utils
@@ -299,5 +299,5 @@ the kernel ATA subsystem (libata) translates SCSI commands into ATA commands.
 
 </center>
 
-[This section](../tools/sg3utils.md#sg3_utils) shows some examples of these
+[This section](/docs/tools/sg3utils#sg3_utils) shows some examples of these
 utilities execution.

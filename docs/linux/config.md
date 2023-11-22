@@ -32,8 +32,8 @@ device mappers, and file systems).
 
 Write ordering control is achieved through the *deadline* (legacy single queue
 block I/O path) and *mq-deadline* (multi-queue block I/O path) block I/O
-scheduler (see [Write Ordering Control](./sched.md)). *deadline* and *mq-deadline*
-zoned block device support is automatically enabled if the
+scheduler (see [Write Ordering Control](/docs/linux/sched)). *deadline* and
+*mq-deadline* zoned block device support is automatically enabled if the
 `CONFIG_BLK_DEV_ZONED` configuration option is set.
 
 It is mandatory to enable this scheduler for zoned block devices. The
@@ -70,8 +70,8 @@ options are enabled.
 
 This driver requires the device to support the Zone Append command to
 successfully bind to a zoned namespace. It does not support Zone Excursions.
-See [Zoned Namespace (ZNS) SSDs](../introduction/zns) for more details about these
-features.
+See [Zoned Namespace (ZNS) SSDs](/docs/introduction/zns) for more details about
+these features.
 
 ## Device Mapper
 
@@ -91,8 +91,8 @@ title="dm-zoned device mapper target configuration with make menuconfig"/>
 
 ### *f2fs*
 
-Support for zoned block devices in the [*f2fs* file system](./fs#f2fs) is
-automatically enabled with the `CONFIG_BLK_DEV_ZONED` configuration option.
+Support for zoned block devices in the [*f2fs* file system](/docs/linux/fs#f2fs)
+is automatically enabled with the `CONFIG_BLK_DEV_ZONED` configuration option.
 
 ### *zonefs*
 
@@ -142,8 +142,8 @@ kernel, on which you have enabled support for zoned block devices.
 At this point in the installation process, we highly recommend reinstalling the
 kernel headers. By reinstalling the kernel headers, the file
 */usr/include/linux/blkzoned.h* will be installed, which will allow applications
-to be compiled against the [zoned block device API](./zbd-api) supported by
-the kernel.
+to be compiled against the [zoned block device API](/docs/linux/zbd-api)
+supported by the kernel.
 
 Run the following command to install the kernel user header files. 
 
@@ -156,7 +156,7 @@ See the kernel's `make help` output for more information on this directive.
 After the the kernel user header files have been installed, we recommend that
 you recompile from source any package that will be used to manage and access
 zoned block devices. In particular, recompiling and re-installing
-[Linux system utilities](../tools/util-linux) is highly recommended because
+[Linux system utilities](/docs/tools/util-linux) is highly recommended because
 many packages rely on *util-linux* zoned block device features (e.g. file
 systems that use *libblkid*).
 

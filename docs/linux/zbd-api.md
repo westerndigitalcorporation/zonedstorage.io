@@ -130,7 +130,7 @@ device. The following shows an example with an NVMe ZNS device.
 14
 ```
 
-When [emulating a zoned device](../getting-started/zbd-emulation.md) using
+When [emulating a zoned device](/docs/getting-started/zbd-emulation) using
 *null_blk*, *QEMU*, or *tcmu-runner*, the values of these attributes can be
 manually configured to emulate different physical device characteristics.
 
@@ -479,7 +479,7 @@ valid value set in the `capacity` field of `sturct blk_zone`. Otherwise, this
 field will show a value of 0 and can be ignored.
 
 The example code below, extracted from the code of the
-[*libzbd*](../tools/libzbd.md) library, illustrates how applications can
+[*libzbd*](/docs/tools/libzbd) library, illustrates how applications can
 implement backward-compatible support for zone capacity information by using the
 autotools build environment.
 
@@ -546,7 +546,7 @@ be used in its place. If your kernel lacks support for this field, you can still
 use various coding techniques to return a zone capacity that is equal to the
 zone size.
 
-Again using the source code of the [*libzbd*](../tools/libzbd.md) library as an
+Again using the source code of the [*libzbd*](/docs/tools/libzbd) library as an
 example, the zone descriptors of a zone report reply can be handled as follows.
 
 ```c
@@ -578,7 +578,7 @@ As shown in this example, the capacity of a zone is always initialized to the
 size of the zone when the kernel does not report any value. Doing so, the
 capacity of a zone is always a valid value, regardless of the kernel version.
 
-The command line utility [`blkzone`](../tools/util-linux.md#blkzone), which
+The command line utility [`blkzone`](/docs/tools/util-linux#blkzone), which
 is part of the *util-linux* project, uses the *BLKREPORTZONE* command to
 implement its *report* function. Its code was modified similarly to the above
 method to ensure its correct compilation and execution regardless of the version
@@ -639,7 +639,7 @@ if (ret)
 The device file descriptor `fd` must be open for writing in order for this
 command to succeed.
 
-The  command line utility [`blkzone`](../tools/util-linux.md#blkzone) uses
+The  command line utility [`blkzone`](/docs/tools/util-linux#blkzone) uses
 the *BLKRESETZONE* command to implement its *reset* functionality.
 
 ### Opening, Closing and Finishing Zones

@@ -37,20 +37,20 @@ not been modified to implement fully-sequential write streams).
       block devices. Random writes to files by applications are transformed
       into sequential write streams by the file system, concealing the device
       constraints from the application. An example of this is the
-      [*F2FS*](../linux/fs.md#f2fs) file system.
+      [*F2FS*](/docs/linux/fs#f2fs) file system.
 
     - **Legacy File System**: With this implementation, an unmodified file
       system is used and the device-sequential write constraint is handled by a
       device mapper target driver that exposes the zoned block device as a
       regular block device. This device mapper is called *dm-zoned*. Its
       characteristics and use are discussed in detail in [the dm-zoned section
-      of the "Device Mapper" guide ](../linux/dm.md#dm-zoned).
+      of the "Device Mapper" guide ](/docs/linux/dm#dm-zoned).
 
 * **Raw Block Access Interface** This is the raw block device file access
   interface that can be used by applications to directly access data stored on
   the device. Similar to the legacy file system case, this interface is
-  implemented using the [*dm-zoned*](dm.md#dm-zoned) device mapper target
-  driver to hide the sequential write constraints from the application.
+  implemented using the [*dm-zoned*](/docs/linux/dm#dm-zoned) device mapper
+  target driver to hide the sequential write constraints from the application.
 
 Three additional interfaces are available to applications that have been
 written or modified to comply with the sequential write constraint of zoned
@@ -59,22 +59,22 @@ applications which must ensure that data is written using sequential streams
 that start from the write-pointer positions of the zones.
 
 * **File Access Interface**: This special interface is implemented by the
-  [*zonefs*](fs.md#zonefs) file system. *zonefs* is a very simple file system
-  that exposes each zone of a zoned block device as a file. But unlike regular
-  POSIX file systems, the sequential write constraint of the device is not
-  automatically handled by zonefs. It is the responsibility of the application
-  to sequentially write files that represent zones.
+  [*zonefs*](/docs/linux/fs#zonefs) file system. *zonefs* is a very simple file
+  system that exposes each zone of a zoned block device as a file. But unlike
+  regular POSIX file systems, the sequential write constraint of the device is
+  not automatically handled by zonefs. It is the responsibility of the
+  application to sequentially write files that represent zones.
 
 * **Zoned Raw Block Access Interface**: This is the counterpart of the *Raw
   Block Access Interface* (without any intermediate driver to handle the device
   constraints). An application can use this interface by directly opening the
   device file that represents the zoned block device to gain access to zone
   information and management operations that are provided by the block layer.
-  [*Linux System Utilities*](../tools/util-linux.md), for example, use this
+  [*Linux System Utilities*](/docs/tools/util-linux), for example, use this
   interface. Physical zoned block devices, as well as logically-created zoned
   block devices (e.g. zoned block devices created with the
-  [*dm-linear*](../linux/dm.md#dm-linear) device mapper target), support this
-  interface. The [*libzbd*](../tools/libzbd.md) user library and tools can
+  [*dm-linear*](/docs/linux/dm#dm-linear) device mapper target), support this
+  interface. The [*libzbd*](/docs/tools/libzbd) user library and tools can
   simplify the implementation of applications that use this interface.
 
 * **Passthrough Device Access Interface** This is the interface (provided by
@@ -83,8 +83,8 @@ that start from the write-pointer positions of the zones.
   minimally with the commands sent by applications, resulting in the need for
   an application that can handle all device constraints itself (e.g. Logical
   and physical sector size, zone boundaries, command timeout, command retry
-  count, etc). User-level libraries such as [*libzbc*](../tools/libzbc.md)
-  and [*libnvme*](../tools/libnvme.md) can greatly simplify the
+  count, etc). User-level libraries such as [*libzbc*](/docs/tools/libzbc)
+  and [*libnvme*](/docs/tools/libnvme) can greatly simplify the
   implementation of applications that use this interface.
 
 ## Kernel Versions
@@ -147,7 +147,7 @@ title="Kernel kernel versions and ZBD features"/>
 
 * **Zone Append Operation Support** Kernel version 5.8.0 introduced a generic
   block layer interface for supporting
-  [zone append write operations](../introduction/zns.md#zone-append). This
+  [zone append write operations](/docs/introduction/zns#zone-append). This
   release also modifies the SCSI layer to emulate these operations using regular
   write commands. With the introduction of NVMe ZNS support (see below), this
   emulation unifies the interface and capabilities of all zoned block devices,

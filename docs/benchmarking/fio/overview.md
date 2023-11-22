@@ -76,7 +76,7 @@ To indicate a zone unit for integer parameters, the `z` suffix can be used (e.g.
 ### Restrictions
 
 As discussed in the [kernel support
-document](../../linux/overview.md#zbd-support-restrictions), using
+document](/docs/linux/overview#zbd-support-restrictions), using
 direct write I/O is mandatory for zoned block devices. The *zbd* zone mode,
 when enabled, enforces this requirement by checking that the option
 `--direct=1` is specified for any job executing write I/Os.
@@ -90,5 +90,5 @@ write workloads, otherwise jobs that do not obtain their required resources
 
 ## Examples
 
-* [SMR fio Examples](smr-fio.md): fio benchmarking examples for SMR hard-disks.
-* [ZNS fio Examples](zns-fio.md): fio benchmarking examples for NVMe ZNS devices.
+* [SMR fio Examples](smr-fio): fio benchmarking examples for SMR hard-disks.
+* [ZNS fio Examples](zns-fio): fio benchmarking examples for NVMe ZNS devices.

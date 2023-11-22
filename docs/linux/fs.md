@@ -6,12 +6,12 @@ sidebar_label: File Systems
 
 # File Systems
 
-The [*dm-zoned*](./dm.md#dm-zoned) device-mapper target makes it possible to
-use any file system with host-managed zoned block devices. It does this by
+The [*dm-zoned*](/docs/linux/dm#dm-zoned) device-mapper target makes it possible
+to use any file system with host-managed zoned block devices. It does this by
 hiding the device's sequential write constraints. This solution is simple and
-makes it possible to use file systems, but its potentially high overhead
-during the block-based zone-reclamation process means that is not the
-maximally efficient solution. 
+makes it possible to use file systems, but its potentially high overhead during
+the block-based zone-reclamation process means that is not the maximally
+efficient solution. 
 
 File systems whose implementations directly support zoned block devices have
 more efficient zone-reclamation processing. This is because file systems that
@@ -34,8 +34,8 @@ kernel since version 5.6.0.
 
 *zonefs* does not hide from the user the sequential write constraints of zoned
 block devices. In this, it is unlike a regular POSIX-compliant file system
-with native zoned-block device support (e.g. [*f2fs*](fs.md#f2fs)). Files
-that represent sequential write zones on the device must be written
+with native zoned-block device support (e.g. [*f2fs*](/docs/linux/fs#f2fs)).
+Files that represent sequential write zones on the device must be written
 sequentially, starting from the end of the file (these are "append only"
 writes).
 
@@ -139,7 +139,7 @@ write pattern, *zonefs* prevents buffered writes and writeable shared mappings
 on sequential files. Only direct I/O writes are accepted for these files.
 *zonefs* relies on the sequential delivery of write I/O requests to the device
 implemented by the block layer elevator (See
-[Write Command Ordering](./sched.md)).
+[Write Command Ordering](/docs/linux/sched)).
 
 There are no restrictions on the type of I/O used for read operations in
 sequential zone files. Buffered I/Os, direct I/Os and shared read mappings are
@@ -304,8 +304,8 @@ or zone condition changes. The defined behaviors are as follows.
 * repair
 
 The run-time I/O error actions defined for each behavior are detailed in 
-[*IO error handling*](fs.md#io-error-handling). Mount-time I/O errors cause 
-the mount operation to fail.
+[*IO error handling*](/docs/linux/fs#io-error-handling). Mount-time I/O errors
+cause the mount operation to fail.
 
 Read-only zones are handled differently at mount time than they are at 
 run time. If a read-only zone is found at mount time, the zone is always 
@@ -314,8 +314,9 @@ disabled and the zone file size set to 0). This is necessary, because the write
 pointer of read-only zones is defined as invalid by the ZBC and ZAC standards 
 (which makes it impossible to discover the amount of data that has been 
 written to the zone). In the case of a read-only zone that is discovered at 
-run-time, as indicated in [*IO error handling*](fs.md#io-error-handling),
-the size of the zone file is left unchanged from its last updated value.
+run-time, as indicated in [*IO error
+handling*](/docs/linux/fs#io-error-handling), the size of the zone file is left
+unchanged from its last updated value.
 
 ### Zonefs User Space Tools
 
@@ -325,7 +326,8 @@ target="_blank">GitHub</a>.
 
 *zonefs-tools* also includes a test suite that can be run against any zoned
 block device, including
-[*nullblk* block device created with zoned mode](../getting-started/zbd-emulation.md).
+[*nullblk* block device created with zoned
+mode](/docs/getting-started/zbd-emulation).
 
 ### Examples
 
@@ -445,7 +447,7 @@ composed entirely of sequential zones cannot be used with *f2fs* as a
 standalone device and they require a multi-device setup in order to place
 metadata blocks on randomly writable storage. *f2fs* supports multi-device
 setup where multiple block device address spaces are linearly concatenated to
-form a logically larger block device. The [*dm-linear*](./dm.md#dm-linear)
+form a logically larger block device. The [*dm-linear*](/docs/linux/dm#dm-linear)
 device mapper target can also be used to create a logical device that is
 composed of both conventional zones and sequential zones suitable for *f2fs*.
 
@@ -475,10 +477,10 @@ overhead only for workloads that frequently delete files or modify files' data.
 ### Zone Capacity Support
 
 NVMe ZNS SSDs can have a per [zone capacity that is smaller than the zone
-size](../introduction/zns#zone-capacity-and-zone-size). To support ZNS devices,
-*f2fs* ensures that block allocation and accounting considers only the blocks
-in a zone that are within the zone's capacity. This support for NVMe ZNS zone
-capacity has been available since it was introduced in Linux kernel version
+size](/docs/introduction/zns#zone-capacity-and-zone-size). To support ZNS
+devices, *f2fs* ensures that block allocation and accounting considers only the
+blocks in a zone that are within the zone's capacity. This support for NVMe ZNS
+zone capacity has been available since it was introduced in Linux kernel version
 5.10.
 
 *f2fs* volumes need some storage space that is randomly writable in order 
@@ -497,11 +499,11 @@ maximum volume size of 16 TB. Any device or combination of devices (for a
 multi-device volume) with a total capacity that is larger than 16 TB cannot 
 be used with *f2fs*.
 
-To overcome this limit, the [*dm-linear*](./dm.md#dm-linear) device mapper 
-target can be used to partition a zoned block device into serviceable, 
-smaller logical devices. This configuration must ensure that each logical 
-device that is created is assigned a sufficient amount of conventional zones 
-to store *f2fs* fixed location metadata blocks.
+To overcome this limit, the [*dm-linear*](/docs/linux/dm#dm-linear) device
+mapper target can be used to partition a zoned block device into serviceable,
+smaller logical devices. This configuration must ensure that each logical device
+that is created is assigned a sufficient amount of conventional zones to store
+*f2fs* fixed location metadata blocks.
 
 ### Usage Example with a Host Managed SMR HDD
 
@@ -655,7 +657,7 @@ existing *btrfs* constraint that dictates that all device extents in a block
 group must have the same size.
 
 All writes to data block groups use [Zone Append
-writing](../introduction/zns#zone-append), which makes it possible to maintain
+writing](/docs/introduction/zns#zone-append), which makes it possible to maintain
 a high queue depth without violating the device zone's sequential write
 constraints. Every write to dedicated meta-data block groups is serialized
 with a file-system-global zoned metadata I/O lock.
@@ -663,7 +665,7 @@ with a file-system-global zoned metadata I/O lock.
 ### Zone Capacity Support
 
 NVMe ZNS SSDs can have a per [zone capacity that is smaller than the zone
-size](../introduction/zns#zone-capacity-and-zone-size).  To support ZNS
+size](/docs/introduction/zns#zone-capacity-and-zone-size).  To support ZNS
 devices, *btrfs* ensures that block allocation and accounting considers only
 the blocks in a zone that are within the zone capacity. This support for NVMe
 ZNS zone capacity has been available since Linux kernel version 5.16. Also,
@@ -691,18 +693,18 @@ requirements must be met:
 
 The source code for *btrfs-progs* <a href="https://github.com/kdave/btrfs-progs"
 target="_blank">is hosted on GitHub</a>. More information on *util-linux* can be
-found [here](../tools/util-linux).
+found [here](/docs/tools/util-linux).
 
 If a kernel supports *btrfs* on a zoned block device, it will automatically
 select the *mq_deadline* block IO scheduler by default. This ensures [write
-ordering correctness](sched.md) for any SMR hard-disk that is used in a zoned
-*btrfs* volume.
+ordering correctness](/docs/linux/sched) for any SMR hard-disk that is used in a
+zoned *btrfs* volume.
 
 As in the case of [*f2fs* use with an NVMe ZNS
-SSD](fs#usage-example-with-a-nvme-zns-ssd), the *mq-deadline* scheduler must be
-set manually to ensure that the regular write operations used by *btrfs* are
-delivered to the device in sequential order. For a NVMe zoned namespace device
-*/dev/nvmeXnY*, this is done with the following command:
+SSD](/docs/linux/fs#usage-example-with-a-nvme-zns-ssd), the *mq-deadline*
+scheduler must be set manually to ensure that the regular write operations used
+by *btrfs* are delivered to the device in sequential order. For a NVMe zoned
+namespace device */dev/nvmeXnY*, this is done with the following command:
 
 ```plaintext
 # echo mq-deadline > /sys/block/nvmeXnY/queue/scheduler
@@ -772,8 +774,8 @@ necessary.
 ## XFS
 
 *XFS* currently does not support zoned block devices. The
-[*dm-zoned*](./dm.md#dm-zoned) device mapper target must be used to enable
-zoned device use with *XFS*.
+[*dm-zoned*](/docs/linux/dm#dm-zoned) device mapper target must be used to
+enable zoned device use with *XFS*.
 
 An early <a href="http://xfs.org/images/f/f6/Xfs-smr-structure-0.2.pdf"
 target="_blank"> design document</a> discussed the development work necessary
@@ -796,7 +798,7 @@ The field of host optimizations for host aware zoned block devices remains in
 the research phase and is not included in *ext4* stable kernel releases. It
 should also be noted that *ext4* does not support host managed disks. As with
 *XFS*, however, the *ext4* file system can be used together with the
-[*dm-zoned*](./dm.md#dm-zoned) device mapper target.
+[*dm-zoned*](/docs/linux/dm#dm-zoned) device mapper target.
 
 export function Yes() {
   return (

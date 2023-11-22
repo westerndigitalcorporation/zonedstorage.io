@@ -357,12 +357,12 @@ sd 11:0:0:0: [sdj] Attached SCSI disk
 ### Verifying The Emulated Disk
 
 The zone configuration of the emulated disk can be inspected by using
-[*libzbc*](../tools/libzbc), [*sg3utils*](../tools/sg3utils) and 
-[*util-linux*](../tools/util-linux) tools.
+[*libzbc*](/docs/tools/libzbc), [*sg3utils*](/docs/tools/sg3utils) and 
+[*util-linux*](/docs/tools/util-linux) tools.
 
 #### Using zbc_report_zones
 
-Use [*zbc_report_zones*](../tools/libzbc#zone-information) to verify the
+Use [*zbc_report_zones*](/docs/tools/libzbc#zone-information) to verify the
 zone configuration of the newly-created emulated ZBC disk:
 
 ```plaintext
@@ -393,7 +393,7 @@ Zone 00255: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 
 #### Using blkzone
 
-Use [*blkzone*](../tools/util-linux#zone-report) to verify the zone
+Use [*blkzone*](/docs/tools/util-linux#zone-report) to verify the zone
 configuration of the newly-created emulated ZBC disk. This displays the same
 information that is returned by "zbc_report_zones", but it is displayed in a
 different format:
@@ -415,8 +415,8 @@ different format:
 ## SMR Hard Disk Emulation with *tcmu-runner*
 
 Detailed information on how to install and operate *tcmu-runner* can be found
-in the [tcmu-runner ZBC Disk Emulation](../tools/tcmu-runner) chapter of
-the [Tools and Libraries](../tools) Guide.
+in the [tcmu-runner ZBC Disk Emulation](/docs/tools/tcmu-runner) chapter of
+the [Tools and Libraries](/docs/tools) Guide.
 
 ### tcmu-runner ZBC File Handler
 
@@ -428,8 +428,8 @@ emulated disk that is identical to the command path that would be available if a
 physical disk were in its place. Applications and kernel components will not
 perceive any difference.
 
-The [tcmu-runner ZBC Disk Emulation](../tools/tcmu-runner) chapter of the
-[Tools and Libraries](../tools) guide describes in more
+The [tcmu-runner ZBC Disk Emulation](/docs/tools/tcmu-runner) chapter of the
+[Tools and Libraries](/docs/tools) guide describes in more
 detail the options available for creating emulated disks. These include the disk
 zone model, the disk zone size, the disk capacity, and the number of
 conventional zones of the disk.
@@ -634,7 +634,7 @@ uuid=5e40ec5f-eeb6-4317-bc5e-c919796a5f79
 If your guest operating system is a Linux distribution and the Linux
 distribution's kernel version is higher than 5.9.0, the emulated NVMe ZNS
 device can be checked by using the *nvme* command (see [Linux Tools for
-ZNS](../tools/zns).
+ZNS](/docs/tools/zns).
 
 ```
 # nvme list

@@ -6,7 +6,7 @@ sidebar_label: Overview
 
 # Linux Distributions
 
-As discussed [here](../linux/overview.md), the version and compile time
+As discussed [here](/docs/linux/overview), the version and compile time
 configuration of a Linux&reg; kernel enable support for zoned block
 devices and the features supported. Different Linux distributions are
 configured differently, leading to varying levels of support for zoned
@@ -20,20 +20,20 @@ binary kernels shipped is complete, and zoned storage related binary
 packages are available. Their use is recommended to facilitate
 development and testing of applications.
 
- - [Fedora](../distributions/fedora.md)
- - [openSuse](../distributions/opensuse.md)
+ - [Fedora](/docs/distributions/fedora)
+ - [openSuse](/docs/distributions/opensuse)
 
 ## Other Linux Distributions
 
 All major Linux distributions provide some level of zoned storage
 support. Use the following links to learn more.
 
- - [Ubuntu](../distributions/ubuntu.md)
- - [Debian](../distributions/debian.md)
- - [SLES](../distributions/sles.md)
- - [CentOS](../distributions/centos.md)
- - [RHEL](../distributions/rhel.md)
- - [Arch Linux](../distributions/arch.md)
+ - [Ubuntu](/docs/distributions/ubuntu)
+ - [Debian](/docs/distributions/debian)
+ - [SLES](/docs/distributions/sles)
+ - [CentOS](/docs/distributions/centos)
+ - [RHEL](/docs/distributions/rhel)
+ - [Arch Linux](/docs/distributions/arch)
 
 ## Checking a Linux Distribution
 

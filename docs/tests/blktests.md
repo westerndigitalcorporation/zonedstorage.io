@@ -38,7 +38,7 @@ are as shown in the table below.
 </center>
 
 The test groups supporting zoned block devices are *block* and *zbd*.
-[*blkzone*](../tools/util-linux.md#blkzone) and [*fio*](../benchmarking/fio/overview.md)
+[*blkzone*](/docs/tools/util-linux#blkzone) and [*fio*](/docs/benchmarking/fio/overview)
 version 3.9 or higher must be installed for executing these test groups.
 
 ## Configuration

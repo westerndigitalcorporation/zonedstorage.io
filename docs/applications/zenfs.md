@@ -58,9 +58,9 @@ USENIX ATC 2021 article.
 
 *ZenFS* requires Linux kernel version 5.9 or newer. The kernel used must
 be configured with
-[zoned block device support enabled](../linux/config).
+[zoned block device support enabled](/docs/linux/config).
 
-*ZenFS* uses the [*libzbd*](../tools/libzbd) library. The latest version
+*ZenFS* uses the [*libzbd*](/docs/tools/libzbd) library. The latest version
 of this library must be compiled and installed prior to building and
 installing *ZenFS*.
 
@@ -77,7 +77,7 @@ target="_blank"> README file</a>.
 :::note
 Remember to set the block device IO scheduler to "deadline" to prevent write
 operations from being reordered. This can be done automatically on system
-boot using a [*udev* rule](../linux/sched).
+boot using a [*udev* rule](/docs/linux/sched).
 :::
 
 ### ZenFS Command Line

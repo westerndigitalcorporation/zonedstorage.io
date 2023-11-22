@@ -35,7 +35,7 @@ target="_blank">Western Digital Corporation organization on GitHub</a>.
 for conformity to the ZBC and ZAC standards.  In order to make the test suite
 available, *libzbc* must be configured using the *--with-test* option prior to
 building and installing the library. The usage of this test suite is described
-in more detail [here](../tests/zbc-tests.md).
+in more detail [here](/docs/tests/zbc-tests).
 
 ## Overview
 
@@ -59,7 +59,7 @@ that are dependent on the device interface:
 * **File Emulation Driver** This driver emulates a host managed ZBC disk using 
   a regular file or regular block device as backend storage. This driver is 
   intended for development only. A more advanced ZBC disk emulation solution 
-  is provided by the [*tcmu-runner*](tcmu-runner.md) project.
+  is provided by the [*tcmu-runner*](/docs/tools/tcmu-runner) project.
 
 The figure below shows this structure.
 

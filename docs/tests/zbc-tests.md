@@ -18,17 +18,17 @@ for instance in write commands not being translated correctly or an invalid
 command failure processing.
 
 Many of these problems can be identified early by executing
-[*libzbc*](../tools/libzbc.md) conformance test suite.
+[*libzbc*](/docs/tools/libzbc) conformance test suite.
 
 ## *libzbc* Conformance Test Suite
 
 *libzbc* implements a test suite primarily aiming at checking that a disk
 fully conforms to the definition and constraints of the ZAC and ZBC standards.
 *libzbc* test suite works equally well with physical disks (SAS and SATA) as
-well as emulated disks created with [*tcmu-runner*](../tools/tcmu-runner.md).
+well as emulated disks created with [*tcmu-runner*](/docs/tools/tcmu-runner).
 
 Information on how to compile and install *libzbc* with the test suite
-enabled can be found [here](../tools/libzbc.md).
+enabled can be found [here](/docs/tools/libzbc).
 
 In this chapter, the following disk configuration is used throughout the
 examples shown.

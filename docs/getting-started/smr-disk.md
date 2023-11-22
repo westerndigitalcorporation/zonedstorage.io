@@ -6,7 +6,7 @@ sidebar_label: Getting Started with SMR Hard Disks
 
 # Getting Started with SMR Hard Disks
 
-Hard disk drives that use [Shingled Magnetic Recording](../introduction/smr)
+Hard disk drives that use [Shingled Magnetic Recording](/docs/introduction/smr)
 technology can have different interface implementations. This results in
 different usage models:
 
@@ -20,7 +20,7 @@ different usage models:
   ZAC feature sets also provide commands to the host that allow the host to 
   identify and control the device's zones. This interface has two different 
   variations, or model implementations (See 
-  [SMR Interface Implementations](../introduction/smr#smr-interface-implementations)). 
+  [SMR Interface Implementations](/docs/introduction/smr#smr-interface-implementations)). 
   Those two model implementations are:
 
 	* **Host Aware:** This zone model offers the convenience and flexibility
@@ -51,9 +51,9 @@ react to the device signature of the connected disk).
 
 ### Verifying The Disk
 
-On systems that have [zoned block device support enabled](./linux), SATA host
-aware disks and host managed disks can be connected directly to SATA ports on
-the host controller.
+On systems that have [zoned block device support enabled](/docs/linux), SATA
+host aware disks and host managed disks can be connected directly to SATA ports
+on the host controller.
 
 After booting the system, use the *lsscsi* utility to list all SCSI devices
 attached to the system and verify the presence of the newly-connected disk:
@@ -156,7 +156,7 @@ reports the total number of zones on the disk:
 
 To obtain detailed information on the disk zone configuration, for instance the
 number of conventional zones available, the
-[*blkzone*](../tools/util-linux#blkzone) utility can be used.
+[*blkzone*](/docs/tools/util-linux#blkzone) utility can be used.
 
 ```plaintext
 # blkzone report /dev/sdb
@@ -181,8 +181,8 @@ divided into 524 conventional zones. The sector space starting at 0x010600000
 and ending at the last sector of the disk is divided into 55356 sequential
 write required zones.
 
-The [*zbc_report_zones*](../tools/libzbc#zone-information) of
-[*libzbc*](../tools/libzbc) provides more detailed information in a more
+The [*zbc_report_zones*](/docs/tools/libzbc#zone-information) of
+[*libzbc*](/docs/tools/libzbc) provides more detailed information in a more
 readable format.
 
 ```plaintext
@@ -259,7 +259,8 @@ failures.
 
 The compatibility of an HBA model with the ZBC and ZAC standards should be
 checked with the HBA vendor. Under some conditions, an HBA compatibility can
-also be checked using the [*libzbc* conformance test suite](../tests/zbc-tests).
+also be checked using the [*libzbc* conformance test
+suite](/docs/tests/zbc-tests).
 
 ### Verifying The Disk
 

@@ -194,7 +194,8 @@ written simultaneously.
 
 The *deadline* and *mq-deadline* schedulers must be enabled in the kernel
 compilation configuration. Refer to the
-[Write Ordering Control](config.md#write-ordering-control) section for details.
+[Write Ordering Control](/docs/linux/config#write-ordering-control) section for
+details.
 
 :::note
 The legacy single queue block I/O path was removed from the kernel in version

@@ -46,7 +46,7 @@ space (the end of the last zone of the disk). Although performing this
 alignment, manually without support from the partition management tool, is
 possible, such a procedure would be very difficult and unreliable.
 
-We recommend using the [*dm-linear*](../linux/dm.md#dm-linear) device mapper
+We recommend using the [*dm-linear*](/docs/linux/dm#dm-linear) device mapper
 target to isolate smaller portions of large host-managed devices, as this is
 a better solution than partitions. Users should assume that partitions are
 not supported for host-managed zoned block devices.
