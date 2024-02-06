@@ -76,7 +76,7 @@ Storage documentation.
 ## Modifying a Linux Distribution Installation
 
 Linux systems that are not on the [Recommended
-Distributions](linux#recommended-distributions) list do not support zoned
+Distributions](linux#recommended-linux-distributions) list do not support zoned
 storage by default, but some of them can be modified to provide some level of
 support for zoned storage. More information about the level of support provided
 by these Linux distributions can be found on
@@ -237,7 +237,7 @@ Certain system utilities should be installed on the system in order to verify
 the correct operation of zoned block devices and to troubleshoot problems.
 
 If one of the [recommended Linux
-distributions](linux#recommended-linux-distribution) is being used, these
+distributions](linux#recommended-linux-distributions) is being used, these
 utilities are installed by default.
 
 

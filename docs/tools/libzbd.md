@@ -203,7 +203,7 @@ COMMANDS
 
 The following examples use a null zoned block device with 4 conventional zones
 and 12 sequential zones of 32 MB that have been created using the
-[*nullblk-zoned.sh*](/docs/getting-started/zbd-emulation#creating-a-zoned-null-block-device)
+[*nullblk-zoned.sh*](/docs/getting-started/zbd-emulation#zoned-block-device-emulation-with-null_blk)
 script:
 
 ```plaintext
