@@ -49,7 +49,7 @@ A local http server is run to locally serve the site on http://0.0.0.0:3000.
 To build and deploy the site to GitHub pages, the following command is provided.
 
 ```
-$ make deploy GH_USER=<gtihub-user-id>
+$ make deploy GH_USER=<github-user-id>
 ```
 
 Where *gtihub-user-id* is the GitHub user account ID to gain write access to
