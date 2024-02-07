@@ -7,24 +7,24 @@ sidebar_label: NVMe Zoned Namespaces (ZNS) Devices
 import Image from '/src/components/Image';
 import ImageLink from '/src/components/ImageLink';
 
-# NVMe Zoned Namespaces (ZNS) Devices
+# SSDs with NVMe Zoned Namespace (ZNS) Support
 
-NVMe Zoned Namespace (ZNS) devices introduce a new division of functionality
-between host software and the device controller. A ZNS device exposes its
+The NVM Express (NVMe) Zoned Namespace (ZNS) Command Set introduce a new division of functionality
+between host software and the device controller. A NVMe device that implements ZNS support exposes its
 capacity into zones, where each zone can be read in any order but must be
 written sequentially.
 
 The <a href="https://nvmexpress.org/" target="_blank_">NVM Express (NVMe)
 organization</a> released as part of the NVMe 2.0 specifications
 the <a href="https://nvmexpress.org/developers/nvme-command-set-specifications/"
-target="_blank_">NVMe ZNS Command Set specification</a>. The latest revision
-of this specification available is 1.1. The NVMe ZNS specification define a
+target="_blank_">NVMe Zoned Namespace Command Set specification</a>. The latest revision
+of this specification available is 1.1. The specification defines a
 command interface that applies to all NVMe defined command transport. This
 command set is independent of the storage media technology used by the device
 and applies equally to flash-based solid state drives (SSDs) or [SMR hard
 disks](/docs/introduction/smr).
 
-The most common type of ZNS devices found today are flash-based SSDs. For this
+The most common type of NVMe devices with Zoned Namespace support available today are flash-based SSDs. For this
 type of device, the ZNS interface characteristics allow improving internal data
 placement and thus leads to higher performance through higher write throughput,
 improved QoS (lower access latencies) and increased capacity.
@@ -32,7 +32,7 @@ improved QoS (lower access latencies) and increased capacity.
 :::note
 See <a href="https://www.usenix.org/conference/atc21/presentation/bjorling"
 target="_blank_">ZNS: Avoiding the Flash-Based Block Interface Tax for
-Flash-Based SSDs</a> for a deep dive on ZNS SSDs. The article was published
+Flash-Based SSDs</a> for a deep dive on SSDs with Zoned Namespace support. The article was published
 at USENIX ATC 2021.
 :::
 
@@ -41,16 +41,16 @@ at USENIX ATC 2021.
 The ZNS specifications follows the [Zoned Storage
 Model](/docs/introduction/zoned-storage). This standards-based architecture,
 which takes a unified approach to storage that enables both Shingled Magnetic
-Recording (SMR) in HDDs and ZNS SSDs to share a unified software stack.
+Recording (SMR) in HDDs and SSDs with Zoned Namespace support to share a unified software stack.
 
-Specifically for ZNS SSDs, the zone abstraction allows the host aligning its
+Specifically for SSDs with Zoned Namespace support, the zone abstraction allows the host aligning its
 writes to the sequential write required properties of flash-based SSDs, and
 thereby optimizes data placement onto the SSD's media. Note that the management
-of media reliability continues to be the sole responsibility of the ZNS SSD and
-should be managed the same way as conventional SSDs.
+of media reliability continues to be the sole responsibility of the SSD and
+is managed the same way as conventional SSDs.
 
 <Image src="intro-zns.png"
-title="Conventional SSDs and ZNS SSDs internal data placement"/>
+title="Conventional SSDs and SSDs with Zoned Namespace support internal data placement"/>
 
 ## The ZNS Zoned Storage Model
 
@@ -65,11 +65,7 @@ defined.
 
 These similarities simplify the implementation of the host storage stack and
 applications for simultaneously supporting both host-managed SMR hard-disks and
-ZNS SSDs.
-
-Given that ZNS SSDs typically is implemented using non-volatile memory, the ZNS
-specification introduces additional functionalities to efficiently enable this
-type of media.
+SSDs with Zoned Namespace support.
 
 ### Zone types
 
@@ -79,12 +75,12 @@ operations. The ZNS specification does not define this optional set of random
 write zones, as NVMe supports multiple namespace, and therefore can expose a
 separate namespace that supports conventional I/O accesses.
 
-The ZNS specification mandates that all zones of a zoned namespace must have the
+The ZNS Command Set specification mandates that all zones of a zoned namespace must have the
 sequential-write-required type.
 
 ### Zone Capacity and Zone Size
 
-The ZNS specification introduced the concept of a [zone
+The ZNS Command Set specification introduced the concept of a [zone
 capacity](/docs/introduction/zoned-storage#zone-size-and-zone-capacity). This
 concept is not defined in the ZBC and ZAC standards.
 
@@ -130,7 +126,7 @@ the ZBC, and ZAC standards.
 However, unlike the ZBC and ZAC standards, the ZNS specification defines an
 additional [limit on the number of active
 zones](/docs/introduction/zoned-storage#active-zones-limit), that is, zones that
-have the implicit open, explicit open or closed state. A ZNS SSD may impose a
+have the implicit open, explicit open or closed state. A SSD with Zoned Namespace support may impose a
 limit on the maximum number of zones that can be active. This limit is always
 equal or larger than the limit on the maximum number of open zones.
 
@@ -154,13 +150,13 @@ command.
 ## Presentations
 
 The following OCP 2019 Global Summit presentation covers the motivation for
-ZNS SSDs, the journey, and a general overview of the interface.
+SSDs with Zoned Namespace support, the journey, and a general overview of the interface.
 
 <ImageLink src="https://img.youtube.com/vi/9yVWb3rbces/0.jpg"
 title="From Open-Channel SSDs to Zoned Namespaces, OCP 2019 Global Summit."
 url="https://www.youtube.com/watch?v=9yVWb3rbces"/>
 
-The following SNIA SDC presentations illustrate how ZNS SSDs can be used with
+The following SNIA SDC presentations illustrate how SSDs with Zoned Namespace support can be used with
 real-world applications.
 
 <ImageLink src="https://img.youtube.com/vi/qpbBuyYT6fc/0.jpg"

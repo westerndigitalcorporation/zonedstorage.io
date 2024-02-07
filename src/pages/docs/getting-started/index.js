@@ -86,7 +86,7 @@ function ZonedDevEmulation() {
 	      <br/><br/>
 	      <strong>Learn how to create emulated zoned block devices
 	      with the emulated zone configuration that matches a particular
-	      device type and model (SMR hard disks or NVMe ZNS SSDs).</strong>
+	      device type and model (SMR hard disks or NVMe SSDs with Zoned Namespace support).</strong>
 	    `}
 	    link="/docs/getting-started/zbd-emulation"
           />
@@ -128,9 +128,9 @@ function ZnsDevice() {
       <TwoColumns
         columnOne={
           <TextColumn
-            title="Getting Started with a NVMe ZNS Device"
+            title="Getting Started with a NVMe SSD with Zoned Namespace support"
             text={`
-	      <strong>Learn how to identify NVMe ZNS devices and
+	      <strong>Learn how to identify NVMe SSD with Zoned Namespace support and
 	      verify that the host system is operating correctly.</strong>
             `}
 	    link="/docs/getting-started/zns-device"

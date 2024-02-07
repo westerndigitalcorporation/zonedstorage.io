@@ -24,7 +24,7 @@ There are several ways available to create an emulated zoned block device.
    kernel as though they were physical disks.
 
 4. The ***QEMU*** open source machine emulator and virtualizer: recent versions
-   of QEMU support the emulation of NVMe Zoned Namespaces devices. These use
+   of QEMU support the emulation of NVMe devices with Zoned Namespace support. These use
    regular files on the host as a backstores. Within a guest VM, an emulated
    ZNS device acts like a physical device.
 
@@ -283,11 +283,11 @@ characteristics.
 The *zone_capacity* and *zone_max_active* parameters should not be used when the
 emulated device is meant to mimic the characteristics of an SMR hard disk.
 
-### Emulating NVMe ZNS SSD
+### Emulating SSD with ZNS support
 
 The *zone_capacity* and *zone_max_active* parameters make it possible to
 create an emulated zoned block device that mimics the characteristics of a
-NVMe Zoned Namespace SSD. The *zone_capacity* parameter is used to specify
+SSD with Zoned Namespace support. The *zone_capacity* parameter is used to specify
 the number of sectors in each zone that can be read and written. The
 *zone_max_active* argument is used to specify a limit on the number of
 zones that can be in the closed state, the implicit-open state, or the
@@ -555,7 +555,7 @@ Zone 00078: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 Zone 00079: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recommended 0, non_seq 0, sector 41418752, 524288 sectors, wp 41418752
 ```
 
-## NVMe Zoned Namespace Device Emulation with *QEMU*
+## Zoned Namespace Device Emulation with *QEMU*
 
 *<a href="https://www.qemu.org/" target="_blank">QEMU</a>* has supported the
 emulation of NVMe namespaces since version 1.6. But the emulation of zoned
@@ -632,8 +632,8 @@ uuid=5e40ec5f-eeb6-4317-bc5e-c919796a5f79
 ### Verifying an Emulated Zoned Namespace
 
 If your guest operating system is a Linux distribution and the Linux
-distribution's kernel version is higher than 5.9.0, the emulated NVMe ZNS
-device can be checked by using the *nvme* command (see [Linux Tools for
+distribution's kernel version is higher than 5.9.0, the emulated SSD with ZNS
+support can be checked by using the *nvme* command (see [Linux Tools for
 ZNS](/docs/tools/zns).
 
 ```
@@ -694,8 +694,8 @@ capacity.
 
 ### Using an Emulated Zoned Namespace
 
-The behavior of a *QEMU*-emulated NVMe ZNS device is fully compliant with the
-NVMe ZNS specifications, with one exception: the state of namespace zones is
+The behavior of a *QEMU*-emulated SSD with ZNS support is fully compliant with the
+NVMe Zoned Namespace Command Set specification, with one exception: the state of namespace zones is
 not persistent across restarts of the *QEMU* emulation. The state of zones is
 preserved only as long as *QEMU* is running, even if the guest operating system
 is rebooted. If *QEMU* is restarted and the same backstore file is used, then
@@ -731,7 +731,7 @@ The options and parameters related to Zoned Namespaces are as follows.
 The following script uses *QEMU* to run a virtual machine with 8 CPU cores,
 16 GiB of memory, and bridged networking. The bridge device *virbr0* is assumed
 already to exist. The last device added to the virtual machine on the *QEMU*
-command line is a 32 GiB NVMe ZNS device.
+command line is a 32 GiB NVMe device with Zoned Namespace support.
 
 ```bash
 #!/bin/sh

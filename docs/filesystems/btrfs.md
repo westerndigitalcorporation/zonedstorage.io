@@ -126,11 +126,10 @@ with a file-system-global zoned metadata I/O lock.
 
 ### Zone Capacity Support
 
-ZNS SSDs can have a per [zone capacity that is smaller than the zone
-size](/docs/introduction/zns#zone-capacity-and-zone-size). To support ZNS
+SSDs with Zoned Namespace support can have a per [zone capacity that is smaller than the zone
+size](/docs/introduction/zns#zone-capacity-and-zone-size). To support such
 devices, *btrfs* ensures that block allocation and accounting considers only
-the blocks in a zone that are within the zone capacity. This support for NVMe
-ZNS zone capacity has been available since Linux kernel version 5.16. Also,
+the blocks in a zone that are within the zone capacity. This support for zone capacity has been available since Linux kernel version 5.16. Also,
 since kernel 5.16, *btrfs* keeps track of the number of active zones on
 a device and issues "Zone Finish" commands as needed.
 
@@ -149,8 +148,8 @@ These unavailable features include:
 
 In order to use *btrfs* on zoned block devices, the following minimum system
 requirements must be met:
-- Linux kernel 5.12 (for SMR) or 5.16 (for NVMe ZNS)
-- *btrfs-progs* 5.12 (for SMR) or 5.15 (for NVMe ZNS)
+- Linux kernel 5.12 (for SMR) or 5.16 (for SSD /w ZNS support)
+- *btrfs-progs* 5.12 (for SMR) or 5.15 (for SSD /w ZNS support)
 - *util-linux* 2.38
 
 The source code for *btrfs-progs* <a href="https://github.com/kdave/btrfs-progs"

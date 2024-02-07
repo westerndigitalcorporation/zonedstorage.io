@@ -13,7 +13,7 @@ community as well as help data center infrastructure engineers take
 advantage of zoned storage technologies. This site hosts
 information about software development libraries, tools, standards
 information and software resources that provide a unified framework
-to manage purpose-built ZNS SSDs and capacity-optimized ZBC/ZAC
+to manage SSDs with ZNS support and capacity-optimized ZBC/ZAC
 HDDs. Through this open-source initiative, developers can gain
 confidence in the burgeoning ecosystem of community and industry
 contributors and supporters.

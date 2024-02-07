@@ -15,8 +15,8 @@ of "wandering trees" and the high "cleaning overhead").
 also for selecting allocation and cleaning algorithms.
 
 :::note System Requirements
-- Linux kernel: 5.12+ (for SMR) or 5.16+ (for ZNS).
-- f2fs-tools: 1.12+ (for SMR) or 1.14+ (for ZNS). 
+- Linux kernel: 5.12+ (for SMR) or 5.16+ (for SSD /w ZNS support).
+- f2fs-tools: 1.12+ (for SMR) or 1.14+ (for SSD /w ZNS support). 
 - I/O scheduler: [mq-deadline to be configured for the block device](/docs/linux/sched#block-io-scheduler-configuration).
 :::
 
@@ -142,10 +142,10 @@ overhead only for workloads that frequently delete files or modify files' data.
 
 ### Zone Capacity Support
 
-ZNS SSDs can have a per [zone capacity that is smaller than the zone
-size](/docs/introduction/zns#zone-capacity-and-zone-size). To support ZNS
+SSDs with Zoned Namespace support can have a per [zone capacity that is smaller than the zone
+size](/docs/introduction/zns#zone-capacity-and-zone-size). To support such
 devices, *f2fs* ensures that block allocation and accounting considers only the
-blocks in a zone that are within the zone's capacity. This support for NVMe ZNS
+blocks in a zone that are within the zone's capacity. This support for 
 zone capacity has been available since it was introduced in Linux kernel version
 5.10.
 

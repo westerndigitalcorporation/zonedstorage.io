@@ -27,7 +27,7 @@ to set up a Linux system for zoned storage.
 
 The zoned block device (ZBD) interface that supports [SCSI ZBC and ATA ZAC
 disks](/docs/introduction/smr) was added to the Linux&reg; kernel in version
-4.10. [NVMe zoned namespace (ZNS)](/docs/introduction/zns) devices are
+4.10. [Zoned Namespace (ZNS)](/docs/introduction/zns) devices are
 supported from kernel version 5.9 (inclusive). All Linux kernel versions higher
 than 5.9 support zoned storage devices.
 
@@ -58,7 +58,7 @@ and then installing all necessary user packages.
 Some Linux distributions provide zoned-storage support out of the box
 (without any modification). A regular installation of any of these
 distributions provides a system that is ready to use with SMR hard disks
-and ZNS SSDs.
+and SSDs with ZNS support.
 
 * [Fedora 36 or above](/docs/distributions/fedora)
 
