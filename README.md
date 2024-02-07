@@ -52,7 +52,7 @@ To build and deploy the site to GitHub pages, the following command is provided.
 $ make deploy GH_USER=<github-user-id>
 ```
 
-Where *gtihub-user-id* is the GitHub user account ID to gain write access to
+Where *github-user-id* is the GitHub user account ID to gain write access to
 the gh-pages branch of the repository.
 
 ## Package Dependencies Management
