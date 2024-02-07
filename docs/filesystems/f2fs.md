@@ -20,7 +20,7 @@ also for selecting allocation and cleaning algorithms.
 - I/O scheduler: [mq-deadline to be configured for the block device](/docs/linux/sched#block-io-scheduler-configuration).
 :::
 
-# Usage Examples
+## Usage
 
 To format a zoned block device, *that has conventional zones*, with *mkfs.f2fs*, the option `-m` must be
 specified:
@@ -102,9 +102,9 @@ must be specified:
 ```
 
 
-# Implementation Overview
+## Implementation
 
-## Zoned Block Device Support
+### Zoned Block Device Support
 
 Zoned block device support was added to *f2fs* with kernel 4.10. Because *f2fs*
 uses a metadata-block on-disk format with fixed-block location, only zoned
@@ -140,7 +140,7 @@ overhead", because writes are always sequential and do not require on-disk
 temporary buffering. *f2fs* garbage collection (segment cleanup) generates 
 overhead only for workloads that frequently delete files or modify files' data.
 
-## Zone Capacity Support
+### Zone Capacity Support
 
 ZNS SSDs can have a per [zone capacity that is smaller than the zone
 size](/docs/introduction/zns#zone-capacity-and-zone-size). To support ZNS
@@ -158,7 +158,7 @@ to provide an additional regular block device to store the volume metadata
 blocks. This additional regular block device can be either a regular namespace 
 on the same NVMe device or a regular namespace on another NVMe device.
 
-## Limitations
+### Limitations
 
 *f2fs* uses 32-bit block numbers with a block size of 4 KB. This results in a
 maximum volume size of 16 TB. Any device or combination of devices (for a

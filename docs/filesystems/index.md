@@ -5,7 +5,7 @@ sidebar_label: Overview
 slug: /filesystems
 ---
 
-# File Systems
+## Supported File Systems
 
 Multiple file systems support zoned block devices. This collection of file systems
 have support for zoned block devices:
@@ -17,9 +17,9 @@ have support for zoned block devices:
 Other file systems, with does not natively support zoned block devices, can be used
 together with a device mapper, such as [*dm-zoned*](/docs/linux/dm#dm-zoned).
 
-# In-progress Work
+## In-progress Work
 
-## XFS
+### XFS
 
 *XFS* currently does not support zoned block devices. An early <a href="http://xfs.org/images/f/f6/Xfs-smr-structure-0.2.pdf"
 target="_blank"> design document</a> discussed the development work necessary
@@ -28,7 +28,7 @@ have already been implemented and included into the kernel stable releases
 (e.g. the "per inode reverse block mapping b-trees" feature). However, more
 work is necessary to fully support zoned block devices and is in active development.
 
-## ext4
+### ext4
 
 Attempts at improving *ext4* performance with host aware zoned block devices by
 making changes to the file system journal management are described in in <a

@@ -17,7 +17,7 @@ principle has the result that no block update can be written in-place.
 - I/O scheduler: [mq-deadline to be configured for the block device](/docs/linux/sched#block-io-scheduler-configuration).
 :::
 
-# Usage
+## Usage
 
 To format a zoned block device with *mkfs.btrfs*, the `-m single` and `-d
 single` options must be specified, because no block group profile other 
@@ -64,9 +64,9 @@ necessary.
 # mount /dev/sda /mnt
 ```
 
-# Implementation
+## Implementation
 
-## Zoned Block Device Support
+### Zoned Block Device Support
 
 Zoned block device support was added to *btrfs* with kernel 5.12. Because
 super-blocks are the only on-disk data structure with a fixed location in
@@ -82,7 +82,7 @@ the zone write pointer of the super-block zones. The most recent and valid
 super-block is always the last  block stored before the write pointer
 position.
 
-## Block Allocation Changes
+### Block Allocation Changes
 
 *Btrfs* block management relies on grouping blocks into *block groups*. 
 Each *block group* is composed of one or more *device extents*. The device 
@@ -98,7 +98,7 @@ These changes ensure that blocks freed below the allocation pointer are
 ignored, which results in sequential block allocation within each group 
 regardless of the block group usage.
 
-## I/O Management
+### I/O Management
 
 Although the introduction of the allocation pointer ensures that blocks are
 allocated sequentially within groups (and therefore sequentially within zones),
@@ -124,7 +124,7 @@ a high queue depth without violating the device zone's sequential write
 constraints. Every write to dedicated meta-data block groups is serialized
 with a file-system-global zoned metadata I/O lock.
 
-## Zone Capacity Support
+### Zone Capacity Support
 
 ZNS SSDs can have a per [zone capacity that is smaller than the zone
 size](/docs/introduction/zns#zone-capacity-and-zone-size). To support ZNS
@@ -134,7 +134,7 @@ ZNS zone capacity has been available since Linux kernel version 5.16. Also,
 since kernel 5.16, *btrfs* keeps track of the number of active zones on
 a device and issues "Zone Finish" commands as needed.
 
-## Limitations
+### Limitations
 
 Not all features currently available in *btrfs* are supported in the current
 zoned mode of the file-system.
@@ -145,7 +145,7 @@ These unavailable features include:
 - Support for fallocate(2)
 - Mixed data and meta-data block groups
 
-## System Requirements
+### System Requirements
 
 In order to use *btrfs* on zoned block devices, the following minimum system
 requirements must be met:

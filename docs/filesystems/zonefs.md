@@ -16,7 +16,7 @@ This tool is available on <a href="https://github.com/westerndigitalcorporation/
 target="_blank">GitHub</a>.
 :::
 
-# Usage Examples
+## Usage
 
 The following list of commands formats a 15TB host-managed SMR HDD with 256 MB
 zones (with the conventional zones aggregation feature enabled):
@@ -115,7 +115,7 @@ zone size in this example. Note that the "IO block" field always indicates the
 minimum I/O size for writes and that it corresponds to the device's physical
 sector size.
 
-## Architecture Overview
+## Architectural Overview
 
 *zonefs* does not hide from the user the sequential write constraints of zoned
 block devices. In this, it is unlike a regular POSIX-compliant file system
@@ -143,7 +143,7 @@ themselves are represented by sub-directories. This file structure is built
 entirely using zone information that is provided by the device and therefore
 does not require any complex on-disk metadata structure.
 
-## On-Disk Metadata
+### On-Disk Metadata
 
 *zonefs* on-disk metadata is composed only of an immutable super block which
 persistently stores a magic number and optional feature flags and values. On
@@ -160,7 +160,7 @@ device that stores the super block is never exposed as a zone file by
 `mkzonefs` format tool always "finishes" the zone (that is, it transitions the
 zone to a full state to make it read-only, preventing any data write).
 
-## Zone Type Sub-Directories
+### Zone Type Sub-Directories
 
 Files that represent zones of the same type are grouped together under the same
 sub-directory, which is automatically created on mount.
@@ -181,7 +181,7 @@ The size of the directories indicates the number of files that exist under
 the directory. This size is indicated by the `st_size` field of `struct
 stat`, which is obtained with the `stat()` or `fstat()` system calls.
 
-## Zone files
+### Zone files
 
 Zone files are named using the number of the zone they represent within the
 set of zones of a particular type. Both the "cnv" and "seq" directories
@@ -198,7 +198,7 @@ allowed.
 The number of blocks of a file as reported by `stat()` and `fstat()` indicates
 the size of the file zone (in other words, the maximum file size).
 
-### Conventional Zone Files
+#### Conventional Zone Files
 
 The size of conventional zone files is fixed to the size of the zone that they
 represent. Conventional zone files cannot be truncated.
@@ -207,7 +207,7 @@ These files can be randomly read and written using any type of I/O operation:
 buffered I/Os, direct I/Os, memory mapped I/Os (mmap), etc. There are no I/O
 constraints for these files beyond the file size limit mentioned above.
 
-### Sequential zone files
+#### Sequential zone files
 
 The size of sequential zone files that are grouped in the "seq" sub-directory
 represents the file's zone-write-pointer position relative to the zone start
@@ -235,7 +235,7 @@ zone is reset to rewind the file zone write pointer position to the start of
 the zone, or up to the zone size, in which case the file's zone is transitioned
 to the FULL state (finish zone operation).
 
-## Format options
+### Format options
 
 Several optional features of *zonefs* can be enabled at format time.
 
@@ -246,7 +246,7 @@ Several optional features of *zonefs* can be enabled at format time.
   but can be changed to any valid UID/GID.
 * File access permissions: the default access permissions (640) can be changed.
 
-## IO error handling
+### IO error handling
 
 Zoned block devices can fail I/O requests for reasons similar to the reasons
 that regular block devices fail I/O requests, e.g. if there are bad sectors.
@@ -377,7 +377,7 @@ Further notes:
   that are indicated as "read-only" or "offline" by the device still imply 
   changes to the zone file access permissions as noted in the table above.
 
-## Mount options
+### Mount options
 
 *zonefs* defines the "errors=*behavior*" mount option to allow the user to 
 specify zonefs behavior in response to I/O errors, inode size inconsistencies 
