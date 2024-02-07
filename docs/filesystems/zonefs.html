@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-filesystems/zonefs" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.1.1">
+<title data-rh="true">ZoneFS | Zoned Storage</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://zonedstorage.io/docs/filesystems/zonefs"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="ZoneFS | Zoned Storage"><meta data-rh="true" name="description" content="zonefs is a very simple file system that exposes each of the zones of a zoned"><meta data-rh="true" property="og:description" content="zonefs is a very simple file system that exposes each of the zones of a zoned"><link data-rh="true" rel="icon" href="/img/zs-logo.ico"><link data-rh="true" rel="canonical" href="https://zonedstorage.io/docs/filesystems/zonefs"><link data-rh="true" rel="alternate" href="https://zonedstorage.io/docs/filesystems/zonefs" hreflang="en"><link data-rh="true" rel="alternate" href="https://zonedstorage.io/docs/filesystems/zonefs" hreflang="x-default"><link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.5cd6be9b.css">
+<script src="/assets/js/runtime~main.a43c05e2.js" defer="defer"></script>
+<script src="/assets/js/main.5c9ead0e.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard" data-theme="light">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/zs-logo.png" alt="Zoned Storage Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/zs-logo.png" alt="Zoned Storage Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Zoned Storage</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/introduction">Documentation</a><a class="navbar__item navbar__link" href="/docs/community/support">Community</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/westerndigitalcorporation/zonedstorage.io" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link header-github-link" aria-label="GitHub repository">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="dsla-search-wrapper"><div class="dsla-search-field" data-tags="default,docs-default-current"></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/introduction">Introduction</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/getting-started">Getting Started</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" aria-expanded="true" href="/docs/filesystems">File Systems</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/filesystems">Overview</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/filesystems/btrfs">btrfs</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/filesystems/f2fs">f2fs</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/filesystems/zonefs">zonefs</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/applications">Applications</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/tools">Tools and Libraries</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/linux">Linux Kernel Support</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/tests">System Compliance Tests</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/benchmarking">Performance Benchmarking</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/docs/distributions/overview">Linux Distributions</a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/faq">Frequently Asked Questions</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">File Systems</span><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">zonefs</span><meta itemprop="position" content="2"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><h1>zonefs File System</h1>
+<p><em>zonefs</em> is a very simple file system that exposes each of the zones of a zoned
+block device as a file.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>System Requirements</div><div class="admonitionContent_BuS1"><ul>
+<li>Linux kernel version 5.6 or later.</li>
+<li><code>mkzonefs</code> to format zoned block devices for use with <em>zonefs</em>.
+This tool is available on <a href="https://github.com/westerndigitalcorporation/zonefs-tools" target="_blank">GitHub</a>.</li>
+</ul></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="usage">Usage<a href="#usage" class="hash-link" aria-label="Direct link to Usage" title="Direct link to Usage">​</a></h2>
+<p>The following list of commands formats a 15TB host-managed SMR HDD with 256 MB
+zones (with the conventional zones aggregation feature enabled):</p>
+<div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># mkzonefs -o aggr_cnv /dev/sdX</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># mount -t zonefs /dev/sdX /mnt</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># ls -l /mnt/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">total 0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">dr-xr-xr-x 2 root root     1 Nov 25 13:23 cnv</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">dr-xr-xr-x 2 root root 55356 Nov 25 13:23 seq</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>The size of the zone files&#x27; sub-directories indicates the number of files
+that exist for each type of zone. In this example, there is only one
+conventional zone file (all conventional zones are aggregated under a single
+file):</p>
+<div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># ls -l /mnt/cnv</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">total 137101312</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-rw-r----- 1 root root 140391743488 Nov 25 13:23 0</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>This aggregated conventional zone file can be used as a regular file:</p>
+<div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># mkfs.ext4 /mnt/cnv/0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># mount -o loop /mnt/cnv/0 /data</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>The &quot;seq&quot; sub-directory, which groups files for sequential write zones, has
+55356 zones in this example:</p>
+<div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># ls -lv /mnt/seq</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">total 14511243264</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-rw-r----- 1 root root 0 Nov 25 13:23 0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-rw-r----- 1 root root 0 Nov 25 13:23 1</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-rw-r----- 1 root root 0 Nov 25 13:23 2</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">...</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-rw-r----- 1 root root 0 Nov 25 13:23 55354</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-rw-r----- 1 root root 0 Nov 25 13:23 55355</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>For sequential write zone files, the file size changes as data is appended at
+the end of the file. This is similar to the behavior of any regular file
+system:</p>
+<div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># dd if=/dev/zero of=/mnt/seq/0 bs=4096 count=1 conv=notrunc oflag=direct</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">1+0 records in</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">1+0 records out</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">4096 bytes (4.1 kB, 4.0 KiB) copied, 0.00044121 s, 9.3 MB/s</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># ls -l /mnt/seq/0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-rw-r----- 1 root root 4096 Nov 25 13:23 /mnt/seq/0</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>The written file can be truncated to the zone size, which prevents any further
+write operations:</p>
+<div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># truncate -s 268435456 /mnt/seq/0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># ls -l /mnt/seq/0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-rw-r----- 1 root root 268435456 Nov 25 13:49 /mnt/seq/0</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>Truncation to 0 size allows freeing the file zone storage space and restarts
+append-writes to the file:</p>
+<div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># truncate -s 0 /mnt/seq/0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># ls -l /mnt/seq/0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-rw-r----- 1 root root 0 Nov 25 13:49 /mnt/seq/0</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>Since files are statically mapped to zones on the disk, the number of blocks of
+a file as reported by stat() and fstat() indicates the size of the file zone:</p>
+<div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># stat /mnt/seq/0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">File: /mnt/seq/0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Size: 0         	Blocks: 524288     IO Block: 4096   regular empty file</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Device: 870h/2160d	Inode: 50431       Links: 1</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Access: (0640/-rw-r-----)  Uid: (    0/    root)   Gid: (    0/    root)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Access: 2019-11-25 13:23:57.048971997 +0900</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Modify: 2019-11-25 13:52:25.553805765 +0900</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Change: 2019-11-25 13:52:25.553805765 +0900</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Birth: -</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>The number of blocks of the file (&quot;Blocks&quot;) in units of 512B blocks gives the
+maximum file size of 524288 * 512 B = 256 MB, which corresponds to the device
+zone size in this example. Note that the &quot;IO block&quot; field always indicates the
+minimum I/O size for writes and that it corresponds to the device&#x27;s physical
+sector size.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="architectural-overview">Architectural Overview<a href="#architectural-overview" class="hash-link" aria-label="Direct link to Architectural Overview" title="Direct link to Architectural Overview">​</a></h2>
+<p><em>zonefs</em> does not hide from the user the sequential write constraints of zoned
+block devices. In this, it is unlike a regular POSIX-compliant file system
+with native zoned-block device support (e.g. <a href="/docs/filesystems/f2fs"><em>f2fs</em></a>).
+Files that represent sequential write zones on the device must be written
+sequentially, starting from the end of the file (these are &quot;append only&quot;
+writes).</p>
+<p><em>zonefs</em> is therefore more similar to a raw-block-device-access interface than
+it is to a full-featured POSIX file system. The goal of <em>zonefs</em> is to
+simplify the implementation of zoned block device support in applications, and
+it aims to do this by replacing raw block device file accesses with the richer
+regular-file API (which avoids relying on the possibly more obscure and
+developer-unfriendly direct block device file ioctls). One example of this
+approach is the implementation of LSM (log-structured merge) tree structures
+(such as used in RocksDB and LevelDB) on zoned block devices: SSTables are
+stored in a zone file in a way that is similar to the way a regular file
+system works rather than as a range of sectors of the entire disk. The
+introduction of the higher-level construct &quot;one file is one zone&quot; can reduce
+the number of changes needed in the application, and also introduces support
+for different application programming languages.</p>
+<p>The files that represent zones are grouped by zone type, and those zone types
+themselves are represented by sub-directories. This file structure is built
+entirely using zone information that is provided by the device and therefore
+does not require any complex on-disk metadata structure.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="on-disk-metadata">On-Disk Metadata<a href="#on-disk-metadata" class="hash-link" aria-label="Direct link to On-Disk Metadata" title="Direct link to On-Disk Metadata">​</a></h3>
+<p><em>zonefs</em> on-disk metadata is composed only of an immutable super block which
+persistently stores a magic number and optional feature flags and values. On
+mount, <em>zonefs</em> uses the block layer API function <code>blkdev_report_zones()</code> to
+obtain the device zone configuration and populates the mount point with a
+static file tree that is based solely on this information. File sizes come
+from the device zone type and the write-pointer position, both of which are
+managed by the device itself. <em>zonefs</em> operates only based on information
+from the device. <em>zonefs</em> does not have any metadata of its own.</p>
+<p>The super block is always written on disk at sector 0. The first zone of the
+device that stores the super block is never exposed as a zone file by
+<em>zonefs</em>. If the zone that contains the super block is a sequential zone, the
+<code>mkzonefs</code> format tool always &quot;finishes&quot; the zone (that is, it transitions the
+zone to a full state to make it read-only, preventing any data write).</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="zone-type-sub-directories">Zone Type Sub-Directories<a href="#zone-type-sub-directories" class="hash-link" aria-label="Direct link to Zone Type Sub-Directories" title="Direct link to Zone Type Sub-Directories">​</a></h3>
+<p>Files that represent zones of the same type are grouped together under the same
+sub-directory, which is automatically created on mount.</p>
+<p>For conventional zones, the sub-directory &quot;cnv&quot; is used. This directory is
+created only if the device has usable conventional zones. If the device has
+only a single conventional zone at sector 0, the zone will not be exposed as a
+file (because it will be used to store the <em>zonefs</em> super block). For such
+devices, the &quot;cnv&quot; sub-directory will not be created.</p>
+<p>For sequential write zones, the sub-directory &quot;seq&quot; is used.</p>
+<p>These two directories are the only directories that exist in <em>zonefs</em>. Users
+cannot create other directories and can neither rename nor delete the &quot;cnv&quot;
+and &quot;seq&quot; sub-directories.</p>
+<p>The size of the directories indicates the number of files that exist under
+the directory. This size is indicated by the <code>st_size</code> field of <code>struct stat</code>, which is obtained with the <code>stat()</code> or <code>fstat()</code> system calls.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="zone-files">Zone files<a href="#zone-files" class="hash-link" aria-label="Direct link to Zone files" title="Direct link to Zone files">​</a></h3>
+<p>Zone files are named using the number of the zone they represent within the
+set of zones of a particular type. Both the &quot;cnv&quot; and &quot;seq&quot; directories
+contain files named &quot;0&quot;, &quot;1&quot;, &quot;2&quot;, ... The file numbers also represent
+increasing zone start sector on the device.</p>
+<p>No read- and write-operations to zone files are allowed beyond the file
+maximum size (that is, beyond the zone size). Any access that exceeds the zone
+size fails with the <code>-EFBIG</code> error.</p>
+<p>Creating, deleting, renaming and modifying any attribute of files is not
+allowed.</p>
+<p>The number of blocks of a file as reported by <code>stat()</code> and <code>fstat()</code> indicates
+the size of the file zone (in other words, the maximum file size).</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="conventional-zone-files">Conventional Zone Files<a href="#conventional-zone-files" class="hash-link" aria-label="Direct link to Conventional Zone Files" title="Direct link to Conventional Zone Files">​</a></h4>
+<p>The size of conventional zone files is fixed to the size of the zone that they
+represent. Conventional zone files cannot be truncated.</p>
+<p>These files can be randomly read and written using any type of I/O operation:
+buffered I/Os, direct I/Os, memory mapped I/Os (mmap), etc. There are no I/O
+constraints for these files beyond the file size limit mentioned above.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="sequential-zone-files">Sequential zone files<a href="#sequential-zone-files" class="hash-link" aria-label="Direct link to Sequential zone files" title="Direct link to Sequential zone files">​</a></h4>
+<p>The size of sequential zone files that are grouped in the &quot;seq&quot; sub-directory
+represents the file&#x27;s zone-write-pointer position relative to the zone start
+sector.</p>
+<p>Sequential zone files can be written only sequentially, starting from the file
+end (that is, write operations can be only &quot;append writes&quot;). <code>zonefs</code> makes no
+attempt to accept random writes and will fail any write request that has a
+start offset that does not correspond to the end of the file, or to the end of
+the last write issued and still in-flight (for asynchronous I/O operations).</p>
+<p>Because dirty page writeback by the page cache does not guarantee a sequential
+write pattern, <em>zonefs</em> prevents buffered writes and writeable shared mappings
+on sequential files. Only direct I/O writes are accepted for these files.
+<em>zonefs</em> relies on the sequential delivery of write I/O requests to the device
+implemented by the block layer elevator (See
+<a href="/docs/linux/sched">Write Command Ordering</a>).</p>
+<p>There are no restrictions on the type of I/O used for read operations in
+sequential zone files. Buffered I/Os, direct I/Os and shared read mappings are
+all accepted.</p>
+<p>Truncating sequential zone files is allowed only down to 0, in which case, the
+zone is reset to rewind the file zone write pointer position to the start of
+the zone, or up to the zone size, in which case the file&#x27;s zone is transitioned
+to the FULL state (finish zone operation).</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="format-options">Format options<a href="#format-options" class="hash-link" aria-label="Direct link to Format options" title="Direct link to Format options">​</a></h3>
+<p>Several optional features of <em>zonefs</em> can be enabled at format time.</p>
+<ul>
+<li>Conventional zone aggregation: ranges of contiguous conventional zones can
+be aggregated into a single larger file instead of the default &quot;one file per
+zone&quot;.</li>
+<li>File ownership: By default, the owner UID and GID of zone files is 0 (root)
+but can be changed to any valid UID/GID.</li>
+<li>File access permissions: the default access permissions (640) can be changed.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="io-error-handling">IO error handling<a href="#io-error-handling" class="hash-link" aria-label="Direct link to IO error handling" title="Direct link to IO error handling">​</a></h3>
+<p>Zoned block devices can fail I/O requests for reasons similar to the reasons
+that regular block devices fail I/O requests, e.g. if there are bad sectors.
+But the standards that govern the behavior of zoned block devices also define
+additional conditions (in addition to these known I/O failure patterns) that
+can result in I/O errors.</p>
+<ul>
+<li>
+<p>A zone may transition to the read-only condition:
+Although the data that is already written in the zone is still readable, the
+zone can no longer be written. No user action on the zone (zone management
+command or read/write access) can change the zone condition back to a
+normal read/write state. While the reasons for the device to transition a
+zone to read-only state are not defined by the standards, a typical cause
+for such transition would be a defective write head on an HDD (all zones
+under this head are changed to read-only).</p>
+</li>
+<li>
+<p>A zone may transition to the offline condition:
+An offline zone can be neither read nor written. No user action can
+transition an offline zone back to an operational &quot;good state&quot;. Similar to
+zone read-only transitions, the reasons that a drive transitions a zone
+to the offline condition are undefined. A typical cause is (for example) a
+defective read-write head on an HDD that causes all zones on the platter
+under the broken head to be inaccessible.</p>
+</li>
+<li>
+<p>Unaligned write errors:
+These errors result from the device receiving a write request that has a
+start sector that does not correspond to the write-pointer position of the
+target zone. Although <em>zonefs</em> enforces sequential file write for
+sequential zones, unaligned write errors can still happen in the case of a
+partial failure of a very large direct I/O operation that is split into
+multiple BIOs/requests or asynchronous I/O operations. If one of the write
+requests within the set of sequential write requests that is issued to the
+device fails, all write requests that are queued after it will become
+unaligned and fail.</p>
+</li>
+<li>
+<p>Delayed write errors:
+As with regular block devices, if the device-side write cache is enabled,
+write errors can occur in ranges of previously-completed writes when the
+device write cache is flushed, e.g. on <code>fsync()</code>.  As in cases of immediate
+unaligned write errors, delayed write errors can propagate through a stream
+of cached sequential data for a zone, which can cause all data after the
+sector that caused the error to be dropped.</p>
+</li>
+</ul>
+<p>All I/O errors detected by <em>zonefs</em> are reported to the user with an error code
+returned for the system call that triggered or detected the error. The recovery
+actions taken by <em>zonefs</em> in response to I/O errors depend on the I/O type
+(read vs write) and on the reason for the error (bad sector, unaligned writes or
+zone condition change).</p>
+<ul>
+<li>
+<p>For read I/O errors, <em>zonefs</em> takes recovery action action only if the file
+zone is still in good condition and there is no inconsistency between the
+file inode size and its zone write pointer position. If a problem is
+detected, I/O error recovery is executed (see below table).</p>
+</li>
+<li>
+<p>For write I/O errors, <em>zonefs</em> I/O error recovery is always executed.</p>
+</li>
+<li>
+<p>A zone condition change to &quot;read-only&quot; or &quot;offline&quot; also always triggers
+<em>zonefs</em> I/O error recovery.</p>
+</li>
+</ul>
+<p><em>zonefs</em> minimal I/O error recovery can change a file&#x27;s size and its file
+access permissions.</p>
+<ul>
+<li>
+<p>File size changes:
+Immediate or delayed write errors in a sequential zone file can cause the
+file inode size to be inconsistent with the amount of data successfully
+written in the file zone. For example, the partial failure of a multi-BIO
+large write operation will cause the zone write pointer to advance partially,
+even though the entire write operation is reported as failed to the user.
+In such cases, the file inode size must be advanced to reflect the zone write
+pointer change and eventually allow the user to restart writing at the end of
+the file.
+A file size may also be reduced to reflect a delayed write error detected on
+fsync(): in this case, the amount of data effectively written in the zone may
+be less than originally indicated by the file inode size. After any such I/O
+error, <em>zonefs</em> always fixes the file inode size to reflect the amount of
+data persistently stored in the file zone.</p>
+</li>
+<li>
+<p>Access permission changes:
+A zone condition change to read-only is indicated with a change in the file
+access permissions, rendering the file read-only. This disables changes to
+the file attributes and data modification. For offline zones, all permissions
+(read and write) of the file are disabled.</p>
+</li>
+</ul>
+<p>Further action taken by <em>zonefs</em> I/O error recovery can be controlled by the
+user with the &quot;errors=xxx&quot; mount option. The table below summarizes the result
+of <em>zonefs</em> I/O error processing, depending on the mount option and on the zone
+conditions.</p>
+<center><table><thead><tr><th style="text-align:center">&quot;errors=xxx&quot; mount option</th><th style="text-align:center">Device zone condition</th><th style="text-align:center">File size</th><th style="text-align:center">File read</th><th style="text-align:center">File write</th><th style="text-align:center">Device read</th><th style="text-align:center">Device write</th></tr></thead><tbody><tr><td style="text-align:center">remount-ro</td><td style="text-align:center">good</td><td style="text-align:center">fixed</td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td></tr><tr><td style="text-align:center">remount-ro</td><td style="text-align:center">read-only</td><td style="text-align:center">as is</td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td></tr><tr><td style="text-align:center">remount-ro</td><td style="text-align:center">offline</td><td style="text-align:center">0</td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td></tr><tr><td style="text-align:center">zone-ro</td><td style="text-align:center">good</td><td style="text-align:center">fixed</td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td></tr><tr><td style="text-align:center">zone-ro</td><td style="text-align:center">read-only</td><td style="text-align:center">as is</td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td></tr><tr><td style="text-align:center">zone-ro</td><td style="text-align:center">offline</td><td style="text-align:center">0</td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td></tr><tr><td style="text-align:center">zone-offline</td><td style="text-align:center">good</td><td style="text-align:center">0</td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td></tr><tr><td style="text-align:center">zone-offline</td><td style="text-align:center">read-only</td><td style="text-align:center">0</td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td></tr><tr><td style="text-align:center">zone-offline</td><td style="text-align:center">offline</td><td style="text-align:center">0</td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td></tr><tr><td style="text-align:center">repair</td><td style="text-align:center">good</td><td style="text-align:center">fixed</td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td></tr><tr><td style="text-align:center">repair</td><td style="text-align:center">read-only</td><td style="text-align:center">as is</td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#00ff00">yes</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td></tr><tr><td style="text-align:center">repair</td><td style="text-align:center">offline</td><td style="text-align:center">0</td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td><td style="text-align:center"><span style="color:#ff0000">no</span></td></tr></tbody></table></center>
+<p>Further notes:</p>
+<ul>
+<li>The &quot;errors=remount-ro&quot; mount option is the default behavior of zonefs I/O
+error processing if no errors mount option is specified.</li>
+<li>With the &quot;errors=remount-ro&quot; mount option, the change of file access
+permissions to &quot;read-only&quot; applies to all files. The file system is remounted
+read-only.</li>
+<li>Access permission and file-size changes caused by the device transitioning
+zones to the offline condition are permanent. Remounting or reformatting the
+device with mkfs.zonefs (mkzonefs) will not change offline zone files back
+to a good state.</li>
+<li>All file access permission changes to read-only that are due to the device
+transitioning zones to the read-only condition are permanent. Remounting or
+reformatting the device will not re-enable file write access.</li>
+<li>File access permission changes implied by the &quot;remount-ro&quot;, &quot;zone-ro&quot; and
+&quot;zone-offline&quot; mount options are temporary for zones in a good condition.
+Unmounting and remounting the file system restores the previous default
+(format time values) access rights to the files affected.</li>
+<li>The repair mount option triggers only the minimal set of I/O error recovery
+actions (that is, file size fixes for zones in a good condition). Zones
+that are indicated as &quot;read-only&quot; or &quot;offline&quot; by the device still imply
+changes to the zone file access permissions as noted in the table above.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="mount-options">Mount options<a href="#mount-options" class="hash-link" aria-label="Direct link to Mount options" title="Direct link to Mount options">​</a></h3>
+<p><em>zonefs</em> defines the &quot;errors=<em>behavior</em>&quot; mount option to allow the user to
+specify zonefs behavior in response to I/O errors, inode size inconsistencies
+or zone condition changes. The defined behaviors are as follows.</p>
+<ul>
+<li>remount-ro (default)</li>
+<li>zone-ro</li>
+<li>zone-offline</li>
+<li>repair</li>
+</ul>
+<p>The run-time I/O error actions defined for each behavior are detailed in
+<a href="/docs/filesystems/zonefs#io-error-handling"><em>IO error handling</em></a>. Mount-time I/O errors
+cause the mount operation to fail.</p>
+<p>Read-only zones are handled differently at mount time than they are at
+run time. If a read-only zone is found at mount time, the zone is always
+treated in the same manner as offline zones (that is, all accesses are
+disabled and the zone file size set to 0). This is necessary, because the write
+pointer of read-only zones is defined as invalid by the ZBC and ZAC standards
+(which makes it impossible to discover the amount of data that has been
+written to the zone). In the case of a read-only zone that is discovered at
+run-time, as indicated in <a href="/docs/filesystems/zonefs#io-error-handling"><em>IO error
+handling</em></a>, the size of the zone file is left
+unchanged from its last updated value.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="user-space-tools">User Space Tools<a href="#user-space-tools" class="hash-link" aria-label="Direct link to User Space Tools" title="Direct link to User Space Tools">​</a></h3>
+<p>The <code>mkzonefs</code> tool is used to format zoned block devices for use with <em>zonefs</em>.
+This tool is available on <a href="https://github.com/westerndigitalcorporation/zonefs-tools" target="_blank">GitHub</a>.</p>
+<p><em>zonefs-tools</em> also includes a test suite that can be run against any zoned
+block device, including
+<a href="/docs/getting-started/zbd-emulation"><em>nullblk</em> block device created with zoned
+mode</a>.</p></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/filesystems/f2fs"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">f2fs</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/applications"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Overview</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#usage" class="table-of-contents__link toc-highlight">Usage</a></li><li><a href="#architectural-overview" class="table-of-contents__link toc-highlight">Architectural Overview</a><ul><li><a href="#on-disk-metadata" class="table-of-contents__link toc-highlight">On-Disk Metadata</a></li><li><a href="#zone-type-sub-directories" class="table-of-contents__link toc-highlight">Zone Type Sub-Directories</a></li><li><a href="#zone-files" class="table-of-contents__link toc-highlight">Zone files</a></li><li><a href="#format-options" class="table-of-contents__link toc-highlight">Format options</a></li><li><a href="#io-error-handling" class="table-of-contents__link toc-highlight">IO error handling</a></li><li><a href="#mount-options" class="table-of-contents__link toc-highlight">Mount options</a></li><li><a href="#user-space-tools" class="table-of-contents__link toc-highlight">User Space Tools</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/introduction/zoned-storage">Introduction to Zoned Storage</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/getting-started">Getting Started with Zoned Storage</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://app.element.io/#/room/#zonedstorage-general:matrix.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">Matrix<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/zonedstorage/shared_invite/zt-uyfut5xe-nKajp9YRnEWqiD4X6RkTFw" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://webchat.oftc.net/?channels=zonedstorage" target="_blank" rel="noopener noreferrer" class="footer__link-item">IRC @ OFTC<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/westerndigitalcorporation" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Organization<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 Western Digital
+	Corporation or its affiliates. All rights reserved.<br> By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use" target="_blank">Terms of Use</a> and <a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank">Privacy Statement</a>.  All example scripts and program snippets on this site are licensed under the <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CCO 1.0 Universal</a> license.<br>This site is built with <a href="https://docusaurus.io/" target="_blank">Docusaurus</a>.</div></div></div></footer></div>
+</body>
+</html>
