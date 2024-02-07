@@ -37,7 +37,7 @@ not been modified to implement fully-sequential write streams).
       block devices. Random writes to files by applications are transformed
       into sequential write streams by the file system, concealing the device
       constraints from the application. An example of this is the
-      [*F2FS*](/docs/linux/fs#f2fs) file system.
+      [*F2FS*](/docs/filesystems/f2fs) file system.
 
     - **Legacy File System**: With this implementation, an unmodified file
       system is used and the device-sequential write constraint is handled by a
@@ -59,7 +59,7 @@ applications which must ensure that data is written using sequential streams
 that start from the write-pointer positions of the zones.
 
 * **File Access Interface**: This special interface is implemented by the
-  [*zonefs*](/docs/linux/fs#zonefs) file system. *zonefs* is a very simple file
+  [*zonefs*](/docs/filesystems/zonefs) file system. *zonefs* is a very simple file
   system that exposes each zone of a zoned block device as a file. But unlike
   regular POSIX file systems, the sequential write constraint of the device is
   not automatically handled by zonefs. It is the responsibility of the

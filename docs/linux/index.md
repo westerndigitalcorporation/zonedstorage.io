@@ -31,6 +31,3 @@ zoned storage devices.
 * [Device Mapper](/docs/linux/dm): Learn how to use the device mapper
   infrastructure and setup device mapper targets with zoned block devices as
   backend storage.
-
-* [File Systems](/docs/linux/fs): Learn about Linux native file systems support
-  for zoned block devices.

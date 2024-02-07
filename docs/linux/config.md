@@ -91,7 +91,7 @@ title="dm-zoned device mapper target configuration with make menuconfig"/>
 
 ### *f2fs*
 
-Support for zoned block devices in the [*f2fs* file system](/docs/linux/fs#f2fs)
+Support for zoned block devices in the [*f2fs* file system](/docs/filesystems/f2fs)
 is automatically enabled with the `CONFIG_BLK_DEV_ZONED` configuration option.
 
 ### *zonefs*

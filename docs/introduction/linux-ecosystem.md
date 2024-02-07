@@ -73,7 +73,7 @@ kernel version.
    remove the zoned device access constraints from the application scope,
    implementation of sequential write streams and zone management can be
    simplified. The [*libzbd* library](/docs/tools/libzbd) provides functions to
-   help with this approach. Using the [*zonefs*](/docs/linux/fs#zonefs) file
+   help with this approach. Using the [*zonefs*](/docs/filesystems/zonefs) file
    system can also simplify application implementation.
 
 3. **Device mapper and POSIX file systems**
@@ -81,7 +81,7 @@ kernel version.
    If a user lacks software control at the application level but retains
    control over the choice of the version of the Linux kernel, more advanced
    kernel support features such as zoned block device compliant file systems
-   (e.g. [*btrfs*](/docs/linux/fs#btrfs)) can be used to hide zoned storage
+   (e.g. [*btrfs*](/docs/filesystems/btrfs)) can be used to hide zoned storage
    access constraints from the application. Users may also rely on a device
    mapper driver that exposes zoned storage devices as regular block devices
    (for instance, the [*dm-zoned* device mapper](/docs/linux/dm#dm-zoned)). If
