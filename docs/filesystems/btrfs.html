@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.5cd6be9b.css">
-<script src="/assets/js/runtime~main.a43c05e2.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.a299f646.js" defer="defer"></script>
 <script src="/assets/js/main.5c9ead0e.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard" data-theme="light">
@@ -78,11 +78,10 @@ a high queue depth without violating the device zone&#x27;s sequential write
 constraints. Every write to dedicated meta-data block groups is serialized
 with a file-system-global zoned metadata I/O lock.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="zone-capacity-support">Zone Capacity Support<a href="#zone-capacity-support" class="hash-link" aria-label="Direct link to Zone Capacity Support" title="Direct link to Zone Capacity Support">​</a></h3>
-<p>ZNS SSDs can have a per <a href="/docs/introduction/zns#zone-capacity-and-zone-size">zone capacity that is smaller than the zone
-size</a>. To support ZNS
+<p>SSDs with Zoned Namespace support can have a per <a href="/docs/introduction/zns#zone-capacity-and-zone-size">zone capacity that is smaller than the zone
+size</a>. To support such
 devices, <em>btrfs</em> ensures that block allocation and accounting considers only
-the blocks in a zone that are within the zone capacity. This support for NVMe
-ZNS zone capacity has been available since Linux kernel version 5.16. Also,
+the blocks in a zone that are within the zone capacity. This support for zone capacity has been available since Linux kernel version 5.16. Also,
 since kernel 5.16, <em>btrfs</em> keeps track of the number of active zones on
 a device and issues &quot;Zone Finish&quot; commands as needed.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="limitations">Limitations<a href="#limitations" class="hash-link" aria-label="Direct link to Limitations" title="Direct link to Limitations">​</a></h3>
@@ -99,8 +98,8 @@ zoned mode of the file-system.</p>
 <p>In order to use <em>btrfs</em> on zoned block devices, the following minimum system
 requirements must be met:</p>
 <ul>
-<li>Linux kernel 5.12 (for SMR) or 5.16 (for NVMe ZNS)</li>
-<li><em>btrfs-progs</em> 5.12 (for SMR) or 5.15 (for NVMe ZNS)</li>
+<li>Linux kernel 5.12 (for SMR) or 5.16 (for SSD /w ZNS support)</li>
+<li><em>btrfs-progs</em> 5.12 (for SMR) or 5.15 (for SSD /w ZNS support)</li>
 <li><em>util-linux</em> 2.38</li>
 </ul>
 <p>The source code for <em>btrfs-progs</em> <a href="https://github.com/kdave/btrfs-progs" target="_blank">is hosted on GitHub</a>. More information on <em>util-linux</em> can be

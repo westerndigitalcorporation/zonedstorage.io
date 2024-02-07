@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.5cd6be9b.css">
-<script src="/assets/js/runtime~main.a43c05e2.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.a299f646.js" defer="defer"></script>
 <script src="/assets/js/main.5c9ead0e.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard" data-theme="light">
@@ -19,8 +19,8 @@ of &quot;wandering trees&quot; and the high &quot;cleaning overhead&quot;).</p>
 <p><em>f2fs</em> supports various parameters not only for configuring on-disk layout but
 also for selecting allocation and cleaning algorithms.</p>
 <div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>System Requirements</div><div class="admonitionContent_BuS1"><ul>
-<li>Linux kernel: 5.12+ (for SMR) or 5.16+ (for ZNS).</li>
-<li>f2fs-tools: 1.12+ (for SMR) or 1.14+ (for ZNS).</li>
+<li>Linux kernel: 5.12+ (for SMR) or 5.16+ (for SSD /w ZNS support).</li>
+<li>f2fs-tools: 1.12+ (for SMR) or 1.14+ (for SSD /w ZNS support).</li>
 <li>I/O scheduler: <a href="/docs/linux/sched#block-io-scheduler-configuration">mq-deadline to be configured for the block device</a>.</li>
 </ul></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="usage">Usage<a href="#usage" class="hash-link" aria-label="Direct link to Usage" title="Direct link to Usage">​</a></h2>
@@ -75,10 +75,10 @@ overhead&quot;, because writes are always sequential and do not require on-disk
 temporary buffering. <em>f2fs</em> garbage collection (segment cleanup) generates
 overhead only for workloads that frequently delete files or modify files&#x27; data.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="zone-capacity-support">Zone Capacity Support<a href="#zone-capacity-support" class="hash-link" aria-label="Direct link to Zone Capacity Support" title="Direct link to Zone Capacity Support">​</a></h3>
-<p>ZNS SSDs can have a per <a href="/docs/introduction/zns#zone-capacity-and-zone-size">zone capacity that is smaller than the zone
-size</a>. To support ZNS
+<p>SSDs with Zoned Namespace support can have a per <a href="/docs/introduction/zns#zone-capacity-and-zone-size">zone capacity that is smaller than the zone
+size</a>. To support such
 devices, <em>f2fs</em> ensures that block allocation and accounting considers only the
-blocks in a zone that are within the zone&#x27;s capacity. This support for NVMe ZNS
+blocks in a zone that are within the zone&#x27;s capacity. This support for
 zone capacity has been available since it was introduced in Linux kernel version
 5.10.</p>
 <p><em>f2fs</em> volumes need some storage space that is randomly writable in order
