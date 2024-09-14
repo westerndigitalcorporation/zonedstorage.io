@@ -13,7 +13,7 @@ disks. The command implementation of *libzbc* is compliant with the latest
 published versions of the ZBC and ZAC standards as defined by INCITS technical
 committees T10 (for ZBC) and T13 (for ZAC).
 
-In addition to supporting ZBC and ZAC disks, *libzbc* implements an emulation
+In addition to supporting ZBC and ZAC disks, *libzbc* may implement an emulation
 mode that allows the library to imitate the behavior of a host managed zoned
 disk, using a regular file or a standard block device as the backing store.
 
@@ -55,16 +55,36 @@ that are dependent on the device interface:
   connected to such an adapter.
 * **Zoned Block Device Driver** This driver uses the kernel ZBD interface to
   control both ZBC and ZAC disks. This driver is only available if kernel
-  zoned block device support is present and enabled.
+  zoned block device support is present and enabled. This driver is no longer
+  available in *libzbc* v6 and on.
 * **File Emulation Driver** This driver emulates a host managed ZBC disk using 
   a regular file or regular block device as backend storage. This driver is 
   intended for development only. A more advanced ZBC disk emulation solution 
-  is provided by the [*tcmu-runner*](/docs/tools/tcmu-runner) project.
+  is provided by the [*tcmu-runner*](/docs/tools/tcmu-runner) project. This
+  driver is no longer available in *libzbc* v6 an on.
 
 The figure below shows this structure.
 
 <Image src="tools-libzbc.png"
-title="libzbc internal backend drivers organization"/>
+title="libzbc v5.0.0 - v6.0.0 internal backend drivers organization"/>
+
+## *libzbc* versions
+
+The latest release of *libzbc*, version 6.0.0, has introduced some functionality
+changes that are not backwards compatible. In particular,
+**Zoned Block Device Driver** and **File Emulation Driver** are no longer
+available. The reason for the block driver removal is to avoid the overlap in
+functionality with [*libzbd*](libzbd.md). The file emulation driver has been
+taken out because the modern QEMU and [*tcmu-runner*](tcmu-runner.md) provide
+much more extensive and flexible means for ZBD emulation, making *libzbc*-based
+emulation obsolete.
+
+The figure below illustrates the new *libzbc* v6.0.0 structure.
+
+<Image src="tools-libzbc6.png"
+title="libzbc v5.0.0 - v6.0.0 internal backend drivers organization"/>
+
+## State model
 
 *libzbc* provides functions for discovering the zone configuration of a zoned
 device and for accessing the device. Accesses to the device may result in
@@ -114,6 +134,38 @@ The main functions provided by *libzbc* are as follows:
 
 </center>
 
+Since the release 6.0.0, additional *libzbc* API functions are available.
+Most of them have been added to support certain new features defined in
+ZAC-2/ZBC-2 standard specification.
+
+The two new ZAC-2/ZBC-2 features that *libzbc* 6.0.0 supports are
+
+* Zone Domains/Zone Realms protocol that is commonly used to control DH-SMR
+  (aka XMR) zoned devices
+* the ability to specify zone counts for zone operations
+
+The new API functions that are only available from release 6.0.0 and onward
+are listed below.
+
+<center>
+
+| Function | Description |
+| -------- | ----------- |
+| zbc_zone_group_op() | Execute a zone operation on a group of zones |
+| zbc_open_zones() | Open a group of zones |
+| zbc_close_zones() | Close a group of zones |
+| zbc_finish_zones() | Finish a group of zones |
+| zbc_reset_zones() | Reset a group of zones |
+| zbc_report_domains() | Get zone domain information |
+| zbc_report_realms() | Get zone realm information |
+| zbc_report_nr_realms() | Get the number of realms |
+| zbc_zone_activate() | Activate zones at a new zone domain |
+| zbc_zone_query() | Query about possible results of zone activation |
+| zbc_get_nr_actv_records() | Get the number of activation records |
+| zbc_zone_activation_ctl() | Read or change persistent device settings |
+
+</center>
+
 More detailed information about the  usage and behavior of these functions can
 be found in the comments of <a
 href="https://github.com/westerndigitalcorporation/libzbc/blob/master/include/libzbc/zbc.h"
@@ -147,6 +199,17 @@ development and tests:
 
 </center>
 
+*libzbc* 6.0.0 adds one new function to the test and development portion
+of the API:
+
+<center>
+
+| Function | Description |
+| :------- | :---------- |
+| zbc_version() | Return the library version |
+
+</center>
+
 All functions behave in the same manner regardless of the type of disk that is
 used. The only exception to this is the `zbc_errno()` function's inability to
 report detailed error information when the zoned block device driver is used.
@@ -176,8 +239,23 @@ shown in the table below:
 
 </center>
 
+*libzbc* release 6.0.0 introduces a few additional tools to facilitate
+Zone Domains/Zone Realms support. These tools are:
+
+<center>
+
+| Tool | Description |
+| :--- | :---------- |
+| zbc_report_domains | Report zone domains |
+| zbc_report_realms | Report zone realms |
+| zbc_zone_activate | Activate or query zones at a new zone domain |
+| zbc_dev_control | Read or change persistent device settings |
+
+</center>
+
 The following tools are provided to create and modify the regular file or
 regular block device used as backend storage with *libzbc* emulation mode.
+These tools are no longer available as of v6.0.0.
 
 <center>
 
@@ -377,6 +455,10 @@ interface ("reset zone write pointer", "open zone", "close zone", etc).
 <Image src="tools-libzbc-gzbc.png" title="gzbc screeshot"/>
 
 ## Emulation Mode
+
+:::note
+Emulation mode is only available in *libzbc* prior to v6.0.0.0.
+:::
 
 *libzbc* emulation mode requires a regular file or a regular block device as
 backend storage. The size of the file or the capacity of the block device is
