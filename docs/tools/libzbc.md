@@ -57,9 +57,9 @@ that are dependent on the device interface:
   control both ZBC and ZAC disks. This driver is only available if kernel
   zoned block device support is present and enabled. This driver is no longer
   available in *libzbc* v6 and on.
-* **File Emulation Driver** This driver emulates a host managed ZBC disk using 
-  a regular file or regular block device as backend storage. This driver is 
-  intended for development only. A more advanced ZBC disk emulation solution 
+* **File Emulation Driver** This driver emulates a host managed ZBC disk using
+  a regular file or regular block device as backend storage. This driver is
+  intended for development only. A more advanced ZBC disk emulation solution
   is provided by the [*tcmu-runner*](/docs/tools/tcmu-runner) project. This
   driver is no longer available in *libzbc* v6 an on.
 
@@ -176,8 +176,8 @@ default as `/usr/include/libzbc/zbc.h`.
 multi-process applications. This means that it is the responsibility of
 applications to synchronize the execution of conflicting operations that target
 the same zone. A typical example of such a case is "concurrent write operations
-to the same zone by multiple threads", which can result in write errors if the 
-application does not have write ordering control. 
+to the same zone by multiple threads", which can result in write errors if the
+application does not have write ordering control.
 
 The following functions are also provided by *libzbc* to facilitate application
 development and tests:
