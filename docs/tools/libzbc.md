@@ -217,7 +217,7 @@ The reason for this is that the kernel I/O stack does not have the ability to
 propagate up to the application the detailed information that is provided in
 SCSI/ATI sense data for failed commands.
 
-## Utilities
+## Tools
 
 *libzbc* provides several command line applications for manipulating zoned
 disks by calling the library functions. The list of applications provided is
@@ -266,7 +266,7 @@ These tools are no longer available as of v6.0.0.
 
 </center>
 
-All utilities output a help message when executed without any argument:
+All tools output a help message when executed without any argument:
 
 ```plaintext
 # zbc_report_zones
