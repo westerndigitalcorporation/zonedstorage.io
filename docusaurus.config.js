@@ -19,6 +19,11 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
+
   plugins: [
     /**
      * Google analytics plugin is already included with preset-classic
@@ -54,9 +59,6 @@ const config = {
 
       /** whether to index static pages (/404.html is never indexed) */
       indexPages: false,
-
-      /** language of your documentation */
-      language: "en",
 
       /**
        * Setting this to "none" will prevent the default CSS to be included. The default CSS
