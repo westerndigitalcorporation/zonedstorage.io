@@ -7,20 +7,21 @@ sidebar_label: Write Ordering Control
 # Write Ordering Control
 
 Historically, the Linux&reg; kernel block I/O stack (i.e., the block layer and
-the SCSI layer) has never guaranteed the exact execution order of block I/O
-requests. The exact execution order of block I/O requests cannot be guaranteed
+the SCSI layer) have never guaranteed the exact execution order of block I/O
+requests. The exact processing order of block I/O requests cannot be guaranteed
 due to the asynchronous nature of the execution in the kernel of block I/O
-requests and the necessity of a fine-granularity lock model for the device
-request queue (to minimize lock-contention overhead when multiple contexts 
-issue I/O requests to a block device at the same time).
+requests and the necessity of a fine-granularity locking model for the device
+request queue,  to minimize lock-contention overhead when multiple contexts
+simultaneously issue I/O requests to a block device.
 
 A direct result of this design is the inability to give guarantees to a well-
-behaving ZBD-compliant application that write commands for a zone will be
-delivered in increasing LBA order (matching the zone sequential write
-constraint).
+behaving zoned block device compliant application that write commands for a zone
+will be delivered sequentially in increasing LBA order (matching the zone
+sequential write constraint).
 
-To address this problem, the kernel ZBD support adds *zone write locking* to
-ensure that write requests are processed in order per zone.
+To address this problem, the kernel zoned block device support implements
+either *zone write locking*  or *zone write plugging* to ensure that write
+requests are processed sequentially per zone.
 
 ## Zone Write Locking
 
@@ -28,7 +29,7 @@ Zone write locking implements a per-zone write lock to serialize the execution
 of write requests that target the same zone. This feature does not guarantee
 that write commands are always issued at the location of the zone write
 pointer: this is the responsibility of the write I/O issuer. Zone write
-locking guarantees only that the order in which write commands are issued
+locking only guarantees that the order in which write commands are issued
 by an application, file system, or device mapper target will be respected by
 the block I/O stack. A well-behaved user of zoned block devices will thus
 avoid unaligned write command failures.
@@ -190,17 +191,46 @@ depth is possible when there are read accesses and if multiple zones are being
 written simultaneously.
 :::
 
+## Zone Write Plugging
+
+Zone write plugging was introduced with kernel 6.10.0 as a replacement for zone
+write locking. Zone write plugging is very similar in concept to zone write
+locking: it limits the number of in-flight write I/O request to at most one per
+zone to avoid breaking the sequential write pattern of the I/O issuer.
+
+However, unlike zone write locking which is implemented in the *mq-deadline*
+block I/O scheduler, zone write plugging is implemented directly in the upper
+submission path of the block layer and thus does not depend on the block I/O
+scheduler being used.
+
+Zone write locking operates using a per-zone list of block I/O write requests
+(BIOs) to throttle write operations to a zone. If a zone is not being written
+already when a new write operation is submitted, the write request is executed
+immediately. Otherwise, the new write request is added to the tail of the list
+of write BIOs for the target zone. Upon completion of the in-flight write for
+the zone, the first write BIO in the zone list is automatically issued, thus
+always maintaining at most one write I/O per zone at any time.
+
+Similarly to zone write locking, zone write plugging does not affect read
+commands in any way. Read requests are not serialized using the per zone list of
+BIO.
+
 ## Block I/O Scheduler Configuration
 
 The *deadline* and *mq-deadline* schedulers must be enabled in the kernel
-compilation configuration. Refer to the
-[Write Ordering Control](/docs/linux/config#write-ordering-control) section for
-details.
+compilation configuration for kernels that use zone write locking, that is,
+kernels from version 4.16 up to version 6.9. From kernel 6.10 onward, the
+*mq-deadline* scheduler can still be used for zoned block devices (e.g. SMR
+HDDs) but is not a requirement for write ordering control.
+
+Refer to the section
+[Write Ordering Control](/docs/linux/config#write-ordering-control) for details.
 
 :::note
 The legacy single queue block I/O path was removed from the kernel in version
 5.0. As of kernel version 5.0, the *deadline* scheduler cannot be enabled. The
-*mq-deadline* scheduler is the only ZBD compliant scheduler.
+*mq-deadline* scheduler is the only zoned block device compliant scheduler for
+kernels implementing zone write locking (kernel versions from 5.0 up to 6.9).
 :::
 
 ### Manual Configuration

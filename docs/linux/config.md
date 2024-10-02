@@ -30,17 +30,18 @@ device mappers, and file systems).
 
 ## Write Ordering Control
 
-Write ordering control is achieved through the *deadline* (legacy single queue
+For kernels starting with versions 4.16 and up to version 6.9, write operation
+ordering control is achieved using the *deadline* (legacy single queue
 block I/O path) and *mq-deadline* (multi-queue block I/O path) block I/O
-scheduler (see [Write Ordering Control](/docs/linux/sched)). *deadline* and
+schedulers (see [Write Ordering Control](/docs/linux/sched)). *deadline* and
 *mq-deadline* zoned block device support is automatically enabled if the
 `CONFIG_BLK_DEV_ZONED` configuration option is set.
 
-It is mandatory to enable this scheduler for zoned block devices. The
-configuration option `CONFIG_MQ_IOSCHED_DEADLINE` enables the *mq-deadline*
-scheduler. The configuration option `CONFIG_IOSCHED_DEADLINE` enables the
-*deadline* scheduler. Both options can be selected from the *IO Schedulers* top
-menu.
+It is mandatory to enable this scheduler for zoned block devices for kernel
+versions 4.16 to 6.9. The configuration option `CONFIG_MQ_IOSCHED_DEADLINE`
+enables the *mq-deadline* scheduler. The configuration option
+`CONFIG_IOSCHED_DEADLINE` enables the *deadline* scheduler. Both options can be
+selected from the *IO Schedulers* top menu.
 
 <Image src="linux-config-sched.png"
 title="I/O scheduler configuration with make menuconfig"/>
@@ -49,6 +50,13 @@ As of kernel version 5.0, support for the legacy block-layer single-queue I/O
 path has been removed. Only the *mq-deadline* scheduler remains. As of kernel
 version 5.2, `CONFIG_MQ_IOSCHED_DEADLINE` is automatically selected when the
 `CONFIG_BLK_DEV_ZONED` configuration option is set.
+
+Strating with kernel 6.10, write ordering control is implemented by the block
+I/O layer, outside of the block I/O scheduler, using
+[zone write plugging](/docs/linux/sched#zone-write-plugging). This new
+implementation still allows using the *mq-deadline* block I/O scheduler but does
+not mandate its use with a zoned block device. That is, the *none* scheduler can
+be used with fast NVMe SSDs supporting the zoned namespace feature.
 
 ## Device Drivers Configuration
 
