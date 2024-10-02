@@ -53,36 +53,36 @@ that are dependent on the device interface:
   SAT may be provided either by the kernel *libata* subsystem for ATA disks
   connected to SATA adapters or by an SAS host bus adapter (HBA) for SATA disks
   connected to such an adapter.
-* **Zoned Block Device Driver** This driver uses the kernel ZBD interface to
-  control both ZBC and ZAC disks. This driver is only available if kernel
-  zoned block device support is present and enabled. This driver is no longer
-  available in *libzbc* v6 and on.
+* **Zoned Block Device Driver** This driver uses the kernel zoned block devie
+  interface to control both ZBC and ZAC disks. This driver is only available if
+  kernel zoned block device support is present and enabled. This driver is no
+  longer available in *libzbc* v6.0.0 and upward.
 * **File Emulation Driver** This driver emulates a host managed ZBC disk using
   a regular file or regular block device as backend storage. This driver is
   intended for development only. A more advanced ZBC disk emulation solution
   is provided by the [*tcmu-runner*](/docs/tools/tcmu-runner) project. This
-  driver is no longer available in *libzbc* v6 an on.
+  driver is no longer available in *libzbc* v6.0.0.0 and upward.
 
 The figure below shows this structure.
 
 <Image src="tools-libzbc.png"
 title="libzbc v5.0.0 - v6.0.0 internal backend drivers organization"/>
 
-## *libzbc* versions
+The latest version of *libzbc*, version 6.0.0, does not support the
+**Zoned Block Device Driver**. This change avoids the overlap in functionality
+with [*libzbd*](libzbd.md). In practice, it means that *libzbc* is now a pure
+passthrough library which never use the kernel zoned block devie management
+interface.
 
-The latest release of *libzbc*, version 6.0.0, has introduced some functionality
-changes that are not backwards compatible. In particular,
-**Zoned Block Device Driver** and **File Emulation Driver** are no longer
-available. The reason for the block driver removal is to avoid the overlap in
-functionality with [*libzbd*](libzbd.md). The file emulation driver has been
-taken out because the modern QEMU and [*tcmu-runner*](tcmu-runner.md) provide
-much more extensive and flexible means for ZBD emulation, making *libzbc*-based
+*libzbc* version 6.0.0 also removes the **File Emulation Driver** because
+recent versions of QEMU and [*tcmu-runner*](tcmu-runner.md) provide much more
+extensive and flexible means for emulating a ZBC device, making *libzbc*-based
 emulation obsolete.
 
 The figure below illustrates the new *libzbc* v6.0.0 structure.
 
 <Image src="tools-libzbc6.png"
-title="libzbc v5.0.0 - v6.0.0 internal backend drivers organization"/>
+title="libzbc v6.0.0 upward internal backend drivers organization"/>
 
 ## State model
 
