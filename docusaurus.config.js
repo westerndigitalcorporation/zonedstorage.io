@@ -152,14 +152,6 @@ const config = {
                 label: 'Matrix',
                 href: 'https://app.element.io/#/room/#zonedstorage-general:matrix.org',
               },
-              {
-                label: 'Slack',
-                href: 'https://join.slack.com/t/zonedstorage/shared_invite/zt-uyfut5xe-nKajp9YRnEWqiD4X6RkTFw',
-              },
-              {
-                label: 'IRC @ OFTC',
-                href: 'https://webchat.oftc.net/?channels=zonedstorage',
-              },
             ],
           },
           {
