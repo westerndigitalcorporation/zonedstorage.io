@@ -7,7 +7,7 @@ slug: /linux
 
 # Linux Kernel Support
 
-This collection of articles describes Linux&reg; kernel features supporting
+This collection of articles describes Linux&reg; kernel core features supporting
 zoned storage devices.
 
 * [Support Overview](/docs/linux/overview): See an overview of Linux kernel and
@@ -31,3 +31,7 @@ zoned storage devices.
 * [Device Mapper](/docs/linux/dm): Learn how to use the device mapper
   infrastructure and setup device mapper targets with zoned block devices as
   backend storage.
+
+Several Linux file systems include native support for zoned block devices. The
+[File Systems](/docs/filesystems) section of the documentation provides
+more details.
