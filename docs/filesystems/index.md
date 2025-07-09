@@ -29,4 +29,4 @@ zones to the user and thus mandates using a zone compliant application.
 ## Other File Systems
 
 File systems lacking native support for zoned block devices can be used
-together with the [*dm-zoned*](/docs/linux/dm#dm-zoned) device mapper.
+together with the [*dm-zoned*](/docs/device-mapper/dm-zoned) device mapper.

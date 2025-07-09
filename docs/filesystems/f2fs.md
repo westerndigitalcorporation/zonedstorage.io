@@ -128,9 +128,10 @@ composed entirely of sequential zones cannot be used with *F2FS* as a
 standalone device and they require a multi-device setup in order to place
 metadata blocks on randomly writable storage. *F2FS* supports multi-device
 setup where multiple block device address spaces are linearly concatenated to
-form a logically larger block device. The [*dm-linear*](/docs/linux/dm#dm-linear)
-device mapper target can also be used to create a logical device that is
-composed of both conventional zones and sequential zones suitable for *F2FS*.
+form a logically larger block device. The
+[*dm-linear*](/docs/device-mapper/dm-linear) device mapper target can also be
+used to create a logical device that is composed of both conventional zones and
+sequential zones suitable for *F2FS*.
 
 *F2FS* zoned block device support was achieved using the following principles.
 
@@ -180,7 +181,7 @@ maximum volume size of 16 TB. Any device or combination of devices (for a
 multi-device volume) with a total capacity that is larger than 16 TB cannot 
 be used with *F2FS*.
 
-To overcome this limit, the [*dm-linear*](/docs/linux/dm#dm-linear) device
+To overcome this limit, the [*dm-linear*](/docs/device-mapper/dm-linear) device
 mapper target can be used to partition a zoned block device into serviceable,
 smaller logical devices. This configuration must ensure that each logical device
 that is created is assigned a sufficient amount of conventional zones to store

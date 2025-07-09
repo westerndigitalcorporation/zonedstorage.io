@@ -84,8 +84,8 @@ kernel version.
    (e.g. [*btrfs*](/docs/filesystems/btrfs)) can be used to hide zoned storage
    access constraints from the application. Users may also rely on a device
    mapper driver that exposes zoned storage devices as regular block devices
-   (for instance, the [*dm-zoned* device mapper](/docs/linux/dm#dm-zoned)). If
-   this solution is used, existing file systems can be used without any
+   (for instance, the [*dm-zoned* device mapper](/docs/device-mapper/dm-zoned)).
+   If this solution is used, existing file systems can be used without any
    modification.
 
 More information on the features provided by the Linux kernel for different

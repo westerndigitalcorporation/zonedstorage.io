@@ -68,7 +68,7 @@ a zone.
 
 Support for partition tables on host managed zoned block devices has been
 removed from the kernel with version 5.5.0. Using the
-[*dm-linear*](/docs/linux/dm#dm-linear) device mapper target to logically
+[*dm-linear*](/docs/device-mapper/dm-linear) device mapper target to logically
 isolate smaller portions of a host managed device is the replacement and
 preferred solution.
 

@@ -43,13 +43,13 @@ not been modified to implement fully-sequential write streams).
       system is used and the device-sequential write constraint is handled by a
       device mapper target driver that exposes the zoned block device as a
       regular block device. This device mapper is called *dm-zoned*. Its
-      characteristics and use are discussed in detail in [the dm-zoned section
-      of the "Device Mapper" guide ](/docs/linux/dm#dm-zoned).
+      characteristics are discussed in detail
+      [here](/docs/device-mapper/dm-zoned).
 
 * **Raw Block Access Interface** This is the raw block device file access
   interface that can be used by applications to directly access data stored on
   the device. Similar to the legacy file system case, this interface is
-  implemented using the [*dm-zoned*](/docs/linux/dm#dm-zoned) device mapper
+  implemented using the [*dm-zoned*](/docs/device-mapper/dm-zoned) device mapper
   target driver to hide the sequential write constraints from the application.
 
 Three additional interfaces are available to applications that have been
@@ -73,8 +73,8 @@ that start from the write-pointer positions of the zones.
   [*Linux System Utilities*](/docs/tools/util-linux), for example, use this
   interface. Physical zoned block devices, as well as logically-created zoned
   block devices (e.g. zoned block devices created with the
-  [*dm-linear*](/docs/linux/dm#dm-linear) device mapper target), support this
-  interface. The [*libzbd*](/docs/tools/libzbd) user library and tools can
+  [*dm-linear*](/docs/device-mapper/dm-linear) device mapper target), support
+  this interface. The [*libzbd*](/docs/tools/libzbd) user library and tools can
   simplify the implementation of applications that use this interface.
 
 * **Passthrough Device Access Interface** This is the interface (provided by

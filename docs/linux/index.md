@@ -28,10 +28,11 @@ zoned storage devices.
 * [Partitions](/docs/linux/part): Learn more about the kernel support for
   partition tables on zoned block devices.
 
-* [Device Mapper](/docs/linux/dm): Learn how to use the device mapper
-  infrastructure and setup device mapper targets with zoned block devices as
-  backend storage.
+In addition to these core block device features, different kernel subsystems
+support zoned block devices.
 
-Several Linux file systems include native support for zoned block devices. The
-[File Systems](/docs/filesystems) section of the documentation provides
-more details.
+* The [Device Mapper](/docs/device-mapper) subsystem provides several target
+  drivers supporting zoned block devices.
+
+* Several Linux [file systems](/docs/filesystems) include native support for
+  zoned block devices.

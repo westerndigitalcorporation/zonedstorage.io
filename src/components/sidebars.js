@@ -58,7 +58,19 @@ const sidebars = {
         'linux/zbd-api',
         'linux/sched',
         'linux/part',
-        'linux/dm',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Device Mapper',
+      collapsed: true,
+      items: [
+        'device-mapper/index',
+        'device-mapper/dm-linear',
+        'device-mapper/dm-crypt',
+        'device-mapper/dm-zoned',
+        'device-mapper/dm-flakey',
+        'device-mapper/dm-delay'
       ],
     },
     {
