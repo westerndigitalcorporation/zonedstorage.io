@@ -41,6 +41,8 @@ const config = {
       /** whether to index docs pages */
       indexDocs: true,
 
+      language: ['en'],
+
       /**
        * Whether to also index the titles of the parent categories in the
        * sidebar of a doc page:
