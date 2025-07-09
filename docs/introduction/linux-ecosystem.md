@@ -81,12 +81,12 @@ kernel version.
    If a user lacks software control at the application level but retains
    control over the choice of the version of the Linux kernel, more advanced
    kernel support features such as zoned block device compliant file systems
-   (e.g. [*btrfs*](/docs/filesystems/btrfs)) can be used to hide zoned storage
-   access constraints from the application. Users may also rely on a device
-   mapper driver that exposes zoned storage devices as regular block devices
-   (for instance, the [*dm-zoned* device mapper](/docs/device-mapper/dm-zoned)).
-   If this solution is used, existing file systems can be used without any
-   modification.
+   (e.g. [*XFS*](/docs/filesystems/xfs) and [*BTRFS*](/docs/filesystems/btrfs))
+   can be used to hide zoned storage access constraints from the application.
+   Users may also rely on a device mapper driver that exposes zoned storage
+   devices as regular block devices (for instance, the [*dm-zoned* device
+   mapper](/docs/device-mapper/dm-zoned)).  If this solution is used, existing
+   file systems can be used without any modification.
 
 More information on the features provided by the Linux kernel for different
 versions can be found [here](/docs/linux/overview).
@@ -101,4 +101,3 @@ distributions.
 
 Open source tools and libraries that support zoned storage are documented in the
 [Tools and Libraries](/docs/tools) section.
-
