@@ -5,40 +5,28 @@ sidebar_label: Overview
 slug: /filesystems
 ---
 
+Linux includes several general purpose file systems with native zoned block
+device support.
+
 ## Supported File Systems
 
-Multiple file systems support zoned block devices. This collection of file systems
-have support for zoned block devices:
+The list of Linux file systems with native zoned block device support is as
+follows.
 
-* [btrfs](/docs/filesystems/btrfs)
-* [f2fs](/docs/filesystems/f2fs)
-* [zonefs](/docs/filesystems/zonefs)
+* [XFS](/docs/filesystems/xfs)
+* [BTRFS](/docs/filesystems/btrfs)
+* [F2FS](/docs/filesystems/f2fs)
 
-Other file systems, with does not natively support zoned block devices, can be used
-together with a device mapper, such as [*dm-zoned*](/docs/linux/dm#dm-zoned).
+These general purpose file systems are recommended for applications that cannot
+be easily modified to use a zoned block device directly.
 
-## In-progress Work
+In addition to these file systems, the Linux kernel also provides the
+[zonefs file system](/docs/filesystems/zonefs) as an alternative interface for
+using zoned block device files directly. Unlike the general purpose file systems
+listed above, *zonefs* exposes the sequential write constraint of the device
+zones to the user and thus mandates using a zone compliant application.
 
-### XFS
+## Other File Systems
 
-*XFS* currently does not support zoned block devices. An early <a href="http://xfs.org/images/f/f6/Xfs-smr-structure-0.2.pdf"
-target="_blank"> design document</a> discussed the development work necessary
-to support host aware and host managed disks with *XFS*. Parts of this design
-have already been implemented and included into the kernel stable releases
-(e.g. the "per inode reverse block mapping b-trees" feature). However, more
-work is necessary to fully support zoned block devices and is in active development.
-
-### ext4
-
-Attempts at improving *ext4* performance with host aware zoned block devices by
-making changes to the file system journal management are described in in <a
-href="https://lwn.net/Articles/720226/" target="_blank">this article</a>. These
-changes are small and succeed in maintaining good performance. However, support
-for host managed zoned block devices is not provided, because some of the
-fundamental aspects of *ext4* design cannot easily be changed to match host
-managed device constraints.
-
-The field of host optimizations for host aware zoned block devices remains in
-the research phase and is not included in *ext4* stable kernel releases. It
-should also be noted that *ext4* does not support host managed disks. 
-
+File systems lacking native support for zoned block devices can be used
+together with the [*dm-zoned*](/docs/linux/dm#dm-zoned) device mapper.

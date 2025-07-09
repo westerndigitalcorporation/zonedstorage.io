@@ -67,6 +67,7 @@ const sidebars = {
       collapsed: true,
       items: [
         'filesystems/index',
+        'filesystems/xfs',
         'filesystems/btrfs',
         'filesystems/f2fs',
         'filesystems/zonefs'
