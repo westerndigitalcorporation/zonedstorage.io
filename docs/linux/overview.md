@@ -99,7 +99,7 @@ The figure below summarizes the evolution of zoned block device support with
 kernel versions.
 
 <Image src="linux-versions.png"
-title="Kernel kernel versions and ZBD features"/>
+title="Kernel versions and supported features"/>
 
 * **Passthrough Access Support (*SG Access*)** Support for exposing host managed
   ZBC/ZAC hard-disks as SCSI generic (SG) nodes was officially added to kernel
@@ -161,8 +161,21 @@ title="Kernel kernel versions and ZBD features"/>
   characteristics (ZOC), and also requires that the device implements the
   optional Zone Append command.
 
-Improvements to the kernel zoned block device support are still ongoing. Support
-for new file systems (e.g. *btrfs*) will be released in the coming months.
+* **BTRFS Support** Support for the [BTRFS file system](/docs/filesystems/btrfs)
+  was added in kernel version 5.12. This POSIX compliant general purpose
+  file system completely hides the sequential write constraint of zoned block
+  devices to users, and thus allows the execution of unmodified applications
+  using files to manage data.
+
+* **Zone Write Plugging** Kernel version 6.10 introduced an improved write
+  ordering control for zoned block devices. This is implemented as a generic
+  feature of the block layer. [Zone Write
+  Plugging](/docs/linux/sched#zone-write-plugging) replaces the older write
+  ordering [Zone Write Locking](/docs/linux/sched#zone-write-locking) mechanism
+  implemented within the *mq-deadline* block I/O scheduler.
+
+* **XFS Support** With kernel 6.15, the [*XFS* file
+  system](/docs/filesystems/xfs) gained native zoned block device support.
 
 ## Recommended Kernel Versions
 
@@ -170,12 +183,12 @@ All kernel versions since 4.10 include zoned block device support. However, as
 shown in the figure [Kernel versions and features](#kernel-versions), some
 versions are recommended over others.
 
-* **Long Term Stable (LTS) Versions** Kernel versions 4.14, 4.19, 5.4, 5.10 and
-  5.15 are long term stable kernel versions that include bug fixes backported
-  from fixes in the mainline (development) kernel. These versions benefit from
-  stability improvements that were developed for higher versions. Fixes to the
-  zoned-block-device support infrastructure are also backported to these
-  versions.
+* **Long Term Stable (LTS) Versions** Kernel versions 5.4, 5.10, 5.15 6.1, 6.6,
+  and 6.12 are long term stable kernel versions that include bug fixes
+  backported from fixes in the mainline (development) kernel. These versions
+  benefit from stability improvements that were developed for higher versions.
+  Fixes to the zoned-block-device support infrastructure are also backported to
+  these versions.
 
 * **Latest Stable Version** While not necessarily marked as a long-term stable
   version, the latest stable kernel version receives all bug fixes developed in
