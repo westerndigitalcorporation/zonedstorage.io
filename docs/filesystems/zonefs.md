@@ -10,13 +10,18 @@ sidebar_label: zonefs
 block device as a file. 
 
 :::note System Requirements
-- Linux kernel version 5.6 or later.
-- `mkzonefs` to format zoned block devices for use with *zonefs*.
-This tool is available on <a href="https://github.com/westerndigitalcorporation/zonefs-tools"
+- Linux kernel version 5.6 or later with CONFIG_ZONEFS_FS enabled.
+- *zonefs-tools* package. This tool is available on <a
+  href="https://github.com/westerndigitalcorporation/zonefs-tools"
 target="_blank">GitHub</a>.
+- The [mq-deadline](/docs/linux/sched#block-io-scheduler-configuration) block
+  I/O scheduler for kernel versions prior to 6.10.
 :::
 
 ## Usage
+
+First, check that your system meets the
+[requirements](/docs/filesystems/zonefs#system-requirements).
 
 The following list of commands formats a 15TB host-managed SMR HDD with 256 MB
 zones (with the conventional zones aggregation feature enabled):
@@ -181,7 +186,7 @@ The size of the directories indicates the number of files that exist under
 the directory. This size is indicated by the `st_size` field of `struct
 stat`, which is obtained with the `stat()` or `fstat()` system calls.
 
-### Zone files
+### Zone Files
 
 Zone files are named using the number of the zone they represent within the
 set of zones of a particular type. Both the "cnv" and "seq" directories
@@ -207,7 +212,7 @@ These files can be randomly read and written using any type of I/O operation:
 buffered I/Os, direct I/Os, memory mapped I/Os (mmap), etc. There are no I/O
 constraints for these files beyond the file size limit mentioned above.
 
-#### Sequential zone files
+#### Sequential Zone Files
 
 The size of sequential zone files that are grouped in the "seq" sub-directory
 represents the file's zone-write-pointer position relative to the zone start
@@ -235,7 +240,7 @@ zone is reset to rewind the file zone write pointer position to the start of
 the zone, or up to the zone size, in which case the file's zone is transitioned
 to the FULL state (finish zone operation).
 
-### Format options
+### Format Options
 
 Several optional features of *zonefs* can be enabled at format time.
 
@@ -246,7 +251,7 @@ Several optional features of *zonefs* can be enabled at format time.
   but can be changed to any valid UID/GID.
 * File access permissions: the default access permissions (640) can be changed.
 
-### IO error handling
+### IO Error Handling
 
 Zoned block devices can fail I/O requests for reasons similar to the reasons
 that regular block devices fail I/O requests, e.g. if there are bad sectors.
@@ -377,7 +382,7 @@ Further notes:
   that are indicated as "read-only" or "offline" by the device still imply 
   changes to the zone file access permissions as noted in the table above.
 
-### Mount options
+### Mount Options
 
 *zonefs* defines the "errors=*behavior*" mount option to allow the user to 
 specify zonefs behavior in response to I/O errors, inode size inconsistencies 
@@ -389,8 +394,8 @@ or zone condition changes. The defined behaviors are as follows.
 * repair
 
 The run-time I/O error actions defined for each behavior are detailed in 
-[*IO error handling*](/docs/filesystems/zonefs#io-error-handling). Mount-time I/O errors
-cause the mount operation to fail.
+[*IO error handling*](/docs/filesystems/zonefs#io-error-handling). Mount-time
+I/O errors cause the mount operation to fail.
 
 Read-only zones are handled differently at mount time than they are at 
 run time. If a read-only zone is found at mount time, the zone is always 
@@ -400,10 +405,14 @@ pointer of read-only zones is defined as invalid by the ZBC and ZAC standards
 (which makes it impossible to discover the amount of data that has been 
 written to the zone). In the case of a read-only zone that is discovered at 
 run-time, as indicated in [*IO error
-handling*](/docs/filesystems/zonefs#io-error-handling), the size of the zone file is left
-unchanged from its last updated value.
+handling*](/docs/filesystems/zonefs#io-error-handling), the size of the zone
+file is left unchanged from its last updated value.
 
-### User Space Tools
+## System Requirements
+
+*zonefs* was introduced with kernel version 5.6. The kernel must be compiled
+with *zonefs* support (the kernel configuration parameter CONFIG_ZONEFS_FS must
+be enabled).
 
 The `mkzonefs` tool is used to format zoned block devices for use with *zonefs*.
 This tool is available on <a href="https://github.com/westerndigitalcorporation/zonefs-tools"
