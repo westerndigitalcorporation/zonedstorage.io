@@ -49,6 +49,20 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'Linux Kernel Support',
+      collapsed: true,
+      items: [
+        'linux/index',
+        'linux/overview',
+        'linux/config',
+        'linux/zbd-api',
+        'linux/sched',
+        'linux/part',
+        'linux/dm',
+      ],
+    },
+    {
+      type: 'category',
       label: 'File Systems',
       collapsed: true,
       items: [
@@ -82,20 +96,6 @@ const sidebars = {
         'tools/libnvme',
         'tools/tcmu-runner',
         'tools/qemu'
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Linux Kernel Support',
-      collapsed: true,
-      items: [
-        'linux/index',
-        'linux/overview',
-        'linux/config',
-        'linux/zbd-api',
-        'linux/sched',
-        'linux/part',
-        'linux/dm',
       ],
     },
     {

@@ -1,35 +1,37 @@
 ---
 id: btrfs
-title: btrfs
-sidebar_label: btrfs
+title: BTRFS
+sidebar_label: BTRFS
 ---
 
-# btrfs File System
+# BTRFS File System
 
-*Btrfs* is a file system based on the copy-on-write (CoW) principle. This
+*BTRFS* is a file system based on the copy-on-write (CoW) principle. This
 principle has the result that no block update can be written in-place. 
-*Btrfs* currently has experimental support for zoned block devices.
 
 :::note System Requirements
-- Linux kernel: 5.12+ (for SMR) or 5.16+ (for ZNS).
-- btrfs-progs: 5.12+ (for SMR) or 5.15+ (for ZNS). 
+- Linux kernel: 5.12+ (for SMR hard-disks) or 5.16+ (for NVMe ZNS SSDs).
+- btrfs-progs: 5.12+ (for SMR hard-disks) or 5.15+ (for NVMe ZNS SSDs).
 - util-linux: 2.38+. More information can be found [here](/docs/tools/util-linux).
-- I/O scheduler: [mq-deadline to be configured for the block device](/docs/linux/sched#block-io-scheduler-configuration).
+- The [mq-deadline](/docs/linux/sched#block-io-scheduler-configuration) block   
+  I/O scheduler for kernel versions prior to 6.10.
 :::
 
 ## Usage
 
-To format a zoned block device with *mkfs.btrfs*, the `-m single` and `-d
-single` options must be specified, because no block group profile other 
-than "single" is currently supported.
+First, check that your system meets the
+[requirements](/docs/filesystems/btrfs#system-requirements).
+
+To format a zoned block device for use with *BTRFS*, use the command
+`mkfs.btrfs`.
 
 ```plaintext
-# mkfs.btrfs -m single -d single /dev/sda
-btrfs-progs v5.15.1
-See http://btrfs.wiki.kernel.org for more information.
+# mkfs.btrfs /dev/sda
+btrfs-progs v6.15
+See https://btrfs.readthedocs.io for more information.
 
-Zoned: /dev/sda: host-managed device detected, setting zoned feature
-Resetting device zones /dev/sda (74508 zones) ...
+zoned: /dev/sdb: host-managed device detected, setting zoned feature
+Resetting device zones /dev/sdb (111760 zones) ...
 NOTE: several default settings have changed in version 5.15, please make sure
       this does not affect your deployments:
       - DUP for metadata (-m dup)
@@ -37,52 +39,69 @@ NOTE: several default settings have changed in version 5.15, please make sure
       - enabled free-space-tree (-R free-space-tree)
 
 Label:              (null)
-UUID:               7ffa00fe-c6a3-4c6c-890f-858e17118c66
+UUID:               176b7407-d046-43da-9f7f-d3512a2059ed
 Node size:          16384
-Sector size:        4096
-Filesystem size:    18.19TiB
+Sector size:        4096	(CPU page size: 4096)
+Filesystem size:    27.29TiB
 Block group profiles:
-  Data:             single          256.00MiB
-  Metadata:         single          256.00MiB
-  System:           single          256.00MiB
+  Data:             single          512.00MiB
+  Metadata:         DUP             256.00MiB
+  System:           DUP             256.00MiB
 SSD detected:       no
 Zoned device:       yes
   Zone size:        256.00MiB
-Incompat features:  extref, skinny-metadata, no-holes, zoned
-Runtime features:   free-space-tree
+Features:           extref, skinny-metadata, no-holes, free-space-tree, zoned
 Checksum:           crc32c
 Number of devices:  1
 Devices:
-   ID        SIZE  PATH
-    1    18.19TiB  /dev/sda
+   ID        SIZE   ZONES  PATH
+    1    27.29TiB  111760  /dev/sdb
 ```
 
-The formatted block device can now be directly mounted. No other setup is
-necessary.
+The formatted block device can now be mounted. No other setup is necessary.
 
 ```plaintext
 # mount /dev/sda /mnt
 ```
 
-## Implementation
+The kernel messages will show the following information.
 
-### Zoned Block Device Support
+```plaintext
+BTRFS: device fsid 176b7407-d046-43da-9f7f-d3512a2059ed devid 1 transid 8 /dev/sda (8:16) scanned by mount (3654)
+BTRFS info (device sdb): first mount of filesystem 176b7407-d046-43da-9f7f-d3512a2059ed
+BTRFS info (device sdb): using crc32c (crc32c-x86) checksum algorithm
+BTRFS info (device sdb): using free-space-tree
+BTRFS info (device sdb): host-managed zoned block device /dev/sdb, 111760 zones of 268435456 bytes
+BTRFS info (device sdb): zoned mode enabled with zone size 268435456
+BTRFS info (device sdb): checking UUID tree
+```
 
-Zoned block device support was added to *btrfs* with kernel 5.12. Because
+## Implementation Overview
+
+The implementation of *BTRFS* zoned block devices support required several
+changes in different areas of *BTRFS* code.
+
+- Super-block management
+- Block allocation
+- Device I/O management
+
+### Super-block Management
+
+Zoned block device support was added to *BTRFS* with kernel 5.12. Because
 super-blocks are the only on-disk data structure with a fixed location in
-*btrfs*, zoned block device support introduces the concept of log-structured
+*BTRFS*, zoned block device support introduces the concept of log-structured
 super-blocks to eliminate in-place updates (overwrites) of fixed super block
 locations. Zoned mode reserves two consecutive zones to hold each of the
-super-blocks (primary and backup super-blocks) in *btrfs*. When a new
+super-blocks (primary and backup super-blocks) in *BTRFS*. When a new
 super-block is written, it is appended to its respective super-block zone.
 After the first super-block zone is filled, the next super block is written to
-the second super-block zone and the first is reset. At mount time, *btrfs*
+the second super-block zone and the first is reset. At mount time, *BTRFS*
 can find the latest version of the super-block by looking at the position of
 the zone write pointer of the super-block zones. The most recent and valid
 super-block is always the last  block stored before the write pointer
 position.
 
-### Block Allocation Changes
+### Block Allocation
 
 *Btrfs* block management relies on grouping blocks into *block groups*. 
 Each *block group* is composed of one or more *device extents*. The device 
@@ -98,7 +117,7 @@ These changes ensure that blocks freed below the allocation pointer are
 ignored, which results in sequential block allocation within each group 
 regardless of the block group usage.
 
-### I/O Management
+### Device I/O Management
 
 Although the introduction of the allocation pointer ensures that blocks are
 allocated sequentially within groups (and therefore sequentially within zones),
@@ -112,10 +131,10 @@ The zones of a block group are reset to allow rewriting only when the block
 group is free (that is, when all the blocks within the block group are
 unused).
 
-When dealing with *btrfs* volumes that are composed of multiple disks,
+When dealing with *BTRFS* volumes that are composed of multiple disks,
 restrictions are added to ensure that all the disks have the same zone model
 (and in the case of zoned block devices, the same zone size). This matches the
-existing *btrfs* constraint that dictates that all device extents in a block
+existing *BTRFS* constraint that dictates that all device extents in a block
 group must have the same size.
 
 All writes to data block groups use [Zone Append
@@ -128,43 +147,45 @@ with a file-system-global zoned metadata I/O lock.
 
 SSDs with Zoned Namespace support can have a per [zone capacity that is smaller than the zone
 size](/docs/introduction/zns#zone-capacity-and-zone-size). To support such
-devices, *btrfs* ensures that block allocation and accounting considers only
-the blocks in a zone that are within the zone capacity. This support for zone capacity has been available since Linux kernel version 5.16. Also,
-since kernel 5.16, *btrfs* keeps track of the number of active zones on
-a device and issues "Zone Finish" commands as needed.
+devices, *BTRFS* ensures that block allocation and accounting considers only
+the blocks in a zone that are within the zone capacity. This support for zone
+capacity has been available since Linux kernel version 5.16. Also, since kernel
+5.16, *BTRFS* keeps track of the number of active zones on a device and issues
+"Zone Finish" commands as needed.
 
 ### Limitations
 
-Not all features currently available in *btrfs* are supported in the current
-zoned mode of the file-system.
+Not all features currently available in *BTRFS* are supported when using a zoned
+block device.
 
 These unavailable features include:
-- RAID Support
-- NOCOW Support
+
+- RAID 5 and 6 profiles support
+- NOCOW support
 - Support for fallocate(2)
 - Mixed data and meta-data block groups
 
-### System Requirements
+## System Requirements
 
-In order to use *btrfs* on zoned block devices, the following minimum system
+In order to use *BTRFS* on zoned block devices, the following minimum system
 requirements must be met:
-- Linux kernel 5.12 (for SMR) or 5.16 (for SSD /w ZNS support)
-- *btrfs-progs* 5.12 (for SMR) or 5.15 (for SSD /w ZNS support)
+- Linux kernel 5.12 (for SMR hard-disks) or 5.16 (for NVMe ZNS SSDs)
+- *btrfs-progs* 5.12 (for SMR hard-disks) or 5.15 (for NVMe ZNS SSDs)
 - *util-linux* 2.38
 
 The source code for *btrfs-progs* <a href="https://github.com/kdave/btrfs-progs"
 target="_blank">is hosted on GitHub</a>. More information on *util-linux* can be
 found [here](/docs/tools/util-linux).
 
-If a kernel supports *btrfs* on a zoned block device, it will automatically
-select the *mq_deadline* block IO scheduler by default. This ensures [write
-ordering correctness](/docs/linux/sched) for any SMR hard-disk that is used in a
-zoned *btrfs* volume.
+Kernels prior to version 6.10 and supporting *BTRFS* on zoned block devices will
+automatically select the *mq_deadline* block IO scheduler by default for any
+SMR hard-disk that is used in a zoned *BTRFS* volume. This
+ensures [write ordering correctness](/docs/linux/sched).
 
-As in the case of an SSD with ZNS support, the *mq-deadline*
-scheduler must be set manually to ensure that the regular write operations used
-by *btrfs* are delivered to the device in sequential order. For a NVMe zoned
-namespace device */dev/nvmeXnY*, this is done with the following command:
+For NVMe ZNS SSD devices, the *mq-deadline* scheduler must be set manually to
+ensure that the regular write operations used by *BTRFS* are delivered to the
+device in sequential order. For a NVMe Zoned Namespace device */dev/nvmeXnY*,
+this is done with the following command:
 
 ```plaintext
 # echo mq-deadline > /sys/block/nvmeXnY/queue/scheduler
@@ -172,7 +193,7 @@ namespace device */dev/nvmeXnY*, this is done with the following command:
 
 Alternatively, the following udev rule can be used to automatically set the
 *mq-deadline* scheduler for all zoned block devices that have been formatted
-with btrfs.
+with BTRFS.
 
 ```plain text
 SUBSYSTEM!="block", GOTO="btrfs_end"
@@ -183,3 +204,8 @@ ATTR{queue/zoned}=="host-managed", ATTR{queue/scheduler}="mq-deadline"
 
 LABEL="btrfs_end"
 ```
+
+Using the *mq_deadline* block IO scheduler for zoned block devices is not
+mandatory since kernel version 6.10. However, for performance reasons, the use
+of the *mq_deadline* I/O scheduler is still recommended for SMR hard-disks. For
+NVMe ZNS SSDs, using the *none* scheduler (no I/O scheduling) is recommended.
