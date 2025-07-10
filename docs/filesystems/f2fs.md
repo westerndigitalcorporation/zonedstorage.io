@@ -14,7 +14,7 @@ of "wandering trees" and the high "cleaning overhead").
 *F2FS* supports various parameters not only for configuring on-disk layout but
 also for selecting allocation and cleaning algorithms.
 
-:::note System Requirements
+:::info System Requirements
 - Linux kernel: 5.12+ (for SMR hard-disks) or 5.16+ (for NVMe ZNS SSDs).
 - f2fs-tools: 1.12+ (for SMR hard-disks) or 1.14+ (for NVMe ZNS SSDs). 
 - The [mq-deadline](/docs/linux/sched#block-io-scheduler-configuration) block   

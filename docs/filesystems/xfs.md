@@ -12,7 +12,7 @@ major Linux distributions. *XFS* was originally designed for in-place overwrites
 on conventional storage devices, but has experimental support for zoned block
 devices.
 
-:::note System Requirements
+:::info System Requirements
 - Linux kernel: 6.15+ with CONFIG_XFS_FS and CONFIG_XFS_RT enabled
 - xfsprogs: 6.15+
 :::
@@ -205,7 +205,7 @@ a file data on the main device.
 ----------------X /mnt/dir
 ```
 
-:::note
+:::warning
 Typically space on the main device is very limited and intended for metadata.
 So this option should be used with care to avoid filling up the main device
 capacity as that would result in "no space available" (ENOSPC) errors even if

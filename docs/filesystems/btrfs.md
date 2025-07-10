@@ -9,7 +9,7 @@ sidebar_label: BTRFS
 *BTRFS* is a file system based on the copy-on-write (CoW) principle. This
 principle has the result that no block update can be written in-place. 
 
-:::note System Requirements
+:::info System Requirements
 - Linux kernel: 5.12+ (for SMR hard-disks) or 5.16+ (for NVMe ZNS SSDs).
 - btrfs-progs: 5.12+ (for SMR hard-disks) or 5.15+ (for NVMe ZNS SSDs).
 - util-linux: 2.38+. More information can be found [here](/docs/tools/util-linux).

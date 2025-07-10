@@ -9,7 +9,7 @@ sidebar_label: zonefs
 *zonefs* is a very simple file system that exposes each of the zones of a zoned
 block device as a file. 
 
-:::note System Requirements
+:::info System Requirements
 - Linux kernel version 5.6 or later with CONFIG_ZONEFS_FS enabled.
 - *zonefs-tools* package. This tool is available on <a
   href="https://github.com/westerndigitalcorporation/zonefs-tools"
