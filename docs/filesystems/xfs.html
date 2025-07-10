@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.0fff285b.css">
-<script src="/assets/js/runtime~main.6ff41505.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.28008f1b.js" defer="defer"></script>
 <script src="/assets/js/main.69b7e4e5.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard" data-theme="light">
@@ -106,63 +106,84 @@ a file data on the main device.</p>
 <div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>Typically space on the main device is very limited and intended for metadata.
 So this option should be used with care to avoid filling up the main device
 capacity as that would result in &quot;no space available&quot; (ENOSPC) errors even if
-free space is available on the realtime device.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="implementation">Implementation<a href="#implementation" class="hash-link" aria-label="Direct link to Implementation" title="Direct link to Implementation">​</a></h2><p><em>XFS</em> zoned storage support is based on the <em>XFS</em> realtime device feature.
+free space is available on the realtime device.</p></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="implementation">Implementation<a href="#implementation" class="hash-link" aria-label="Direct link to Implementation" title="Direct link to Implementation">​</a></h2>
+<p><em>XFS</em> zoned storage support is based on the <em>XFS</em> realtime device feature.
 An <em>XFS</em> realtime device is a separate storage device managed by a separate
 space allocator to store selective file data. <em>XFS</em> uses the realtime device to
 manage zoned storage by replacing the realtime space allocator with a zoned
 space allocator. With zoned devices, by default file data is stored on
 the realtime device, while metadata is stored on the main device, which must
-be randomly writeable.</p><p><em>XFS</em> metadata is space efficient thanks to the use of variable-length extents,
+be randomly writeable.</p>
+<p><em>XFS</em> metadata is space efficient thanks to the use of variable-length extents,
 and thus <em>XFS</em> needs less than 1% conventional space for metadata. <em>XFS</em> uses
 the no-overwrite support originally added to support reference-counted block
-sharing (reflink) to support overwriting file data.</p><p><em>XFS</em> splits the storage address space into <em>allocation groups</em> for the main
+sharing (reflink) to support overwriting file data.</p>
+<p><em>XFS</em> splits the storage address space into <em>allocation groups</em> for the main
 device and <em>realtime groups</em> for the realtime device (the zoned block device).
 <em>XFS</em> manages free space and the physical-to-logical reverse mapping locally in
 each group to improve scalability.  With zoned block devices, each realtime
-group always maps to exactly one hardware zone on the device.</p><p><em>XFS</em> tracks available free space using the persistent zone condition and zone
+group always maps to exactly one hardware zone on the device.</p>
+<p><em>XFS</em> tracks available free space using the persistent zone condition and zone
 write pointer provided by the zoned device, and thus does not need any
-persistent allocator metadata for the zoned realtime device.</p><p><em>XFS</em> always writes file data on zoned block devices using Zone Append
+persistent allocator metadata for the zoned realtime device.</p>
+<p><em>XFS</em> always writes file data on zoned block devices using Zone Append
 operations as that avoids serializing writes to a single zone.  For devices that
 do not support Zone Append natively (e.g. SMR hard-disks), <em>XFS</em> relies on the
 Linux block layer emulation (see <a href="/docs/linux/sched#zone-write-plugging">Zone Write
-Plugging</a>).</p><p><em>XFS</em> can write to as many open groups (zones) as the hardware offers.</p><p>One open zone is always reserved for garbage collection, while all other open
+Plugging</a>).</p>
+<p><em>XFS</em> can write to as many open groups (zones) as the hardware offers.</p>
+<p>One open zone is always reserved for garbage collection, while all other open
 zones are available for user file I/Os. To ensure that the number of open zones
 stays under the hardware open zone limit, a new zone is only opened when all
-writes to the previously open zone have completed.</p><p><em>XFS</em> zone allocator by default tries to avoid fragmenting files. If the files
+writes to the previously open zone have completed.</p>
+<p><em>XFS</em> zone allocator by default tries to avoid fragmenting files. If the files
 being written to are still open, <em>XFS</em> attempts to separate the data for each
 file into different zones. When starting to write to a file, a free zone is
 chosen as the file data write location. If no free zone is available, or if the
 number of open zones has reached the limit, the least recently used open zone is
 used to write the file data. If the file has already been closed by the time of
 writeback (buffered I/O case), file data are co-located to pack multiple files
-tightly to improve read performance.</p><p>To reduce garbage collection overhead, the zone allocator aims to fill zones
+tightly to improve read performance.</p>
+<p>To reduce garbage collection overhead, the zone allocator aims to fill zones
 with data of similar lifetime. The allocator assumes that all data in a file
 have similar lifetime. The per-file <em>F_SET_RW_HINT</em> file control system call
 (<em>fcntl</em>) interface allows applications to indicate if data is short, medium,
 long, or extremely long lived to the kernel. <em>XFS</em> uses these lifetime hints to
 guide zone selection: file data from different files marked as having the same
-lifetime are co-located in zones marked with the same lifetime.</p><p><em>XFS</em> always immediately resets zones that do not contain valid blocks, but
+lifetime are co-located in zones marked with the same lifetime.</p>
+<p><em>XFS</em> always immediately resets zones that do not contain valid blocks, but
 otherwise does not perform background garbage collection. Instead, the garbage
 collection thread (<em>GCD</em>) is woken up when the number of free zones drops below
 the configurable threshold. Writers that get ahead of <em>GCD</em> are put to sleep
-until <em>GCD</em> recovers enough free zones.</p><p><em>GCD</em> implements a greedy garbage collection policy and selects the reclaimable
+until <em>GCD</em> recovers enough free zones.</p>
+<p><em>GCD</em> implements a greedy garbage collection policy and selects the reclaimable
 zone with the least number of valid blocks. <em>GCD</em> does not hold locks over I/O,
 and thus garbage collection does not directly interfere with applications
-accessing files that <em>GCD</em> operates on.</p><p><em>GCD</em> uses a dedicated open zone, so that garbage-collected data is not mixed
+accessing files that <em>GCD</em> operates on.</p>
+<p><em>GCD</em> uses a dedicated open zone, so that garbage-collected data is not mixed
 with file data being written. Using a dedicated open zone for garbage collection
 reduces write amplification as garbage collected data can be assumed to be
 longer-lived than incoming user data. Adequate free space is set aside for <em>GCD</em>
 so that it is never blocked by user writes and can provide a free zone to user
-writers as long as the file system reports free blocks.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="limitations">Limitations<a href="#limitations" class="hash-link" aria-label="Direct link to Limitations" title="Direct link to Limitations">​</a></h2><p>Because zoned devices do not allow in-place updates, persistent preallocations
-can fundamentally not be supported with a zoned block device.</p><p>Additionally, disk quotas and reference-counted block sharing (reflink) are
-currently not supported (that is expected to change in the near future).</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="system-requirements">System Requirements<a href="#system-requirements" class="hash-link" aria-label="Direct link to System Requirements" title="Direct link to System Requirements">​</a></h2><p><em>XFS</em> native zoned block device support was introduced with kernel version 6.15.
+writers as long as the file system reports free blocks.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="limitations">Limitations<a href="#limitations" class="hash-link" aria-label="Direct link to Limitations" title="Direct link to Limitations">​</a></h2>
+<p>Because zoned devices do not allow in-place updates, persistent preallocations
+can fundamentally not be supported with a zoned block device.</p>
+<p>Additionally, disk quotas and reference-counted block sharing (reflink) are
+currently not supported (that is expected to change in the near future).</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="system-requirements">System Requirements<a href="#system-requirements" class="hash-link" aria-label="Direct link to System Requirements" title="Direct link to System Requirements">​</a></h2>
+<p><em>XFS</em> native zoned block device support was introduced with kernel version 6.15.
 The kernel must be compiled with <em>XFS</em> support (the kernel configuration
 parameter CONFIG_XFS_FS must be enabled). <em>XFS</em> realtime device feature is also
-required (the kernel configuration parameter CONFIG_XFS_RT must be enabled).</p><p>Installing version 6.15 or higher of the <em>xfsprogs</em> package providing <em>XFS</em>
-user space tools (e.g. <code>mkfs.xfs</code>) is also required.</p><div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># mkfs.xfs -V</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">mkfs.xfs version 6.15.0</span><br></span></code></pre></div></div><p>If your Linux distribution does not provides an adequate version of <em>xfsprogs</em>,
+required (the kernel configuration parameter CONFIG_XFS_RT must be enabled).</p>
+<p>Installing version 6.15 or higher of the <em>xfsprogs</em> package providing <em>XFS</em>
+user space tools (e.g. <code>mkfs.xfs</code>) is also required.</p>
+<div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># mkfs.xfs -V</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">mkfs.xfs version 6.15.0</span><br></span></code></pre></div></div>
+<p>If your Linux distribution does not provides an adequate version of <em>xfsprogs</em>,
 this project source code can be downloaded from <a href="https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git" target="_blank">
 kernel.org</a>. See the <a href="https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git/tree/doc/INSTALL" target="_blank">INSTALL</a> file for instructions on how to compile and install
-this package.</p></div></div></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/filesystems"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Overview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/filesystems/btrfs"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">BTRFS</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#usage" class="table-of-contents__link toc-highlight">Usage</a><ul><li><a href="#zoned-block-device-with-conventional-zones" class="table-of-contents__link toc-highlight">Zoned Block Device with Conventional Zones</a></li><li><a href="#other-zoned-block-devices" class="table-of-contents__link toc-highlight">Other Zoned Block Devices</a></li><li><a href="#tuning" class="table-of-contents__link toc-highlight">Tuning</a></li><li><a href="#placing-data-on-the-main-device" class="table-of-contents__link toc-highlight">Placing Data on the Main Device</a></li></ul></li><li><a href="#implementation" class="table-of-contents__link toc-highlight">Implementation</a></li><li><a href="#limitations" class="table-of-contents__link toc-highlight">Limitations</a></li><li><a href="#system-requirements" class="table-of-contents__link toc-highlight">System Requirements</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/introduction/zoned-storage">Introduction to Zoned Storage</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/getting-started">Getting Started with Zoned Storage</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://app.element.io/#/room/#zonedstorage-general:matrix.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">Matrix<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/westerndigitalcorporation" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Organization<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Western Digital
+this package.</p></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/filesystems"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Overview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/filesystems/btrfs"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">BTRFS</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#usage" class="table-of-contents__link toc-highlight">Usage</a><ul><li><a href="#zoned-block-device-with-conventional-zones" class="table-of-contents__link toc-highlight">Zoned Block Device with Conventional Zones</a></li><li><a href="#other-zoned-block-devices" class="table-of-contents__link toc-highlight">Other Zoned Block Devices</a></li><li><a href="#tuning" class="table-of-contents__link toc-highlight">Tuning</a></li><li><a href="#placing-data-on-the-main-device" class="table-of-contents__link toc-highlight">Placing Data on the Main Device</a></li></ul></li><li><a href="#implementation" class="table-of-contents__link toc-highlight">Implementation</a></li><li><a href="#limitations" class="table-of-contents__link toc-highlight">Limitations</a></li><li><a href="#system-requirements" class="table-of-contents__link toc-highlight">System Requirements</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/introduction/zoned-storage">Introduction to Zoned Storage</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/getting-started">Getting Started with Zoned Storage</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://app.element.io/#/room/#zonedstorage-general:matrix.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">Matrix<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/westerndigitalcorporation" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Organization<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Western Digital
 	Corporation or its affiliates. All rights reserved.<br> By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use" target="_blank">Terms of Use</a> and <a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank">Privacy Statement</a>.  All example scripts and program snippets on this site are licensed under the <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CCO 1.0 Universal</a> license.<br>This site is built with <a href="https://docusaurus.io/" target="_blank">Docusaurus</a>.</div></div></div></footer></div>
 </body>
 </html>
