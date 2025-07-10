@@ -6,7 +6,7 @@ sidebar_label: Kernel Block Layer Tests
 
 # Kernel Block Layer Tests
 
-*blktests* is a test suite for Linux;reg; kernel storage stack, that is, the
+*blktests* is a test suite for Linux kernel storage stack, that is, the
 block I/O layer as well as underlying device specific layers (SCSI, NVMe, SRP,
 etc). *blktests* is heavily inspired by the *xfstests* framework for testing
 file systems.
@@ -14,7 +14,7 @@ file systems.
 Recent contributions to *blktests* added zoned block device tests support.
 
 The *blktests* project is hosted on
-[GitHub](https://github.com/osandov/blktests).
+[GitHub](https://github.com/linux-blktests/blktests).
 
 ## Overview
 
