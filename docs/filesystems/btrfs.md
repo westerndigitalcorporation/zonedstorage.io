@@ -165,6 +165,11 @@ These unavailable features include:
 - Support for fallocate(2)
 - Mixed data and meta-data block groups
 
+Support for RAID levels 0, 1 and 10 is still considered experimental and
+requires a kernel compiled with the `CONFIG_BTRFS_EXPERIMENTAL=y` configuration
+option as well as *btrfs-progs* configured with the
+`./configure --enable-experimental` command.
+
 ## System Requirements
 
 In order to use *BTRFS* on zoned block devices, the following minimum system
