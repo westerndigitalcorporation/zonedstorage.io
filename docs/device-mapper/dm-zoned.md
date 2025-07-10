@@ -9,15 +9,24 @@ import Image from '/src/components/Image';
 # dm-zoned
 
 The *dm-zoned* device mapper target provides random write access to zoned
-block devices (ZBC and ZAC compliant devices). It hides the sequential
-write constraint of host-managed zoned block devices from the device user
-(the "device user", in this context, is a file system or an application
-accessing a raw block device). This allows the use of applications and file
-systems that do not have native zoned block device support.
+block devices. It hides the sequential write constraint of host-managed zoned
+block devices from the device user (the "device user", in this context, is a
+file system or an application accessing a raw block device). This allows the use
+of applications and file systems that do not have native zoned block device
+support.
 
 File systems or applications that can natively support host-managed zoned
-block devices (e.g. the f2fs file system since kernel 4.10) do not need to
-use the *dm-zoned* device mapper target.
+block devices, e.g. the [*XFS*](/docs/filesystems/xfs) or
+[*BTRFS*](/docs/filesystems/btrfs) file systems, do not need to use the
+*dm-zoned* device mapper target.
+
+:::warning
+The use of the *dm-zoned* target is not recommended due to its unpredictable
+performance characteristics. Users should instead consider solutions based on
+file systems including native zoned block device support as a replacement
+(e.g. the [*XFS*](/docs/filesystems/xfs) or [*BTRFS*](/docs/filesystems/btrfs)
+file systems).
+:::
 
 ## Design Overview
 
