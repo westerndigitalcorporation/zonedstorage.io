@@ -4,15 +4,10 @@ title: Percona Server for MySQL
 sidebar_label: Percona Server for MySQL
 ---
 
-import Image from '/src/components/Image';
-
 # Percona Server for MySQL
 
-<Image src="percona-server-logo.png"
-alt="Percona Server for MySQL Logo" />
-
 [Percona Server for
-MySQL&trade;](https://www.percona.com/software/mysql-database/percona-server)
+MySQL](https://www.percona.com/software/mysql-database/percona-server)
 uses the *[MyRocks](https://myrocks.io/)* storage engine, which in turn uses
 *[RocksDB with Zenfs](zenfs)* as a backend storage.
 
@@ -22,11 +17,4 @@ Percona Server for MySQL includes built-in support for ZenFS.
 
 See chapter *[MyRocks with
 ZenFS](https://www.percona.com/doc/percona-server/8.0/myrocks/zenfs.html)* in the
-Percona Server for MySQL 8.0 Documentation for installation instructions and
-further information.
-
-<br/>
-
-Percona Server and the Percona Server logo are trademarks of Percona,
-LLC. See the [Percona Trademark Policy](https://www.percona.com/trademark-policy)
-for details.
+Percona Server for MySQL 8.0 Documentation for installation instructions and further information.
