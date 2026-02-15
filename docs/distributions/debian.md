@@ -46,10 +46,8 @@ components currently supporting zoned block devices.
 
 ## Available Pre-Compiled Packages
 
-Debian does not provide all pre-compiled application packages supporting zoned
-block devices. In particular, user utilities for the *zonefs* file system and
-the *dm-zoned* device mapper target are not available (these utilities need to
-be compiled from source).
+Since Debian release 13 (trixie), a comprehensive set of pre-compiled application and
+library packages support zoned block devices.
 
 Available packages are:
 
@@ -64,5 +62,9 @@ Available packages are:
     - *zbd-utils* (includes both command line and graphical tools)
 
 * File systems related packages:
+    - *zonefs-tools*
     - *btrfs-progs*
     - *f2fs-tools*
+
+* Device Mapper related packages:
+    - *dm-zoned-tools*
