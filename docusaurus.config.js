@@ -17,7 +17,6 @@ const config = {
   trailingSlash: false,
   favicon: 'img/zs-logo.ico',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
 
   i18n: {
     defaultLocale: 'en',
@@ -174,6 +173,12 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+};
+
+export default {
+  hooks: {
+    onBrokenMarkdownLinks: 'warn',
+  },
 };
 
 module.exports = config;
