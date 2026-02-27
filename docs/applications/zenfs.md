@@ -9,10 +9,10 @@ sidebar_label: RocksDB with ZenFS
 *<a href="https://rocksdb.org/" target="_blank">RocksDB</a>* is a persistent
 key-value store for fast storage devices. It is implemented using a <a
 href="https://en.wikipedia.org/wiki/Log-structured_merge-tree" target="_blank">
-Log-Structured Merge-Tree (LSM-tree)</a> data structure.  It is simlilar to
-LSM-tree based key-value engine implementations: values are stored in tables
+Log-Structured Merge-Tree (LSM-tree)</a> data structure. Similar to other
+LSM-tree-based key-value engine implementations, values are stored in tables
 that are sorted in increasing key order. Tables are sequentially written and
-never modified.  This basic principle of the LSM-tree data structure makes it
+never modified. This basic principle of the LSM-tree data structure makes it
 possible to support zoned block devices.
 
 The storage plugin architecture of RocksDB makes it possible to accommodate
@@ -37,18 +37,17 @@ are invalidated, the zone can be reset and then reused to store new file
 extents.
 
 ZenFS places file extents into zones based on write lifetime hints (WLTH)
-provided by RocksDB library. ZenFS always attempts to place file extents
+provided by the RocksDB library. ZenFS always attempts to place file extents
 together in the same zones when they have similar WLTH.
 
 In *ZenFS*, data garbage collection is performed only by RocksDB when it
 initiates the LSM-tree table compaction process. No garbage collection is
-executed by ZenFS and no garbage collection is executed by the ZNS device
-controller.
+executed by either ZenFS or the ZNS device controller.
 
 :::note
-Further information is available in
-the <a href="https://www.usenix.org/conference/atc21/presentation/bjorling"
-target="_blank"> ZNS: Avoiding the Block Interface Tax for Flash-based SSDs </a>
+Further information is available in the
+<a href="https://www.usenix.org/conference/atc21/presentation/bjorling"
+target="_blank">ZNS: Avoiding the Block Interface Tax for Flash-based SSDs</a>
 USENIX ATC 2021 article.
 :::
 

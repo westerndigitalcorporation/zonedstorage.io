@@ -7,11 +7,12 @@ slug: /applications
 
 # Applications
 
-This collection of articles describes user applications supporting zoned block
+This collection of articles describes applications with support for zoned block
 devices.
 
-* [Percona Server for MySQL](/docs/applications/percona-server): Learn about
-  Percona's version of MySQL that includes the *[MyRocks](https://myrocks.io/)*
-  storage engine.
-* [RocksDB with Zenfs](/docs/applications/zenfs): Learn about the *Zenfs*
-  extension of RocksDB to support zoned block devices as backend storage.
+* [Percona Server for MySQL](/docs/applications/percona-server): Learn how
+  Percona Server for MySQL uses the *[MyRocks](https://myrocks.io/)* storage
+  engine with zoned block devices.
+* [RocksDB with Zenfs](/docs/applications/zenfs): Learn how the *Zenfs*
+  extension adds zoned block device support to RocksDB as a backend storage
+  option.
