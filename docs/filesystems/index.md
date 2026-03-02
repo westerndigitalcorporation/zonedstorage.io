@@ -11,14 +11,14 @@ device support.
 ## Supported File Systems
 
 The list of Linux file systems with native zoned block device support is as
-follows.
+follows:
 
 * [XFS](/docs/filesystems/xfs)
 * [BTRFS](/docs/filesystems/btrfs)
 * [F2FS](/docs/filesystems/f2fs)
 
-These general purpose file systems are recommended for applications that cannot
-be easily modified to use a zoned block device directly.
+These general purpose file systems handle the sequential write constraints of
+zoned block devices transparently, without requiring application modifications.
 
 In addition to these file systems, the Linux kernel also provides the
 [zonefs file system](/docs/filesystems/zonefs) as an alternative interface for
