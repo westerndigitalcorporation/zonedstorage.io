@@ -42,7 +42,7 @@ examples shown.
 ```
 
 */dev/sdb* is a SATA disk connected to an AHCI controller (SATA port),
-*/dev/sdc* is a SAS disk connected to a SAS HBA and */dev/sdd* is a SATA disk
+*/dev/sdc* is a SAS disk connected to a SAS HBA and */dev/sdc* is a SATA disk
 connected to the same SAS HBA.
 
 ## Checking Serial ATA Disks
