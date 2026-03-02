@@ -1,7 +1,7 @@
 ---
 id: opensuse
-title: openSuse
-sidebar_label: openSuse
+title: openSUSE
+sidebar_label: openSUSE
 ---
 
 import {

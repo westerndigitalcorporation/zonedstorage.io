@@ -92,7 +92,7 @@ that start from the write-pointer positions of the zones.
 The initial release of the zoned block device support with kernel 4.10 was
 limited to the block layer ZBD user interface, SCSI layer sequential write
 ordering control and native support for the *F2FS* file system. Following
-kernel versions added more feature such as device mapper drivers and support
+kernel versions added more features such as device mapper drivers and support
 for the block multi-queue infrastructure.
 
 The figure below summarizes the evolution of zoned block device support with
@@ -157,7 +157,7 @@ title="Kernel versions and supported features"/>
   NVMe ZNS command set was added. This enables the nvme driver with the command
   set enhancements required to discover zoned namespaces, and registers these
   with the block layer as host managed zone block devices. This kernel release
-  only support devices that do *not* implement any of the zone optional
+  only supports devices that do *not* implement any of the zone optional
   characteristics (ZOC), and also requires that the device implements the
   optional Zone Append command.
 
@@ -207,7 +207,7 @@ The Linux Kernel Archives</a> site.
 
 ## ZBD Support Restrictions
 
-In order to keep changes to the block layer code to a mimimum, various existing
+In order to keep changes to the block layer code to a minimum, various existing
 features of the block layer were reused (for instance, automatic splitting of
 IOs on LBA boundaries implemented for software RAID is one example of this
 reuse). Kernel components that are not compatible with the behavior of zoned

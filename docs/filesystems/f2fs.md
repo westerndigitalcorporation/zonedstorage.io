@@ -107,7 +107,7 @@ Info: format successful
 ```
 
 In the above command, `/dev/nvme1n1` is the block device file of the zoned 
-namespace that will be used for the *F2FS* volume, and `/dev/nvme0n1`is the
+namespace that will be used for the *F2FS* volume, and `/dev/nvme0n1` is the
 namespace used for the *F2FS* metadata.
 
 To mount the volume formatted with the above command, the regular block device

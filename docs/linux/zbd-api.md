@@ -145,7 +145,7 @@ information about zoned block devices and to manage the zones of the devices.
 The data structure `struct blk_zone` defines a zone-descriptor structure that 
 contains a complete description of a zone: this includes the zone's location on
 the device, the zone type, its condition (state), and the position of the zone
-write pointer (for sequential zones). For kernels Up to kernel version 5.8, this
+write pointer (for sequential zones). For kernels up to kernel version 5.8, this
 data structure is as shown below.
 
 ```c
@@ -256,7 +256,7 @@ enum blk_zone_type {
 
 ### Zone Condition
 
-The `cond` field of the `struct blkzone` data structure defines the current
+The `cond` field of the `struct blk_zone` data structure defines the current
 condition of a zone. The possible condition (state) values of this field are
 defined by the `blk_zone_cond` enumeration.
 
@@ -308,7 +308,7 @@ been limited by a hardware defect.
 
 User operations (either write operations or zone management commands) can
 result in transitions to other conditions. Applications that use the kernel
-*ioctl()* interface can issue zone managment commands. See [*ioctl()*
+*ioctl()* interface can issue zone management commands. See [*ioctl()*
 Commands](#ioctl-commands) for more information about this.
 
 The SCSI Zoned Block Command specification (ZBC), the ATA Zoned Device ATA
@@ -441,7 +441,7 @@ while (1) {
 The number of zone descriptors obtained is returned to the user in the
 `nr_zones` field of the report header structure `blk_zone_report`.
 
-When zone capacity support for NVMe Zoned Namepsaces was introduced in kernel
+When zone capacity support for NVMe Zoned Namespaces was introduced in kernel
 version 5.9, zone descriptors gained the `capacity` field. The presence of this
 field is indicated by the new `flag` field added to `struct blk_zone_report`.
 
@@ -475,7 +475,7 @@ struct blk_zone_report {
 
 If the `flags` field of `struct blk_zone_report` has the flag
 `BLK_ZONE_REP_CAPACITY` set, then the zone descriptor's structure will have a
-valid value set in the `capacity` field of `sturct blk_zone`. Otherwise, this
+valid value set in the `capacity` field of `struct blk_zone`. Otherwise, this
 field will show a value of 0 and can be ignored.
 
 The example code below, extracted from the code of the
@@ -675,10 +675,10 @@ the use of these commands.
 unsigned int nr_zones, zone_size;
 int ret;
 
-ret = ioctl(fd, ,BLKGETZONESZ, &zone_size);
+ret = ioctl(fd, BLKGETZONESZ, &zone_size);
 if (ret)
 	goto error;
-ret = ioctl(fd, ,BLKGETNRZONES, &nr_zones);
+ret = ioctl(fd, BLKGETNRZONES, &nr_zones);
 if (ret)
 	goto error;
 

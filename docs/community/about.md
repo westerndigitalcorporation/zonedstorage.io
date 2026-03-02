@@ -4,9 +4,8 @@ As a natural extension to Western Digital's ongoing contributions
 to various open source projects and standard organizations, and its
 long history of making its ZBC/ZAC tools available to the
 open-source community, the company has launched ZonedStorage.io as
-part of its [Zoned Storage Initiative]
-(https://www.westerndigital.com/company/innovations/zoned-storage/)
-ZonedStorage.io is aimed to document support for zoned storage
+part of its [Zoned Storage Initiative](https://www.westerndigital.com/company/innovations/zoned-storage/).
+ZonedStorage.io aims to document support for zoned storage
 devices available through various open source projects to
 jump-start application development initiatives within the developer
 community as well as help data center infrastructure engineers take

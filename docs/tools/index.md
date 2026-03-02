@@ -10,7 +10,7 @@ slug: /tools
 This collection of articles describes user level applications and libraries
 supporting zoned block devices.
 
-* [Linux System Utilities](/docs/tools/util-linux): Learn about the icollection
+* [Linux System Utilities](/docs/tools/util-linux): Learn about the collection
   of Linux&reg; utilities supporting zoned block devices.
 
 * [SCSI Generic Utilities](/docs/tools/sg3utils): Learn about ZBC feature set

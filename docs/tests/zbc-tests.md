@@ -42,7 +42,7 @@ examples shown.
 ```
 
 */dev/sdb* is a SATA disk connected to an AHCI controller (SATA port),
-*/dev/sdc* is a SAS disk connected to a SAS HBA and */dev/sdc* is a SATA disk
+*/dev/sdc* is a SAS disk connected to a SAS HBA and */dev/sdd* is a SATA disk
 connected to the same SAS HBA.
 
 ## Checking Serial ATA Disks
@@ -222,7 +222,7 @@ Executing section 02 - zone state machine tests...
 A test case failure is a strong indicator that the disk may not be fully
 compliant with the ZAC specifications. Most failures can generally be confirmed
 using a bus analyzer to obtain a command trace for the failing test sequence.
-Other root cause for any test failure are always a possibility.
+Other root causes for any test failure are always a possibility.
 
 ## Checking SAS Disks
 

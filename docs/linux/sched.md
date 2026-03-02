@@ -123,7 +123,7 @@ follows.
 
 :::note
 The *deadline* and *mq-deadline* schedulers operate by grouping commands per
-type (reads vs writes) and always processsing these two groups of commands
+type (reads vs writes) and always processing these two groups of commands
 separately, e.g. first issuing many reads, then many writes. This improves
 performance by taking advantage of hardware features such as device-level
 read-ahead.
@@ -272,7 +272,7 @@ also be done using a *udev* rule. The procedure for defining a new *udev* rule
 varies slightly between distributions. Refer to your distribution
 documentation for details.
 
-``` plaintext
+```plaintext
 ACTION=="add|change", KERNEL=="sd*[!0-9]", ATTRS{queue/zoned}=="host-managed", ATTR{queue/scheduler}="deadline"
 ```
 
@@ -283,7 +283,7 @@ write stream. Nevertheless, write ordering can be maintained for these disks too
 by using the *deadline* scheduler. The above *udev* rule modified will
 automatically enable this.
 
-``` plaintext
+```plaintext
 ACTION=="add|change", KERNEL=="sd*[!0-9]", ATTRS{queue/zoned}=="host-aware", ATTR{queue/scheduler}="deadline"
 ```
 

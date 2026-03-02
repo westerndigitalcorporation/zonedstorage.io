@@ -301,7 +301,7 @@ actions taken by *zonefs* in response to I/O errors depend on the I/O type
 (read vs write) and on the reason for the error (bad sector, unaligned writes or
 zone condition change).
 
-* For read I/O errors, *zonefs* takes recovery action action only if the file 
+* For read I/O errors, *zonefs* takes recovery action only if the file 
   zone is still in good condition and there is no inconsistency between the 
   file inode size and its zone write pointer position. If a problem is 
   detected, I/O error recovery is executed (see below table).

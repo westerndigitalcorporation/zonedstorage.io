@@ -5,7 +5,7 @@ sidebar_label: Overview
 slug: /device-mapper
 ---
 
-Linux device mapper subsystem includes several target driver supporting zoned
+Linux device mapper subsystem includes several target drivers supporting zoned
 block devices.
 
 ## Supported Targets
@@ -26,5 +26,5 @@ device mapper target drivers are also supported.
 ## Other Target Drivers
 
 Any device mapper target driver that is not listed above cannot be used with
-zoned block devices. Attempting to set such target on a zoned block devie will
+zoned block devices. Attempting to set such target on a zoned block device will
 be rejected by the device mapper core code and an error returned to the user.

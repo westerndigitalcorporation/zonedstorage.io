@@ -74,9 +74,12 @@ href="https://github.com/westerndigitalcorporation/zenfs/blob/master/README.md"
 target="_blank"> README file</a>.
 
 :::note
-Remember to set the block device IO scheduler to "deadline" to prevent write
-operations from being reordered. This can be done automatically on system
-boot using a [*udev* rule](/docs/linux/sched).
+For Linux kernels older than 6.10, remember to set the block device IO
+scheduler to "deadline" to prevent write operations from being reordered.
+This can be done automatically on system boot using a
+[*udev* rule](/docs/linux/sched). Kernels 6.10 and later use zone write
+plugging, which handles write ordering automatically without requiring a
+specific I/O scheduler.
 :::
 
 ### ZenFS Command Line

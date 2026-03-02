@@ -9,15 +9,15 @@ import ImageLink from '/src/components/ImageLink';
 
 # SSDs with NVMe Zoned Namespace (ZNS) Support
 
-The NVM Express (NVMe) Zoned Namespace (ZNS) Command Set introduce a new division of functionality
-between host software and the device controller. A NVMe device that implements ZNS support exposes its
+The NVM Express (NVMe) Zoned Namespace (ZNS) Command Set introduces a new division of functionality
+between host software and the device controller. An NVMe device that implements ZNS support exposes its
 capacity into zones, where each zone can be read in any order but must be
 written sequentially.
 
-The <a href="https://nvmexpress.org/" target="_blank_">NVM Express (NVMe)
+The <a href="https://nvmexpress.org/" target="_blank">NVM Express (NVMe)
 organization</a> released as part of the NVMe 2.0 specifications
 the <a href="https://nvmexpress.org/developers/nvme-command-set-specifications/"
-target="_blank_">NVMe Zoned Namespace Command Set specification</a>. The latest revision
+target="_blank">NVMe Zoned Namespace Command Set specification</a>. The latest revision
 of this specification available is 1.1. The specification defines a
 command interface that applies to all NVMe defined command transport. This
 command set is independent of the storage media technology used by the device
@@ -31,17 +31,17 @@ improved QoS (lower access latencies) and increased capacity.
 
 :::note
 See <a href="https://www.usenix.org/conference/atc21/presentation/bjorling"
-target="_blank_">ZNS: Avoiding the Flash-Based Block Interface Tax for
+target="_blank">ZNS: Avoiding the Flash-Based Block Interface Tax for
 Flash-Based SSDs</a> for a deep dive on SSDs with Zoned Namespace support. The article was published
 at USENIX ATC 2021.
 :::
 
 ## Overview
 
-The ZNS specifications follows the [Zoned Storage
-Model](/docs/introduction/zoned-storage). This standards-based architecture,
-which takes a unified approach to storage that enables both Shingled Magnetic
-Recording (SMR) in HDDs and SSDs with Zoned Namespace support to share a unified software stack.
+The Zoned Namespace Command Set specification follows the [Zoned Storage
+Model](/docs/introduction/zoned-storage). This standards-based architecture
+enables both Shingled Magnetic Recording (SMR) HDDs and SSDs with Zoned
+Namespace support to share a unified software stack.
 
 Specifically for SSDs with Zoned Namespace support, the zone abstraction allows the host aligning its
 writes to the sequential write required properties of flash-based SSDs, and
@@ -93,14 +93,14 @@ is always smaller or equal to the zone size.
 This new attribute was introduced to allow for the zone size to remain a power
 of two number of logical blocks (facilitating logical block to zone number
 conversions) while allowing optimized mapping of a zone storage capacity to the
-underlying media characteristics. For instance, in the case a flash based
+underlying media characteristics. For instance, in the case of a flash-based
 device, a zone capacity can be aligned to the size of flash erase blocks without
-requiring that the device implements a power-of-two sized erased block.
+requiring that the device implements a power-of-two-sized erase block.
 
 As the logical block addresses between the zone capacity and the end of the
 zone are not mapped to any physical storage blocks, write accesses to
 these blocks will result in an error. Therefore, reading in this area is handled
-in the same way as when reading unwritted blocks.
+in the same way as when reading unwritten blocks.
 
 A zone with a zone capacity smaller than the zone size will be transitioned to a
 full condition when the number of written blocks equals the zone capacity.
@@ -115,7 +115,7 @@ reported namespace capacity if the namespace contains zones with a zone capacity
 lower than the zone size.
 :::
 
-### Zone Resources Limits
+### Zone Resource Limits
 
 The ZNS specification allows a ZNS controller to report a limit on the total
 number of zones that can be simultaneously in the implicit open or explicit open

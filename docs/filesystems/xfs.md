@@ -6,7 +6,7 @@ sidebar_label: XFS
 
 # XFS File System
 
-*XFS* is a widely used scalable enterprise file system that traces it's root
+*XFS* is a widely used scalable enterprise file system that traces its roots
 back to the IRIX operating system in the 1990s and is supported by all
 major Linux distributions. *XFS* was originally designed for in-place overwrites
 on conventional storage devices, but has experimental support for zoned block
@@ -153,7 +153,7 @@ mount option.
 31
 ```
 
-The garbage collection threshold threshold can be configured in *sysfs* for
+The garbage collection threshold can be configured in *sysfs* for
 each file system using the *zonegc_low_space* attribute.
 
 The default attribute value is 0, indicating that *XFS* tries to ensures that
@@ -308,7 +308,7 @@ user space tools (e.g. `mkfs.xfs`) is also required.
 mkfs.xfs version 6.15.0
 ```
 
-If your Linux distribution does not provides an adequate version of *xfsprogs*,
+If your Linux distribution does not provide an adequate version of *xfsprogs*,
 this project source code can be downloaded from <a
 href="https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git" target="_blank">
 kernel.org</a>. See the <a

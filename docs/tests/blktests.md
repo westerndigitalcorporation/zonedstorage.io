@@ -56,20 +56,20 @@ directory if the `config` file is copied in that location.
 # Tests target device list
 TEST_DEVS=(/dev/sdd)
 
-# Enable zoned block device mode for the block group genertic tests 
+# Enable zoned block device mode for the block group generic tests 
 RUN_ZONED_TESTS=1
 ```
 
 With this configuration, all tests relevant to zoned block devices will be
 executed. The execution duration can be several 10s of minutes depending on the
-target device and host system. To Shorten execution, the options `TIMEOUT` and
+target device and host system. To shorten execution, the options `TIMEOUT` and
 `QUICK_RUN` can be added to the configuration.
 
 ```bash
 # Tests target device list
 TEST_DEVS=(/dev/sdd)
 
-# Enable zoned block device mode for the block group genertic tests
+# Enable zoned block device mode for the block group generic tests
 RUN_ZONED_TESTS=1
 
 # Speed up execution (weaker tests)
@@ -88,7 +88,7 @@ device specified in the configuration file, the `DEVICE_ONLY` option can be set.
 # Tests target device list
 TEST_DEVS=(/dev/sdd)
 
-# Enable zoned block device mode for the block group genertic tests
+# Enable zoned block device mode for the block group generic tests
 RUN_ZONED_TESTS=1
 
 # Speed up execution (weaker tests)
@@ -103,7 +103,7 @@ DEVICE_ONLY=1
 
 *blktests* execution is done using the `check` script present in the top level
 directory. This script optionally takes as argument a list of test groups or
-test cases to execute. Bu default, without any argument, all test groups will be
+test cases to execute. By default, without any argument, all test groups will be
 executed.
 
 For zoned block device tests, executing the test cases of the *block* and *zbd*
@@ -221,14 +221,14 @@ disk does not support the *discard* command.
 
 ### Quick Run
 
-*blkltests* execution can be accelerated using the `TIMEOUT`, `QUICK_RUN` and
+*blktests* execution can be accelerated using the `TIMEOUT`, `QUICK_RUN` and
 `DEVICE_ONLY` configuration options.
 
 ```bash
 # Tests target device list
 TEST_DEVS=(/dev/sdd)
 
-# Enable zoned block device mode for the block group genertic tests
+# Enable zoned block device mode for the block group generic tests
 RUN_ZONED_TESTS=1
 
 # Speed up execution (weaker tests)

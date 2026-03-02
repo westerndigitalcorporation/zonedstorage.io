@@ -30,7 +30,7 @@ following operations.
 * A zone reset operation: the write pointer position of the target zone(s)
   is reset to the start of the zone.
 * A zone finish operation: the write pointer position of the target zone(s)
-  is changed an invalid value with the zone condition cnahed to FULL.
+  is changed to an invalid value with the zone condition changed to FULL.
 * A device low level format operation: the write pointer of all zones is reset.
 
 No other command, operation or user action can change the position of a zone

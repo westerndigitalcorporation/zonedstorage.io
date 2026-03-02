@@ -29,7 +29,7 @@ the basis of Linux kernel support for zoned storage.
 The interface associated with the ZBD device abstraction is an extension of the
 traditional Linux block device interface. The ZBD interface (with the help of
 device drivers) provides a generic zone-management interface to kernel
-subsystems (e.g. File systems) and to user applications that is compatible
+subsystems (e.g. file systems) and to user applications that is compatible
 across all zoned device types and all access protocols.
 
 A simplified view of the kernel structure, including the ZBD interface, is

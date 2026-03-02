@@ -124,7 +124,7 @@ crashes. One set (the primary set) is used as the main metadata set. The other
 set (the secondary set) is used as a log. Modified metadata are first written
 to the secondary set. The log that is created by writing to the secondary set 
 is validated by writing an updated super block in the secondary set. After 
-this log operation completes, the primary metadata set is updtaed.  This 
+this log operation completes, the primary metadata set is updated.  This 
 ensures that one of the sets is always correct.
 
 Flush operations are used as a commit point: when a flush operation is
@@ -344,7 +344,7 @@ For a multi-device target, you must specify the same list of devices that you
 specified when you formatted them:
 
 ```plaintext
-# dmzadm --start /dev/nvmen2p1 /dev/sdi
+# dmzadm --start /dev/nvme2n1 /dev/sdi
 /dev/nvme2n1: 976773168 512-byte sectors (465 GiB)
   Regular block device
   1864 zones, offset 0
@@ -358,7 +358,7 @@ nvme2n1: starting dmz-nvme2n1 uuid ffbd1a3a-d79b-4d7f-bc13-e475a157bc39
 ```                                                          
 
 Check the kernel messages to confirm the activation of the target device. This
-is similar to confirming target-device activiation in the single-device case.
+is similar to confirming target-device activation in the single-device case.
 
 ```plaintext
 device-mapper: zoned metadata: (dmz-nvme2n1): DM-Zoned metadata version 2

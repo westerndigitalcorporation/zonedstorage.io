@@ -53,7 +53,7 @@ that are dependent on the device interface:
   SAT may be provided either by the kernel *libata* subsystem for ATA disks
   connected to SATA adapters or by an SAS host bus adapter (HBA) for SATA disks
   connected to such an adapter.
-* **Zoned Block Device Driver** This driver uses the kernel zoned block devie
+* **Zoned Block Device Driver** This driver uses the kernel zoned block device
   interface to control both ZBC and ZAC disks. This driver is only available if
   kernel zoned block device support is present and enabled. This driver is no
   longer available in *libzbc* v6.0.0 and upward.
@@ -61,7 +61,7 @@ that are dependent on the device interface:
   a regular file or regular block device as backend storage. This driver is
   intended for development only. A more advanced ZBC disk emulation solution
   is provided by the [*tcmu-runner*](/docs/tools/tcmu-runner) project. This
-  driver is no longer available in *libzbc* v6.0.0.0 and upward.
+  driver is no longer available in *libzbc* v6.0.0 and upward.
 
 The figure below shows this structure.
 
@@ -71,7 +71,7 @@ title="libzbc v5.0.0 - v6.0.0 internal backend drivers organization"/>
 The latest version of *libzbc*, version 6.0.0, does not support the
 **Zoned Block Device Driver**. This change avoids the overlap in functionality
 with [*libzbd*](libzbd.md). In practice, it means that *libzbc* is now a pure
-passthrough library which never use the kernel zoned block devie management
+passthrough library which never use the kernel zoned block device management
 interface.
 
 *libzbc* version 6.0.0 also removes the **File Emulation Driver** because
@@ -215,7 +215,7 @@ used. The only exception to this is the `zbc_errno()` function's inability to
 report detailed error information when the zoned block device driver is used.
 The reason for this is that the kernel I/O stack does not have the ability to
 propagate up to the application the detailed information that is provided in
-SCSI/ATI sense data for failed commands.
+SCSI/ATA sense data for failed commands.
 
 ## Tools
 

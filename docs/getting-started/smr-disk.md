@@ -216,10 +216,10 @@ Zone 55879: type 0x2 (Sequential-write-required), cond 0x1 (Empty), reset recomm
 
 ## Using a SAS Host Bus Adapter
 
-AHCI adapters can only accomodate Serial ATA disks and generally only provide a
+AHCI adapters can only accommodate Serial ATA disks and generally only provide a
 limited number of ports. SAS Host Bus Adapters (HBA) are widely used in
 enterprise applications to overcome AHCI limitations. The SAS transport layer
-used by SAS HBAs can equally accomodate both Serial ATA and SCSI disks.
+used by SAS HBAs can equally accommodate both Serial ATA and SCSI disks.
 
 ### HBA Compatibility
 
@@ -249,7 +249,7 @@ host managed disk.
 
 In the case of a host aware disk model, the device type and device signature
 handling will not cause any problem (recall that host aware disks use the
-regular disk device type and signatur *0x00*). Host aware disks will thus always
+regular disk device type and signature *0x00*). Host aware disks will thus always
 be useable as regular disks with any HBA. The execution of ZBC zone commands
 with a SAS host aware disk may also work most of the time. However, similarly
 to host managed disk, the absence of a ZBC/ZAC compatible SAT layer will prevent

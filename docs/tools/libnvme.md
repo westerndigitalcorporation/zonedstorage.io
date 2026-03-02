@@ -9,7 +9,7 @@ sidebar_label: libnvme User Library
 *libnvme* is an open source user library that provides definitions and functions
 for interacting with nvme devices. `nvme-cli` provides convenient ways for a
 user to interact with nvme devices from the shell, and libnvme provides
-similiar access for other programs.
+similar access for other programs.
 
 ## Overview
 
@@ -26,7 +26,7 @@ provides structures and enumerations to help decode the payloads.
 
 All of the ZNS functions provided by *libnvme* are prefixed with the
 `nvme_zns_` name.  The following are the admin commands defined from the ZNS
-specifcation:
+specification:
 
 <center>
 
@@ -63,7 +63,7 @@ can perform:
 | NVME_ZNS_ZSA_OPEN | Sets the zone state to Open |
 | NVME_ZNS_ZSA_RESET | Sets the zone state to Empty |
 | NVME_ZNS_ZSA_OFFLINE | Sets the zone state to Offline  |
-| NVME_ZNS_ZSA_SET_DESC_EXT | Sets the zone descriptor extention data, if available |
+| NVME_ZNS_ZSA_SET_DESC_EXT | Sets the zone descriptor extension data, if available |
 
 </center>
 
@@ -78,7 +78,7 @@ provided by *libnvme* from the ZNS specification:
 | :-------- | :---------- |
 | nvme_zns_id_ns | ZNS specific Namespace Identification, returned from nvme_zns_identify_ns() |
 | nvme_zns_id_ctrl | ZNS specific Controller Identification, returned from nvme_zns_identify_ctrl() |
-| nvme_zns_changed_zone_log | Log page that indicaties if a zone descriptor has changed for one or more zones, returned from nvme_zns_get_log_changed_zones() |
+| nvme_zns_changed_zone_log | Log page that indicates if a zone descriptor has changed for one or more zones, returned from nvme_zns_get_log_changed_zones() |
 | nvme_zone_report | Provides the structure returned from a ZNS Report Zones command, returned from nvme_zns_mgmt_recv() |
 
 </center>

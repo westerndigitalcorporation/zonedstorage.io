@@ -63,13 +63,13 @@ title="Zone Size and Zone Capacity"/>
 The use of zone capacities different from the zone size allows for the zone size
 to remain constant for all zones while allowing an optimized mapping of a zone
 storage capacity to the underlying media characteristics. For instance, in the
-case a flash based device, a zone capacity can be aligned to the size of flash
+case of a flash-based device, a zone capacity can be aligned to the size of flash
 erase blocks without imposing host requirements on the device erase block size.
 
 ## Zone Models
 
 The zone interface of zoned storage devices can take different forms. These
-forms are referred to as "models", and their differences impacts hosts and
+forms are referred to as "models", and their differences impact hosts and
 users. It is important to understand these differences, as not all
 implementation options are appropriate for a particular storage application.
 The two models that are in use today are:
@@ -162,7 +162,7 @@ information allows host software to implement sequential write streams to zones.
 
 Zones can be managed using the following commands.
 
-* **RESET ZONE WRITE POINTER** is the command that host software use to
+* **RESET ZONE WRITE POINTER** is the command that host software uses to
   reset the location of a zone write pointer to the beginning of the zone. After
   this command is executed, all data that was written to the zone is lost and
   cannot be accessed.
@@ -206,11 +206,11 @@ zone uses. The following states are defined.
 * **Closed** The device internal resources used by a zone were freed explicitly
   by the host through the execution of a *CLOSE ZONE* command, or the device
   implicitly freed the internal resources assigned to the zone to serve write
-  operations targetting different zones.
+  operations targeting different zones.
 
 * **Read Only** The zone can only be read. This state generally corresponds to a
   defective state of the device, e.g. for a hard-disk, the zone is stored on a
-  platter with a broken write head .
+  platter with a broken write head.
 
 * **Offline** The zone cannot be read nor written. This state generally
   corresponds to a defective state of the device, e.g. the storage media for the
@@ -231,16 +231,16 @@ For all other states, the execution of a *RESET ZONE* command always changes the
 zone state to *empty*, indicating that none of the blocks in the zone contain
 valid data.
 
-A write operation into a zone with the *empty* state change the zone state to
+A write operation into a zone with the *empty* state changes the zone state to
 *implicit open*. Writing all blocks of an implicitly opened zone changes its
 state to *full*. A *FINISH ZONE* command also changes a zone state to full.
 
 An empty or implicitly open zone can be transitioned to the *explicitly open*
 state using the *EXPLICIT OPEN* command. Conversely, implicitly or explicitly
-opened zoned can be transitioned to the *closed* state using the *CLOSE ZONE*
+opened zones can be transitioned to the *closed* state using the *CLOSE ZONE*
 command.
 
-## Zone Resources Limits
+## Zone Resource Limits
 
 A zoned storage device implementation may require the allocation of internal
 resources (e.g. a write buffer) to execute write operations into zones.
@@ -261,7 +261,7 @@ This limit does not affect read operations.
 ### Active Zones Limit
 
 Any zone in the implicit open, explicit open or closed state is defined as an
-active zone and correspond to any zone that is being written or that has been
+active zone and corresponds to any zone that is being written or that has been
 only partially written. A zoned storage device may impose a limit on the maximum
 number of zones that can be active. This limit is always equal or larger than
 the limit on the maximum number of open zones.
@@ -296,7 +296,7 @@ for workloads issuing mostly small write operations.
 To avoid this problem, some zoned storage devices define the *Zone Append*
 command. A zone append command is a write operation that specifies the first
 logical block of a zone as the write position. When executing the command, the
-device write the data within the zone indicated, but do so at the current zone
+device writes the data within the zone indicated, but does so at the current zone
 write pointer position. This change in the write position is automatic and the
 effective write position for the data is indicated to the host through the
 command completion information. This mechanism allows a host to simultaneously

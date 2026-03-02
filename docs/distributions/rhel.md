@@ -26,7 +26,7 @@ here</a>.
 
 The latest release 9 of *RHEL* is based on the kernel version 5.14. The default
 binary kernel shipped with the distribution is configured with zoned block
-device support enabled, which enable using SMR and ZNS devices. Earlier versions
+device support enabled, which enables using SMR and ZNS devices. Earlier versions
 of *RHEL* do not have support for zoned storage enabled by default.
 
 <div>

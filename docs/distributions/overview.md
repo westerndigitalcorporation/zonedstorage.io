@@ -21,7 +21,7 @@ packages are available. Their use is recommended to facilitate
 development and testing of applications.
 
  - [Fedora](/docs/distributions/fedora)
- - [openSuse](/docs/distributions/opensuse)
+ - [openSUSE](/docs/distributions/opensuse)
 
 ## Other Linux Distributions
 

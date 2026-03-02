@@ -199,7 +199,7 @@ This script (*nullblk-zoned.sh*) takes four arguments:
 Memory-backing for written sectors can be turned on with this script (the
 relevant part is ```memory_backed=1``` or, as it appears in this example,
 ```echo 1 > "$dev"/memory_backed```). This enables runtime persistence of the
-data written to the sectors of the emulated device. The writen data is lost when
+data written to the sectors of the emulated device. The written data is lost when
 the emulated device is destroyed.
 
 For example, a small zoned device with 4 conventional zones and 8 sequential
@@ -634,7 +634,7 @@ uuid=5e40ec5f-eeb6-4317-bc5e-c919796a5f79
 If your guest operating system is a Linux distribution and the Linux
 distribution's kernel version is higher than 5.9.0, the emulated SSD with ZNS
 support can be checked by using the *nvme* command (see [Linux Tools for
-ZNS](/docs/tools/zns).
+ZNS](/docs/tools/zns)).
 
 ```
 # nvme list

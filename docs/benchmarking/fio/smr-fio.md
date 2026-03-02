@@ -191,7 +191,7 @@ Disk stats (read/write):
 ```
 
 If the zones are reset before executing this command, no read I/O will be
-executed as *fio* will be enable to find zones with written sectors.
+executed as *fio* will be unable to find zones with written sectors.
 
 ```plaintext
 # blkzone reset -o 274726912 -l 2097152 /dev/sdd
@@ -490,7 +490,7 @@ Disk stats (read/write):
 :::note
 SCSI generic direct access bypasses the block layer I/O scheduler. For zoned
 block devices, this means that the *deadline* I/O scheduler zone write locking
-is enable to provide write command ordering guarantees.  However, the *zbd* mode
+is unable to provide write command ordering guarantees.  However, the *zbd* mode
 ensures mutual exclusion between jobs for write access to the same zone. Such
 synchronization is in essence identical to zone write locking and execute all
 write commands without any error.

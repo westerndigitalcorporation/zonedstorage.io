@@ -200,7 +200,7 @@ Alternatively, the following udev rule can be used to automatically set the
 *mq-deadline* scheduler for all zoned block devices that have been formatted
 with BTRFS.
 
-```plain text
+```plaintext
 SUBSYSTEM!="block", GOTO="btrfs_end"
 ACTION!="add|change", GOTO="btrfs_end"
 ENV{ID_FS_TYPE}!="btrfs", GOTO="btrfs_end"

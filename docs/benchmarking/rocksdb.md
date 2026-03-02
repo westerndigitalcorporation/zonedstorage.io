@@ -28,7 +28,7 @@ The following command will replicate the performance tests shown in the paper.
 ```
 
 :::note
-The results hown in section 5.2 of the paper were obtained using a 2TB NVMe ZNS
+The results shown in section 5.2 of the paper were obtained using a 2TB NVMe ZNS
 device. ZNS devices with different capacities have different maximum
 performance.
 :::

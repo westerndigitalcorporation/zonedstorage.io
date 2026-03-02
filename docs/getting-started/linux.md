@@ -39,7 +39,7 @@ in more detail in the [Linux Support](/docs/linux/overview) document.
 :::
 
 To verify that a zoned block device has been discovered and correctly
-initalized, several user utilities must be installed on the test system. These
+initialized, several user utilities must be installed on the test system. These
 utilities are discussed in more detail in the section called [System
 Utilities](linux#system-utilities).
 
@@ -145,7 +145,7 @@ devices.
 :::
 
 If your kernel exports its configuration through the *proc* file system, use one
-of the following sets of commands to retreive the status of
+of the following sets of commands to retrieve the status of
 `CONFIG_BLK_DEV_ZONED`:
 
 ```plaintext
@@ -182,7 +182,7 @@ following:
 
 1. A kernel that supports zoned block devices
 2. Proper zoned device configuration 
-3. (in some cases) System utliities that provide zoned block device information.
+3. (in some cases) System utilities that provide zoned block device information.
 
 ### Write Ordering Control
 
@@ -258,7 +258,7 @@ documentation page](/docs/tools/util-linux#blkzone).
 Both *lsblk* and *blkzone* are part of the *util-linux* package, which is
 installed by default on most Linux distributions. However, the zone block device
 support for these utilities (and so the existence of the *blkzone* utility
-itself) depend on wether the Linux distribution used supports zoned block
+itself) depend on whether the Linux distribution used supports zoned block
 devices. If the kernel was manually upgraded to enable zoned block device
 support, the *util-linux* package must also be compiled and installed manually
 to match the zoned block device support of the new kernel.
@@ -274,7 +274,7 @@ Refer to your distribution documentation to find the name of the package that
 provides the *lsscsi* utility.
 
 The [SCSI Generic Utilities](/docs/tools/sg3utils#lsscsi) document provides more
-information and usage examples of *lssci*.
+information and usage examples of *lsscsi*.
 
 #### sg3_utils
 

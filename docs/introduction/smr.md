@@ -75,7 +75,7 @@ A specification for commands has been defined for SMR hard disks that implement
 the host-managed and host-aware models. These command interfaces are
 standards-based and have been developed by the INCITS T10 committee for SCSI
 hard disks and by the INCITS T13 committee for ATA hard disks. No industry
-standard exists for the drive-Managed model, because it is backwards-compatible
+standard exists for the drive-managed model, because it is backwards-compatible
 and transparent to hosts.
 
 ### SCSI Standard: ZBC
@@ -83,7 +83,7 @@ and transparent to hosts.
 "Zoned Block Command (ZBC) revision 05" is the standard that defines zone
 management commands and read/write command behavior for Host-Managed and Host-
 Aware SCSI drives. The ZBC specification defines the model and command-set
-extensions for zoned block devices, and have been implemented in conjunction
+extensions for zoned block devices, and has been implemented in conjunction
 with the applicable clauses of the SPC-5 and SBC-4 specifications.
 
 #### Acquiring the SCSI ZBC Standard
@@ -174,10 +174,10 @@ commands](/docs/introduction/zoned-storage#zone-management-commands) as
 extensions of the drive's basic command set (which is similar to the set of
 commands defined for CMR drives).
 
-### Zone Resources Limits
+### Zone Resource Limits
 
-The ZAC and ZBC standards define only one [zone resources
-limit](/docs/introduction/zoned-storage#zone-resources-limits). A drive can have
+The ZAC and ZBC standards define only one [zone resource
+limit](/docs/introduction/zoned-storage#zone-resource-limits). A drive can have
 a limit on the number of zones that can be in the implicit open or explicit open
 state (open zones).
 
@@ -189,14 +189,14 @@ the number of zones on the drive that can be partially written).
 
 Since host-aware drives are backwards compatible with regular CMR disks, the
 ZBC and ZAC standards do not define any limit on the number of open zones for
-this model. However, the standards define that a drive can advertize and optimal
+this model. However, the standards define that a drive can advertise an optimal
 maximum number of open zones. This is a non-restrictive guideline for the host
 rather than an enforced limit. The host software can use this information to
-avoid performance degradation due to an excessive number of zone partially
+avoid performance degradation due to an excessive number of zones partially
 written on the device.
 
 ### Zone Append
 
 The ZAC and ZBC standards do not define a [zone append
 command](/docs/introduction/zoned-storage#zone-append) for SMR hard disks.
-However, this command semantic can be emulated by host software stacks.
+However, this command's semantics can be emulated by host software stacks.

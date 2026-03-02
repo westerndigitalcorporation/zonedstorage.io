@@ -124,7 +124,7 @@ title="vhost-scsi support option with make menuconfig"/>
 
 To make it possible to attach physical disks as well as
 [*tcmu-runner*](/docs/tools/tcmu-runner)-emulated ZBC disks, you must enable
-the kernel configuration option *COFNGI_TCM_PSCSI*. This option can be found in
+the kernel configuration option *CONFIG_TCM_PSCSI*. This option can be found in
 the menu *Device Drivers* -> *Generic Target Core Mod (TCM) and ConfigFS
 Infrastructure*.
 

@@ -56,7 +56,7 @@ cryptsetup open --type plain \
 ls -aFl /dev/mapper | grep crypt
 ```
 
-Running this scripts creates a device mapper zoned block device.
+Running this script creates a device mapper zoned block device.
 
 ```plaintext
 # dm-crypt-setup.sh /dev/sdb
