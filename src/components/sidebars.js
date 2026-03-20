@@ -106,6 +106,7 @@ const sidebars = {
         'tools/sg3utils',
         'tools/libzbc',
         'tools/libzbd',
+        'tools/zonar',
         'tools/libnvme',
         'tools/tcmu-runner',
         'tools/qemu'
