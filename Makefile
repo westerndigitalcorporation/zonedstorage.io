@@ -33,7 +33,7 @@ serve:
 ifeq ($(shell ls -d build 2> /dev/null),)
 	@make -s all
 endif
-	@echo "Stating local server"
+	@echo "Starting local server"
 	@${YARN} serve --host 0.0.0.0 --port 3000
 
 deploy: build
