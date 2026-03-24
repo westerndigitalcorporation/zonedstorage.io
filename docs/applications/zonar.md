@@ -1,5 +1,4 @@
 ---
-id: zonar
 sidebar_label: Zonar
 title: Zonar
 ---
@@ -45,7 +44,7 @@ Mount directory /mnt/zbd: XFS on device /dev/zloop0
   Max active zones: 0
 ```
 
-The example above uses a zloop device to demonstrate Zonar
+The example above uses a zloop device to demonstrate Zonar.
 
 ## The Graphical Interface
 
@@ -53,8 +52,14 @@ The example above uses a zloop device to demonstrate Zonar
 
 The image above demonstrates Zonar examining an XFS filesystem on a zloop
 device. The UI presents itself in 3 key components:
+<<<<<<< HEAD:docs/tools/zonar.md
 1. Filesystem information and the legend
 2. A scrollable grid window which shows the filesystem blockgroups
+=======
+
+1. Filesystem information and the legend.
+2. A scrollable grid window which shows the filesystem blockgroups.
+>>>>>>> b0b26db (Move Zonar documentation from tools to):docs/applications/zonar.md
 3. Interactive features for users.
 
 ### 1. Filesystem Information
@@ -68,8 +73,8 @@ is also displayed here.
 
 The scrollable blockgroup grid draws all of the blockgroups of the filesystem,
 and represents the blockgroups as sequential and conventional blockgroups.
-Sequential blockgroups use sequential write required zoned and conventional
-zones use conventional zones for the underlying storage.
+Sequential blockgroups use sequential write required zones, and conventional
+blockgroups use conventional zones for the underlying storage.
 
 Users can click on the blockgroups to learn more about a particular blockgroup.
 
@@ -87,6 +92,10 @@ outlined in purple.
 
 Zonar offers additional features for users to interact with the GUI and the
 filesystem.
+<<<<<<< HEAD:docs/tools/zonar.md
+=======
+
+>>>>>>> b0b26db (Move Zonar documentation from tools to):docs/applications/zonar.md
 1. Blockgroup resize (Zoom in/out)
 2. Jump to blockgroup
 3. Auto refresh
@@ -131,8 +140,7 @@ rendered on the grid on the respective blockgroups.
 
 In the example above, the extents of "file" are in blockgroups 42 to 62
 inclusive. Additional information about the individual extents are shown in the
-extents tab that is opened upon search as seen below.
-
+extents tab that is opened upon search.
 
 ## Zonar Networking
 
