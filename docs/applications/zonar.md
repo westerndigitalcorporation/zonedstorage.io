@@ -52,14 +52,9 @@ The example above uses a zloop device to demonstrate Zonar.
 
 The image above demonstrates Zonar examining an XFS filesystem on a zloop
 device. The UI presents itself in 3 key components:
-<<<<<<< HEAD:docs/tools/zonar.md
-1. Filesystem information and the legend
-2. A scrollable grid window which shows the filesystem blockgroups
-=======
 
 1. Filesystem information and the legend.
 2. A scrollable grid window which shows the filesystem blockgroups.
->>>>>>> b0b26db (Move Zonar documentation from tools to):docs/applications/zonar.md
 3. Interactive features for users.
 
 ### 1. Filesystem Information
@@ -92,10 +87,7 @@ outlined in purple.
 
 Zonar offers additional features for users to interact with the GUI and the
 filesystem.
-<<<<<<< HEAD:docs/tools/zonar.md
-=======
 
->>>>>>> b0b26db (Move Zonar documentation from tools to):docs/applications/zonar.md
 1. Blockgroup resize (Zoom in/out)
 2. Jump to blockgroup
 3. Auto refresh
