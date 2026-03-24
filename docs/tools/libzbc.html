@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.7bab9b30.css">
-<script src="/assets/js/runtime~main.f2874dc0.js" defer="defer"></script>
-<script src="/assets/js/main.99e697ae.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.9ae38587.js" defer="defer"></script>
+<script src="/assets/js/main.10bca4b7.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -50,7 +50,7 @@ SCSI to ATA (SAT) command translation layer exists in the command path.
 SAT may be provided either by the kernel <em>libata</em> subsystem for ATA disks
 connected to SATA adapters or by an SAS host bus adapter (HBA) for SATA disks
 connected to such an adapter.</li>
-<li class=""><strong>Zoned Block Device Driver</strong> This driver uses the kernel zoned block devie
+<li class=""><strong>Zoned Block Device Driver</strong> This driver uses the kernel zoned block device
 interface to control both ZBC and ZAC disks. This driver is only available if
 kernel zoned block device support is present and enabled. This driver is no
 longer available in <em>libzbc</em> v6.0.0 and upward.</li>
@@ -58,14 +58,14 @@ longer available in <em>libzbc</em> v6.0.0 and upward.</li>
 a regular file or regular block device as backend storage. This driver is
 intended for development only. A more advanced ZBC disk emulation solution
 is provided by the <a class="" href="/docs/tools/tcmu-runner"><em>tcmu-runner</em></a> project. This
-driver is no longer available in <em>libzbc</em> v6.0.0.0 and upward.</li>
+driver is no longer available in <em>libzbc</em> v6.0.0 and upward.</li>
 </ul>
 <p>The figure below shows this structure.</p>
 <div class="container text--center"><figure><img src="/assets/images/tools-libzbc-9dc574a0bfec08d195e6e4179d6cd272.png" width="640" max-width="100%"><figcaption><em>libzbc v5.0.0 - v6.0.0 internal backend drivers organization</em></figcaption></figure></div>
 <p>The latest version of <em>libzbc</em>, version 6.0.0, does not support the
 <strong>Zoned Block Device Driver</strong>. This change avoids the overlap in functionality
 with <a class="" href="/docs/tools/libzbd"><em>libzbd</em></a>. In practice, it means that <em>libzbc</em> is now a pure
-passthrough library which never use the kernel zoned block devie management
+passthrough library which never use the kernel zoned block device management
 interface.</p>
 <p><em>libzbc</em> version 6.0.0 also removes the <strong>File Emulation Driver</strong> because
 recent versions of QEMU and <a class="" href="/docs/tools/tcmu-runner"><em>tcmu-runner</em></a> provide much more
@@ -129,7 +129,7 @@ used. The only exception to this is the <code>zbc_errno()</code> function&#x27;s
 report detailed error information when the zoned block device driver is used.
 The reason for this is that the kernel I/O stack does not have the ability to
 propagate up to the application the detailed information that is provided in
-SCSI/ATI sense data for failed commands.</p>
+SCSI/ATA sense data for failed commands.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="tools">Tools<a href="#tools" class="hash-link" aria-label="Direct link to Tools" title="Direct link to Tools" translate="no">​</a></h2>
 <p><em>libzbc</em> provides several command line applications for manipulating zoned
 disks by calling the library functions. The list of applications provided is

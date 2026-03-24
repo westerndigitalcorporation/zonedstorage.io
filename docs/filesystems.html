@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.7bab9b30.css">
-<script src="/assets/js/runtime~main.f2874dc0.js" defer="defer"></script>
-<script src="/assets/js/main.99e697ae.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.9ae38587.js" defer="defer"></script>
+<script src="/assets/js/main.10bca4b7.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -18,14 +18,14 @@
 device support.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="supported-file-systems">Supported File Systems<a href="#supported-file-systems" class="hash-link" aria-label="Direct link to Supported File Systems" title="Direct link to Supported File Systems" translate="no">​</a></h2>
 <p>The list of Linux file systems with native zoned block device support is as
-follows.</p>
+follows:</p>
 <ul>
 <li class=""><a class="" href="/docs/filesystems/xfs">XFS</a></li>
 <li class=""><a class="" href="/docs/filesystems/btrfs">BTRFS</a></li>
 <li class=""><a class="" href="/docs/filesystems/f2fs">F2FS</a></li>
 </ul>
-<p>These general purpose file systems are recommended for applications that cannot
-be easily modified to use a zoned block device directly.</p>
+<p>These general purpose file systems handle the sequential write constraints of
+zoned block devices transparently, without requiring application modifications.</p>
 <p>In addition to these file systems, the Linux kernel also provides the
 <a class="" href="/docs/filesystems/zonefs">zonefs file system</a> as an alternative interface for
 using zoned block device files directly. Unlike the general purpose file systems

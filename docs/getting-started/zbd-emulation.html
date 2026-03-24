@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.7bab9b30.css">
-<script src="/assets/js/runtime~main.f2874dc0.js" defer="defer"></script>
-<script src="/assets/js/main.99e697ae.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.9ae38587.js" defer="defer"></script>
+<script src="/assets/js/main.10bca4b7.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -97,7 +97,7 @@ provided below.</p>
 <p>Memory-backing for written sectors can be turned on with this script (the
 relevant part is <code>memory_backed=1</code> or, as it appears in this example,
 <code>echo 1 &gt; &quot;$dev&quot;/memory_backed</code>). This enables runtime persistence of the
-data written to the sectors of the emulated device. The writen data is lost when
+data written to the sectors of the emulated device. The written data is lost when
 the emulated device is destroyed.</p>
 <p>For example, a small zoned device with 4 conventional zones and 8 sequential
 write-required zones of 64 MiB can be created with the following command:</p>
@@ -248,7 +248,7 @@ namespace is set to allow at most 16 open zones and 32 active zones.</p>
 <p>If your guest operating system is a Linux distribution and the Linux
 distribution&#x27;s kernel version is higher than 5.9.0, the emulated SSD with ZNS
 support can be checked by using the <em>nvme</em> command (see <a class="" href="/docs/tools/zns">Linux Tools for
-ZNS</a>.</p>
+ZNS</a>).</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># nvme list</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Node             SN                   Model                                    Namespace Usage                      Format           FW Rev</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">---------------- -------------------- ---------------------------------------- --------- -------------------------- ---------------- --------</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">/dev/nvme0n1     deadbeef             QEMU NVMe Ctrl                           1          34.36  GB /  34.36  GB      4 KiB +  0 B   1.0</span><br></span></code></pre></div></div>
 <p>The <em>lsscsi</em> utility shows the emulated NVMe device:</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># lsscsi -g</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[2:0:0:0]    cd/dvd  QEMU     QEMU DVD-ROM     2.5+  /dev/sr0   /dev/sg0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[N:0:0:1]    disk    QEMU NVMe Ctrl__1                          /dev/nvme0n1  -</span><br></span></code></pre></div></div>

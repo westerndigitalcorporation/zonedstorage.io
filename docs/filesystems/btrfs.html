@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.7bab9b30.css">
-<script src="/assets/js/runtime~main.f2874dc0.js" defer="defer"></script>
-<script src="/assets/js/main.99e697ae.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.9ae38587.js" defer="defer"></script>
+<script src="/assets/js/main.10bca4b7.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -134,7 +134,7 @@ this is done with the following command:</p>
 <p>Alternatively, the following udev rule can be used to automatically set the
 <em>mq-deadline</em> scheduler for all zoned block devices that have been formatted
 with BTRFS.</p>
-<div class="language-plain codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-plain codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">SUBSYSTEM!=&quot;block&quot;, GOTO=&quot;btrfs_end&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ACTION!=&quot;add|change&quot;, GOTO=&quot;btrfs_end&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ENV{ID_FS_TYPE}!=&quot;btrfs&quot;, GOTO=&quot;btrfs_end&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ATTR{queue/zoned}==&quot;host-managed&quot;, ATTR{queue/scheduler}=&quot;mq-deadline&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">LABEL=&quot;btrfs_end&quot;</span><br></span></code></pre></div></div>
+<div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">SUBSYSTEM!=&quot;block&quot;, GOTO=&quot;btrfs_end&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ACTION!=&quot;add|change&quot;, GOTO=&quot;btrfs_end&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ENV{ID_FS_TYPE}!=&quot;btrfs&quot;, GOTO=&quot;btrfs_end&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ATTR{queue/zoned}==&quot;host-managed&quot;, ATTR{queue/scheduler}=&quot;mq-deadline&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">LABEL=&quot;btrfs_end&quot;</span><br></span></code></pre></div></div>
 <p>Using the <em>mq_deadline</em> block IO scheduler for zoned block devices is not
 mandatory since kernel version 6.10. However, for performance reasons, the use
 of the <em>mq_deadline</em> I/O scheduler is still recommended for SMR hard-disks. For

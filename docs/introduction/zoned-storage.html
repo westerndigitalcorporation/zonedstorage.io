@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.7bab9b30.css">
-<script src="/assets/js/runtime~main.f2874dc0.js" defer="defer"></script>
-<script src="/assets/js/main.99e697ae.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.9ae38587.js" defer="defer"></script>
+<script src="/assets/js/main.10bca4b7.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -55,11 +55,11 @@ below.</p>
 <p>The use of zone capacities different from the zone size allows for the zone size
 to remain constant for all zones while allowing an optimized mapping of a zone
 storage capacity to the underlying media characteristics. For instance, in the
-case a flash based device, a zone capacity can be aligned to the size of flash
+case of a flash-based device, a zone capacity can be aligned to the size of flash
 erase blocks without imposing host requirements on the device erase block size.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="zone-models">Zone Models<a href="#zone-models" class="hash-link" aria-label="Direct link to Zone Models" title="Direct link to Zone Models" translate="no">​</a></h2>
 <p>The zone interface of zoned storage devices can take different forms. These
-forms are referred to as &quot;models&quot;, and their differences impacts hosts and
+forms are referred to as &quot;models&quot;, and their differences impact hosts and
 users. It is important to understand these differences, as not all
 implementation options are appropriate for a particular storage application.
 The two models that are in use today are:</p>
@@ -145,7 +145,7 @@ information allows host software to implement sequential write streams to zones.
 <p>Zones can be managed using the following commands.</p>
 <ul>
 <li class="">
-<p><strong>RESET ZONE WRITE POINTER</strong> is the command that host software use to
+<p><strong>RESET ZONE WRITE POINTER</strong> is the command that host software uses to
 reset the location of a zone write pointer to the beginning of the zone. After
 this command is executed, all data that was written to the zone is lost and
 cannot be accessed.</p>
@@ -197,12 +197,12 @@ software through the execution of an <em>OPEN ZONE</em> command.</p>
 <p><strong>Closed</strong> The device internal resources used by a zone were freed explicitly
 by the host through the execution of a <em>CLOSE ZONE</em> command, or the device
 implicitly freed the internal resources assigned to the zone to serve write
-operations targetting different zones.</p>
+operations targeting different zones.</p>
 </li>
 <li class="">
 <p><strong>Read Only</strong> The zone can only be read. This state generally corresponds to a
 defective state of the device, e.g. for a hard-disk, the zone is stored on a
-platter with a broken write head .</p>
+platter with a broken write head.</p>
 </li>
 <li class="">
 <p><strong>Offline</strong> The zone cannot be read nor written. This state generally
@@ -220,14 +220,14 @@ return to a fully functional state.</p>
 <p>For all other states, the execution of a <em>RESET ZONE</em> command always changes the
 zone state to <em>empty</em>, indicating that none of the blocks in the zone contain
 valid data.</p>
-<p>A write operation into a zone with the <em>empty</em> state change the zone state to
+<p>A write operation into a zone with the <em>empty</em> state changes the zone state to
 <em>implicit open</em>. Writing all blocks of an implicitly opened zone changes its
 state to <em>full</em>. A <em>FINISH ZONE</em> command also changes a zone state to full.</p>
 <p>An empty or implicitly open zone can be transitioned to the <em>explicitly open</em>
 state using the <em>EXPLICIT OPEN</em> command. Conversely, implicitly or explicitly
-opened zoned can be transitioned to the <em>closed</em> state using the <em>CLOSE ZONE</em>
+opened zones can be transitioned to the <em>closed</em> state using the <em>CLOSE ZONE</em>
 command.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="zone-resources-limits">Zone Resources Limits<a href="#zone-resources-limits" class="hash-link" aria-label="Direct link to Zone Resources Limits" title="Direct link to Zone Resources Limits" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="zone-resource-limits">Zone Resource Limits<a href="#zone-resource-limits" class="hash-link" aria-label="Direct link to Zone Resource Limits" title="Direct link to Zone Resource Limits" translate="no">​</a></h2>
 <p>A zoned storage device implementation may require the allocation of internal
 resources (e.g. a write buffer) to execute write operations into zones.
 Furthermore, the storage media characteristics of the device may also limit the
@@ -242,7 +242,7 @@ allowed.</p>
 <p>This limit does not affect read operations.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="active-zones-limit">Active Zones Limit<a href="#active-zones-limit" class="hash-link" aria-label="Direct link to Active Zones Limit" title="Direct link to Active Zones Limit" translate="no">​</a></h3>
 <p>Any zone in the implicit open, explicit open or closed state is defined as an
-active zone and correspond to any zone that is being written or that has been
+active zone and corresponds to any zone that is being written or that has been
 only partially written. A zoned storage device may impose a limit on the maximum
 number of zones that can be active. This limit is always equal or larger than
 the limit on the maximum number of open zones.</p>
@@ -271,7 +271,7 @@ for workloads issuing mostly small write operations.</p>
 <p>To avoid this problem, some zoned storage devices define the <em>Zone Append</em>
 command. A zone append command is a write operation that specifies the first
 logical block of a zone as the write position. When executing the command, the
-device write the data within the zone indicated, but do so at the current zone
+device writes the data within the zone indicated, but does so at the current zone
 write pointer position. This change in the write position is automatic and the
 effective write position for the data is indicated to the host through the
 command completion information. This mechanism allows a host to simultaneously
@@ -294,7 +294,7 @@ previous case as the total amount of data written is equal. However, the
 location of the written data within the zone may not correspond to the
 host command issuing order as commands may have been reordered on their way to
 the device. The host can discover the effective write position of each request
-through the zone append completion information.</p></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/introduction"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Overview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/introduction/smr"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Shingled Magnetic Recording Hard Disks</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#principle-of-operation" class="table-of-contents__link toc-highlight">Principle of Operation</a></li><li><a href="#zone-size-and-zone-capacity" class="table-of-contents__link toc-highlight">Zone Size and Zone Capacity</a></li><li><a href="#zone-models" class="table-of-contents__link toc-highlight">Zone Models</a><ul><li><a href="#host-managed-model" class="table-of-contents__link toc-highlight">Host-Managed Model</a></li><li><a href="#host-aware-model" class="table-of-contents__link toc-highlight">Host-Aware Model</a></li></ul></li><li><a href="#zone-types" class="table-of-contents__link toc-highlight">Zone Types</a></li><li><a href="#zone-management-commands" class="table-of-contents__link toc-highlight">Zone Management Commands</a></li><li><a href="#zone-states-and-state-transitions" class="table-of-contents__link toc-highlight">Zone States and State Transitions</a></li><li><a href="#zone-resources-limits" class="table-of-contents__link toc-highlight">Zone Resources Limits</a><ul><li><a href="#open-zones-limit" class="table-of-contents__link toc-highlight">Open Zones Limit</a></li><li><a href="#active-zones-limit" class="table-of-contents__link toc-highlight">Active Zones Limit</a></li></ul></li><li><a href="#zone-append" class="table-of-contents__link toc-highlight">Zone Append</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/introduction/zoned-storage">Introduction to Zoned Storage</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/getting-started">Getting Started with Zoned Storage</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://app.element.io/#/room/#zonedstorage-general:matrix.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">Matrix<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/westerndigitalcorporation" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Organization<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Western Digital
+through the zone append completion information.</p></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/introduction"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Overview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/introduction/smr"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Shingled Magnetic Recording Hard Disks</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#principle-of-operation" class="table-of-contents__link toc-highlight">Principle of Operation</a></li><li><a href="#zone-size-and-zone-capacity" class="table-of-contents__link toc-highlight">Zone Size and Zone Capacity</a></li><li><a href="#zone-models" class="table-of-contents__link toc-highlight">Zone Models</a><ul><li><a href="#host-managed-model" class="table-of-contents__link toc-highlight">Host-Managed Model</a></li><li><a href="#host-aware-model" class="table-of-contents__link toc-highlight">Host-Aware Model</a></li></ul></li><li><a href="#zone-types" class="table-of-contents__link toc-highlight">Zone Types</a></li><li><a href="#zone-management-commands" class="table-of-contents__link toc-highlight">Zone Management Commands</a></li><li><a href="#zone-states-and-state-transitions" class="table-of-contents__link toc-highlight">Zone States and State Transitions</a></li><li><a href="#zone-resource-limits" class="table-of-contents__link toc-highlight">Zone Resource Limits</a><ul><li><a href="#open-zones-limit" class="table-of-contents__link toc-highlight">Open Zones Limit</a></li><li><a href="#active-zones-limit" class="table-of-contents__link toc-highlight">Active Zones Limit</a></li></ul></li><li><a href="#zone-append" class="table-of-contents__link toc-highlight">Zone Append</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/introduction/zoned-storage">Introduction to Zoned Storage</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/getting-started">Getting Started with Zoned Storage</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://app.element.io/#/room/#zonedstorage-general:matrix.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">Matrix<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/westerndigitalcorporation" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Organization<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Western Digital
 	Corporation or its affiliates. All rights reserved.<br> By using this site, you agree to the <a href="https://www.westerndigital.com/legal/terms-of-use" target="_blank">Terms of Use</a> and <a href="https://www.westerndigital.com/legal/privacy-statement" target="_blank">Privacy Statement</a>.  All example scripts and program snippets on this site are licensed under the <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CCO 1.0 Universal</a> license.<br>This site is built with <a href="https://docusaurus.io/" target="_blank">Docusaurus</a>.</div></div></div></footer></div>
 </body>
 </html>

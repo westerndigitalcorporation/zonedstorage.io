@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DX1KGD5E4"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-0DX1KGD5E4",{})</script><link rel="stylesheet" href="/assets/css/styles.7bab9b30.css">
-<script src="/assets/js/runtime~main.f2874dc0.js" defer="defer"></script>
-<script src="/assets/js/main.99e697ae.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.9ae38587.js" defer="defer"></script>
+<script src="/assets/js/main.10bca4b7.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -40,7 +40,7 @@ interface. If you use a kernel older than kernel 4.10, you can access and
 manage SCSI ZBC and ATA ZAC disks, but only in a limited way. This is discussed
 in more detail in the <a class="" href="/docs/linux/overview">Linux Support</a> document.</p></div></div>
 <p>To verify that a zoned block device has been discovered and correctly
-initalized, several user utilities must be installed on the test system. These
+initialized, several user utilities must be installed on the test system. These
 utilities are discussed in more detail in the section called <a class="" href="/docs/getting-started/linux#system-utilities">System
 Utilities</a>.</p>
 <p>It is possible to configure, compile, and install your own kernel, but this is
@@ -119,7 +119,7 @@ the kernel must be recompiled in order to enable block device support.</p>
 always empty. Kernels older than kernel version 4.10 do not support zoned block
 devices.</p></div></div>
 <p>If your kernel exports its configuration through the <em>proc</em> file system, use one
-of the following sets of commands to retreive the status of
+of the following sets of commands to retrieve the status of
 <code>CONFIG_BLK_DEV_ZONED</code>:</p>
 <div class="language-plaintext codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-plaintext codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># modprobe configs</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># cat /proc/config.gz | gunzip | grep CONFIG_BLK_DEV_ZONED</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">CONFIG_BLK_DEV_ZONED=y</span><br></span></code></pre></div></div>
 <p>or</p>
@@ -139,7 +139,7 @@ following:</p>
 <ol>
 <li class="">A kernel that supports zoned block devices</li>
 <li class="">Proper zoned device configuration</li>
-<li class="">(in some cases) System utliities that provide zoned block device information.</li>
+<li class="">(in some cases) System utilities that provide zoned block device information.</li>
 </ol>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="write-ordering-control">Write Ordering Control<a href="#write-ordering-control" class="hash-link" aria-label="Direct link to Write Ordering Control" title="Direct link to Write Ordering Control" translate="no">​</a></h3>
 <p>By default, the Linux kernel does not guarantee the order in which commands are
@@ -188,7 +188,7 @@ documentation page</a>.</p>
 <p>Both <em>lsblk</em> and <em>blkzone</em> are part of the <em>util-linux</em> package, which is
 installed by default on most Linux distributions. However, the zone block device
 support for these utilities (and so the existence of the <em>blkzone</em> utility
-itself) depend on wether the Linux distribution used supports zoned block
+itself) depend on whether the Linux distribution used supports zoned block
 devices. If the kernel was manually upgraded to enable zoned block device
 support, the <em>util-linux</em> package must also be compiled and installed manually
 to match the zoned block device support of the new kernel.</p>
@@ -200,7 +200,7 @@ command lists information about the SCSI devices connected to a Linux system.
 Refer to your distribution documentation to find the name of the package that
 provides the <em>lsscsi</em> utility.</p>
 <p>The <a class="" href="/docs/tools/sg3utils#lsscsi">SCSI Generic Utilities</a> document provides more
-information and usage examples of <em>lssci</em>.</p>
+information and usage examples of <em>lsscsi</em>.</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="sg3_utils">sg3_utils<a href="#sg3_utils" class="hash-link" aria-label="Direct link to sg3_utils" title="Direct link to sg3_utils" translate="no">​</a></h4>
 <p>The <a href="http://sg.danny.cz/sg/sg3_utils.html" target="_blank"><em>sg3_utils</em></a> package is a collection of command line tools
 that send SCSI commands to a SCSI device.</p>
