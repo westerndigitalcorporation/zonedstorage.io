@@ -29,6 +29,11 @@ supporting zoned block devices.
   management of zoned block devices using a kernel including zoned block device
   support.
 
+* [zonar](/docs/tools/zonar): Learn about Zonar, which is a GTK4-based
+  graphical viewer for monitoring and visualising a zoned filesystem.
+  It provides real-time visualization of a zoned filesystem's blockgroups.
+  Zonar supports zoned filesystems on both regular and zoned block devices.
+
 * [tcmu-runner ZBC Disk Emulation](/docs/tools/tcmu-runner): Learn how to use
   the *tcmu-runner* SCSI device emulation tool to setup emulated ZBC disks.
 
