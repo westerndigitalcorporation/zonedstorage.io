@@ -234,9 +234,9 @@ Linux.
   sectors that are after the write-pointer position of a zone.) Linux supports
   only ZBC and ZAC host-managed hard disks that allow unrestricted read
   commands. In other words, Linux supports only SMR hard disks that report that
-  the *URSWRZ* bit is not set. This restriction has been added to ensure that
-  the block-layer disk-partition-scanning process does not result in read
-  commands that fail whenever the disk partition table is checked.
+  the *URSWRZ* bit is set. This restriction has been added to ensure that the
+  block-layer disk-partition-scanning process does not result in read commands
+  that fail whenever the disk partition table is checked.
 
 * **Direct IO Writes** The kernel page cache does not guarantee that cached
   dirty pages will be flushed to a block device in sequential sector order.
