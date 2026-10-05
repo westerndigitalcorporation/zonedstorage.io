@@ -1,8 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="15" fill="#315bc7"/>
-  <rect x="12" y="14" width="40" height="8" rx="2" fill="#fff"/>
-  <rect x="12" y="28" width="40" height="8" rx="2" fill="#fff" fill-opacity=".48"/>
-  <path d="M14 28h20v8H14a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z" fill="#fff"/>
-  <rect x="36" y="28" width="3" height="8" rx="1" fill="#9de8dc"/>
-  <rect x="12" y="42" width="40" height="8" rx="2" fill="#fff" fill-opacity=".48"/>
+  <!-- Written blocks in a full zone. -->
+  <path fill="#fff" d="M11 12h9v10h-9zm11 0h9v10h-9zm11 0h9v10h-9zm11 0h9v10h-9z"/>
+  <!-- Written blocks, then the next write, in a partially written zone. -->
+  <path fill="#fff" d="M11 27h9v10h-9zm11 0h9v10h-9z"/>
+  <path fill="#9de8dc" d="M33 27h9v10h-9z"/>
+  <!-- Unwritten blocks. -->
+  <path fill="#fff" fill-opacity=".38" d="M44 27h9v10h-9zM11 42h9v10h-9zm11 0h9v10h-9zm11 0h9v10h-9zm11 0h9v10h-9z"/>
 </svg>
