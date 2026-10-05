@@ -1,0 +1,170 @@
+.page {
+  min-height: 100%;
+  padding-block: 4.5rem 5rem;
+  background: var(--landing-bg);
+  color: var(--landing-text);
+}
+
+.container {
+  width: calc(100% - 4rem);
+  max-width: 1184px;
+  margin-inline: auto;
+}
+
+.intro {
+  max-width: 48rem;
+  margin-bottom: 4rem;
+}
+
+.intro h1 {
+  margin: 0 0 1.25rem;
+  color: var(--landing-text);
+  font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+  font-weight: 750;
+  letter-spacing: -0.05em;
+  line-height: 1.12;
+}
+
+.summary {
+  max-width: 43rem;
+  margin: 0;
+  color: var(--landing-muted);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.sectionHeading {
+  margin-bottom: 1.75rem;
+}
+
+.sectionHeading h2 {
+  margin: 0 0 0.5rem;
+  color: var(--landing-text);
+  font-size: clamp(1.7rem, 2.7vw, 2.2rem);
+  letter-spacing: -0.035em;
+}
+
+.sectionHeading p {
+  margin: 0;
+  color: var(--landing-muted);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--landing-border);
+  border-radius: 0.75rem;
+  background: var(--landing-card);
+  color: var(--landing-text);
+  text-decoration: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.card:hover {
+  border-color: var(--landing-hover);
+  box-shadow: var(--landing-shadow);
+  color: var(--landing-text);
+  text-decoration: none;
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--landing-accent);
+  outline-offset: 4px;
+}
+
+.imageFrame {
+  display: flex;
+  height: 14rem;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--landing-border);
+  /* The diagrams contain dark labels on transparent pixels. */
+  background: #fff;
+}
+
+.imageFrame img {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.cardBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.6rem;
+}
+
+.cardBody h3 {
+  margin: 0 0 0.7rem;
+  color: var(--landing-text);
+  font-size: 1.2rem;
+  letter-spacing: -0.025em;
+  line-height: 1.4;
+}
+
+.cardBody p {
+  margin: 0 0 1.6rem;
+  color: var(--landing-muted);
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+
+.cardAction {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  color: var(--landing-accent);
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding-block: 3rem;
+  }
+
+  .container {
+    width: calc(100% - 2.5rem);
+  }
+
+  .intro {
+    margin-bottom: 3rem;
+  }
+
+  .summary {
+    font-size: 1rem;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .imageFrame {
+    height: 12rem;
+  }
+
+  .cardBody {
+    padding: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

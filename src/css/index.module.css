@@ -1,11 +1,3 @@
-/* Shared with the Getting Started overview. */
-.HeaderBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
 .page {
   background: var(--landing-bg);
   color: var(--landing-text);
@@ -741,10 +733,6 @@
 }
 
 @media (max-width: 966px) {
-  .HeaderBanner {
-    padding: 2rem;
-  }
-
   .hero {
     padding-top: 3rem;
   }

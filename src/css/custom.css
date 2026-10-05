@@ -6,16 +6,9 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #5980d1;
-  --ifm-color-primary-dark: #426ecb;
-  --ifm-color-primary-darker: #3766c6;
-  --ifm-color-primary-darkest: #2d54a3;
-  --ifm-color-primary-light: #7092d7;
-  --ifm-color-primary-lighter: #7c9bdb;
-  --ifm-color-primary-lightest: #9fb6e4;
   --ifm-code-font-size: 95%;
 
-  /* Shared by the landing page, navbar, and footer. */
+  /* Shared by the landing page, guides, documentation, navbar, and footer. */
   --landing-bg: #ffffff;
   --landing-surface: #f5f7fc;
   --landing-card: #ffffff;
@@ -27,6 +20,65 @@
   --landing-hover: #b7c8ee;
   --landing-glow: rgba(98, 137, 222, 0.13);
   --landing-shadow: 0 12px 30px rgba(33, 56, 102, 0.07);
+  --doc-figure-bg: var(--landing-card);
+}
+
+:root,
+html[data-theme='dark'] {
+  /* Keep Infima's text, navigation and content surfaces in the landing palette. */
+  --ifm-color-primary: var(--landing-accent);
+  --ifm-color-primary-dark: #284eae;
+  --ifm-color-primary-darker: #2448a3;
+  --ifm-color-primary-darkest: #1e3c88;
+  --ifm-color-primary-light: #456ed3;
+  --ifm-color-primary-lighter: #5379d8;
+  --ifm-color-primary-lightest: #7593e0;
+  --ifm-color-primary-contrast-background: var(--landing-accent-soft);
+  --ifm-color-primary-contrast-foreground: var(--landing-text);
+  --ifm-background-color: var(--landing-bg);
+  --ifm-background-surface-color: var(--landing-card);
+  --ifm-color-content: var(--landing-text);
+  --ifm-color-content-secondary: var(--landing-muted);
+  --ifm-font-color-base: var(--landing-text);
+  --ifm-font-color-secondary: var(--landing-muted);
+  --ifm-heading-color: var(--landing-text);
+  --ifm-link-color: var(--landing-accent);
+  --ifm-link-hover-color: var(--landing-accent);
+  --ifm-color-emphasis-100: var(--landing-surface);
+  --ifm-color-emphasis-200: var(--landing-accent-soft);
+  --ifm-color-emphasis-300: var(--landing-border);
+  --ifm-color-emphasis-700: var(--landing-muted);
+  --ifm-code-background: var(--landing-accent-soft);
+  --ifm-pre-background: var(--landing-surface);
+  --ifm-pre-color: var(--landing-text);
+  --ifm-table-background: var(--landing-card);
+  --ifm-table-stripe-background: var(--landing-surface);
+  --ifm-table-border-color: var(--landing-border);
+  --ifm-table-head-background: var(--landing-accent-soft);
+  --ifm-table-head-color: var(--landing-text);
+  --ifm-table-cell-color: var(--landing-text);
+  --ifm-blockquote-color: var(--landing-muted);
+  --ifm-blockquote-border-color: var(--landing-border);
+  --ifm-hr-background-color: var(--landing-border);
+  --ifm-toc-border-color: var(--landing-border);
+  --ifm-toc-link-color: var(--landing-muted);
+  --ifm-menu-color: var(--landing-muted);
+  --ifm-menu-color-active: var(--landing-accent);
+  --ifm-menu-color-background-active: var(--landing-accent-soft);
+  --ifm-menu-color-background-hover: var(--landing-surface);
+  --ifm-breadcrumb-color-active: var(--landing-accent);
+  --ifm-breadcrumb-item-background-active: var(--landing-accent-soft);
+  --ifm-pagination-nav-color-hover: var(--landing-accent);
+  --ifm-alert-shadow: none;
+  --ifm-scrollbar-track-background-color: var(--landing-surface);
+  --ifm-scrollbar-thumb-background-color: var(--landing-hover);
+  --ifm-scrollbar-thumb-hover-background-color: var(--landing-muted);
+  --docusaurus-highlighted-code-line-bg: var(--landing-accent-soft);
+
+  --doc-status-yes-bg: #e0f4eb;
+  --doc-status-yes-text: #17533c;
+  --doc-status-no-bg: #fce9e9;
+  --doc-status-no-text: #923333;
 }
 
 html[data-theme='dark'] {
@@ -41,6 +93,34 @@ html[data-theme='dark'] {
   --landing-hover: #526faa;
   --landing-glow: rgba(69, 104, 202, 0.17);
   --landing-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  --doc-figure-bg: #f5f7fc;
+
+  /* Preserve legible controls and surfaces across Infima's dark defaults. */
+  --ifm-background-color: var(--landing-bg);
+  --ifm-background-surface-color: var(--landing-card);
+  --ifm-color-content: var(--landing-text);
+  --ifm-color-content-secondary: var(--landing-muted);
+  --ifm-code-background: var(--landing-accent-soft);
+  --ifm-table-stripe-background: var(--landing-surface);
+  --ifm-toc-border-color: var(--landing-border);
+  --ifm-scrollbar-track-background-color: var(--landing-surface);
+  --ifm-scrollbar-thumb-background-color: var(--landing-hover);
+  --ifm-scrollbar-thumb-hover-background-color: var(--landing-muted);
+  --docusaurus-highlighted-code-line-bg: var(--landing-accent-soft);
+  --docusaurus-collapse-button-bg: var(--landing-surface);
+  --docusaurus-collapse-button-bg-hover: var(--landing-accent-soft);
+  --ifm-color-primary-dark: #88aaff;
+  --ifm-color-primary-darker: #7f9ff1;
+  --ifm-color-primary-darkest: #6788d6;
+  --ifm-color-primary-light: #b4caff;
+  --ifm-color-primary-lighter: #bfd1ff;
+  --ifm-color-primary-lightest: #d3dfff;
+  --ifm-color-emphasis-100: var(--landing-card);
+  --ifm-color-emphasis-200: var(--landing-surface);
+  --doc-status-yes-bg: #163a34;
+  --doc-status-yes-text: #c8f5dd;
+  --doc-status-no-bg: #4b252d;
+  --doc-status-no-text: #ffd8da;
 }
 
 /* Navbar */
@@ -257,180 +337,205 @@ html[data-theme='dark'] {
   }
 }
 
-.docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.1);
-  display: block;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
+/* Generated documentation: keep the article and its navigation visually connected. */
+.docs-wrapper {
+  background: var(--landing-bg);
+  color: var(--landing-text);
 }
 
-html[data-theme='dark'] .docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.3);
+.docs-wrapper .theme-doc-sidebar-container {
+  background: var(--landing-surface);
+  border-color: var(--landing-border);
 }
 
-.homepage {
-  width: 100%;
+.docs-wrapper .theme-doc-sidebar-menu .menu__link {
+  border-radius: 0.45rem;
+}
+
+.docs-wrapper .theme-doc-sidebar-menu .menu__link:hover {
+  color: var(--landing-text);
+}
+
+.docs-wrapper .theme-doc-sidebar-menu .menu__link--active,
+.docs-wrapper .theme-doc-sidebar-menu .menu__link--active:hover {
+  color: var(--landing-accent);
+}
+
+.docs-wrapper .theme-doc-markdown {
+  color: var(--landing-text);
+}
+
+.docs-wrapper .theme-doc-markdown :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--landing-text);
+  letter-spacing: -0.015em;
+}
+
+.docs-wrapper .theme-doc-markdown :is(code, kbd) {
+  border: 1px solid var(--landing-border);
+  color: var(--landing-text);
+}
+
+.docs-wrapper .theme-doc-markdown .theme-code-block {
+  background: var(--landing-surface);
+  border: 1px solid var(--landing-border);
+  box-shadow: none;
+}
+
+/* Prism supplies token colors inline; the block and line numbers share one surface. */
+.docs-wrapper .theme-doc-markdown .theme-code-block pre {
+  --ifm-pre-background: var(--landing-surface);
+  background: var(--landing-surface) !important;
+}
+
+.docs-wrapper .theme-doc-markdown .theme-code-block code {
+  border: 0;
+}
+
+.docs-wrapper .theme-doc-markdown .theme-code-block button {
+  background: var(--landing-card);
+  border-color: var(--landing-border);
+  color: var(--landing-text);
+}
+
+.docs-wrapper .theme-doc-markdown .theme-code-block button:hover {
+  background: var(--landing-accent-soft);
+}
+
+.docs-wrapper .theme-doc-markdown table {
   max-width: 100%;
+  overflow-x: auto;
 }
 
-/* Heading */
-
-.Heading {
-  font-size: 25px;
-  color: var(--ifm-font-color-base);
-  line-height: 1.2;
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-weight: 700;
+.docs-wrapper .card {
+  background: var(--landing-card);
+  border-color: var(--landing-border);
+  box-shadow: var(--landing-shadow);
 }
 
-/* HeaderEntry */
-
-.HeaderEntry {
-  overflow: hidden;
+.docs-wrapper .card:hover {
+  border-color: var(--landing-hover);
 }
 
-@media only screen and (max-width: 960px) {
-  .HeaderEntry .column.last {
-    max-height: 300px;
+.docs-wrapper .card,
+.docs-wrapper .card:hover {
+  color: var(--landing-text);
+}
+
+.docs-wrapper .card:hover h2 {
+  color: var(--landing-accent);
+}
+
+.docs-wrapper .theme-doc-markdown .alert {
+  --ifm-alert-foreground-color: var(--landing-text);
+  --ifm-alert-background-color-highlight: var(--landing-accent-soft);
+  --ifm-link-color: var(--landing-accent);
+  --ifm-link-hover-color: var(--landing-accent);
+  background: var(--landing-surface);
+  border: 1px solid var(--landing-border);
+  border-left: 4px solid var(--ifm-alert-border-color);
+}
+
+.docs-wrapper .theme-doc-markdown figure img {
+  max-width: 100%;
+  height: auto;
+  padding: 0.75rem;
+  border: 1px solid var(--landing-border);
+  border-radius: 0.5rem;
+  background: var(--doc-figure-bg);
+}
+
+.docs-wrapper .theme-doc-markdown figcaption {
+  margin-top: 0.5rem;
+  color: var(--landing-muted);
+  font-size: 0.875rem;
+}
+
+.docs-wrapper .theme-doc-breadcrumbs .breadcrumbs__link {
+  color: var(--landing-muted);
+}
+
+.docs-wrapper .theme-doc-breadcrumbs .breadcrumbs__item--active .breadcrumbs__link {
+  color: var(--landing-accent);
+}
+
+.docs-wrapper .theme-doc-toc-desktop,
+.docs-wrapper .theme-doc-toc-mobile {
+  --ifm-toc-link-color: var(--landing-muted);
+}
+
+.docs-wrapper .table-of-contents__link:hover,
+.docs-wrapper .table-of-contents__link--active {
+  color: var(--landing-accent);
+}
+
+.docs-wrapper .theme-doc-toc-mobile {
+  border: 1px solid var(--landing-border);
+  border-radius: 0.5rem;
+  background: var(--landing-surface);
+}
+
+.docs-wrapper .pagination-nav__link {
+  border-color: var(--landing-border);
+  background: var(--landing-card);
+  color: var(--landing-accent);
+}
+
+.docs-wrapper .pagination-nav__link:hover {
+  border-color: var(--landing-hover);
+  background: var(--landing-accent-soft);
+}
+
+.docs-wrapper .pagination-nav__sublabel {
+  color: var(--landing-muted);
+}
+
+.docs-wrapper :is(a, button):focus-visible {
+  outline: 2px solid var(--landing-accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .docs-wrapper .pagination-nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .docs-wrapper .pagination-nav__link--next {
+    grid-column: 1;
   }
 }
 
-@media only screen and (min-width: 481px) and (max-width: 960px) {
-  .HeaderEntry .column.last {
-    width: 66.7%;
-    margin: 0 auto;
-  }
+/* Distribution data remains scrollable without compressing status columns. */
+.docs-wrapper .theme-doc-markdown .table-dist {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
-@media only screen and (min-width: 961px) {
-  .HeaderEntry {
-    max-height: 450px;
-  }
-
-  /* Correct for whitespace in the image of phones */
-  .HeaderEntry .column.left {
-    margin-top: -25px;
-  }
+.docs-wrapper .theme-doc-markdown .table-dist th {
+  background: var(--landing-accent-soft);
+  border-color: var(--landing-border);
+  color: var(--landing-text);
+  white-space: normal;
+  min-width: 7rem;
 }
 
-/* Section */
-
-.Section {
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  overflow-x: hidden;
+.docs-wrapper .theme-doc-markdown .table-dist th a {
+  color: var(--landing-accent);
 }
 
-.Section + .Section {
-  border-top: 1px solid var(--ifm-table-border-color);
+.docs-wrapper .theme-doc-markdown .table-dist td {
+  border-color: var(--landing-border);
+  text-align: center;
 }
 
-.Section.tint {
-  background-color: var(--ifm-menu-color-background-active);
+.docs-wrapper .theme-doc-markdown .table-dist td.background-green {
+  background: var(--doc-status-yes-bg);
+  color: var(--doc-status-yes-text);
+  font-weight: 600;
 }
 
-.Section.dark {
-  background-color: var(--dark);
-}
-
-.Section p a {
-  @extend %link-style;
-}
-
-html[data-theme="dark"] .Section p a {
-  @extend %link-style-dark;
-}
-
-/* Two columns */
-
-.TwoColumns {
-  display: grid;
-}
-
-.TwoColumns .column {
-  width: 100%;
-}
-
-.TwoColumns .column.first {
-  padding-top: 25px;
-  grid-area: first;
-}
-
-.TwoColumns .column.last {
-  grid-area: last;
-}
-
-.TwoColumns a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.TwoColumns a:hover {
-  text-decoration: underline;
-}
-
-@media only screen and (min-width: 961px) {
-  .TwoColumns {
-    max-width: 900px;
-    margin: 0 auto;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-areas: "first last";
-  }
-
-  .TwoColumns.reverse {
-    grid-template-areas: "last first";
-  }
-
-  .TwoColumns .column {
-    max-width: 450px;
-  }
-
-  .TwoColumns .column.left {
-    padding-right: 30px;
-  }
-
-  .TwoColumns .column.right {
-    padding-left: 30px;
-  }
-}
-
-@media only screen and (max-width: 960px) {
-  .TwoColumns,
-  .TwoColumns.reverse {
-    grid-template-columns: 1fr;
-    grid-template-areas: "first" "last";
-  }
-
-  .TwoColumns .column {
-    padding: 0 4rem;
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  .TwoColumns .column {
-    padding: 0 1.25rem;
-  }
-}
-
-
-/* Section custom tables settings */
-.table-dist th {
-  background-color: #c4c3d0 !important;
-  color: #000;
-  }
-
-.table-dist td {text-align: center;
-}
-
- /* Set the yes and no colors for the data */
-.background-green  {
-    background-color: #009000;
-    color: #ffffff;
-}
-
-.background-red  {
-    background-color: #dc143c ;
-    color: #ffffff;
+.docs-wrapper .theme-doc-markdown .table-dist td.background-red {
+  background: var(--doc-status-no-bg);
+  color: var(--doc-status-no-text);
+  font-weight: 600;
 }
