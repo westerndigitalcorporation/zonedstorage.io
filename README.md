@@ -48,8 +48,11 @@ A local http server is run to locally serve the site on http://0.0.0.0:3000.
 
 The front page is implemented in `src/pages/index.js`, with scoped styles in
 `src/css/index.module.css`. It includes an interactive sequential-write zone
-model with three selectable zones, guided documentation entry points, and a
-copyable Linux emulation example.
+model with three selectable zones and a full-viewport fireworks display when all
+three become full. Fireworks launch on varied upward paths; their colors adapt to
+light and dark themes. The animation is hidden when reduced motion is requested.
+The page also provides guided documentation links and a copyable Linux emulation
+example.
 Navigation, search, theme switching, and code blocks use Docusaurus components.
 The shared `--landing-*` palette, documentation styles, navbar, and footer are
 defined in `src/css/custom.css`. The Getting Started overview uses
@@ -67,7 +70,8 @@ magick static/img/zs-logo.svg -background none -define icon:auto-resize=16,32,48
 
 For a live preview, run `yarn start --host 0.0.0.0 --no-open`. Check desktop and
 mobile layouts in both light and dark mode. In the zone model, select each zone,
-fill a zone, and reset it, including keyboard operation. Check documentation
+fill all three, reset and refill one to replay the animation, including keyboard
+operation and reduced-motion mode. Check documentation
 links and code copying. Check the navbar, footer, article, sidebar, TOC,
 tables, and Getting Started overview in both themes. Run `yarn build` to check
 production rendering and links.

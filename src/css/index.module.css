@@ -167,6 +167,119 @@
   background-size: 16px 16px;
 }
 
+.fireworks {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  pointer-events: none;
+  --spark-outline: rgba(23, 38, 65, 0.65);
+}
+
+:global(html[data-theme='dark']) .fireworks {
+  --spark-outline: transparent;
+}
+
+.firework {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  --burst-size: clamp(7rem, var(--size), 14rem);
+  width: var(--burst-size);
+  height: var(--burst-size);
+  color: var(--light-color);
+  transform: translate(-50%, -50%);
+  --burst-delay: calc(var(--delay) + 0.45s);
+}
+
+:global(html[data-theme='dark']) .firework {
+  color: var(--dark-color);
+}
+
+.firework::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 2px);
+  width: 5px;
+  height: 4rem;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, currentColor, currentColor 15%, transparent);
+  box-shadow: 0 0 2px var(--spark-outline), 0 0 14px currentColor;
+  animation: rocketRise 0.6s ease-out var(--delay) both;
+}
+
+.firework::after {
+  content: '';
+  position: absolute;
+  inset: 25%;
+  border-radius: 50%;
+  background: radial-gradient(circle, currentColor, transparent 68%);
+  animation: burstGlow 1s ease-out var(--burst-delay) both;
+}
+
+.spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: rotate(var(--angle));
+}
+
+.spark::before,
+.spark::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 2px var(--spark-outline), 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+.spark::before {
+  top: -6px;
+  left: -2px;
+  width: 4px;
+  height: 12px;
+  animation: sparkFly 1.8s cubic-bezier(0.16, 0.68, 0.22, 1) var(--burst-delay) both;
+}
+
+.spark::after {
+  top: -2px;
+  left: -2px;
+  width: 4px;
+  height: 4px;
+  animation: glitterFly 2s ease-out var(--burst-delay) both;
+}
+
+@keyframes rocketRise {
+  0% {
+    opacity: 0;
+    transform: translate(var(--launch-x), calc(100vh - var(--y) + 4rem)) rotate(var(--tilt)) scaleY(0.5);
+  }
+  25%, 80% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translate(0, -1.5rem) rotate(var(--tilt)) scaleY(0.2);
+  }
+}
+
+@keyframes burstGlow {
+  0% { opacity: 0; transform: scale(0.15); }
+  15% { opacity: 0.7; }
+  100% { opacity: 0; transform: scale(3); }
+}
+
+@keyframes sparkFly {
+  0% { opacity: 0; transform: translateY(0) scale(0.2); }
+  15%, 55% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(calc(var(--burst-size) * -0.52)) scale(0.3); }
+}
+
+@keyframes glitterFly {
+  0%, 20% { opacity: 0; transform: translateY(0) scale(0.3); }
+  45%, 75% { opacity: 0.9; }
+  100% { opacity: 0; transform: translateY(calc(var(--burst-size) * -0.38)) scale(0.5); }
+}
+
 .zones {
   display: grid;
   gap: 0.35rem;
@@ -947,5 +1060,9 @@
   .page *::before,
   .page *::after {
     transition: none;
+  }
+
+  .fireworks {
+    display: none;
   }
 }

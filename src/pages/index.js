@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {createPortal} from 'react-dom';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import CodeBlock from '@theme/CodeBlock';
@@ -35,6 +36,34 @@ function Icon({name, className}) {
 }
 
 const zoneBlocks = [0, 1, 2, 3, 4, 5, 6, 7];
+
+const fireworkAngles = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+const fireworkBursts = [
+  {x: '8%', y: '12vh', delay: '0s', size: '14vw', launchX: '18vw', tilt: '-12deg',
+    light: '#006e73', dark: '#9de8dc'},
+  {x: '76%', y: '25vh', delay: '0.22s', size: '16vw', launchX: '-21vw', tilt: '18deg',
+    light: '#995300', dark: '#ffe39c'},
+  {x: '42%', y: '52vh', delay: '0.48s', size: '15vw', launchX: '13vw', tilt: '-15deg',
+    light: '#244cbd', dark: '#b0caff'},
+  {x: '92%', y: '10vh', delay: '0.73s', size: '14vw', launchX: '-16vw', tilt: '11deg',
+    light: '#a8236e', dark: '#ffbce9'},
+  {x: '19%', y: '69vh', delay: '1s', size: '17vw', launchX: '15vw', tilt: '-26deg',
+    light: '#ac3528', dark: '#ffb1a5'},
+  {x: '59%', y: '15vh', delay: '1.22s', size: '15vw', launchX: '-14vw', tilt: '9deg',
+    light: '#0b617e', dark: '#8edfff'},
+  {x: '86%', y: '72vh', delay: '1.46s', size: '16vw', launchX: '-12vw', tilt: '22deg',
+    light: '#5c399c', dark: '#c7bcff'},
+  {x: '32%', y: '33vh', delay: '1.72s', size: '17vw', launchX: '15vw', tilt: '-15deg',
+    light: '#995300', dark: '#ffe39c'},
+  {x: '55%', y: '78vh', delay: '1.98s', size: '18vw', launchX: '-10vw', tilt: '20deg',
+    light: '#006e73', dark: '#9de8dc'},
+  {x: '6%', y: '88vh', delay: '2.15s', size: '15vw', launchX: '5vw', tilt: '-12deg',
+    light: '#a8236e', dark: '#ffbce9'},
+  {x: '95%', y: '89vh', delay: '2.35s', size: '16vw', launchX: '-5vw', tilt: '12deg',
+    light: '#995300', dark: '#ffe39c'},
+  {x: '48%', y: '7vh', delay: '2.5s', size: '17vw', launchX: '22vw', tilt: '-16deg',
+    light: '#ac3528', dark: '#ffb1a5'},
+];
 
 function ZoneOption({index, written, selected, onSelect}) {
   const state = written === 0 ? 'Empty' : written === zoneBlocks.length ? 'Full' : 'Open';
@@ -80,6 +109,7 @@ function ZoneModel() {
   const [selected, setSelected] = useState(1);
   const written = zones[selected];
   const full = written === zoneBlocks.length;
+  const allFull = full && zones.every((value) => value === zoneBlocks.length);
   const label = `Zone 0${selected}`;
 
   function writeBlock() {
@@ -101,6 +131,29 @@ function ZoneModel() {
         <span className={styles.modelBadge}>Interactive model</span>
       </div>
       <div className={styles.modelBody}>
+        {allFull && createPortal(
+          <div className={styles.fireworks} aria-hidden="true">
+            {fireworkBursts.map(({x, y, delay, size, launchX, tilt, light, dark}, index) => (
+              <span
+                key={index}
+                className={styles.firework}
+                style={{
+                  '--x': x, '--y': y, '--delay': delay, '--size': size,
+                  '--launch-x': launchX, '--tilt': tilt,
+                  '--light-color': light, '--dark-color': dark,
+                }}>
+                {fireworkAngles.map((angle) => (
+                  <span
+                    key={angle}
+                    className={styles.spark}
+                    style={{'--angle': `${angle}deg`}}
+                  />
+                ))}
+              </span>
+            ))}
+          </div>,
+          document.body,
+        )}
         <fieldset id="zone-model" className={styles.zones}>
           <legend className={styles.visuallyHidden}>Target zone</legend>
           {zones.map((value, index) => (
@@ -137,9 +190,11 @@ function ZoneModel() {
           </button>
         </div>
         <p className={styles.modelStatus} role="status" aria-live="polite" aria-atomic="true">
-          {full
-            ? `${label} is full. A reset is required before further writes.`
-            : `${label}: ${written}/${zoneBlocks.length} blocks written. Next write → block ${written + 1}.`}
+          {allFull
+            ? 'All three zones are full. Reset a zone to write again.'
+            : full
+              ? `${label} is full. A reset is required before further writes.`
+              : `${label}: ${written}/${zoneBlocks.length} blocks written. Next write → block ${written + 1}.`}
         </p>
       </div>
       <figcaption id="zone-model-caption" className={styles.modelCaption}>
