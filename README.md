@@ -58,6 +58,13 @@ defined in `src/css/custom.css`. The Getting Started overview uses
 configured in `docusaurus.config.js`. Keep page copy factual: describe
 interfaces, constraints, and documented components.
 
+The navbar logo and favicon are generated from `static/img/zs-logo.svg`:
+
+```sh
+rsvg-convert --width 200 --height 200 --output static/img/zs-logo.png static/img/zs-logo.svg
+magick static/img/zs-logo.svg -background none -define icon:auto-resize=16,32,48,64 static/img/zs-logo.ico
+```
+
 For a live preview, run `yarn start --host 0.0.0.0 --no-open`. Check desktop and
 mobile layouts in both light and dark mode. In the zone model, select each zone,
 fill a zone, and reset it, including keyboard operation. Check documentation
