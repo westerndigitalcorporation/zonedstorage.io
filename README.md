@@ -1,6 +1,6 @@
 # zonedstorage.io
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern
+This website is built using [Docusaurus 3](https://docusaurus.io/), a modern
 static website generator.
 
 ## Prerequisites
@@ -43,6 +43,26 @@ $ make serve
 ```
 
 A local http server is run to locally serve the site on http://0.0.0.0:3000.
+
+### Editing the landing page
+
+The front page is implemented in `src/pages/index.js`, with scoped styles in
+`src/css/index.module.css`. It includes an interactive sequential-write zone
+model with three selectable zones, guided documentation entry points, and a
+copyable Linux emulation example.
+Navigation, search, theme switching, and code blocks use the existing Docusaurus
+components. The shared `--landing-*` color tokens and site-wide navbar and
+footer styling are defined in `src/css/custom.css`. Footer link groups and legal
+text remain configured in `docusaurus.config.js`. The page stylesheet also
+supplies the Getting Started overview banner.
+Keep front-page copy factual: describe interfaces, constraints, and documented
+components. Use descriptive headings and link labels rather than slogans.
+
+For a live preview, run `yarn start --host 0.0.0.0 --no-open`. Check desktop and
+mobile layouts in both light and dark mode. In the zone model, select each zone,
+fill a zone, and reset it, including keyboard operation. Check documentation
+links and code copying. Check the navbar and footer on both the landing page and
+a documentation page. Run `yarn build` to check production rendering and links.
 
 ## Deploying
 
