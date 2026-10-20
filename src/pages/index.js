@@ -113,11 +113,19 @@ function ZoneModel() {
   const label = `Zone 0${selected}`;
 
   function writeBlock() {
-    setZones((current) =>
-      current.map((value, index) =>
-        index === selected ? Math.min(value + 1, zoneBlocks.length) : value,
-      ),
-    );
+    const nextZones = zones.slice();
+    nextZones[selected] = written + 1;
+    setZones(nextZones);
+
+    if (nextZones[selected] === zoneBlocks.length) {
+      for (let offset = 1; offset < zones.length; offset++) {
+        const next = (selected + offset) % zones.length;
+        if (zones[next] < zoneBlocks.length) {
+          setSelected(next);
+          break;
+        }
+      }
+    }
   }
 
   function resetZone() {
@@ -212,9 +220,10 @@ function Hero() {
         <div className={styles.heroCopy}>
           <h1 className={styles.heroTitle}>Zoned Storage</h1>
           <p className={styles.heroDescription}>
-            Zoned block devices divide their address space into zones. In
-            sequential-write-required zones, data is written at the write pointer.
-            A zone reset discards the data and returns the write pointer to the start.
+            Zoned Storage is an open source, standards-based initiative to enable data
+            centers to scale efficiently for the zettabyte storage capacity era. There
+            are two technologies behind Zoned Storage, Shingled Magnetic Recording (SMR)
+            in ATA/SCSI HDDs and Zoned Namespaces (ZNS) in NVMe SSDs.
           </p>
           <div className={styles.heroActions}>
             <Link className={clsx(styles.button, styles.primaryButton)} to="/docs/getting-started">
