@@ -126,12 +126,6 @@
 .zoneModel {
   min-width: 0;
   margin: 0;
-  overflow: hidden;
-  border: 1px solid #344567;
-  border-radius: 1rem;
-  background: #111c30;
-  color: #e6edfc;
-  box-shadow: 0 24px 60px -20px rgba(23, 46, 91, 0.4), 0 0 0 7px var(--landing-glow);
 }
 
 .zoneModel button:focus-visible {
@@ -145,139 +139,42 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.65rem;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #2d3c56;
-  font-size: 0.8rem;
-  font-weight: 600;
+  margin-bottom: 0.85rem;
+  color: var(--landing-text);
+  font-size: 0.85rem;
+  font-weight: 650;
 }
 
 .modelBadge {
-  padding: 0.15rem 0.55rem;
-  border: 1px solid #375274;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid var(--landing-border);
   border-radius: 1rem;
-  color: #acc9f2;
-  font-size: 0.62rem;
-  font-weight: 500;
+  background: var(--landing-accent-soft);
+  color: var(--landing-accent);
+  font-size: 0.65rem;
+  font-weight: 600;
   letter-spacing: 0.02em;
 }
 
 .modelBody {
   padding: 1.4rem 1.5rem 0.9rem;
+  border: 1px solid #344567;
+  border-radius: 1rem;
+  background-color: #111c30;
   background-image: radial-gradient(#263854 0.7px, transparent 0.7px);
   background-size: 16px 16px;
+  color: #e6edfc;
+  box-shadow: 0 24px 60px -20px rgba(23, 46, 91, 0.4), 0 0 0 7px var(--landing-glow);
 }
 
 .fireworks {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  overflow: hidden;
+  display: block;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  --spark-outline: rgba(23, 38, 65, 0.65);
-}
-
-:global(html[data-theme='dark']) .fireworks {
-  --spark-outline: transparent;
-}
-
-.firework {
-  position: absolute;
-  top: var(--y);
-  left: var(--x);
-  --burst-size: clamp(7rem, var(--size), 14rem);
-  width: var(--burst-size);
-  height: var(--burst-size);
-  color: var(--light-color);
-  transform: translate(-50%, -50%);
-  --burst-delay: calc(var(--delay) + 0.45s);
-}
-
-:global(html[data-theme='dark']) .firework {
-  color: var(--dark-color);
-}
-
-.firework::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: calc(50% - 2px);
-  width: 5px;
-  height: 4rem;
-  border-radius: 4px;
-  background: linear-gradient(to bottom, currentColor, currentColor 15%, transparent);
-  box-shadow: 0 0 2px var(--spark-outline), 0 0 14px currentColor;
-  animation: rocketRise 0.6s ease-out var(--delay) both;
-}
-
-.firework::after {
-  content: '';
-  position: absolute;
-  inset: 25%;
-  border-radius: 50%;
-  background: radial-gradient(circle, currentColor, transparent 68%);
-  animation: burstGlow 1s ease-out var(--burst-delay) both;
-}
-
-.spark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: rotate(var(--angle));
-}
-
-.spark::before,
-.spark::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  background: currentColor;
-  box-shadow: 0 0 2px var(--spark-outline), 0 0 10px currentColor, 0 0 20px currentColor;
-}
-
-.spark::before {
-  top: -6px;
-  left: -2px;
-  width: 4px;
-  height: 12px;
-  animation: sparkFly 1.8s cubic-bezier(0.16, 0.68, 0.22, 1) var(--burst-delay) both;
-}
-
-.spark::after {
-  top: -2px;
-  left: -2px;
-  width: 4px;
-  height: 4px;
-  animation: glitterFly 2s ease-out var(--burst-delay) both;
-}
-
-@keyframes rocketRise {
-  0% {
-    opacity: 0;
-    transform: translate(var(--launch-x), calc(100vh - var(--y) + 4rem)) rotate(var(--tilt)) scaleY(0.5);
-  }
-  25%, 80% { opacity: 1; }
-  100% {
-    opacity: 0;
-    transform: translate(0, -1.5rem) rotate(var(--tilt)) scaleY(0.2);
-  }
-}
-
-@keyframes burstGlow {
-  0% { opacity: 0; transform: scale(0.15); }
-  15% { opacity: 0.7; }
-  100% { opacity: 0; transform: scale(3); }
-}
-
-@keyframes sparkFly {
-  0% { opacity: 0; transform: translateY(0) scale(0.2); }
-  15%, 55% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(calc(var(--burst-size) * -0.52)) scale(0.3); }
-}
-
-@keyframes glitterFly {
-  0%, 20% { opacity: 0; transform: translateY(0) scale(0.3); }
-  45%, 75% { opacity: 0.9; }
-  100% { opacity: 0; transform: translateY(calc(var(--burst-size) * -0.38)) scale(0.5); }
 }
 
 .zones {
@@ -313,7 +210,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   color: #b2c0d8;
   font-family: var(--ifm-font-family-monospace);
   font-size: 0.69rem;
@@ -328,6 +225,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.zoneLba {
+  font-size: 0.62rem;
+  opacity: 0.72;
 }
 
 .zoneRadio {
@@ -361,28 +263,71 @@
 }
 
 .zoneTrack {
-  display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  gap: 5px;
+  position: relative;
+  display: block;
+  margin-top: 1.4rem;
 }
 
-.zoneBlock {
-  height: 1.8rem;
+.zoneBar {
+  display: block;
+  height: calc(1.8rem + 2px);
+  overflow: hidden;
   border: 1px solid #3d4d68;
-  border-radius: 4px;
+  border-radius: 5px;
   background: #18253d;
-  transition: background-color 160ms ease;
 }
 
-.zoneWritten {
-  border-color: #718fde;
+/* Unwritten blocks of a finished zone: full, but never written. */
+.finishedBar {
+  background: repeating-linear-gradient(-45deg, #5678cc 0 4px, #4362ad 4px 8px);
+}
+
+.zoneFill {
+  display: block;
+  width: calc(var(--wp) * 100% / 8);
+  height: 100%;
   background: #5678cc;
+  transition: width 160ms ease;
 }
 
-.zoneNext {
-  border: 2px solid #a0f2e8;
-  background: #213e4d;
-  box-shadow: 0 0 12px rgba(106, 217, 204, 0.15);
+/* Triangle on the boundary between the last written block and the next one,
+   labeled from above. */
+.writePointer {
+  position: absolute;
+  bottom: 100%;
+  left: calc(var(--wp) * 100% / 8);
+  width: 0;
+  height: 1.4rem;
+  color: #8192ae;
+  transition: left 160ms ease;
+}
+
+.writePointer::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border: 5px solid transparent;
+  border-top: 7px solid currentColor;
+  border-bottom: 0;
+  transform: translateX(-50%);
+}
+
+/* Shifts from left- to right-aligned along the zone so it never overhangs. */
+.pointerLabel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.58rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transform: translateX(calc(var(--wp) * -100% / 8));
+}
+
+.selectedZone .writePointer {
+  color: #a0f2e8;
 }
 
 .modelLegend {
@@ -410,14 +355,22 @@
   background: #7397e9;
 }
 
-.legendNext {
-  border: 1px solid #a0f2e8;
-  background: #213e4d;
+.modelLegend .legendPointer {
+  width: 0;
+  height: 0;
+  border: 4px solid transparent;
+  border-top: 6px solid #a0f2e8;
+  border-bottom: 0;
+  border-radius: 0;
 }
 
 .legendEmpty {
   border: 1px solid #8192ae;
   background: #18253d;
+}
+
+.legendFinished {
+  background: repeating-linear-gradient(-45deg, #7397e9 0 2px, #4f6fc0 2px 4px);
 }
 
 .modelActions {
@@ -444,6 +397,10 @@
 .modelActions .icon {
   width: 1rem;
   height: 1rem;
+}
+
+.modelActions .alignEnd {
+  margin-left: auto;
 }
 
 .writeButton {
@@ -480,11 +437,9 @@
 }
 
 .modelCaption {
-  padding: 0.9rem 1.5rem;
-  border-top: 1px solid #2d3c56;
-  background: #152137;
-  color: #adbed9;
-  font-size: 0.7rem;
+  margin-top: 1rem;
+  color: var(--landing-muted);
+  font-size: 0.75rem;
   line-height: 1.65;
 }
 
@@ -962,21 +917,16 @@
     font-size: 0.7rem;
   }
 
-  .modelHeader,
-  .modelCaption {
-    padding-inline: 1rem;
-  }
-
   .modelBody {
     padding-inline: 1rem;
   }
 
   .modelHeader {
-    font-size: 0.74rem;
+    font-size: 0.8rem;
   }
 
   .modelBadge {
-    font-size: 0.58rem;
+    font-size: 0.6rem;
   }
 
   .technologies {
@@ -1060,9 +1010,5 @@
   .page *::before,
   .page *::after {
     transition: none;
-  }
-
-  .fireworks {
-    display: none;
   }
 }

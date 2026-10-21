@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {createPortal} from 'react-dom';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import CodeBlock from '@theme/CodeBlock';
 import Link from '@docusaurus/Link';
+import BrowserOnly from '@docusaurus/BrowserOnly';
+import Fireworks from '../components/Fireworks';
 import styles from '../css/index.module.css';
 
 const iconPaths = {
@@ -15,7 +16,9 @@ const iconPaths = {
   drive: 'M5 4h14l3 11v5H2v-5Zm-3 11h20M6 17.5h.01M10 17.5h.01',
   code: 'm8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18',
   gauge: 'M4.2 18a9 9 0 1 1 15.6 0ZM12 14l5-6M5 11h2m10 0h2M12 5v2',
-  reset: 'M3 10a9 9 0 1 1 2 8M3 4v6h6',
+  fastForward: 'M3 6v12l8-6Zm9 0v12l8-6Z',
+  fastReverse: 'M21 6v12l-8-6Zm-9 0v12l-8-6Z',
+  play: 'M7 5v14l11-7Z',
 };
 
 function Icon({name, className}) {
@@ -35,38 +38,13 @@ function Icon({name, className}) {
   );
 }
 
-const zoneBlocks = [0, 1, 2, 3, 4, 5, 6, 7];
+// Blocks per zone; each block is one logical block (LBA).
+const ZONE_BLOCKS = 8;
 
-const fireworkAngles = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
-const fireworkBursts = [
-  {x: '8%', y: '12vh', delay: '0s', size: '14vw', launchX: '18vw', tilt: '-12deg',
-    light: '#006e73', dark: '#9de8dc'},
-  {x: '76%', y: '25vh', delay: '0.22s', size: '16vw', launchX: '-21vw', tilt: '18deg',
-    light: '#995300', dark: '#ffe39c'},
-  {x: '42%', y: '52vh', delay: '0.48s', size: '15vw', launchX: '13vw', tilt: '-15deg',
-    light: '#244cbd', dark: '#b0caff'},
-  {x: '92%', y: '10vh', delay: '0.73s', size: '14vw', launchX: '-16vw', tilt: '11deg',
-    light: '#a8236e', dark: '#ffbce9'},
-  {x: '19%', y: '69vh', delay: '1s', size: '17vw', launchX: '15vw', tilt: '-26deg',
-    light: '#ac3528', dark: '#ffb1a5'},
-  {x: '59%', y: '15vh', delay: '1.22s', size: '15vw', launchX: '-14vw', tilt: '9deg',
-    light: '#0b617e', dark: '#8edfff'},
-  {x: '86%', y: '72vh', delay: '1.46s', size: '16vw', launchX: '-12vw', tilt: '22deg',
-    light: '#5c399c', dark: '#c7bcff'},
-  {x: '32%', y: '33vh', delay: '1.72s', size: '17vw', launchX: '15vw', tilt: '-15deg',
-    light: '#995300', dark: '#ffe39c'},
-  {x: '55%', y: '78vh', delay: '1.98s', size: '18vw', launchX: '-10vw', tilt: '20deg',
-    light: '#006e73', dark: '#9de8dc'},
-  {x: '6%', y: '88vh', delay: '2.15s', size: '15vw', launchX: '5vw', tilt: '-12deg',
-    light: '#a8236e', dark: '#ffbce9'},
-  {x: '95%', y: '89vh', delay: '2.35s', size: '16vw', launchX: '-5vw', tilt: '12deg',
-    light: '#995300', dark: '#ffe39c'},
-  {x: '48%', y: '7vh', delay: '2.5s', size: '17vw', launchX: '22vw', tilt: '-16deg',
-    light: '#ac3528', dark: '#ffb1a5'},
-];
-
-function ZoneOption({index, written, selected, onSelect}) {
-  const state = written === 0 ? 'Empty' : written === zoneBlocks.length ? 'Full' : 'Open';
+function ZoneOption({index, written, finished, selected, onSelect}) {
+  const full = finished || written === ZONE_BLOCKS;
+  const state = full ? 'Full' : written === 0 ? 'Empty' : 'Open';
+  const firstLba = index * ZONE_BLOCKS;
 
   return (
     <label className={clsx(styles.zoneOption, selected && styles.selectedZone)}>
@@ -80,25 +58,27 @@ function ZoneOption({index, written, selected, onSelect}) {
             onChange={() => onSelect(index)}
           />
           Zone 0{index}
+          <span className={styles.zoneLba}>
+            LBA {firstLba}–{firstLba + ZONE_BLOCKS - 1}
+          </span>
         </span>
         <span className={styles.zoneState}>
           {state}
           <span className={styles.visuallyHidden}>
-            , {written} of {zoneBlocks.length} blocks written
+            , {written} of {ZONE_BLOCKS} blocks written
           </span>
         </span>
       </span>
       <span className={styles.zoneTrack} aria-hidden="true">
-        {zoneBlocks.map((block) => (
-          <span
-            key={block}
-            className={clsx(
-              styles.zoneBlock,
-              block < written && styles.zoneWritten,
-              selected && block === written && styles.zoneNext,
-            )}
-          />
-        ))}
+        <span className={clsx(styles.zoneBar, finished && styles.finishedBar)}>
+          <span className={styles.zoneFill} style={{'--wp': written}} />
+        </span>
+        {/* A full zone has no valid write pointer. */}
+        {!full && (
+          <span className={styles.writePointer} style={{'--wp': written}}>
+            <span className={styles.pointerLabel}>Write pointer</span>
+          </span>
+        )}
       </span>
     </label>
   );
@@ -106,30 +86,41 @@ function ZoneOption({index, written, selected, onSelect}) {
 
 function ZoneModel() {
   const [zones, setZones] = useState([8, 3, 0]);
+  // Zones transitioned to Full by Finish Zone, possibly with unwritten blocks.
+  const [finished, setFinished] = useState([false, false, false]);
   const [selected, setSelected] = useState(1);
   const written = zones[selected];
-  const full = written === zoneBlocks.length;
-  const allFull = full && zones.every((value) => value === zoneBlocks.length);
+  const isFull = (index) => finished[index] || zones[index] === ZONE_BLOCKS;
+  const full = isFull(selected);
+  const allFull = zones.every((_, index) => isFull(index));
   const label = `Zone 0${selected}`;
+
+  // Selects the next zone after the selected one that can still be written.
+  function selectNextOpen() {
+    for (let offset = 1; offset < zones.length; offset++) {
+      const next = (selected + offset) % zones.length;
+      if (!isFull(next)) {
+        setSelected(next);
+        return;
+      }
+    }
+  }
 
   function writeBlock() {
     const nextZones = zones.slice();
     nextZones[selected] = written + 1;
     setZones(nextZones);
+    if (nextZones[selected] === ZONE_BLOCKS) selectNextOpen();
+  }
 
-    if (nextZones[selected] === zoneBlocks.length) {
-      for (let offset = 1; offset < zones.length; offset++) {
-        const next = (selected + offset) % zones.length;
-        if (zones[next] < zoneBlocks.length) {
-          setSelected(next);
-          break;
-        }
-      }
-    }
+  function finishZone() {
+    setFinished((current) => current.map((value, index) => value || index === selected));
+    selectNextOpen();
   }
 
   function resetZone() {
     setZones((current) => current.map((value, index) => (index === selected ? 0 : value)));
+    setFinished((current) => current.map((value, index) => value && index !== selected));
   }
 
   return (
@@ -139,28 +130,8 @@ function ZoneModel() {
         <span className={styles.modelBadge}>Interactive model</span>
       </div>
       <div className={styles.modelBody}>
-        {allFull && createPortal(
-          <div className={styles.fireworks} aria-hidden="true">
-            {fireworkBursts.map(({x, y, delay, size, launchX, tilt, light, dark}, index) => (
-              <span
-                key={index}
-                className={styles.firework}
-                style={{
-                  '--x': x, '--y': y, '--delay': delay, '--size': size,
-                  '--launch-x': launchX, '--tilt': tilt,
-                  '--light-color': light, '--dark-color': dark,
-                }}>
-                {fireworkAngles.map((angle) => (
-                  <span
-                    key={angle}
-                    className={styles.spark}
-                    style={{'--angle': `${angle}deg`}}
-                  />
-                ))}
-              </span>
-            ))}
-          </div>,
-          document.body,
+        {allFull && (
+          <BrowserOnly>{() => <Fireworks className={styles.fireworks} />}</BrowserOnly>
         )}
         <fieldset id="zone-model" className={styles.zones}>
           <legend className={styles.visuallyHidden}>Target zone</legend>
@@ -169,6 +140,7 @@ function ZoneModel() {
               key={index}
               index={index}
               written={value}
+              finished={finished[index]}
               selected={index === selected}
               onSelect={setSelected}
             />
@@ -176,8 +148,9 @@ function ZoneModel() {
         </fieldset>
         <div className={styles.modelLegend} aria-hidden="true">
           <span><i className={styles.legendWritten} />Written</span>
-          <span><i className={styles.legendNext} />Next write</span>
+          <span><i className={styles.legendPointer} />Write pointer</span>
           <span><i className={styles.legendEmpty} />Available</span>
+          <span><i className={styles.legendFinished} />Finished</span>
         </div>
         <div className={styles.modelActions}>
           <button
@@ -186,15 +159,23 @@ function ZoneModel() {
             onClick={writeBlock}
             disabled={full}
             aria-controls="zone-model">
-            Write a block <Icon name="arrow" />
+            Write Data <Icon name="play" />
           </button>
           <button
             type="button"
             className={styles.resetButton}
-            onClick={resetZone}
-            disabled={written === 0}
+            onClick={finishZone}
+            disabled={full}
             aria-controls="zone-model">
-            <Icon name="reset" /> Reset zone
+            Finish Zone <Icon name="fastForward" />
+          </button>
+          <button
+            type="button"
+            className={clsx(styles.resetButton, styles.alignEnd)}
+            onClick={resetZone}
+            disabled={written === 0 && !finished[selected]}
+            aria-controls="zone-model">
+            <Icon name="fastReverse" /> Reset zone
           </button>
         </div>
         <p className={styles.modelStatus} role="status" aria-live="polite" aria-atomic="true">
@@ -202,12 +183,13 @@ function ZoneModel() {
             ? 'All three zones are full. Reset a zone to write again.'
             : full
               ? `${label} is full. A reset is required before further writes.`
-              : `${label}: ${written}/${zoneBlocks.length} blocks written. Next write → block ${written + 1}.`}
+              : `${label}: ${written}/${ZONE_BLOCKS} blocks written. Next write → LBA ${selected * ZONE_BLOCKS + written}.`}
         </p>
       </div>
       <figcaption id="zone-model-caption" className={styles.modelCaption}>
         Illustration of sequential-write-required zones. Writes to the selected zone
-        advance its write pointer; a reset discards its data.
+        advance its write pointer; finishing a zone makes it full without writing the
+        remaining blocks; a reset discards its data.
       </figcaption>
     </figure>
   );

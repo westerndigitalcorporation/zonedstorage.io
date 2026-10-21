@@ -48,11 +48,16 @@ A local http server is run to locally serve the site on http://0.0.0.0:3000.
 
 The front page is implemented in `src/pages/index.js`, with scoped styles in
 `src/css/index.module.css`. Its interactive sequential-write model has three
-selectable zones. Filling a zone selects the next one with space; when all three
-are full, a full-viewport fireworks display appears. Fireworks launch on varied
-upward paths; their colors adapt to light and dark themes. The animation is
-hidden when reduced motion is requested. The page also provides guided
-documentation links and a copyable Linux emulation example.
+selectable zones of eight contiguous blocks, each labeled with its LBA range (one
+LBA per block) and showing its write pointer. Finish Zone transitions the selected
+zone to Full without writing its remaining blocks, which are shown hatched.
+Filling or finishing a zone selects the next one with space; when all three
+are full, `src/components/Fireworks.js` plays a one-time cartoon fireworks show
+on a full-viewport canvas: outlined rockets with smoke trails, comic burst words,
+shaped bursts, and a finale with confetti. The canvas ignores pointer input and
+removes itself when the show ends; it is skipped when reduced motion is
+requested. The page also provides guided documentation links and a copyable
+Linux emulation example.
 Navigation, search, theme switching, and code blocks use Docusaurus components.
 The shared `--landing-*` palette, documentation styles, navbar, and footer are
 defined in `src/css/custom.css`. The Getting Started overview uses
