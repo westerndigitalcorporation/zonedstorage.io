@@ -245,7 +245,7 @@ function GettingStarted() {
 	<div className={styles.modelHeader}>
           <span>Linux Ecosystem</span>
 	  <div className={styles.imageFrame}>
-            <img src={'/img/linux-zbd-overview.png'} alt={'Linux user-space utilities and file systems connect through the kernel zoned block interface to storage devices.'} loading="lazy" />
+            <img src={'/img/linux-zbd-overview.svg'} alt={'Linux user-space utilities and file systems connect through the kernel zoned block interface to storage devices.'} loading="lazy" />
           </div>
         </div>
         <div className={styles.heroCopy}>
