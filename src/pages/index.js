@@ -14,6 +14,8 @@ const iconPaths = {
   layers: 'm12 3 10 5-10 5L2 8Zm-10 9 10 5 10-5M2 16l10 5 10-5',
   chip: 'M6 6h12v12H6Zm3 3h6v6H9ZM9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4',
   drive: 'M5 4h14l3 11v5H2v-5Zm-3 11h20M6 17.5h.01M10 17.5h.01',
+  hdd: 'M5 4h14l3 11v5H2v-5Zm-3 11h20M6 17.5h.01M10 17.5h.01',
+  storage: 'M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z',
   code: 'm8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18',
   gauge: 'M4.2 18a9 9 0 1 1 15.6 0ZM12 14l5-6M5 11h2m10 0h2M12 5v2',
   fastForward: 'M3 6v12l8-6Zm9 0v12l8-6Z',
@@ -84,7 +86,7 @@ function ZoneOption({index, written, finished, selected, onSelect}) {
   );
 }
 
-function ZoneModel() {
+function ZoneSimulation() {
   const [zones, setZones] = useState([8, 3, 0]);
   // Zones transitioned to Full by Finish Zone, possibly with unwritten blocks.
   const [finished, setFinished] = useState([false, false, false]);
@@ -195,7 +197,7 @@ function ZoneModel() {
   );
 }
 
-function Hero() {
+function ZonedStorage() {
   return (
     <header className={styles.hero}>
       <div className={clsx(styles.container, styles.heroGrid)}>
@@ -208,21 +210,21 @@ function Hero() {
             in ATA/SCSI HDDs and Zoned Namespaces (ZNS) in NVMe SSDs.
           </p>
           <div className={styles.heroActions}>
-            <Link className={clsx(styles.button, styles.primaryButton)} to="/docs/getting-started">
-              Setup guides <Icon name="arrow" />
+            <Link className={clsx(styles.button, styles.primaryButton)} to="/docs/introduction/zoned-storage">
+              <Icon name="book" /> Overview <Icon name="arrow" />
             </Link>
             <Link className={clsx(styles.button, styles.secondaryButton)} to="/docs/introduction">
-              <Icon name="book" /> Device overview
+              <Icon name="storage" /> Device Models <Icon name="arrow" />
             </Link>
           </div>
-          <p className={styles.heroNote}>Host-managed SMR HDDs, NVMe ZNS SSDs, and Linux software support.</p>
+          <p className={styles.heroNote}>Host-managed SMR HDDs, NVMe ZNS SSDs, and Emulated Devices.</p>
         </div>
-        <ZoneModel />
+        <ZoneSimulation />
       </div>
       <div className={clsx(styles.container, styles.technologies)}>
-        <p className={styles.technologyIntro}>Storage interfaces<strong>SCSI ZBC, ATA ZAC, NVMe ZNS</strong></p>
+        <p className={styles.technologyIntro}>Storage Interfaces<strong>SCSI ZBC, ATA ZAC, NVMe ZNS, and Emulated Devices</strong></p>
         <Link className={styles.technologyLink} to="/docs/introduction/smr">
-          <Icon name="drive" className={styles.technologyIcon} />
+          <Icon name="hdd" className={styles.technologyIcon} />
           <span><strong>Host-managed SMR HDDs</strong><span>Shingled Magnetic Recording</span></span>
           <Icon name="arrow" className={styles.linkArrow} />
         </Link>
@@ -236,93 +238,36 @@ function Hero() {
   );
 }
 
-const learningPaths = [
-  {
-    number: '01',
-    icon: 'book',
-    title: 'Zoned device model',
-    description: 'Zone types, sequential write constraints, write pointers, capacities, and zone management commands.',
-    link: '/docs/introduction/zoned-storage',
-    action: 'Device model reference',
-  },
-  {
-    number: '02',
-    icon: 'terminal',
-    title: 'Linux setup',
-    description: 'Kernel requirements and setup procedures for physical and emulated zoned block devices.',
-    link: '/docs/getting-started',
-    action: 'Setup guides',
-  },
-  {
-    number: '03',
-    icon: 'layers',
-    title: 'Linux I/O interfaces',
-    description: 'Direct device access, zoned file systems, and device mapper support for zoned block devices.',
-    link: '/docs/introduction/linux-ecosystem',
-    action: 'Linux support overview',
-  },
-];
-
-function LearningPaths() {
+function GettingStarted() {
   return (
-    <section className={clsx(styles.container, styles.section)} aria-labelledby="start-heading">
-      <div className={styles.sectionHeading}>
-        <div>
-          <p className={styles.eyebrow}>Introduction</p>
-          <h2 id="start-heading">Device model and system setup</h2>
-          <p className={styles.sectionDescription}>Host-managed devices require software that handles sequential writes and zone management.</p>
+    <header className={styles.hero}>
+      <div className={clsx(styles.container, styles.heroGrid)}>
+	<div className={styles.modelHeader}>
+          <span>Linux Ecosystem</span>
+	  <div className={styles.imageFrame}>
+            <img src={'/img/linux-zbd-overview.png'} alt={'Linux user-space utilities and file systems connect through the kernel zoned block interface to storage devices.'} loading="lazy" />
+          </div>
+        </div>
+        <div className={styles.heroCopy}>
+          <h1 className={styles.heroTitle}>Getting Started</h1>
+          <p className={styles.heroDescription}>
+	    Zoned storage devices require a compatible Linux kernel providing
+	    sequential write control and zone management. Learn how to set up a
+	    zoned storage enable system and how to start using zoned storage
+	    devices.
+          </p>
+          <div className={styles.heroActions}>
+            <Link className={clsx(styles.button, styles.primaryButton)} to="/docs/getting-started/">
+              <Icon name="book" /> Linux Setup <Icon name="arrow" />
+            </Link>
+            <Link className={clsx(styles.button, styles.secondaryButton)} to="/docs/getting-started/zbd-emulation">
+              <Icon name="storage" /> Emulated Devices <Icon name="arrow" />
+            </Link>
+          </div>
+          <p className={styles.heroNote}>Linux kernel, Linux distributions and zoned storage device setup.</p>
         </div>
       </div>
-      <div className={styles.pathGrid}>
-        {learningPaths.map((path) => (
-          <Link className={styles.pathCard} to={path.link} key={path.number}>
-            <div className={styles.pathCardTop}>
-              <span className={styles.pathIcon}><Icon name={path.icon} /></span>
-              <span className={styles.pathNumber} aria-hidden="true">{path.number}</span>
-            </div>
-            <h3>{path.title}</h3>
-            <p>{path.description}</p>
-            <span className={styles.cardAction}>{path.action}<Icon name="arrow" /></span>
-          </Link>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-const emulationCommands = `# Emulate a zoned device
-sudo modprobe null_blk \\
-  nr_devices=1 zoned=1
-
-# Inspect its zones
-sudo blkzone report \\
-  /dev/nullb0`;
-
-function QuickStart() {
-  return (
-    <section className={clsx(styles.container, styles.quickStart)} aria-labelledby="quick-start-heading">
-      <div>
-        <p className={styles.eyebrow}>Linux / null_blk</p>
-        <h2 id="quick-start-heading">Zoned device emulation</h2>
-        <p className={styles.sectionDescription}>
-          The Linux <code>null_blk</code> driver emulates zoned block devices.
-          The <code>blkzone report</code> command lists zone descriptors, including
-          zone states and write pointer positions.
-        </p>
-        <Link className={styles.textLink} to="/docs/getting-started/zbd-emulation">
-          Emulation guide <Icon name="arrow" />
-        </Link>
-      </div>
-      <div className={styles.commandPanel}>
-        <CodeBlock language="bash" title="Linux / null_blk" className={styles.commandBlock}>
-          {emulationCommands}
-        </CodeBlock>
-        <p className={styles.commandNote}>
-          Requires root access and a kernel with zoned <code>null_blk</code> support.
-          This basic example reports zones; it does not retain written data.
-        </p>
-      </div>
-    </section>
+    </header>
   );
 }
 
@@ -428,9 +373,8 @@ export default function Home() {
       title="Zoned storage documentation"
       description="Technical documentation for host-managed SMR HDDs, NVMe Zoned Namespaces, Linux kernel support, file systems, tools, and applications.">
       <main className={styles.page}>
-        <Hero />
-        <LearningPaths />
-        <QuickStart />
+        <ZonedStorage />
+        <GettingStarted />
         <Documentation />
         <Community />
       </main>

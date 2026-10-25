@@ -10,7 +10,7 @@ const guides = [
     href: '/docs/getting-started/linux',
     description:
       'Check kernel support for zoned block devices and install the utilities needed to inspect and manage them.',
-    image: 'intro-linux-zbd.png',
+    image: 'linux-zbd-overview.png',
     imageAlt:
       'Linux user-space utilities and file systems connect through the kernel zoned block interface to storage devices.',
   },

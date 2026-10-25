@@ -28,7 +28,7 @@
 
 .hero {
   background: radial-gradient(ellipse at 85% 20%, var(--landing-glow), transparent 60%);
-  padding-top: 5rem;
+  padding-top: 3rem;
 }
 
 .heroGrid {
@@ -448,10 +448,12 @@
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   gap: 2rem;
-  margin-top: 4.5rem;
+  margin-top: 2rem;
   padding-block: 1.6rem;
   border-top: 1px solid var(--landing-border);
   border-bottom: 1px solid var(--landing-border);
+  display: flex;
+  justify-content: space-between;
 }
 
 .technologyIntro {

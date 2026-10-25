@@ -35,7 +35,7 @@ across all zoned device types and all access protocols.
 A simplified view of the kernel structure, including the ZBD interface, is
 shown in the figure below.
 
-<Image src="intro-linux-zbd.png"
+<Image src="linux-zbd-overview.png"
 title="Linux kernel Zoned Storage Device Support Overview"/>
 
 The implementation of the Linux-ZBD interface provides functions for
