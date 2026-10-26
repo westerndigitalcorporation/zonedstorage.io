@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="title">
+  <title id="title">Linux zoned block device support: applications, tools and file systems use the kernel ZBD interface and block layer to reach SMR and ZNS devices.</title>
+  <defs>
+    <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.8" fill="#263854"/>
+    </pattern>
+    <marker id="head" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 1 L10 5 L0 9 Z" fill="#8ea4c8"/>
+    </marker>
+  </defs>
+
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; text-anchor: middle; dominant-baseline: central; }
+    .band { fill: rgba(160, 188, 255, 0.05); stroke: rgba(160, 188, 255, 0.14); }
+    .layer { fill: #b2c0d8; font-size: 15px; font-weight: 700; letter-spacing: 0.02em; }
+    .label { font-size: 15px; font-weight: 600; }
+    .sub { font-size: 13px; font-weight: 500; }
+    .arrow { stroke: #8ea4c8; stroke-width: 2; marker-start: url(#head); marker-end: url(#head); }
+    .app { fill: #1a2742; stroke: #6f86b3; }
+    .tool { fill: #17233a; stroke: #4b5f80; }
+    .fs { fill: #3b2a20; stroke: #e59866; }
+    .dm { fill: #36311c; stroke: #d9bf5c; }
+    .zbd { fill: #24406e; stroke: #8daeea; }
+    .block { fill: #1c3150; stroke: #5f84cf; }
+    .driver { fill: #1b3536; stroke: #5fb3a5; }
+    .emu { fill: #3d5fb0; stroke: #7397e9; }
+    .dev { fill: #5678cc; stroke: #8daeea; }
+  </style>
+
+  <rect x="1" y="1" width="798" height="618" rx="16" fill="#111c30" stroke="#344567" stroke-width="2"/>
+  <rect x="1" y="1" width="798" height="618" rx="16" fill="url(#dots)"/>
+
+  <!-- Layer bands -->
+  <rect class="band" x="14" y="14" width="772" height="104" rx="10"/>
+  <rect class="band" x="14" y="128" width="772" height="344" rx="10"/>
+  <rect class="band" x="14" y="482" width="772" height="124" rx="10"/>
+  <text class="layer" x="60" y="58">User</text>
+  <text class="layer" x="60" y="76">Space</text>
+  <text class="layer" x="60" y="236">Linux</text>
+  <text class="layer" x="60" y="254">Kernel</text>
+  <text class="layer" x="60" y="544">Hardware</text>
+
+  <!-- Arrows (drawn first so boxes cover the line ends) -->
+  <line class="arrow" x1="150" y1="104" x2="150" y2="144"/>
+  <line class="arrow" x1="295" y1="104" x2="295" y2="144"/>
+  <line class="arrow" x1="440" y1="104" x2="440" y2="144"/>
+  <line class="arrow" x1="552" y1="104" x2="552" y2="218"/>
+  <line class="arrow" x1="670" y1="104" x2="670" y2="302"/>
+  <line class="arrow" x1="750" y1="104" x2="750" y2="326"/>
+  <line class="arrow" x1="150" y1="204" x2="150" y2="326"/>
+  <line class="arrow" x1="262" y1="204" x2="262" y2="302"/>
+  <line class="arrow" x1="400" y1="278" x2="400" y2="302"/>
+  <line class="arrow" x1="552" y1="278" x2="552" y2="302"/>
+  <line class="arrow" x1="385" y1="464" x2="385" y2="502"/>
+  <line class="arrow" x1="515" y1="464" x2="515" y2="502"/>
+  <line class="arrow" x1="685" y1="464" x2="685" y2="502"/>
+
+  <!-- User space -->
+  <rect class="app" x="120" y="28" width="350" height="72" rx="8"/>
+  <text class="label" x="295" y="64" fill="#e6edfc">Applications</text>
+  <rect class="tool" x="482" y="28" width="140" height="33" rx="6"/>
+  <text class="label" x="552" y="44.5" fill="#c3d3ef">util-linux</text>
+  <rect class="tool" x="482" y="67" width="140" height="33" rx="6"/>
+  <text class="label" x="552" y="83.5" fill="#c3d3ef">libraries</text>
+  <rect class="tool" x="632" y="28" width="140" height="33" rx="6"/>
+  <text class="label" x="702" y="44.5" fill="#c3d3ef">fio</text>
+  <rect class="tool" x="632" y="67" width="140" height="33" rx="6"/>
+  <text class="label" x="702" y="83.5" fill="#c3d3ef">blktests</text>
+
+  <!-- Kernel -->
+  <rect class="fs" x="120" y="148" width="350" height="52" rx="8"/>
+  <text class="label" x="295" y="166" fill="#ffd2b0">ZBD Compliant File-Systems</text>
+  <text class="sub" x="295" y="184" fill="#f3b892">(XFS, BTRFS, F2FS)</text>
+
+  <rect class="dm" x="300" y="222" width="350" height="52" rx="8"/>
+  <text class="label" x="475" y="240" fill="#f6e3a1">Device Mapper</text>
+  <text class="sub" x="475" y="258" fill="#e3cf86">(dm-crypt, dm-linear, …)</text>
+
+  <rect class="block" x="120" y="330" width="652" height="62" rx="8"/>
+  <text class="label" x="446" y="371" fill="#e6edfc" font-weight="700">Block Layer</text>
+  <rect class="zbd" x="200" y="306" width="520" height="38" rx="8"/>
+  <text class="label" x="460" y="325" fill="#e6edfc" font-weight="700">ZBD Interface</text>
+
+  <rect class="emu" x="120" y="404" width="180" height="56" rx="8"/>
+  <text class="label" x="210" y="423" fill="#ffffff">Emulated</text>
+  <text class="label" x="210" y="441" fill="#ffffff">ZBD Device</text>
+  <rect class="driver" x="312" y="404" width="274" height="25" rx="6"/>
+  <text class="label" x="449" y="416.5" fill="#c8f1ea">SCSI mid-layer</text>
+  <rect class="driver" x="312" y="435" width="274" height="25" rx="6"/>
+  <text class="label" x="449" y="447.5" fill="#c8f1ea">SCSI/ATA low level drivers</text>
+  <rect class="driver" x="598" y="404" width="174" height="56" rx="8"/>
+  <text class="label" x="685" y="432" fill="#c8f1ea">NVMe driver</text>
+
+  <!-- Hardware -->
+  <rect class="dev" x="330" y="506" width="110" height="76" rx="8"/>
+  <text class="label" x="385" y="535" fill="#ffffff" font-weight="700">SAS ZBC</text>
+  <text class="label" x="385" y="553" fill="#ffffff" font-weight="700">HDD</text>
+  <rect class="dev" x="460" y="506" width="110" height="76" rx="8"/>
+  <text class="label" x="515" y="535" fill="#ffffff" font-weight="700">SATA ZAC</text>
+  <text class="label" x="515" y="553" fill="#ffffff" font-weight="700">HDD</text>
+  <rect class="dev" x="630" y="506" width="110" height="76" rx="8"/>
+  <text class="label" x="685" y="535" fill="#ffffff" font-weight="700">NVMe ZNS</text>
+  <text class="label" x="685" y="553" fill="#ffffff" font-weight="700">SSD</text>
+</svg>
