@@ -279,6 +279,18 @@ const resources = [
     link: '/docs/linux/overview',
   },
   {
+    icon: 'storage',
+    title: 'Device Emulation',
+    description: 'Methods to emulate zoned block devices.',
+    link: '/docs/device-emulation',
+  },
+  {
+    icon: 'drive',
+    title: 'Device mapper',
+    description: 'Zoned device support in dm-linear, dm-crypt, and dm-zoned.',
+    link: '/docs/device-mapper',
+  },
+  {
     icon: 'layers',
     title: 'File systems',
     description: 'Zoned storage support in XFS, Btrfs, F2FS, and the zonefs interface.',
@@ -301,12 +313,6 @@ const resources = [
     title: 'Benchmarking',
     description: 'fio configuration and workloads for SMR and NVMe ZNS devices.',
     link: '/docs/benchmarking/fio/overview',
-  },
-  {
-    icon: 'drive',
-    title: 'Device mapper',
-    description: 'Zoned device support in dm-linear, dm-crypt, and dm-zoned.',
-    link: '/docs/device-mapper',
   },
 ];
 
