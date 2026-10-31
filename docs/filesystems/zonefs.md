@@ -7,7 +7,7 @@ sidebar_label: zonefs
 # zonefs File System
 
 *zonefs* is a very simple file system that exposes each of the zones of a zoned
-block device as a file. 
+block device as a file.
 
 :::info System Requirements
 - Linux kernel version 5.6 or later with CONFIG_ZONEFS_FS enabled.
@@ -188,10 +188,10 @@ stat`, which is obtained with the `stat()` or `fstat()` system calls.
 
 ### Zone Files
 
-Zone files are named using the number of the zone they represent within the
-set of zones of a particular type. Both the "cnv" and "seq" directories
-contain files named "0", "1", "2", ... The file numbers also represent
-increasing zone start sector on the device.
+Zone files are named using the number of the zone they represent within the set
+of zones of a particular type. Both the "cnv" and "seq" directories contain
+files named "0", "1", "2", ... The file numbers also represent increasing zone
+start sector on the device.
 
 No read- and write-operations to zone files are allowed beyond the file
 maximum size (that is, beyond the zone size). Any access that exceeds the zone
@@ -260,40 +260,40 @@ additional conditions (in addition to these known I/O failure patterns) that
 can result in I/O errors.
 
 * A zone may transition to the read-only condition:
-  Although the data that is already written in the zone is still readable, the 
-  zone can no longer be written. No user action on the zone (zone management 
+  Although the data that is already written in the zone is still readable, the
+  zone can no longer be written. No user action on the zone (zone management
   command or read/write access) can change the zone condition back to a
-  normal read/write state. While the reasons for the device to transition a 
-  zone to read-only state are not defined by the standards, a typical cause 
-  for such transition would be a defective write head on an HDD (all zones 
+  normal read/write state. While the reasons for the device to transition a
+  zone to read-only state are not defined by the standards, a typical cause
+  for such transition would be a defective write head on an HDD (all zones
   under this head are changed to read-only).
 
 * A zone may transition to the offline condition:
-  An offline zone can be neither read nor written. No user action can 
-  transition an offline zone back to an operational "good state". Similar to 
-  zone read-only transitions, the reasons that a drive transitions a zone 
-  to the offline condition are undefined. A typical cause is (for example) a 
-  defective read-write head on an HDD that causes all zones on the platter 
+  An offline zone can be neither read nor written. No user action can
+  transition an offline zone back to an operational "good state". Similar to
+  zone read-only transitions, the reasons that a drive transitions a zone
+  to the offline condition are undefined. A typical cause is (for example) a
+  defective read-write head on an HDD that causes all zones on the platter
   under the broken head to be inaccessible.
 
 * Unaligned write errors:
   These errors result from the device receiving a write request that has a
   start sector that does not correspond to the write-pointer position of the
-  target zone. Although *zonefs* enforces sequential file write for 
-  sequential zones, unaligned write errors can still happen in the case of a 
+  target zone. Although *zonefs* enforces sequential file write for
+  sequential zones, unaligned write errors can still happen in the case of a
   partial failure of a very large direct I/O operation that is split into
   multiple BIOs/requests or asynchronous I/O operations. If one of the write
-  requests within the set of sequential write requests that is issued to the 
-  device fails, all write requests that are queued after it will become 
+  requests within the set of sequential write requests that is issued to the
+  device fails, all write requests that are queued after it will become
   unaligned and fail.
 
 * Delayed write errors:
   As with regular block devices, if the device-side write cache is enabled,
   write errors can occur in ranges of previously-completed writes when the
-  device write cache is flushed, e.g. on `fsync()`.  As in cases of immediate 
-  unaligned write errors, delayed write errors can propagate through a stream 
-  of cached sequential data for a zone, which can cause all data after the 
-  sector that caused the error to be dropped. 
+  device write cache is flushed, e.g. on `fsync()`.  As in cases of immediate
+  unaligned write errors, delayed write errors can propagate through a stream
+  of cached sequential data for a zone, which can cause all data after the
+  sector that caused the error to be dropped.
 
 All I/O errors detected by *zonefs* are reported to the user with an error code
 returned for the system call that triggered or detected the error. The recovery
@@ -301,37 +301,37 @@ actions taken by *zonefs* in response to I/O errors depend on the I/O type
 (read vs write) and on the reason for the error (bad sector, unaligned writes or
 zone condition change).
 
-* For read I/O errors, *zonefs* takes recovery action only if the file 
-  zone is still in good condition and there is no inconsistency between the 
-  file inode size and its zone write pointer position. If a problem is 
+* For read I/O errors, *zonefs* takes recovery action only if the file
+  zone is still in good condition and there is no inconsistency between the
+  file inode size and its zone write pointer position. If a problem is
   detected, I/O error recovery is executed (see below table).
 
 * For write I/O errors, *zonefs* I/O error recovery is always executed.
 
-* A zone condition change to "read-only" or "offline" also always triggers 
+* A zone condition change to "read-only" or "offline" also always triggers
   *zonefs* I/O error recovery.
 
-*zonefs* minimal I/O error recovery can change a file's size and its file 
+*zonefs* minimal I/O error recovery can change a file's size and its file
 access permissions.
 
 * File size changes:
-  Immediate or delayed write errors in a sequential zone file can cause the 
-  file inode size to be inconsistent with the amount of data successfully 
-  written in the file zone. For example, the partial failure of a multi-BIO 
+  Immediate or delayed write errors in a sequential zone file can cause the
+  file inode size to be inconsistent with the amount of data successfully
+  written in the file zone. For example, the partial failure of a multi-BIO
   large write operation will cause the zone write pointer to advance partially,
-  even though the entire write operation is reported as failed to the user. 
+  even though the entire write operation is reported as failed to the user.
   In such cases, the file inode size must be advanced to reflect the zone write
   pointer change and eventually allow the user to restart writing at the end of
   the file.
   A file size may also be reduced to reflect a delayed write error detected on
   fsync(): in this case, the amount of data effectively written in the zone may
   be less than originally indicated by the file inode size. After any such I/O
-  error, *zonefs* always fixes the file inode size to reflect the amount of 
+  error, *zonefs* always fixes the file inode size to reflect the amount of
   data persistently stored in the file zone.
 
 * Access permission changes:
   A zone condition change to read-only is indicated with a change in the file
-  access permissions, rendering the file read-only. This disables changes to 
+  access permissions, rendering the file read-only. This disables changes to
   the file attributes and data modification. For offline zones, all permissions
   (read and write) of the file are disabled.
 
@@ -366,12 +366,12 @@ Further notes:
 * With the "errors=remount-ro" mount option, the change of file access
   permissions to "read-only" applies to all files. The file system is remounted
   read-only.
-* Access permission and file-size changes caused by the device transitioning 
-  zones to the offline condition are permanent. Remounting or reformatting the 
+* Access permission and file-size changes caused by the device transitioning
+  zones to the offline condition are permanent. Remounting or reformatting the
   device with mkfs.zonefs (mkzonefs) will not change offline zone files back
   to a good state.
-* All file access permission changes to read-only that are due to the device 
-  transitioning zones to the read-only condition are permanent. Remounting or 
+* All file access permission changes to read-only that are due to the device
+  transitioning zones to the read-only condition are permanent. Remounting or
   reformatting the device will not re-enable file write access.
 * File access permission changes implied by the "remount-ro", "zone-ro" and
   "zone-offline" mount options are temporary for zones in a good condition.
@@ -379,13 +379,13 @@ Further notes:
   (format time values) access rights to the files affected.
 * The repair mount option triggers only the minimal set of I/O error recovery
   actions (that is, file size fixes for zones in a good condition). Zones
-  that are indicated as "read-only" or "offline" by the device still imply 
+  that are indicated as "read-only" or "offline" by the device still imply
   changes to the zone file access permissions as noted in the table above.
 
 ### Mount Options
 
-*zonefs* defines the "errors=*behavior*" mount option to allow the user to 
-specify zonefs behavior in response to I/O errors, inode size inconsistencies 
+*zonefs* defines the "errors=*behavior*" mount option to allow the user to
+specify zonefs behavior in response to I/O errors, inode size inconsistencies
 or zone condition changes. The defined behaviors are as follows.
 
 * remount-ro (default)
@@ -393,17 +393,17 @@ or zone condition changes. The defined behaviors are as follows.
 * zone-offline
 * repair
 
-The run-time I/O error actions defined for each behavior are detailed in 
+The run-time I/O error actions defined for each behavior are detailed in
 [*IO error handling*](/docs/filesystems/zonefs#io-error-handling). Mount-time
 I/O errors cause the mount operation to fail.
 
-Read-only zones are handled differently at mount time than they are at 
-run time. If a read-only zone is found at mount time, the zone is always 
-treated in the same manner as offline zones (that is, all accesses are 
+Read-only zones are handled differently at mount time than they are at
+run time. If a read-only zone is found at mount time, the zone is always
+treated in the same manner as offline zones (that is, all accesses are
 disabled and the zone file size set to 0). This is necessary, because the write 
-pointer of read-only zones is defined as invalid by the ZBC and ZAC standards 
-(which makes it impossible to discover the amount of data that has been 
-written to the zone). In the case of a read-only zone that is discovered at 
+pointer of read-only zones is defined as invalid by the ZBC and ZAC standards
+(which makes it impossible to discover the amount of data that has been
+written to the zone). In the case of a read-only zone that is discovered at
 run-time, as indicated in [*IO error
 handling*](/docs/filesystems/zonefs#io-error-handling), the size of the zone
 file is left unchanged from its last updated value.
@@ -419,9 +419,8 @@ This tool is available on <a href="https://github.com/westerndigitalcorporation/
 target="_blank">GitHub</a>.
 
 *zonefs-tools* also includes a test suite that can be run against any zoned
-block device, including
-[*nullblk* block device created with zoned
-mode](/docs/getting-started/zbd-emulation).
+block device, including with the [*null_blk* block device created with zoned
+mode](/docs/device-emulation/null_blk).
 
 export function Yes() {
   return (

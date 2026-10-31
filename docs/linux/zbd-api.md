@@ -131,8 +131,8 @@ device. The following shows an example with an NVMe ZNS device.
 ```
 
 When [emulating a zoned device](/docs/getting-started/zbd-emulation) using
-*null_blk*, *QEMU*, or *tcmu-runner*, the values of these attributes can be
-manually configured to emulate different physical device characteristics.
+*zloop*, *null_blk*, *QEMU*, or *tcmu-runner*, the values of these attributes
+can be manually configured to emulate different physical device characteristics.
 
 ## *ioctl()* Application Programming Interface
 
@@ -142,7 +142,7 @@ information about zoned block devices and to manage the zones of the devices.
 
 ### Zone Information Data Structures
 
-The data structure `struct blk_zone` defines a zone-descriptor structure that 
+The data structure `struct blk_zone` defines a zone-descriptor structure that
 contains a complete description of a zone: this includes the zone's location on
 the device, the zone type, its condition (state), and the position of the zone
 write pointer (for sequential zones). For kernels up to kernel version 5.8, this
@@ -164,7 +164,7 @@ data structure is as shown below.
  *
  * start, len, capacity and wp use the regular 512 B sector unit, regardless
  * of the device logical block size. The overall structure size is 64 B to
- * match the size of the ZBC-, ZAC- and ZNS-defined zone descriptor and to 
+ * match the size of the ZBC-, ZAC- and ZNS-defined zone descriptor and to
  * allow support for future additional zone information.
  */
 struct blk_zone {

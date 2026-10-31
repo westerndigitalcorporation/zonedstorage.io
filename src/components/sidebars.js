@@ -57,7 +57,18 @@ const sidebars = {
         'linux/config',
         'linux/zbd-api',
         'linux/sched',
-        'linux/part',
+        'linux/part'
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Device Emulation',
+      collapsed: true,
+      items: [
+        'device-emulation/index',
+        'device-emulation/zloop',
+        'device-emulation/null_blk',
+        'device-emulation/scsi-debug'
       ],
     },
     {

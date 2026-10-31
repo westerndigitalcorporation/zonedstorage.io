@@ -19,13 +19,14 @@ system call. A direct consequence of this is that *libzbd* allows access only
 to zoned block devices that are supported by the running kernel. This includes
 both physical devices (such as hard-disks that support the ZBC and ZAC
 standards) and all logical block devices that are implemented by various device
-drivers (such as [*null_blk*](/docs/getting-started/zbd-emulation) and [device
+drivers (such as [*zloop*](/docs/device-emulation/zloop),
+[*null_blk*] (/docs/device-emulation/null_blk) and [device
 mapper](/docs/device-mapper) drivers).
 
 The *libzbd* project is hosted on <a href="https://github.com/westerndigitalcorporation/libzbd"
 target="_blank">GitHub</a>.
 The project <a href="https://github.com/westerndigitalcorporation/libzbd/blob/master/README.md"
-target="_blank">*README* file</a> provides information on how to compile and 
+target="_blank">*README* file</a> provides information on how to compile and
 install the *libzbd* library and its tools.
 
 ## Overview
@@ -44,12 +45,12 @@ In other words, *libzbd* is stateless.
 
 It is the responsibility of applications to track changes to the condition of
 zones. Such changes include the increased write pointer position within a
-sequential zone after a write request to the zone has completed. 
+sequential zone after a write request to the zone has completed.
 
 ## Library Functions
 
 All *libzbd* functions use byte units to measure zone-related information. This
-zone-related information includes the zone's start position on the device, the 
+zone-related information includes the zone's start position on the device, the
 zone's size, and the zone write pointer location. Zoned block devices are
 identified using regular file descriptor numbers, which can be used "as is"
 with standard I/O system calls.
@@ -199,12 +200,11 @@ COMMANDS
 ...
 ```
 
-### *zbd* Tool Examples 
+### *zbd* Tool Examples
 
 The following examples use a null zoned block device with 4 conventional zones
 and 12 sequential zones of 32 MB that have been created using the
-[*nullblk-zoned.sh*](/docs/getting-started/zbd-emulation#zoned-block-device-emulation-with-null_blk)
-script:
+[*nullblk-zoned.sh*](/docs/device-emulation/null_blk) script:
 
 ```plaintext
 # nullblk-zoned.sh 4096 32 4 12
