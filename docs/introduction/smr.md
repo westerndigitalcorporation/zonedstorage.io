@@ -29,7 +29,7 @@ surface than can be placed on an equal amount of magnetic surface in a drive
 that uses conventional magnetic recording technology. The figure below
 illustrates this principle.
 
-<Image src="intro-smr-tracks.png"
+<Image src="intro-smr-tracks.svg"
 title="SMR hard disks overlapping tracks"/>
 
 The write head that is designed for SMR drives is wider than is necessary for

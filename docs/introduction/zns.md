@@ -49,7 +49,7 @@ thereby optimizes data placement onto the SSD's media. Note that the management
 of media reliability continues to be the sole responsibility of the SSD and
 is managed the same way as conventional SSDs.
 
-<Image src="intro-zns.png"
+<Image src="intro-zns.svg"
 title="Conventional SSDs and SSDs with Zoned Namespace support internal data placement"/>
 
 ## The ZNS Zoned Storage Model
