@@ -1,10 +1,10 @@
 ---
 id: zbd-api
-title: Zoned Block Device User Interface
-sidebar_label: Zoned Block Device User Interface
+title: Zone Management User Interface
+sidebar_label: Zone Management User Interface
 ---
 
-# Zoned Block Device User Interface
+# Zone Management User Interface
 
 User applications can use two types of interfaces to access the zone
 information of zoned block devices and to manage the zones of zoned block
