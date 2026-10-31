@@ -21,7 +21,7 @@ zone cannot be directly overwritten: before being overwritten, the zone must
 first be erased using a special command (zone reset). The figure below
 illustrates this principle.
 
-<Image src="intro-zoned-storage.png"
+<Image src="intro-zoned-storage.svg"
 title="Zoned Storage Devices Principle"/>
 
 Zoned storage devices can be implemented using different command protocols for
@@ -57,7 +57,7 @@ starting from the first logical block of the zone. A zone capacity is always
 smaller or equal to the zone size. This concept is illustrated in the figure
 below.
 
-<Image src="intro-zonesize-vs-capacity.png"
+<Image src="intro-zone-size-vs-capacity.svg"
 title="Zone Size and Zone Capacity"/>
 
 The use of zone capacities different from the zone size allows for the zone size
@@ -306,7 +306,7 @@ order.
 The figure below illustrates the differences between regular write operations
 and zone append write operations.
 
-<Image src="intro-zone-append.png"
+<Image src="intro-zone-append.svg"
 title="Regular Writes and Zone Append Writes"/>
 
 In the example above, the host must issue to the same zone three different

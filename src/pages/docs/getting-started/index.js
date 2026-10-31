@@ -19,7 +19,7 @@ const guides = [
     href: '/docs/getting-started/zbd-emulation',
     description:
       'Create zoned devices for development and testing without physical hardware, using Linux drivers or device emulators.',
-    image: 'intro-zoned-storage.png',
+    image: 'intro-zoned-storage.svg',
     imageAlt:
       'Diagram of a zoned device showing zones, the sequential write pointer, and zone reset.',
   },
