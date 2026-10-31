@@ -1,7 +1,7 @@
 ---
 id: zoned-storage
-title: Zoned Storage Devices Overview
-sidebar_label: Zoned Storage Devices Overview
+title: Zoned Storage Devices
+sidebar_label: Zoned Storage Devices
 ---
 
 import Image from '/src/components/Image';
