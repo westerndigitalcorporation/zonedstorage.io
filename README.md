@@ -70,8 +70,13 @@ The navbar logo and favicon are generated from `static/img/zs-logo.svg`:
 
 ```sh
 rsvg-convert --width 200 --height 200 --output static/img/zs-logo.png static/img/zs-logo.svg
-magick static/img/zs-logo.svg -background none -define icon:auto-resize=16,32,48,64 static/img/zs-logo.ico
+for s in 16 32 48 64; do rsvg-convert --width $s --height $s --output /tmp/zs-logo-$s.png static/img/zs-logo.svg; done
+magick /tmp/zs-logo-16.png /tmp/zs-logo-32.png /tmp/zs-logo-48.png /tmp/zs-logo-64.png static/img/zs-logo.ico
 ```
+
+Render each icon size with `rsvg-convert`, which keeps the corners
+transparent. Passing the SVG directly to `magick` rasterizes it on a white
+background.
 
 For a live preview, run `yarn start --host 0.0.0.0 --no-open`. Check desktop and
 mobile layouts in both light and dark mode. In the zone model, finish a zone to
