@@ -1,6 +1,7 @@
 # Generated files
 node_modules
 .docusaurus
+.docusaurus-build
 .cache-loader
 yarn.lock
 !static/.nojekyll

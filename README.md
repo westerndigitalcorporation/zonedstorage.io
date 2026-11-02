@@ -44,6 +44,13 @@ $ make serve
 
 A local http server is run to locally serve the site on http://0.0.0.0:3000.
 
+`yarn build` (used by `make`) and `yarn deploy` write their generated files to
+`.docusaurus-build`, while the `yarn start` development server uses
+`.docusaurus`. This lets a production build run while the development server is
+running: sharing one directory makes the server load production-only client
+modules such as the Google Analytics page-view tracker, which then fails with
+`window.gtag is not a function`. `yarn clear` removes both directories.
+
 ### Site theme and landing page
 
 The front page is implemented in `src/pages/index.js`, with scoped styles in
