@@ -49,7 +49,7 @@ method.
 
 | Method | Backing Storage | Advantages | Drawbacks |
 | :----- | :-------------- | :--------- | :-------- |
-| *zloop* | Regular files (sparse files, one per zone) | Very simple to use and allows large capacity devices | Cannot fully emulte a ZNS device (no active zone emulation) |
+| *zloop* | Regular files (sparse files, one per zone) | Very simple to use and allows large capacity devices | Cannot fully emulate a ZNS device (no active zone emulation) |
 | *null_blk* | System memory | Simple to use, can emulate all zoned block device characteristics | Emulated capacity limited by the system memory, emulated devices are not persistent across host reboots |
 | *scsi-debug* | System memory | Relatively simple to use, fully emulates a ZBC device | Emulated capacity limited by the system memory, emulated devices are not persistent across host reboots |
 | *tcmu-runner* | Single regular file | Fully emulates a ZBC device | Requires user-space applications and more complex to setup |
