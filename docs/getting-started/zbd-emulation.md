@@ -7,8 +7,8 @@ sidebar_label: Zoned Block Device Emulation
 # Zoned Block Device Emulation
 
 If you do not have access to zoned storage hardware (SMR hard disk or NVMe ZNS
-SSD), [several ways](/docs/introduction/emulated) are available in Linux to
-create an emulated zoned block device.
+SSD), [several ways](/docs/device-emulation) are available in Linux to create an
+emulated zoned block device.
 
 The *zloop* and *null_blk* kernel block device drivers are the easiest to use to
 quickly getting started.

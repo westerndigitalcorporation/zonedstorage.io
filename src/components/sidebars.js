@@ -28,7 +28,6 @@ const sidebars = {
         'introduction/zoned-storage',
         'introduction/smr',
         'introduction/zns',
-        'introduction/emulated',
       ],
     },
     {

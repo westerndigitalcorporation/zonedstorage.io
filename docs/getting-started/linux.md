@@ -49,7 +49,8 @@ this is your first time setting up a zoned-storage-compatible Linux system, use
 one of the [recommended Linux
 distributions](linux#recommended-linux-distributions).
 
-More advanced users might prefer [to modify their preferred system](linux#modifying-a-linux-distribution-installation)
+More advanced users might prefer [to modify their preferred
+system](linux#modifying-a-linux-distribution-installation)
 by compiling a zoned-storage-compatible kernel and installing it from source,
 and then installing all necessary user packages.
 
@@ -88,9 +89,11 @@ to enable or improve its support for zoned storage.
 Two conditions must be met to ensure that a system's Linux kernel supports the
 zoned block device interface.
 
-1. The kernel version [must be 4.10.0 or higher](linux#checking-the-kernel-version).
+1. The kernel version [must be 4.10.0 or
+   higher](linux#checking-the-kernel-version).
 
-2. The kernel configuration option [*CONFIG_BLK_DEV_ZONED* must be enabled](linux#checking-zoned-block-device-support).
+2. The kernel configuration option [*CONFIG_BLK_DEV_ZONED* must be
+   enabled](linux#checking-zoned-block-device-support).
 
 ### Checking the Kernel Version
 

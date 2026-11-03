@@ -10,23 +10,23 @@ slug: /device-emulation
 In a Linux environment, there are several ways available to create an emulated
 zoned block device.
 
-1. The [***zloop***](/docs/device-emulation/zloop) kernel block device driver: available
-   since Linux 6.16, this driver uses one regular file per zone as backing
-   storage. Large devices can be emulated without a matching amount of memory,
-   and the zone state is preserved when the device is removed and added again,
-   including across host reboots.
+1. The [***zloop***](/docs/device-emulation/zloop) kernel block device driver:
+   available since Linux 6.16, this driver uses one regular file per zone as
+   backing storage. Large devices can be emulated without a matching amount of
+   memory, and the zone state is preserved when the device is removed and added
+   again, including across host reboots.
 
-2. The [***null_blk***](/docs/device-emulation/null_blk) kernel block device driver: this
-   is a simple method to emulate a zoned block device with different zone
-   configurations mimicking both SMR and ZNS devices. While easy to use,
-   *null_blk* uses system memory as backing storage, thus limiting the capacity
-   of the devices being emulated.  The emulated devices are also not persistent
-   across host reboots.
+2. The [***null_blk***](/docs/device-emulation/null_blk) kernel block device
+   driver: this is a simple method to emulate a zoned block device with
+   different zone configurations mimicking both SMR and ZNS devices. While easy
+   to use, *null_blk* uses system memory as backing storage, thus limiting the
+   capacity of the devices being emulated.  The emulated devices are also not
+   persistent across host reboots.
 
-3. The [***scsi-debug***](/docs/device-emulation/scsi-debug) kernel block device driver:
-   this driver is simple to use but only makes it possible to create emulated
-   SCSI ZBC hard disks with limited capacity (system memory is used as backing
-   storage).
+3. The [***scsi-debug***](/docs/device-emulation/scsi-debug) kernel block device
+   driver: this driver is simple to use but only makes it possible to create
+   emulated SCSI ZBC hard disks with limited capacity (system memory is used as
+   backing storage).
 
 4. The [***tcmu-runner***](/docs/tools/tcmu-runner) SCSI device emulation: this
    application uses a regular file as its storage backstore, and can thus
@@ -42,8 +42,8 @@ zoned block device.
 
 The *zloop* and *null_blk* drivers are easy to use to quickly set up zoned
 block devices. Other emulation methods are either functionally more limited
-or more complex, but more accurate. The table below provides a summary of each
-method.
+or more complex, but can be more accurate. The table below provides a summary
+of each method.
 
 <center>
 
@@ -56,5 +56,3 @@ method.
 | [*QEMU*](/docs/tools/qemu) | host file (device image file) | Fully emulates a ZNS device | Requires running in a VM, the zone state of the emulated devices is not persistent across VM-hypervisor restarts |
 
 </center>
-Linux device mapper subsystem includes several target drivers supporting zoned
-block devices.
