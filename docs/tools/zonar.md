@@ -4,7 +4,6 @@ title: Zonar
 ---
 
 import Image from '/src/components/Image';
-import Video from '/src/components/Video';
 
 # Zonar for Zoned Filesystems
 
@@ -275,15 +274,3 @@ The Zonar server (*zonar_srv*) accepts the following options:
 | `-p`, `--port <port>` | Specify the connection port (default: 49152) |
 | `-c`, `--connect <IP>` | Reverse connection mode: connect to the client at the specified IP address |
 | `-o`, `--owned` | Exit when the parent process exits (used by local mode) |
-
-## Zonar Demonstration
-
-<Video src="tools-zonar-demo.mp4" title="Zonar feature demonstration"/>
-
-The video demonstrates Zonar in action. Zonar is first started in network mode
-using localhost. Once the GUI is opened, blockgroups are examined for additional
-details, followed by searching for a file by name to show its extents. Lastly,
-auto-refresh mode is enabled to observe a file being written onto the filesystem
-which can be seen in real-time as the write pointer is incremented within the
-respective blockgroups. The demonstration ends by observing the extents of the
-newly written file.
