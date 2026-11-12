@@ -37,3 +37,9 @@ supporting zoned block devices.
 
 * [Linux Tools for ZNS](/docs/tools/zns): Learn about Linux kernel support
   and tooling for NVM Express' Zoned Namespace (ZNS) Command Set.
+
+* [Zonar](/docs/tools/zonar): Learn about Zonar, which is a GTK4-based
+  graphical tool for monitoring and visualising a zoned filesystem.
+  It provides real-time visualization of a zoned filesystem's blockgroups, and
+  file extent data placement. Zonar supports zoned filesystems on both regular
+  and zoned block devices.
