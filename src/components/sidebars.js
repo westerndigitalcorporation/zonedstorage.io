@@ -102,8 +102,7 @@ const sidebars = {
       items: [
         'applications/index',
         'applications/percona-server',
-        'applications/zenfs',
-        'applications/zonar'
+        'applications/zenfs'
       ],
     },
     {
@@ -119,7 +118,8 @@ const sidebars = {
         'tools/libzbd',
         'tools/libnvme',
         'tools/tcmu-runner',
-        'tools/qemu'
+        'tools/qemu',
+        'tools/zonar'
       ],
     },
     {
