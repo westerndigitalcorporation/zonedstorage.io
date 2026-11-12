@@ -299,13 +299,13 @@ const resources = [
   {
     icon: 'terminal',
     title: 'Tools and libraries',
-    description: 'Device management utilities and the libzbd, libzbc, and libnvme APIs.',
+    description: 'Device management utilities and the libzbd, libzbc, libnvme APIs and Zonar the graphical zoned filesystem viewer.',
     link: '/docs/tools',
   },
   {
     icon: 'code',
     title: 'Applications',
-    description: 'Percona Server with MyRocks, RocksDB with Zenfs, and the Zonar file system viewer.',
+    description: 'Percona Server with MyRocks and RocksDB with Zenfs',
     link: '/docs/applications',
   },
   {

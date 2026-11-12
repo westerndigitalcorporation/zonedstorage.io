@@ -4,7 +4,6 @@ title: Zonar
 ---
 
 import Image from '/src/components/Image';
-import Video from '/src/components/Video';
 
 # Zonar for Zoned Filesystems
 
@@ -13,7 +12,7 @@ import Video from '/src/components/Video';
 Zonar is a graphical user-interface (GUI) application that allows users to
 monitor and visualise a zoned filesystem. It provides real-time visualisation
 of a zoned filesystem's blockgroups. Zonar supports zoned filesystems on both
-regular and zoned block devices. Currently only XFS is supported by Zonar.
+regular and zoned block devices.
 
 Zonar is publicly available on
 [GitHub](https://github.com/westerndigitalcorporation/zonar). The project
@@ -21,15 +20,31 @@ README file provides information on how to compile and install Zonar.
 
 ### Supported Filesystems and Devices
 
-Zonar currently only supports XFS. Zonar supports monitoring XFS filesystems on
-both zoned and conventional devices (Zoned XFS).
+Zonar currently supports the following filesystems:
+
+- **XFS**: Zoned XFS on both zoned and conventional devices. Allocation groups
+  (AGs) are shown as conventional blockgroups and real-time groups (RGs) as
+  sequential blockgroups. XFS support requires the xfsprogs development headers
+  version 6.15 or later.
+- **Btrfs**: Zoned Btrfs. Blockgroups are mapped to the zones of the device
+  backing the mount directory. Metadata blockgroups are highlighted, and zones
+  that are not yet allocated to a blockgroup are shown as unallocated. Btrfs
+  support only requires the kernel UAPI headers and is enabled automatically
+  when they are available at build time.
+
+### Requirements
+
+Accessing zone and filesystem layout information requires root privileges.
+When running Zonar locally, only the Zonar server runs as root; it is started
+through polkit (*pkexec*). The GUI itself always runs as a regular user.
 
 ## Starting Zonar
 
-Once Zonar has been compiled and installed, you can start it with
+Once Zonar has been compiled and installed, start it as a regular user (not
+with *sudo*):
 
 ```plaintext
-$ sudo zonar <path-to-zoned-filesystem>
+$ zonar <path-to-zoned-filesystem>
 
 zonar, version 1.0.0
 Copyright 2026 (C) Western Digital Corporation or its affiliates.
@@ -62,14 +77,25 @@ device. The UI presents itself in 3 key components:
 As per the screenshot above, at the very top Zonar shows the filesystem
 type (XFS), the mount location (/dev/zloop0) and the total number of zones
 (sequential and conventional). The legend for the scrollable blockgroup grid
-is also displayed here.
+is also displayed here:
+
+| Legend | Meaning |
+|---|---|
+| Conventional | Blockgroup backed by conventional zones |
+| Sequential (free) | Unwritten space of a blockgroup backed by sequential write required zones |
+| Sequential (Written) | Written space of a sequential blockgroup, up to the write pointer |
+| Metadata | Written space of a metadata blockgroup (Btrfs only) |
+| File Extent | Extents of a searched file or of a selected blockgroup |
+| Unwritten (allocated, not written) | Space allocated by the filesystem but not yet written to the device |
 
 ### 2. Scrollable blockgroup grid
 
 The scrollable blockgroup grid draws all of the blockgroups of the filesystem,
 and represents the blockgroups as sequential and conventional blockgroups.
 Sequential blockgroups use sequential write required zones, and conventional
-blockgroups use conventional zones for the underlying storage.
+blockgroups use conventional zones for the underlying storage. For Btrfs,
+metadata blockgroups are drawn in blue, and zones not yet allocated to a
+blockgroup are shown as empty sequential blockgroups.
 
 Users can click on the blockgroups to learn more about a particular blockgroup.
 
@@ -90,20 +116,25 @@ filesystem.
 
 1. Blockgroup resize (Zoom in/out)
 2. Jump to blockgroup
-3. Auto refresh
+3. Manual and auto refresh
 4. Blockgroup status bar
 5. File extent search
 
 #### Blockgroup Resize
 
-Using the Zoom "+/-" buttons, blockgroups can be resized. It can be useful to
-zoom into a blockgroup with, for example, fragmented file extents, or to zoom
-out to create a larger field of view for all of the blockgroups.
+Using the Zoom "+/-" buttons, blockgroups can be resized. Blockgroup numbers
+and extent labels scale with the zoom level. It can be useful to zoom into a
+blockgroup with, for example, fragmented file extents, or to zoom out to create
+a larger field of view for all of the blockgroups.
 
 #### Jump to blockgroup
 
 Given a blockgroup number, this will automatically scroll the grid to the
-location of the respective blockgroup.
+location of the respective blockgroup, which is then outlined.
+
+#### Refresh
+
+The "Refresh" button updates the blockgroups currently in view once.
 
 #### Auto Refresh
 
@@ -120,7 +151,8 @@ used.
 
 Provides an at-a-glance look into the blockgroup the cursor is currently
 hovering over without needing to open tabs, such as the blockgroup type, start
-sector, size, write pointer, and the capacity usage.
+sector, size, write pointer, and the capacity usage. For Btrfs, the status bar
+also indicates whether a blockgroup holds metadata or is unallocated.
 
 #### File extent search
 
@@ -190,6 +222,14 @@ Mount directory /mnt/zbd: XFS on device /dev/zloop0
   Max active zones: 0
 ```
 
+The server listens on port 49152 by default. A different port can be specified
+with the `--port` option on both the server and the GUI client:
+
+```plaintext
+$ sudo ./src/zonar_srv --port 50000 </mnt/dir>
+$ ./src/zonar --connect <target_ip> --port 50000
+```
+
 For cases where the remote server running the file system to inspect does not
 have a routable IP address (e.g. a class C address), the reverse connection
 mode can be used. With this, the local Zonar GUI client waits for the remote
@@ -208,14 +248,29 @@ initiated:
 $ sudo zonar_srv --connect x.y.z.c </mnt/dir>
 ```
 
-## Zonar Demonstration
+In both remote modes the GUI runs without root privileges; only *zonar_srv*
+on the remote machine requires them.
 
-<Video src="tools-zonar-demo.mp4" title="Zonar feature demonstration"/>
+## Command-Line Options
 
-The video demonstrates Zonar in action. Zonar is first started in network mode
-using localhost. Once the GUI is opened, blockgroups are examined for additional
-details, followed by searching for a file by name to show its extents. Lastly,
-auto-refresh mode is enabled to observe a file being written onto the filesystem
-which can be seen in real-time as the write pointer is incremented within the
-respective blockgroups. The demonstration ends by observing the extents of the
-newly written file.
+The Zonar GUI client (*zonar*) accepts the following options:
+
+| Option | Description |
+|---|---|
+| `-v`, `--verbose` | Enable verbose output |
+| `-V`, `--version` | Display version information and exit |
+| `-c`, `--connect <IP>` | Connect to a Zonar server at the specified IP address |
+| `-p`, `--port <port>` | Specify the connection port (default: 49152) |
+| `-l`, `--listen` | Reverse connection mode: wait for a server to connect |
+| `-s`, `--server <path>` | Local mode only: run the specified Zonar server binary instead of the installed *zonar_srv* |
+
+The Zonar server (*zonar_srv*) accepts the following options:
+
+| Option | Description |
+|---|---|
+| `-h`, `--help` | Print help and exit |
+| `-V`, `--version` | Print version and exit |
+| `-v`, `--verbose` | Enable verbose output |
+| `-p`, `--port <port>` | Specify the connection port (default: 49152) |
+| `-c`, `--connect <IP>` | Reverse connection mode: connect to the client at the specified IP address |
+| `-o`, `--owned` | Exit when the parent process exits (used by local mode) |

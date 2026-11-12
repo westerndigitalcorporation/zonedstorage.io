@@ -316,9 +316,9 @@ href="https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git/tree/doc/INSTALL"
 target="_blank">INSTALL</a> file for instructions on how to compile and install
 this package.
 
-## Monitoring Zoned XFS with [Zonar](/docs/applications/zonar)
+## Monitoring Zoned XFS with [Zonar](/docs/tools/zonar)
 
 Zonar is a graphical user-interface (GUI) application that allows users to
 monitor and visualise a zoned filesystem in realtime. Zonar supports zoned XFS
-on both zoned and regular devices. See [here](/docs/applications/zonar) to
+on both zoned and regular devices. See [here](/docs/tools/zonar) to
 learn more about zonar and how to utilize it for monitoring zoned XFS.
