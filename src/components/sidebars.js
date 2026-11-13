@@ -48,6 +48,26 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'How-To Guides',
+      collapsed: true,
+      items: [
+        'howtos/index',
+        'howtos/minio',
+        'howtos/beegfs',
+        'howtos/hdfs',
+        'howtos/juicefs',
+        'howtos/seaweedfs',
+        'howtos/garage',
+        'howtos/rustfs',
+        'howtos/aistore',
+        'howtos/glusterfs',
+        'howtos/longhorn',
+        'howtos/cubefs',
+        'howtos/ozone'
+      ],
+    },
+    {
+      type: 'category',
       label: 'Linux Kernel Support',
       collapsed: true,
       items: [

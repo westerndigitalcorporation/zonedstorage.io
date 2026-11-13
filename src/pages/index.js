@@ -271,6 +271,109 @@ function GettingStarted() {
   );
 }
 
+const howtos = [
+  {
+    title: 'MinIO',
+    description: 'S3-compatible object storage with object data on zoned drives.',
+    link: '/docs/howtos/minio',
+  },
+  {
+    title: 'BeeGFS',
+    description: 'Parallel cluster file system with storage targets on zoned drives.',
+    link: '/docs/howtos/beegfs',
+  },
+  {
+    title: 'HDFS',
+    description: 'Hadoop distributed file system with DataNode blocks on zoned drives.',
+    link: '/docs/howtos/hdfs',
+  },
+  {
+    title: 'JuiceFS',
+    description: 'POSIX file system with its data chunks stored on zoned drives.',
+    link: '/docs/howtos/juicefs',
+  },
+  {
+    title: 'SeaweedFS',
+    description: 'Distributed object and file storage with volumes on zoned drives.',
+    link: '/docs/howtos/seaweedfs',
+  },
+  {
+    title: 'Garage',
+    description: 'S3-compatible object storage with data blocks on zoned drives.',
+    link: '/docs/howtos/garage',
+  },
+  {
+    title: 'RustFS',
+    description: 'S3-compatible object storage with erasure-coded data on zoned drives.',
+    link: '/docs/howtos/rustfs',
+  },
+  {
+    title: 'AIStore',
+    description: 'Object storage with object data and mirror copies on zoned drives.',
+    link: '/docs/howtos/aistore',
+  },
+  {
+    title: 'GlusterFS',
+    description: 'Distributed file system with brick files on zoned drives.',
+    link: '/docs/howtos/glusterfs',
+  },
+  {
+    title: 'Longhorn',
+    description: 'Kubernetes block storage with volume replica files on zoned drives.',
+    link: '/docs/howtos/longhorn',
+  },
+  {
+    title: 'CubeFS',
+    description: 'Distributed POSIX and S3 file system with extent data on zoned drives.',
+    link: '/docs/howtos/cubefs',
+  },
+  {
+    title: 'Apache Ozone',
+    description: 'Object store with Datanode container block files on zoned drives.',
+    link: '/docs/howtos/ozone',
+  },
+];
+
+function HowTos() {
+  return (
+    <section className={clsx(styles.container, styles.section)} aria-labelledby="howtos-heading">
+      <div className={styles.sectionHeading}>
+        <div>
+          <p className={styles.eyebrow}>How-To Guides</p>
+          <h2 id="howtos-heading">Run your storage system on zoned storage</h2>
+          <p className={styles.sectionDescription}>
+            Step-by-step guides to deploy popular storage systems on SMR HDDs and NVMe
+            ZNS SSDs using the XFS file system.
+          </p>
+        </div>
+        <Link className={styles.textLink} to="/docs/howtos">
+          All how-to guides <Icon name="arrow" />
+        </Link>
+      </div>
+      <div className={styles.resourceGrid}>
+        {howtos.map((howto) => (
+          <Link className={styles.resourceCard} to={howto.link} key={howto.link}>
+            <div className={styles.resourceHeading}>
+              <Icon name="storage" className={styles.resourceIcon} />
+              <h3>{howto.title}</h3>
+              <Icon name="arrow" className={styles.linkArrow} />
+            </div>
+            <p>{howto.description}</p>
+          </Link>
+        ))}
+        <Link className={styles.resourceCard} to="/docs/howtos">
+          <div className={styles.resourceHeading}>
+            <Icon name="book" className={styles.resourceIcon} />
+            <h3>Overview</h3>
+            <Icon name="arrow" className={styles.linkArrow} />
+          </div>
+          <p>How the guides use zoned XFS, shared requirements, and trying them on emulated devices.</p>
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 const resources = [
   {
     icon: 'chip',
@@ -381,6 +484,7 @@ export default function Home() {
       <main className={styles.page}>
         <ZonedStorage />
         <GettingStarted />
+        <HowTos />
         <Documentation />
         <Community />
       </main>
