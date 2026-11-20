@@ -89,9 +89,8 @@ with the applicable clauses of the SPC-5 and SBC-4 specifications.
 #### Acquiring the SCSI ZBC Standard
 
 The Zoned Block Commands specifications document is published
-as <a href="https://standards.incits.org/apps/group_public/project/details.php?project_id=525"
-target="_blank">ANSI INCITS 536-2016: Information technology – Zoned Block
-Commands (ZBC)</a> and can be purchased from the <a href="http://webstore.ansi.org/"
+as ANSI INCITS 536-2016: Information technology – Zoned Block
+Commands (ZBC) and can be purchased from the <a href="http://webstore.ansi.org/"
 target="_blank">ANSI webstore</a>. This document is available at no cost to
 INCITS T10 member companies. Contact INCITS for further information.
 
@@ -112,9 +111,8 @@ zone-feature sets.
 #### Acquiring the ATA ZAC Standard
 
 The Zoned Device ATA Command Set specifications document is published
-as <a href="https://standards.incits.org/apps/group_public/project/details.php?project_id=403"
-target="_blank">INCITS 537-2016: Information technology – Zoned Device ATA
-Command Set (ZAC)</a> and can be purchased from the <a href="http://webstore.ansi.org/"
+as INCITS 537-2016: Information technology – Zoned Device ATA
+Command Set (ZAC) and can be purchased from the <a href="http://webstore.ansi.org/"
 target="_blank">ANSI webstore</a>. This document is available at no cost to
 INCITS T13 member companies. Contact INCITS for further information.
 
