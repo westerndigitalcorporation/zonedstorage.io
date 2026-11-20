@@ -48,7 +48,7 @@
   gap: 0.6rem;
   margin: 0 0 1rem;
   color: var(--landing-accent);
-  font-size: 0.7rem;
+  font-size: 1.5rem;
   font-weight: 750;
   letter-spacing: 0.12em;
   line-height: 1.6;
@@ -522,7 +522,7 @@
 }
 
 .section {
-  padding-block: 4.5rem;
+  padding-block: 2.5rem;
 }
 
 .sectionHeading {
