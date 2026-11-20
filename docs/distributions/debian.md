@@ -32,8 +32,8 @@ most recent distribution releases.
 
 ## Supported File Systems and Device Mapper Targets
 
-Starting with the *Bullseye* release, Debian offers support for all kernel
-components currently supporting zoned block devices.
+All supported Debian releases offer support for all kernel components currently
+supporting zoned block devices.
 
 <div>
     <table class="table-dist">

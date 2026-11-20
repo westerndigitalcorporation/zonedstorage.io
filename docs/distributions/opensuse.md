@@ -42,13 +42,11 @@ is shown in the table below.
 
 ## Supported File Systems and Device Mapper Targets
 
-Starting with version 15.4, openSUSE Leap pre-compiled kernel includes loadable
-modules for all file systems and device mapper targets that have zoned storage
-support. openSUSE Leap 16.0 is based on the SUSE Linux Enterprise 16.0 kernel,
-which does not include the *f2fs* and *zonefs* file systems nor zoned *XFS*
-support. As a bleeding-edge distribution, openSUSE Tumbleweed offers support for
-all file systems and device mapper targets since the update to kernel version
-5.9.
+openSUSE Leap 16.0 is based on the SUSE Linux Enterprise 16.0 kernel, which
+includes loadable modules for the *btrfs* file system and for all device mapper
+targets that have zoned storage support, but not the *f2fs* and *zonefs* file
+systems nor zoned *XFS* support. As a bleeding-edge distribution, openSUSE
+Tumbleweed offers support for all file systems and device mapper targets.
 
 <div>
     <table class="table-dist">
