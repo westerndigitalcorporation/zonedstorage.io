@@ -22,14 +22,16 @@ development and testing of applications.
 
  - [Fedora](/docs/distributions/fedora)
  - [openSUSE](/docs/distributions/opensuse)
+ - [Debian](/docs/distributions/debian) 13 (trixie) or above
+ - [Ubuntu](/docs/distributions/ubuntu) 24.04 LTS or above
 
 ## Other Linux Distributions
 
 All major Linux distributions provide some level of zoned storage
 support. Use the following links to learn more.
 
- - [Ubuntu](/docs/distributions/ubuntu)
- - [Debian](/docs/distributions/debian)
+ - [Ubuntu](/docs/distributions/ubuntu) releases older than 24.04 LTS
+ - [Debian](/docs/distributions/debian) releases older than 13 (trixie)
  - [SLES](/docs/distributions/sles)
  - [CentOS](/docs/distributions/centos)
  - [RHEL](/docs/distributions/rhel)

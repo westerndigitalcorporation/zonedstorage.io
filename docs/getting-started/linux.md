@@ -65,10 +65,15 @@ and SSDs with ZNS support.
 
 * [Latest openSUSE Tumbleweed](/docs/distributions/opensuse)
 
-These distributions are "rolling release" Linux distributions. They provide the
-most recent stable Linux kernel, they have zoned block device support enabled,
-and they have all the system user packages (e.g. [Linux system
-utilities](/docs/tools/util-linux)) necessary to support zoned storage.
+* [Debian 13 (trixie) or above](/docs/distributions/debian)
+
+* [Ubuntu 24.04 LTS or above](/docs/distributions/ubuntu)
+
+Fedora and openSUSE Tumbleweed follow the latest stable Linux kernel closely.
+Debian and Ubuntu LTS releases ship a long term stable kernel. All of these
+distributions have zoned block device support enabled, and they provide the
+system user packages (e.g. [Linux system utilities](/docs/tools/util-linux))
+necessary to support zoned storage.
 
 Installation instructions are available on the website of each distribution.
 The installation of these distributions is beyond the scope of this Zoned
