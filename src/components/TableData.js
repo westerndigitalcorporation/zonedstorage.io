@@ -41,6 +41,33 @@ export const FedoraZbdSupport = [
             nullblk: "Yes",
             scsidebug: "Yes",
             pathlocation:"/docs/distributions/fedora"
+        },
+        {
+            distribution: "43",
+            kernel: "6.17",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/fedora"
+        },
+        {
+            distribution: "44",
+            kernel: "6.19",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/fedora"
+        },
+        {
+            distribution: "45",
+            kernel: "7.2",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/fedora"
         }
 ];
 
@@ -67,6 +94,24 @@ export const DebianZbdSupport = [
         {
             distribution: "Bullseye",
             kernel: "5.10",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/debian"
+        },
+        {
+            distribution: "Bookworm",
+            kernel: "6.1",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/debian"
+        },
+        {
+            distribution: "Trixie",
+            kernel: "6.12",
             zbczac: "Yes",
             nvmezns: "Yes",
             nullblk: "Yes",
@@ -146,6 +191,15 @@ export const CentOSZbdSupport = [
         {
             distribution: "Stream 9",
             kernel: "5.14",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/centos"
+        },
+        {
+            distribution: "Stream 10",
+            kernel: "6.12",
             zbczac: "Yes",
             nvmezns: "Yes",
             nullblk: "Yes",
@@ -290,6 +344,15 @@ export const RHELZbdSupport = [
             nullblk: "Yes",
             scsidebug: "Yes",
             pathlocation:"/docs/distributions/rhel"
+         },
+         {
+            distribution: "10",
+            kernel: "6.12.0-55",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/rhel"
          }
 ];
 
@@ -402,6 +465,24 @@ export const SLESZbdSupport = [
             nullblk: "Yes",
             scsidebug: "Yes",
             pathlocation:"/docs/distributions/sles"
+        },
+        {
+            distribution: "15.7",
+            kernel: "6.4",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/sles"
+        },
+        {
+            distribution: "16.0",
+            kernel: "6.12",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/sles"
         }
 ];
 
@@ -446,6 +527,15 @@ export const OpensuseZbdSupport = [
                   {
             distribution: "15.4 (Leap)",
             kernel: "5.14.21",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/opensuse"
+         },
+         {
+            distribution: "16.0 (Leap)",
+            kernel: "6.12",
             zbczac: "Yes",
             nvmezns: "Yes",
             nullblk: "Yes",
@@ -512,7 +602,25 @@ export const UbuntuZbdSupport = [
         },
         {
             distribution: "22.04 LTS",
-            kernel: "5.17",
+            kernel: "5.15",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/ubuntu"
+        },
+        {
+            distribution: "24.04 LTS",
+            kernel: "6.8",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/ubuntu"
+        },
+        {
+            distribution: "26.04 LTS",
+            kernel: "7.0",
             zbczac: "Yes",
             nvmezns: "Yes",
             nullblk: "Yes",
@@ -586,6 +694,45 @@ export const FedoraDeviceMapper = [
             zoned: "Yes",
             crypt: "Yes",
             pathlocation:"/docs/distributions/fedora"
+        },
+        {
+            distribution: "43",
+            kernel: "6.17",
+            f2fs:"Yes",
+            zonefs: "Yes",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/fedora"
+        },
+        {
+            distribution: "44",
+            kernel: "6.19",
+            f2fs:"Yes",
+            zonefs: "Yes",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/fedora"
+        },
+        {
+            distribution: "45",
+            kernel: "7.2",
+            f2fs:"Yes",
+            zonefs: "Yes",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/fedora"
         }
 ];
 
@@ -637,6 +784,32 @@ export const DebianDeviceMapper = [
         {
             distribution: "Bullseye",
             kernel: "5.10",
+            f2fs:"Yes",
+            zonefs: "Yes",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/debian"
+        },
+        {
+            distribution: "Bookworm",
+            kernel: "6.1",
+            f2fs:"Yes",
+            zonefs: "Yes",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/debian"
+        },
+        {
+            distribution: "Trixie",
+            kernel: "6.12",
             f2fs:"Yes",
             zonefs: "Yes",
             zbczac: "Yes",
@@ -731,13 +904,26 @@ export const CentOSDeviceMapper = [
         {
             distribution: "Stream 9",
             kernel: "5.14",
-            f2fs:"Yes",
-            zonefs: "Yes",
+            f2fs:"No",
+            zonefs: "No",
+            zbczac: "No",
+            zns: "No",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "No",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/centos"
+        },
+        {
+            distribution: "Stream 10",
+            kernel: "6.12",
+            f2fs:"No",
+            zonefs: "No",
             zbczac: "Yes",
             zns: "Yes",
             linear: "Yes",
             flakey: "Yes",
-            zoned: "Yes",
+            zoned: "No",
             crypt: "Yes",
             pathlocation:"/docs/distributions/centos"
         }
@@ -929,10 +1115,23 @@ export const RHELDeviceMapper = [
         {
             distribution: "9",
             kernel: "5.14.0-70",
-            f2fs:"Yes",
-            zonefs: "Yes",
-            zbczac: "Yes",
-            zns: "Yes",
+            f2fs:"No",
+            zonefs: "No",
+            zbczac: "No",
+            zns: "No",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "No",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/rhel"
+        },
+        {
+            distribution: "10",
+            kernel: "6.12.0-55",
+            f2fs:"No",
+            zonefs: "No",
+            zbczac: "No",
+            zns: "No",
             linear: "Yes",
             flakey: "Yes",
             zoned: "No",
@@ -1098,6 +1297,32 @@ export const SLESDeviceMapper = [
             zoned: "Yes",
             crypt: "Yes",
             pathlocation:"/docs/distributions/sles"
+        },
+        {
+            distribution: "15.7",
+            kernel: "6.4",
+            f2fs:"No",
+            zonefs: "No",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/sles"
+        },
+        {
+            distribution: "16.0",
+            kernel: "6.12",
+            f2fs:"No",
+            zonefs: "No",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/sles"
         }
 ];
 
@@ -1167,6 +1392,19 @@ export const OpensuseDeviceMapper = [
             zoned: "Yes",
             crypt: "Yes",
              pathlocation:"/docs/distributions/opensuse"
+        },
+        {
+            distribution: "16.0 (Leap)",
+            kernel: "6.12",
+            f2fs:"No",
+            zonefs: "No",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/opensuse"
         },
         {
             distribution: "Tumbleweed",
@@ -1252,14 +1490,40 @@ export const UbuntuDeviceMapper = [
         },
         {
             distribution: "22.04 LTS",
-            kernel: "5.17",
+            kernel: "5.15",
             f2fs:"Yes",
             zonefs: "Yes",
             zbczac: "Yes",
             zns: "Yes",
             linear: "Yes",
             flakey: "Yes",
-            zoned: "No",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/ubuntu"
+        },
+        {
+            distribution: "24.04 LTS",
+            kernel: "6.8",
+            f2fs:"Yes",
+            zonefs: "Yes",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/ubuntu"
+        },
+        {
+            distribution: "26.04 LTS",
+            kernel: "7.0",
+            f2fs:"Yes",
+            zonefs: "Yes",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
             crypt: "Yes",
             pathlocation:"/docs/distributions/ubuntu"
         }

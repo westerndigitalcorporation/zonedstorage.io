@@ -175,7 +175,12 @@ title="Kernel versions and supported features"/>
   implemented within the *mq-deadline* block I/O scheduler.
 
 * **XFS Support** With kernel 6.15, the [*XFS* file
-  system](/docs/filesystems/xfs) gained native zoned block device support.
+  system](/docs/filesystems/xfs) gained native zoned block device support. This
+  support is no longer labelled as experimental since kernel 7.2.
+
+* **zloop** Kernel 6.16 introduced the [*zloop*](/docs/device-emulation/zloop)
+  zoned loop block device driver, which emulates zoned block devices using
+  regular files as backing storage.
 
 ## Recommended Kernel Versions
 
@@ -183,8 +188,8 @@ All kernel versions since 4.10 include zoned block device support. However, as
 shown in the figure [Kernel versions and features](#kernel-versions), some
 versions are recommended over others.
 
-* **Long Term Stable (LTS) Versions** Kernel versions 5.4, 5.10, 5.15 6.1, 6.6,
-  and 6.12 are long term stable kernel versions that include bug fixes
+* **Long Term Stable (LTS) Versions** Kernel versions 5.10, 5.15, 6.1, 6.6,
+  6.12 and 6.18 are long term stable kernel versions that include bug fixes
   backported from fixes in the mainline (development) kernel. These versions
   benefit from stability improvements that were developed for higher versions.
   Fixes to the zoned-block-device support infrastructure are also backported to

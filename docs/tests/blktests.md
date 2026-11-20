@@ -11,7 +11,7 @@ block I/O layer as well as underlying device specific layers (SCSI, NVMe, SRP,
 etc). *blktests* is heavily inspired by the *xfstests* framework for testing
 file systems.
 
-Recent contributions to *blktests* added zoned block device tests support.
+*blktests* includes zoned block device tests support.
 
 The *blktests* project is hosted on
 [GitHub](https://github.com/linux-blktests/blktests).
@@ -25,14 +25,20 @@ are as shown in the table below.
 
 | Group name | Description |
 | :--------- | :---------- |
+| **bcache** | Bcache tests |
+| **blktrace** | blktrace infrastructure tests |
 | **block** | Block layer generic tests |
+| **dm** | Device mapper tests |
 | **loop** | Loopback device tests |
+| **md** | MD RAID tests |
 | **meta** | *blktests* self tests |
 | **nbd** | Network block device driver tests |
 | **nvme** | NVMe driver tests |
-| **nvmeof-mp** | NVME-over-fabrics multipath tests |
+| **rnbd** | RDMA network block device tests |
 | **scsi** | SCSI layer tests |
 | **srp** | SCSI RDMA Protocol driver tests |
+| **throtl** | Block layer throttling tests |
+| **ublk** | ublk driver tests |
 | **zbd** | Zoned block device tests |
 
 </center>
@@ -44,7 +50,7 @@ version 3.9 or higher must be installed for executing these test groups.
 ## Configuration
 
 Detailed generic information on how to configure and run *blktests* is
-provided <a href="https://github.com/osandov/blktests/blob/master/Documentation/running-tests.md"
+provided <a href="https://github.com/linux-blktests/blktests/blob/master/Documentation/running-tests.md"
 target="_blank">here</a>.
 
 For executing tests against a physical zoned block device (e.g. a ZBC/ZAC disk),

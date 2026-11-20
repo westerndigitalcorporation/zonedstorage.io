@@ -34,7 +34,7 @@ specification:
 | :------- | :---------- |
 | nvme_zns_identify_ns() | Retrieves the nvme_zns_id_ns structure |
 | nvme_zns_identify_ctrl() | Retrieves the nvme_zns_id_ctrl structure |
-| nvme_zns_get_log_changed_zones() | Retrieves the nvme_zns_changed_zone_log structure |
+| nvme_get_log_zns_changed_zones() | Retrieves the nvme_zns_changed_zone_log structure |
 
 </center>
 
@@ -78,7 +78,7 @@ provided by *libnvme* from the ZNS specification:
 | :-------- | :---------- |
 | nvme_zns_id_ns | ZNS specific Namespace Identification, returned from nvme_zns_identify_ns() |
 | nvme_zns_id_ctrl | ZNS specific Controller Identification, returned from nvme_zns_identify_ctrl() |
-| nvme_zns_changed_zone_log | Log page that indicates if a zone descriptor has changed for one or more zones, returned from nvme_zns_get_log_changed_zones() |
+| nvme_zns_changed_zone_log | Log page that indicates if a zone descriptor has changed for one or more zones, returned from nvme_get_log_zns_changed_zones() |
 | nvme_zone_report | Provides the structure returned from a ZNS Report Zones command, returned from nvme_zns_mgmt_recv() |
 
 </center>

@@ -18,7 +18,7 @@ the earliest Unix-like operating systems based on the Linux kernel.
 *Debian* can be shipped with different operating system kernels, such as
 Linux, *kFreeBSD* or *GNU Hurd*.
 
-## Supported File Systems and Device Mapper Targets
+## Supported Zoned Block Devices
 
 The table below shows the supported types of zoned block devices for the
 most recent distribution releases.
@@ -46,8 +46,8 @@ components currently supporting zoned block devices.
 
 ## Available Pre-Compiled Packages
 
-Since Debian release 13 (trixie), a comprehensive set of pre-compiled application and
-library packages support zoned block devices.
+Since Debian release 13 (trixie), a comprehensive set of pre-compiled
+application and library packages support zoned block devices.
 
 Available packages are:
 
@@ -58,7 +58,7 @@ Available packages are:
 
 * Libraries related packages:
     - *libblkid1* (and *libblkid-dev*)
-    - *libzbd1* (and *libzbd-dev*)
+    - *libzbd2t64* (and *libzbd-dev*)
     - *zbd-utils* (includes both command line and graphical tools)
 
 * File systems related packages:

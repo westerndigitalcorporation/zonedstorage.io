@@ -37,9 +37,9 @@ releases that are still supported by Canonical.
 
 ## Supported File Systems and Device Mapper Targets
 
-The table below shows that the pre-compiled kernel shipped with Ubuntu only
-offers partial support for file systems and device mapper targets that support
-zoned storage devices. In particular, no LTS release offers support for the
+The table below shows that the pre-compiled kernel shipped with Ubuntu LTS
+releases offers support for the file systems and device mapper targets that
+support zoned storage devices. Since release 22.04 LTS, this includes the
 dm-zoned device mapper.
 
 <div>
@@ -53,10 +53,8 @@ dm-zoned device mapper.
 
 ## Available Pre-Compiled Packages
 
-Ubuntu does not provide all pre-compiled application packages supporting zoned
-block devices. In particular, user utilities for the *zonefs* file system and
-the *dm-zoned* device mapper target are not available (these utilities need to
-be compiled from source).
+Since release 24.04 LTS, Ubuntu provides pre-compiled application and library
+packages supporting zoned block devices.
 
 Available packages are:
 
@@ -67,9 +65,13 @@ Available packages are:
 
 * Libraries related packages:
     - *libblkid1* (and *libblkid-dev*)
-    - *libzbd2* (and *libzbd-dev*)
+    - *libzbd2t64* (and *libzbd-dev*)
     - *zbd-utils* (includes both command line and graphical tools)
 
 * File systems related packages:
     - *btrfs-progs*
     - *f2fs-tools*
+    - *zonefs-tools*
+
+* Device Mapper related packages:
+    - *dm-zoned-tools*

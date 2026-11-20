@@ -181,8 +181,8 @@ in the empty state.
 The implementation of NVMe device emulation and ZNS namespace emulation in
 *QEMU* offers several configuration options that can be used to control the
 characteristics of the device. The full list of options and parameters is
-documented in the <a href="https://qemu-project.gitlab.io/qemu/system/nvme.html"
-target="_blank">QEMU project's gitlab repository</a>.
+documented in the <a href="https://www.qemu.org/docs/master/system/devices/nvme.html"
+target="_blank">QEMU documentation</a>.
 
 The options and parameters related to Zoned Namespaces are as follows:
 
@@ -190,7 +190,7 @@ The options and parameters related to Zoned Namespaces are as follows:
 
 | Option | Default Value | Description |
 | :----- | :------------ | :---------- |
-| zoned.zasl=UINT32 | 0 | Zone Append Size Limit. If left at the default (0), the zone append size limit will be equal to the maximum data transfer size (MDTS). Otherwise, the zone append size limit is equal to 2 to the power of zasl multiplied by the minimum memory page size (4096 B), but cannot exceed the maximum data transfer size. |
+| zoned.zasl=UINT8 | 0 | Zone Append Size Limit. If left at the default (0), the zone append size limit will be equal to the maximum data transfer size (MDTS). Otherwise, the zone append size limit is equal to 2 to the power of zasl multiplied by the minimum memory page size (4096 B), but cannot exceed the maximum data transfer size. |
 | zoned.zone_size=*SIZE* | 128MiB | Define the zone size (ZSZE) |
 | zoned.zone_capacity=*SIZE* | 0 | Define the zone capacity (ZCAP). If left at the default (0), the zone capacity will equal the zone size. |
 | zoned.descr_ext_size=*UINT32* | 0 | Set the Zone Descriptor Extension Size (ZDES). Must be a multiple of 64 bytes. |
@@ -222,12 +222,11 @@ znsimg="/var/lib/qemu/zns.raw"
 #
 sudo /usr/local/bin/qemu-system-x86_64 \
 -name guest=FedoraServer34 \
--machine pc-q35-5.2,accel=kvm \
+-machine pc-q35-5.2,accel=kvm,hpet=off \
 -m 16384 \
 -smp 8,sockets=8,cores=1,threads=1 \
 -rtc base=utc,driftfix=slew \
 -nographic \
--no-hpet \
 -global ICH9-LPC.disable_s3=1 \
 -global ICH9-LPC.disable_s4=1 \
 -boot strict=on \

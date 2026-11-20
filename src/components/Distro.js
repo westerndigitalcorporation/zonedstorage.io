@@ -18,11 +18,11 @@ export function KernelTableHeader() {
       <th>SCSI ZBC and ATA ZAC Support</th>
       <th>NVMe ZNS Support</th>
       <th><a
-      href="../linux/null_blk" target="_blank">
+      href="/docs/device-emulation/null_blk" target="_blank">
         <em>null_blk</em> Zone &nbsp; Emulation Support
       </a></th>
       <th><a
-      href="../linux/scsi_debug" target="_blank">
+      href="/docs/device-emulation/scsi-debug" target="_blank">
         <em>scsi_debug</em> ZBC &nbsp; Emulation &nbsp;Support&nbsp;
       </a></th>
     </tr>

@@ -9,8 +9,8 @@ sidebar_label: XFS
 *XFS* is a widely used scalable enterprise file system that traces its roots
 back to the IRIX operating system in the 1990s and is supported by all
 major Linux distributions. *XFS* was originally designed for in-place overwrites
-on conventional storage devices, but has experimental support for zoned block
-devices.
+on conventional storage devices, but has native support for zoned block devices
+since kernel 6.15. This support was labelled as experimental up to kernel 7.1.
 
 :::info System Requirements
 - Linux kernel: 6.15+ with CONFIG_XFS_FS and CONFIG_XFS_RT enabled
@@ -64,8 +64,8 @@ The formatted disk can now be mounted. No other setup is necessary.
 # mount /dev/sda /mnt
 ```
 
-The kernel messages will signal that *XFS* zoned device support is still
-labelled as *experimental*.
+With kernels older than 7.2, the kernel messages will signal that *XFS* zoned
+device support is labelled as *experimental*.
 
 ```plaintext
 XFS (sda): EXPERIMENTAL zoned RT device feature enabled.  Use at your own risk!
@@ -115,8 +115,8 @@ with the mount command.
 # mount -o rtdev=/dev/nvme0n2 /dev/nvme2n1 /mnt
 ```
 
-The kernel messages will signal that *XFS* zoned device support is still
-labelled as *experimental*.
+With kernels older than 7.2, the kernel messages will signal that *XFS* zoned
+device support is labelled as *experimental*.
 
 ```plaintext
 XFS (nvme2n1): EXPERIMENTAL zoned RT device feature enabled.  Use at your own risk!

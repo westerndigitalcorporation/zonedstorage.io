@@ -10,7 +10,7 @@ sidebar_label: MyRocks - ZenFS
 > Percona MyRocks is an implementation for
 > [Percona Server for MySQL](https://www.percona.com/software/mysql-database/percona-server).
 >
-> -- <cite>[Percona](https://www.percona.com/doc/percona-server/8.0/myrocks/index.html)</cite>
+> -- <cite>[Percona](https://docs.percona.com/percona-server/8.0/myrocks-index.html)</cite>
 
 > ZenFS is a file system plugin that utilizes
 > [RocksDB](https://github.com/facebook/rocksdb)'s FileSystem interface to place

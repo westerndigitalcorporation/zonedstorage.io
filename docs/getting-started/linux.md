@@ -61,7 +61,7 @@ Some Linux distributions provide zoned-storage support out of the box
 distributions provides a system that is ready to use with SMR hard disks
 and SSDs with ZNS support.
 
-* [Fedora 36 or above](/docs/distributions/fedora)
+* [Fedora 43 or above](/docs/distributions/fedora)
 
 * [Latest openSUSE Tumbleweed](/docs/distributions/opensuse)
 

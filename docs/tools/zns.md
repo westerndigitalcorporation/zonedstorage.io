@@ -13,9 +13,8 @@ command in order to work with the kernel's block stack.
 ## nvme-cli
 
 Open source tooling for zns is provided by <a
-href="https://github.com/linux-nvme/nvme-cli" target="_blank">nvme-cli</a> in
-the current master branch (version 1.12 and later).  We recommend that you use
-the latest version. 
+href="https://github.com/linux-nvme/nvme-cli" target="_blank">nvme-cli</a>
+(version 1.12 and later).  We recommend that you use the latest version.
 
 The ZNS-specific commands all use the *zns* command line prefix. See more *zns* 
 commands by running the *zns help* command:

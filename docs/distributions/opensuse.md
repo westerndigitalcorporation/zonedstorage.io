@@ -44,8 +44,11 @@ is shown in the table below.
 
 Starting with version 15.4, openSUSE Leap pre-compiled kernel includes loadable
 modules for all file systems and device mapper targets that have zoned storage
-support. As a bleeding-edge distribution, openSUSE Tumbleweed offers the same
-support since the update to kernel version 5.9.
+support. openSUSE Leap 16.0 is based on the SUSE Linux Enterprise 16.0 kernel,
+which does not include the *f2fs* and *zonefs* file systems nor zoned *XFS*
+support. As a bleeding-edge distribution, openSUSE Tumbleweed offers support for
+all file systems and device mapper targets since the update to kernel version
+5.9.
 
 <div>
     <table class="table-dist">

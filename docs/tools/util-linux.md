@@ -8,8 +8,7 @@ sidebar_label: Linux System Utilities
 
 *util-linux* is, as the documentation of the *util-linux* project itself says, 
 a random collection of Linux&reg; utilities. The *util-linux* project is
-hosted <a href="https://github.com/karelzak/util-linux" target="_blank">here on GitHub</a>
-and <a href="https://github.com/util-linux/util-linux" target="_blank">here</a>.
+hosted <a href="https://github.com/util-linux/util-linux" target="_blank">here on GitHub</a>.
 This project is packaged in most distributions under the name *util-linux* and
 is installed by default.
 
@@ -115,9 +114,8 @@ For more details see blkzone(8).
 ```
 
 :::note
-The "open", "close" and "finish" commands of *blkzone* are available in
-*util-linux* version 2.37 and later. The `capacity` command is available on the
-master branch.
+The "open", "close", "finish" and "capacity" commands of *blkzone* are available
+in *util-linux* version 2.37 and later.
 :::
 
 ### Zone Report
