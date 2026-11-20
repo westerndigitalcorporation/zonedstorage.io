@@ -38,12 +38,11 @@ available distribution releases.
 
 ## Supported File Systems and Device Mapper Targets
 
-Similarly to openSUSE Leap 15.4, SLES version 15.4 pre-compiled kernel now
-includes loadable modules for all file systems and device mapper targets that
-have zoned storage support. The kernels of SLES 15.7 and SLES 16.0 do not
-include the *f2fs* and *zonefs* file systems nor zoned *XFS* support (the
-kernel configuration options CONFIG_F2FS_FS, CONFIG_ZONEFS_FS and CONFIG_XFS_RT
-are not set).
+The kernels of SLES 15.7 and SLES 16.0 include loadable modules for the
+*btrfs* file system and for all device mapper targets that have zoned storage
+support. They do not include the *f2fs* and *zonefs* file systems nor zoned
+*XFS* support (the kernel configuration options CONFIG_F2FS_FS,
+CONFIG_ZONEFS_FS and CONFIG_XFS_RT are not set).
 
 <div>
     <table class="table-dist">
