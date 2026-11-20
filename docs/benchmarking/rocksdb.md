@@ -5,7 +5,7 @@ sidebar_label: RocksDB - ZenFS
 ---
 
 > ZenFS is a file system plugin that utilizes
-> [RocksDB](https://github.com/facebook/rocksdb)'s FileSystem interface to place
+> [RocksDB](https://github.com/meta/rocksdb)'s FileSystem interface to place
 > files into zones on a raw zoned block device.
 >
 > -- <cite>[ZenFS](https://github.com/westerndigitalcorporation/zenfs)</cite>
