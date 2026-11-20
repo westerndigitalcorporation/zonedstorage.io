@@ -21,7 +21,6 @@ commands by running the *zns help* command:
 
 ```plaintext
 # nvme zns help
-nvme-1.12
 usage: nvme zns <command> [<device>] [<args>]
 
 The '<device>' may be either an NVMe character device (ex: /dev/nvme0) or an
