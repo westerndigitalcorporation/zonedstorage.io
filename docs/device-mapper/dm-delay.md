@@ -19,5 +19,5 @@ The same zone alignment restrictions that apply to the
 
 *dm-delay* detailed documentation and usage examples can be found in the kernel
 source code documentation file
-<a href="https://github.com/torvalds/linux/blob/master/Documentation/device-mapper/delay.rst"
+<a href="https://github.com/torvalds/linux/blob/master/Documentation/admin-guide/device-mapper/delay.rst"
 target="_blank">Documentation/admin-guide/device-mapper/delay.rst</a>.

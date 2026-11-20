@@ -13,13 +13,13 @@ FileSystemDevicMapperTabledata
 
 # Fedora
 
-*<a href="https://getfedora.org" target="_blank">Fedora&reg;</a>* is a
+*<a href="https://fedoraproject.org" target="_blank">Fedora&reg;</a>* is a
 Linux distribution developed by the community-supported *Fedora Project*
 and primarily sponsored by *<a
 href="https://www.redhat.com" target="_blank">Red Hat&reg;</a>*.
 Detailed information on how to download and install Fedora
 can be found <a
-href="https://docs.fedoraproject.org/en-US/fedora/f33/install-guide/"
+href="https://docs.fedoraproject.org/en-US/docs/"
 target="_blank">here</a>.
 
 The following tables give an overview of the kernel versions and

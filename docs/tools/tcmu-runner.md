@@ -46,7 +46,7 @@ accesses appear as though they have been executed on actual hardware.
 ## Compilation and Installation
 
 The *tcmu-runner* project is hosted on <a href="https://github.com/open-iscsi/tcmu-runner"
-target="_blank">GitHub</a>.  The project <a href="https://github.com/open-iscsi/tcmu-runner/blob/master/README.md"
+target="_blank">GitHub</a>.  The project <a href="https://github.com/open-iscsi/tcmu-runner/blob/main/README.md"
 target="_blank">*README*</a> file provides detailed information on how to
 compile, install and execute *tcmu-runner* daemon.
 

@@ -20,7 +20,7 @@ to zoned block devices that are supported by the running kernel. This includes
 both physical devices (such as hard-disks that support the ZBC and ZAC
 standards) and all logical block devices that are implemented by various device
 drivers (such as [*zloop*](/docs/device-emulation/zloop),
-[*null_blk*] (/docs/device-emulation/null_blk) and [device
+[*null_blk*](/docs/device-emulation/null_blk) and [device
 mapper](/docs/device-mapper) drivers).
 
 The *libzbd* project is hosted on <a href="https://github.com/westerndigitalcorporation/libzbd"

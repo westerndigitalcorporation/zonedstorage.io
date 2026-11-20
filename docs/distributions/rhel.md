@@ -24,10 +24,11 @@ here</a>.
 
 ## Supported Zoned Block Devices
 
-The latest release 9 of *RHEL* is based on the kernel version 5.14. The default
-binary kernel shipped with the distribution is configured with zoned block
-device support enabled, which enables using SMR and ZNS devices. Earlier versions
-of *RHEL* do not have support for zoned storage enabled by default.
+The latest release 10 of *RHEL* is based on the kernel version 6.12, and
+release 9 is based on the kernel version 5.14. The default binary kernel shipped
+with these releases is configured with zoned block device support enabled, which
+enables using SMR and ZNS devices. Earlier versions of *RHEL* do not have support
+for zoned storage enabled by default.
 
 <div>
     <table class="table-dist">
@@ -38,9 +39,10 @@ of *RHEL* do not have support for zoned storage enabled by default.
 
 ## Supported File Systems and Device Mapper Targets
 
-Starting with release 9, *RHEL* pre-compiled kernel package includes loadable
-module support for file systems and some device mapper targets supporting zoned
-block devices. Support for the *dm-zoned* device mapper target is not enabled by
+The *RHEL 9* and *RHEL 10* pre-compiled kernel packages include loadable module
+support for the *dm-linear*, *dm-flakey* and *dm-crypt* device mapper targets.
+None of the file systems supporting zoned block devices (*f2fs*, *zonefs*, zoned
+*btrfs* and zoned *XFS*) nor the *dm-zoned* device mapper target are enabled by
 default.
 
 <div>
@@ -54,8 +56,9 @@ default.
 
 ## Available Precompiled Packages
 
-*RHEL 9* only provides support for zoned block devices with the "standard"
-pre-compiled packages, that is, regular system tools and libraries packages.
+*RHEL 9* and *RHEL 10* only provide support for zoned block devices with the
+"standard" pre-compiled packages, that is, regular system tools and libraries
+packages.
 
 * System utilities packages:
     - *util-linux* (*blkzone* utility)
@@ -67,9 +70,9 @@ pre-compiled packages, that is, regular system tools and libraries packages.
 
 The file systems user utilities and libraries supporting zoned block devices
 need to be compiled from source (e.g. *zonefs-tools*, *btrfs-progs*, and
-*libzbd*). Since *RHEL 9* does not include support by default for the *dm-zoned*
-device mapper target, compiling and installing the *dm-zoned-tools* project is
-not necessary.
+*libzbd*). Since *RHEL 9* and *RHEL 10* do not include support by default for
+the *dm-zoned* device mapper target, compiling and installing the
+*dm-zoned-tools* project is not necessary.
 
 ## Older RHEL Versions
 

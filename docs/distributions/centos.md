@@ -25,13 +25,14 @@ found <a href="https://en.wikipedia.org/wiki/CentOS" target="_blank">here</a>.
 
 Due to this design approach, CentOS zoned block device support is identical to
 that of Red Hat Enterprise Linux: zoned block device support is not available by
-default with the precompiled kernel shipped with the distribution.
+default with the precompiled kernel shipped with CentOS 7, CentOS 8 and CentOS
+Stream 8, all of which have reached their end of life. CentOS Stream 9 and
+CentOS Stream 10 kernels have zoned block device support enabled.
 
-However, third party repositories such
+Third party repositories such
 as <a href="http://elrepo.org/tiki/HomePage" target="_blank">
-The Community Enterprise Linux Repository (elrepo)</a> provide recent kernels
-packages precompiled with zoned block device support enabled. *elrepo* provides
-kernels version 5.12 and 5.13 for CentOS 7, CentOS 8 and CentOS 8 Stream.
+The Community Enterprise Linux Repository (elrepo)</a> also provide recent
+kernels packages precompiled with zoned block device support enabled.
 
 The table below shows the supported types of zoned block devices.
 
@@ -44,9 +45,10 @@ The table below shows the supported types of zoned block devices.
 
 ## Supported File Systems and Device Mapper Targets
 
-As shown in the table below, only *elrepo* kernels and *CentOS Stream 9* offer
-support for file systems and device mapper targets supporting zoned block
-devices.
+As shown in the table below, *CentOS Stream 9* and *CentOS Stream 10* kernels
+only include the *dm-linear*, *dm-flakey* and *dm-crypt* device mapper targets.
+*CentOS Stream 10* also includes the *btrfs* file system. *f2fs*, *zonefs*, zoned
+*XFS* and *dm-zoned* are not enabled.
 
 <div>
     <table class="table-dist">
@@ -59,9 +61,9 @@ devices.
 
 ## Available Pre-Compiled Packages
 
-The latest CentOS Stream 9 distribution only provides support for zoned block
-devices with the "standard" pre-compiled packages, that is, regular system tools
-and libraries packages.
+The CentOS Stream 9 and CentOS Stream 10 distributions only provide support for
+zoned block devices with the "standard" pre-compiled packages, that is, regular
+system tools and libraries packages.
 
 * System utilities packages:
     - *util-linux* (*blkzone* utility)
