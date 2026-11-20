@@ -13,7 +13,8 @@ on conventional storage devices, but has native support for zoned block devices
 since kernel 6.15. This support was labelled as experimental up to kernel 7.1.
 
 :::info System Requirements
-- Linux kernel: 6.15+ with CONFIG_XFS_FS and CONFIG_XFS_RT enabled
+- Linux kernel: 6.15+ with CONFIG_XFS_FS and CONFIG_XFS_RT enabled (7.2+
+  recommended, as zoned support is no longer experimental)
 - xfsprogs: 6.15+
 :::
 
@@ -296,9 +297,11 @@ currently not supported (that is expected to change in the near future).
 ## System Requirements
 
 *XFS* native zoned block device support was introduced with kernel version 6.15.
-The kernel must be compiled with *XFS* support (the kernel configuration
-parameter CONFIG_XFS_FS must be enabled). *XFS* realtime device feature is also
-required (the kernel configuration parameter CONFIG_XFS_RT must be enabled).
+Kernel version 7.2 or higher is recommended, as zoned device support is no
+longer labelled as experimental since that version. The kernel must be compiled
+with *XFS* support (the kernel configuration parameter CONFIG_XFS_FS must be
+enabled). *XFS* realtime device feature is also required (the kernel
+configuration parameter CONFIG_XFS_RT must be enabled).
 
 Installing version 6.15 or higher of the *xfsprogs* package providing *XFS*
 user space tools (e.g. `mkfs.xfs`) is also required.
