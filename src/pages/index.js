@@ -400,7 +400,7 @@ const resources = [
   {
     icon: 'code',
     title: 'Applications',
-    description: 'Percona Server with MyRocks, RocksDB with Zenfs, and the Zonar file system viewer.',
+    description: 'RocksDB with Zenfs and the Zonar file system viewer.',
     link: '/docs/applications',
   },
   {

@@ -121,7 +121,6 @@ const sidebars = {
       collapsed: true,
       items: [
         'applications/index',
-        'applications/percona-server',
         'applications/zenfs',
         'applications/zonar'
       ],
@@ -168,8 +167,7 @@ const sidebars = {
                   'benchmarking/fio/zns-fio'
               ]
           },
-          'benchmarking/rocksdb',
-          'benchmarking/myrocks'
+          'benchmarking/rocksdb'
       ]
     },    
     {

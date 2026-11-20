@@ -15,6 +15,3 @@ devices.
 
 * [RocksDB - ZenFS](/docs/benchmarking/rocksdb): Learn how to setup RocksDB
   `db_bench` to test RocksDB performance with zoned block devices.
-
-* [MyRocks - ZenFS](/docs/benchmarking/myrocks): Learn how to setup MyRocks and
-  run sysbench workloads on zoned block devices.
