@@ -346,7 +346,7 @@ function HowTos() {
             ZNS SSDs using the XFS file system.
           </p>
         </div>
-        <Link className={styles.textLink} to="/docs/howtos">
+        <Link className={clsx(styles.button, styles.primaryButton)} to="/docs/howtos">
           All how-to guides <Icon name="arrow" />
         </Link>
       </div>
@@ -361,14 +361,6 @@ function HowTos() {
             <p>{howto.description}</p>
           </Link>
         ))}
-        <Link className={styles.resourceCard} to="/docs/howtos">
-          <div className={styles.resourceHeading}>
-            <Icon name="book" className={styles.resourceIcon} />
-            <h3>Overview</h3>
-            <Icon name="arrow" className={styles.linkArrow} />
-          </div>
-          <p>How the guides use zoned XFS, shared requirements, and trying them on emulated devices.</p>
-        </Link>
       </div>
     </section>
   );
