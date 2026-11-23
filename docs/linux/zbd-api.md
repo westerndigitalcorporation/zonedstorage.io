@@ -274,6 +274,8 @@ defined by the `blk_zone_cond` enumeration.
  *                      FINISH ZONE command.
  * @BLK_ZONE_COND_READONLY: The zone is read-only.
  * @BLK_ZONE_COND_OFFLINE: The zone is offline (sectors cannot be read/written).
+ * @BLK_ZONE_COND_ACTIVE: The zone is either implicitly open, explicitly open,
+ *                        or closed.
  *
  * The Zone Condition state machine in the ZBC/ZAC standards maps the above
  * deinitions as:
@@ -287,6 +289,13 @@ defined by the `blk_zone_cond` enumeration.
  *
  * Conditions 0x5 to 0xC are reserved by the current ZBC/ZAC spec and should
  * be considered invalid.
+ *
+ * The condition BLK_ZONE_COND_ACTIVE is used only with cached zone reports.
+ * It is used to report any of the BLK_ZONE_COND_IMP_OPEN,
+ * BLK_ZONE_COND_EXP_OPEN and BLK_ZONE_COND_CLOSED conditions. Conversely, a
+ * regular zone report will never report a zone condition using
+ * BLK_ZONE_COND_ACTIVE and instead use the conditions BLK_ZONE_COND_IMP_OPEN,
+ * BLK_ZONE_COND_EXP_OPEN or BLK_ZONE_COND_CLOSED as reported by the device.
  */
 enum blk_zone_cond {
         BLK_ZONE_COND_NOT_WP    = 0x0,
@@ -297,6 +306,8 @@ enum blk_zone_cond {
         BLK_ZONE_COND_READONLY  = 0xD,
         BLK_ZONE_COND_FULL      = 0xE,
         BLK_ZONE_COND_OFFLINE   = 0xF,
+
+        BLK_ZONE_COND_ACTIVE    = 0xFF, /* added in Linux 6.19 */
 };
 ```
 
@@ -489,6 +500,14 @@ If the `flags` field of `struct blk_zone_report` has the flag
 `BLK_ZONE_REP_CAPACITY` set, then the zone descriptor's structure will have a
 valid value set in the `capacity` field of `struct blk_zone`. Otherwise, this
 field will show a value of 0 and can be ignored.
+
+Kernel version 6.19 added the input flag `BLK_ZONE_REP_CACHED`
+(`(1U << 31)`) to `enum blk_zone_report_flags`. With *BLKREPORTZONE*, the
+`flags` field is ignored as an input and is valid only as an output. With
+*BLKREPORTZONEV2*, it is used as both input and output (see
+[*ioctl()* Commands](#ioctl-commands)). The kernel header marks
+*BLKREPORTZONE* as deprecated in favor of *BLKREPORTZONEV2*, but applications
+that must also run on kernels older than 6.19 still need *BLKREPORTZONE*.
 
 The example code below, extracted from the code of the
 [*libzbd*](/docs/tools/libzbd) library, illustrates how applications can
