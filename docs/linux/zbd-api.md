@@ -330,6 +330,10 @@ below.
  * @BLKREPORTZONE: Get zone information. Takes a zone report as argument.
  *                 The zone report will start from the zone containing the
  *                 sector specified in the report request structure.
+ * @BLKREPORTZONEV2: Same as @BLKREPORTZONE but uses the flags field of
+ *                   struct blk_zone_report as an input, allowing to get a
+ *                   zone report using cached zone information if the flag
+ *                   BLK_ZONE_REP_CACHED is set.
  * @BLKRESETZONE: Reset the write pointer of the zones in the specified
  *                sector range. The sector range must be zone aligned.
  * @BLKGETZONESZ: Get the device zone size in number of 512 B sectors.
@@ -348,6 +352,7 @@ below.
 #define BLKOPENZONE     _IOW(0x12, 134, struct blk_zone_range)
 #define BLKCLOSEZONE    _IOW(0x12, 135, struct blk_zone_range)
 #define BLKFINISHZONE   _IOW(0x12, 136, struct blk_zone_range)
+#define BLKREPORTZONEV2 _IOWR(0x12, 142, struct blk_zone_report)
 ```
 
 Not all commands are available on all kernel versions. The following table shows
@@ -364,8 +369,15 @@ which kernel version introduced each command.
 | BLKOPENZONE | 5.5.0 | Explicitly open a zone |
 | BLKCLOSEZONE | 5.5.0 | Close a zone |
 | BLKFINISHZONE | 5.5.0 | Finish a zone |
+| BLKREPORTZONEV2 | 6.19.0 | Get zone information, optionally from cached zone information |
 
 </center>
+
+With *BLKREPORTZONEV2* and the `BLK_ZONE_REP_CACHED` flag set in the `flags`
+field of `struct blk_zone_report`, the kernel generates the zone report from
+its cached zone information instead of accessing the device. In such a report,
+implicitly open, explicitly open and closed zones are all reported with the
+condition `BLK_ZONE_COND_ACTIVE` (0xFF).
 
 ### Obtaining Zone Information
 
