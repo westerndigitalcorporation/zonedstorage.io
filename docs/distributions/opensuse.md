@@ -42,10 +42,10 @@ is shown in the table below.
 
 ## Supported File Systems and Device Mapper Targets
 
-openSUSE Leap 16.0 is based on the SUSE Linux Enterprise 16.0 kernel, which
-includes loadable modules for the *btrfs* file system and for all device mapper
-targets that have zoned storage support, but not the *f2fs* and *zonefs* file
-systems nor zoned *XFS* support. As a bleeding-edge distribution, openSUSE
+openSUSE Leap 16.0 and 16.1 are based on the SUSE Linux Enterprise 16 kernel,
+which includes loadable modules for the *btrfs* file system and for all device
+mapper targets that have zoned storage support, but not the *f2fs* and *zonefs*
+file systems nor zoned *XFS* support. As a bleeding-edge distribution, openSUSE
 Tumbleweed offers support for all file systems and device mapper targets.
 
 <div>
