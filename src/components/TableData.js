@@ -165,6 +165,15 @@ export const OpensuseZbdSupport = [
             pathlocation:"/docs/distributions/opensuse"
          },
          {
+            distribution: "16.1 (Leap)",
+            kernel: "6.12",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/opensuse"
+         },
+         {
             distribution: "Tumbleweed",
             kernel: "Latest Stable 5.9 +",
             zbczac: "Yes",
@@ -428,6 +437,19 @@ export const OpensuseDeviceMapper = [
         /* Data for the File Systems and Device Mapper Table*/
         {
             distribution: "16.0 (Leap)",
+            kernel: "6.12",
+            f2fs:"No",
+            zonefs: "No",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/opensuse"
+        },
+        {
+            distribution: "16.1 (Leap)",
             kernel: "6.12",
             f2fs:"No",
             zonefs: "No",
