@@ -38,7 +38,7 @@ available distribution releases.
 
 ## Supported File Systems and Device Mapper Targets
 
-The kernels of SLES 15.7 and SLES 16.0 include loadable modules for the
+The kernels of SLES 15.7, SLES 16.0 and SLES 16.1 include loadable modules for the
 *btrfs* file system and for all device mapper targets that have zoned storage
 support. They do not include the *f2fs* and *zonefs* file systems nor zoned
 *XFS* support (the kernel configuration options CONFIG_F2FS_FS,

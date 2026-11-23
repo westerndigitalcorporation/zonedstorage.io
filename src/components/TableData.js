@@ -141,6 +141,15 @@ export const SLESZbdSupport = [
             nullblk: "Yes",
             scsidebug: "Yes",
             pathlocation:"/docs/distributions/sles"
+        },
+        {
+            distribution: "16.1",
+            kernel: "6.12",
+            zbczac: "Yes",
+            nvmezns: "Yes",
+            nullblk: "Yes",
+            scsidebug: "Yes",
+            pathlocation:"/docs/distributions/sles"
         }
 ];
 
@@ -389,6 +398,19 @@ export const SLESDeviceMapper = [
         },
         {
             distribution: "16.0",
+            kernel: "6.12",
+            f2fs:"No",
+            zonefs: "No",
+            zbczac: "Yes",
+            zns: "Yes",
+            linear: "Yes",
+            flakey: "Yes",
+            zoned: "Yes",
+            crypt: "Yes",
+            pathlocation:"/docs/distributions/sles"
+        },
+        {
+            distribution: "16.1",
             kernel: "6.12",
             f2fs:"No",
             zonefs: "No",
