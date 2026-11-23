@@ -68,7 +68,7 @@ The figure below shows this structure.
 <Image src="tools-libzbc.png"
 title="libzbc v5.0.0 - v6.0.0 internal backend drivers organization"/>
 
-The latest version of *libzbc*, version 6.0.0, does not support the
+Since version 6.0.0, *libzbc* does not support the
 **Zoned Block Device Driver**. This change avoids the overlap in functionality
 with [*libzbd*](libzbd.md). In practice, it means that *libzbc* is now a pure
 passthrough library which never use the kernel zoned block device management
